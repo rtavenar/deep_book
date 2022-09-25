@@ -40,6 +40,7 @@ The following code illustrates this notion using a Gaussian filter:
 :tags: [hide-cell]
 
 %config InlineBackend.figure_format = 'svg'
+%matplotlib inline
 import matplotlib.pyplot as plt
 
 plt.ion();
@@ -64,9 +65,7 @@ plt.figure()
 plt.plot(x, label='raw time series')
 plt.plot(np.correlate(x, f, mode='same'),
          label='activation map (gaussian smoothed time series)')
-plt.legend()
-
-plt.show()
+plt.legend();
 ```
 
 Convolutional neural networks are made of convolution blocks whose parameters

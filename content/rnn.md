@@ -29,6 +29,7 @@ computed.
 :tags: [hide-cell]
 
 %config InlineBackend.figure_format = 'svg'
+%matplotlib inline
 import matplotlib.pyplot as plt
 
 plt.ion();
@@ -112,8 +113,7 @@ plt.figure()
 plt.plot(x.detach().numpy(), tan_x.detach().numpy(), label='tanh(x)')
 plt.plot(x.detach().numpy(), grad_tanh_x.detach().numpy(), label='tanh\'(x)')
 plt.legend()
-plt.grid('on')
-plt.show()
+plt.grid('on');
 ```
 
 One can see how quickly gradients gets close to 0 for inputs larger

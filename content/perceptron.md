@@ -19,13 +19,13 @@ In this introduction chapter, we will present a first neural network called
 the Perceptron.
 This model is a neural network made of a single neuron, and we will use it here as a way to introduce key concepts that we will detail later in the course.
 
-```{code-cell} ipython3
+```{code-cell}
 :tags: [hide-cell]
 
 %config InlineBackend.figure_format = 'svg'
+%matplotlib inline
 import matplotlib.pyplot as plt
 
-plt.ion();
 ```
 
 ## The model
@@ -37,12 +37,29 @@ $$
     a = \varphi(\underbrace{\mathbf{w} \mathbf{x} + b}_{o}) ,
 $$
 
-**TODO: add neuron visu here**
-
 where the parameters of the neuron are its weights stored in $\mathbf{w}$
 and a bias term $b$, and $\varphi$ is an activation function that is chosen
 _a priori_
-(we will come back to it in more details later in the course).
+(we will come back to it in more details later in the course):
+
+```{tikz}
+    \node[draw,circle,minimum size=25pt,inner sep=0pt] (x) at (0,0) {$o$};
+    \node[minimum size=10pt,inner sep=0pt] (a) at (2, 0) {$\tiny a$};
+
+	\node[minimum size=10pt,inner sep=0pt] (x0) at (-2, 1.5) {$\tiny x_0$};
+	\node[minimum size=10pt,inner sep=0pt] (x1) at (-2, 0.75) {$\tiny x_1$};
+	\node[minimum size=10pt,inner sep=0pt] (x2) at (-2, 0) {$\tiny x_2$};
+	\node[minimum size=10pt,inner sep=0pt] (x3) at (-2, -0.75) {$\tiny x_3$};
+	\node[minimum size=10pt,inner sep=0pt] (b) at (-2, -1.5) {$\tiny +1$};
+
+	\draw[->, thick] (x0) to[out=0,in=120] node [midway, sloped, above=-2] {$w_0$} (x);
+	\draw[->, thick] (x1) to[out=0,in=150] node [midway, sloped, above=-2] {$w_1$} (x);
+	\draw[->, thick] (x2) to[out=0,in=180] node [midway, sloped, above=-2] {$w_2$} (x);
+	\draw[->, thick] (x3) to[out=0,in=210] node [midway, sloped, above=-2] {$w_3$} (x);
+	\draw[->, thick] (b) to[out=0,in=240] node [midway, sloped, above=-2] {$b$} (x);
+
+	\draw[->, thick] (x) to node [midway,above=-0.1cm] {$\varphi$} (a);
+```
 
 A model made of a single neuron is called a Perceptron.
 
@@ -64,7 +81,7 @@ the following dataset about house prices:
 ```{code-cell}
 import pandas as pd
 
-boston = pd.read_csv("data/boston.csv")
+boston = pd.read_csv("data/boston.csv")[["RM", "PRICE"]]
 boston
 ```
 
