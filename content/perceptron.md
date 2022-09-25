@@ -214,8 +214,9 @@ See how we are slowly diverging because our steps are too large?
 ## Wrap-up
 
 In this section, we have introduced:
-* a very simple model, called the Perceptron: this will be a building block for the more advanced models we will detail later in the course;
+* a very simple model, called the Perceptron: this will be a building block for the more advanced models we will detail later in the course, such as:
+    * the [Multi-Layer Perceptron](sec:mlp)
+    * [Convolutional architectures](sec:cnn)
+    * [Recurrent architectures](sec:rnn)
 * the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for regression and _logistic loss_ for classification);
-* the concept of gradient descent to optimize the chosen loss over a model's single parameter.
-
-In the coming chapters, we will detail these 3 important parts (model, loss, optimization strategy).
+* the concept of gradient descent to optimize the chosen loss over a model's single parameter, which will be extended in [a dedicated chapter](sec:sgd).

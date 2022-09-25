@@ -13,7 +13,14 @@ kernelspec:
   name: python3
 ---
 
+(sec:sgd)=
 # Optimization
 
 In this chapter, we will present an optimization strategy called **Gradient
 Descent** and its variants, and show how they can be used to optimize neural network parameters.
+
+## SGD
+
+## Variants of SGD (towards Adam)
+
+## The curse of depth

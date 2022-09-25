@@ -13,6 +13,7 @@ kernelspec:
   name: python3
 ---
 
+(sec:rnn)=
 # Recurrent Neural Networks
 
 Recurrent neural networks (RNNs) proceed by processing elements of a time

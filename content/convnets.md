@@ -13,24 +13,26 @@ kernelspec:
   name: python3
 ---
 
+(sec:cnn)=
 # Convolutional Neural Networks (CNN)
 
+## CNNs _à la_ LeNet
+
+## Anatomy of a ResNet
+
+## Using a pre-trained model for better performance
 
 ## ConvNets for time series
 
-Convolutional neural networks for time series are very efficient models that rely on the
+Convolutional neural networks for time series rely on the
 1d convolution operator that, given a time series $\mathbf{x}$ and a filter
 $\mathbf{f}$, computes an activation map as:
 
 \begin{equation}
-    \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=1}^L f_{k} x_{t + k - L}
+    \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=1}^L f_{k} x_{t + k}
 \end{equation}
 
 where $L$ is the length (number of timestamps) of the filter $\mathbf{f}$.
-
-More precisely, the formula provided above is the correlation formula, yet it
-matches the convolution one up to a mirror operation on the filter, which is
-why the term "convolution" is used.
 
 The following code illustrates this notion using a Gaussian filter:
 
