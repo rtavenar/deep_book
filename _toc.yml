@@ -1,0 +1,8 @@
+format: jb-article
+root: content/intro 
+sections:
+- file: content/perceptron
+- file: content/mlp
+- file: content/optim
+- file: content/convnets
+- file: content/rnn
