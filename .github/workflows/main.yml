@@ -43,7 +43,7 @@ jobs:
 
     - name: Build the pdf book
       run: |
-        jupyter-book build . --builder pdflatex --toc _toc_latex.yml
+        jupyter-book build . --builder pdflatex
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
       uses: peaceiris/actions-gh-pages@v3.6.1
