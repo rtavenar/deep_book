@@ -25,7 +25,7 @@ This model is a neural network made of a single neuron, and we will use it here 
 %config InlineBackend.figure_format = 'svg'
 import matplotlib.pyplot as plt
 
-plt.ion()
+plt.ion();
 ```
 
 ## The model

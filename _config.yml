@@ -4,6 +4,21 @@
 title: "Deep Learning Basics (lecture notes)"
 author: Romain Tavenard
 
+# Bibliography
+bibtex_bibfiles:
+  - content/references.bib
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - dollarmath
+    - amsmath
+
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
