@@ -241,5 +241,5 @@ In this section, we have introduced:
     * the [Multi-Layer Perceptron](sec:mlp)
     * [Convolutional architectures](sec:cnn)
     * [Recurrent architectures](sec:rnn)
-* the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for regression and _logistic loss_ for classification);
-* the concept of gradient descent to optimize the chosen loss over a model's single parameter, which will be extended in [a dedicated chapter](sec:sgd).
+* the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for regression and _logistic loss_ for classification), which will be discussed in [a dedicated chapter](sec:loss);
+* the concept of gradient descent to optimize the chosen loss over a model's single parameter, and this will be extended in [our chapter on optimization](sec:sgd).

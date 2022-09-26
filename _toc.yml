@@ -3,6 +3,7 @@ root: content/intro
 sections:
 - file: content/perceptron
 - file: content/mlp
+- file: content/loss
 - file: content/optim
 - file: content/convnets
 - file: content/rnn
