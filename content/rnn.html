@@ -461,8 +461,8 @@ computed.</p>
 <section id="vanilla-rnns">
 <h2>“Vanilla” RNNs<a class="headerlink" href="#vanilla-rnns" title="Permalink to this headline">#</a></h2>
 <p>The basic formulation for a RNN block is as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-49447688-502d-4334-bbf8-856f301c435b">
-<span class="eqno">(2)<a class="headerlink" href="#equation-49447688-502d-4334-bbf8-856f301c435b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-47a590fc-2bc4-449b-a9a1-8f85f475fca1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-47a590fc-2bc4-449b-a9a1-8f85f475fca1" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(W_h\)</span> is a weight matrix associated to the processing of the previous
@@ -478,19 +478,19 @@ networks are optimized through stochastic gradient descent algorithms.</p>
 <span class="math notranslate nohighlight">\(h_t\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> are both scalar values, and let us have a look at what the
 actual gradient of the output <span class="math notranslate nohighlight">\(h_t\)</span> is, with
 respect to <span class="math notranslate nohighlight">\(W_h\)</span> (which is then also a scalar):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4a201534-3afa-403c-a254-1a9ed3dade3b">
-<span class="eqno">(3)<a class="headerlink" href="#equation-4a201534-3afa-403c-a254-1a9ed3dade3b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-810f6640-93a0-49f4-b934-6d823464eb9e">
+<span class="eqno">(3)<a class="headerlink" href="#equation-810f6640-93a0-49f4-b934-6d823464eb9e" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, hence:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5642e8b6-e63e-4852-872d-aeeed78ebbd0">
-<span class="eqno">(4)<a class="headerlink" href="#equation-5642e8b6-e63e-4852-872d-aeeed78ebbd0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e4951dfc-c852-48f5-b712-5c28ffbf0877">
+<span class="eqno">(4)<a class="headerlink" href="#equation-e4951dfc-c852-48f5-b712-5c28ffbf0877" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}\]</div>
 <p>Here, the form of <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> will be similar to
 that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> above, and, in the end, one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-25ede24a-4896-4f6f-bf1a-14f2c6b2c33b">
-<span class="eqno">(5)<a class="headerlink" href="#equation-25ede24a-4896-4f6f-bf1a-14f2c6b2c33b" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-33fc75f1-76f9-4913-8360-d210abf31ef5">
+<span class="eqno">(5)<a class="headerlink" href="#equation-33fc75f1-76f9-4913-8360-d210abf31ef5" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
     \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
         \left[
             h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
@@ -508,6 +508,7 @@ that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> 
 <p>In other words, the influence of <span class="math notranslate nohighlight">\(h_{t^\prime}\)</span> will be mitigated by a factor
 <span class="math notranslate nohighlight">\(W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text{tanh}^\prime(o_{t})\)</span>.</p>
 <p>Now recall what the tanh function and its derivative look like:</p>
+<p><strong>TODO: code that in TF2</strong></p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
@@ -570,8 +571,8 @@ The gate <span class="math notranslate nohighlight">\(g\)</span> will hence tend
 </div>
 <p>In these blocks, an extra state is used, referred to as the cell state <span class="math notranslate nohighlight">\(C_t\)</span>.
 This state is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2309c6b3-fd0a-41d3-b1d7-af98d3cd0805">
-<span class="eqno">(6)<a class="headerlink" href="#equation-2309c6b3-fd0a-41d3-b1d7-af98d3cd0805" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b84eafe4-2f9b-43c4-b17a-4372bbc7c2b4">
+<span class="eqno">(6)<a class="headerlink" href="#equation-b84eafe4-2f9b-43c4-b17a-4372bbc7c2b4" title="Permalink to this equation">#</a></span>\[\begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_t\)</span> is the forget gate (which pushes the network to forget about
@@ -586,15 +587,15 @@ Indeed, in this case, if the network learns so (through <span class="math notran
 full information from the previous cell state <span class="math notranslate nohighlight">\(C_{t-1}\)</span> can be recovered,
 which would allow gradients to flow through time (and not vanish anymore).</p>
 <p>Then, the link between the cell and hidden states is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-320986ab-544a-462b-8025-5128c2655d65">
-<span class="eqno">(7)<a class="headerlink" href="#equation-320986ab-544a-462b-8025-5128c2655d65" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-eb047707-1be2-4e64-913a-66765c95cbe8">
+<span class="eqno">(7)<a class="headerlink" href="#equation-eb047707-1be2-4e64-913a-66765c95cbe8" title="Permalink to this equation">#</a></span>\[\begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}\]</div>
 <p>In words, the hidden state is the tanh-transformed version of the cell state,
 further censored by an output gate <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
 <p>All gates used in the formulas above are defined similarly:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cbe78895-78cc-4a0b-8cb2-e8d93197238b">
-<span class="eqno">(8)<a class="headerlink" href="#equation-cbe78895-78cc-4a0b-8cb2-e8d93197238b" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-7c378eef-0eb5-4cae-92c6-ed2eafe629cc">
+<span class="eqno">(8)<a class="headerlink" href="#equation-7c378eef-0eb5-4cae-92c6-ed2eafe629cc" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
     f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
     i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
     o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
@@ -603,8 +604,8 @@ further censored by an output gate <span class="math notranslate nohighlight">\(
 (which has values in <span class="math notranslate nohighlight">\([0, 1]\)</span>) and <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> is
 the concatenation of <span class="math notranslate nohighlight">\(h_{t-1}\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> features.</p>
 <p>Finally, the updated cell state <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-654c8c58-ff07-4b92-afc4-489ddb88d7b0">
-<span class="eqno">(9)<a class="headerlink" href="#equation-654c8c58-ff07-4b92-afc4-489ddb88d7b0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-35d4a29f-efb9-4dc1-8bd9-74e27bfc76a4">
+<span class="eqno">(9)<a class="headerlink" href="#equation-35d4a29f-efb9-4dc1-8bd9-74e27bfc76a4" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}\]</div>
 <p>Many variants over these LSTM blocks exist in the literature that still rely
@@ -619,16 +620,16 @@ through time.
 A first significant difference between GRUs and LSTMs, though, is that GRUs
 do not resort to the use of a cell state.
 Instead, the update rule for the hidden state is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e352b8f6-c200-4acc-8625-f8a266c3fbbd">
-<span class="eqno">(10)<a class="headerlink" href="#equation-e352b8f6-c200-4acc-8625-f8a266c3fbbd" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-25a06b66-82ee-43ee-9462-adc413b196f6">
+<span class="eqno">(10)<a class="headerlink" href="#equation-25a06b66-82ee-43ee-9462-adc413b196f6" title="Permalink to this equation">#</a></span>\[\begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(z_t\)</span> is a gate that balances (per feature) the amount of information
 that is kept from the previous hidden state with the amount of information
 that should be updated using the new candidate hidden state <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
 computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e5cbcd7e-89cc-4e3c-9c73-e55fd1013de8">
-<span class="eqno">(11)<a class="headerlink" href="#equation-e5cbcd7e-89cc-4e3c-9c73-e55fd1013de8" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9e3247bd-e75f-4405-b736-0a3b825b4932">
+<span class="eqno">(11)<a class="headerlink" href="#equation-9e3247bd-e75f-4405-b736-0a3b825b4932" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(r_t\)</span> is an extra gate that can hide part of the previous hidden state.</p>
