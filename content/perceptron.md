@@ -131,7 +131,7 @@ import numpy as np
 def loss(w, x, y):
     w = np.array(w)
     return np.sum(
-        (w[:, None] * x[None, :] - y[None, :]) ** 2,
+        (w[:, None] * x.to_numpy()[None, :] - y.to_numpy()[None, :]) ** 2,
         axis=1
     )
 
@@ -186,7 +186,9 @@ for t in range(10):
     w_update = w[t] - rho * grad_loss(w[t], x, y)
     w.append(w_update)
 
-plt.plot(w, loss(w, x, y), "ko-");
+plt.plot(w, loss(w, x, y), "ko-")
+plt.text(x=w[0]+.1, y=loss([w[0]], x, y), s="$w_{0}$")
+plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 ```
 
 What would we get if we used a smaller learning rate?
@@ -202,7 +204,9 @@ for t in range(10):
     w_update = w[t] - rho * grad_loss(w[t], x, y)
     w.append(w_update)
 
-plt.plot(w, loss(w, x, y), "ko-");
+plt.plot(w, loss(w, x, y), "ko-")
+plt.text(x=w[0]+.1, y=loss([w[0]], x, y), s="$w_{0}$")
+plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 ```
 
 It would definitely take more time to converge.
@@ -219,7 +223,9 @@ for t in range(10):
     w_update = w[t] - rho * grad_loss(w[t], x, y)
     w.append(w_update)
 
-plt.plot(w, loss(w, x, y), "ko-");
+plt.plot(w, loss(w, x, y), "ko-")
+plt.text(x=w[0]-1., y=loss([w[0]], x, y), s="$w_{0}$")
+plt.text(x=w[10]-1., y=loss([w[10]], x, y), s="$w_{10}$");
 ```
 
 See how we are slowly diverging because our steps are too large?
