@@ -32,10 +32,10 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    # Install the latex things to create the pdf
-    # - name: install latex dependencies
-    #   run: |
-    #     sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk 
+    # Install the latex things to create the pdf + tikz
+    - name: install latex dependencies
+      run: |
+        sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk 
 
     # Build the html version of the book
     - name: Build the html-book
