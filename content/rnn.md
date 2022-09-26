@@ -102,7 +102,7 @@ import tensorflow as tf
 def tanh(x):
     return 2. / (1. + tf.exp(-2 * x)) - 1.
 
-x = tf.Variable(tf.linspace(-3, 3, 50))
+x = tf.Variable(tf.linspace(-4, 4, 50))
 with tf.GradientTape() as tape:
     tan_x = tanh(x)
 grad_tanh_x = tape.gradient(tan_x, x)
