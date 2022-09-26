@@ -17,29 +17,28 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import tensorflow as tf
+from tensorflow.keras.layers import Dense, InputLayer
+from tensorflow.keras.models import Sequential
 
-def tanh(x):
-    return 2. / (1. + tf.exp(-2 * x)) - 1.
+model = Sequential([
+    InputLayer(input_shape=(10, )),
+    Dense(units=20, activation="relu"),
+    Dense(units=3, activation="softmax")
+])
 
-x = tf.Variable(tf.linspace(-4, 4, 50))
-with tf.GradientTape() as tape:
-    tan_x = tanh(x)
-grad_tanh_x = tape.gradient(tan_x, x)
-
-plt.figure()
-plt.plot(x.numpy(), tan_x.numpy(), label='tanh(x)')
-plt.plot(x.numpy(), grad_tanh_x, label='tanh\'(x)')
-plt.legend()
-plt.grid('on');
+model.summary()
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [0;32mIn [2], line 1[0m
-[0;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mtensorflow[39;00m [38;5;28;01mas[39;00m [38;5;21;01mtf[39;00m
-[1;32m      3[0m [38;5;28;01mdef[39;00m [38;5;21mtanh[39m(x):
-[1;32m      4[0m     [38;5;28;01mreturn[39;00m [38;5;241m2.[39m [38;5;241m/[39m ([38;5;241m1.[39m [38;5;241m+[39m tf[38;5;241m.[39mexp([38;5;241m-[39m[38;5;241m2[39m [38;5;241m*[39m x)) [38;5;241m-[39m [38;5;241m1.[39m
+Cell [0;32mIn [1], line 1[0m
+[0;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mtensorflow[39;00m[38;5;21;01m.[39;00m[38;5;21;01mkeras[39;00m[38;5;21;01m.[39;00m[38;5;21;01mlayers[39;00m [38;5;28;01mimport[39;00m Dense, InputLayer
+[1;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mtensorflow[39;00m[38;5;21;01m.[39;00m[38;5;21;01mkeras[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmodels[39;00m [38;5;28;01mimport[39;00m Sequential
+[1;32m      4[0m model [38;5;241m=[39m Sequential([
+[1;32m      5[0m     InputLayer(input_shape[38;5;241m=[39m([38;5;241m10[39m, )),
+[1;32m      6[0m     Dense(units[38;5;241m=[39m[38;5;241m20[39m, activation[38;5;241m=[39m[38;5;124m"[39m[38;5;124mrelu[39m[38;5;124m"[39m),
+[1;32m      7[0m     Dense(units[38;5;241m=[39m[38;5;241m3[39m, activation[38;5;241m=[39m[38;5;124m"[39m[38;5;124msoftmax[39m[38;5;124m"[39m)
+[1;32m      8[0m ])
 
 [0;31mModuleNotFoundError[0m: No module named 'tensorflow'
 ModuleNotFoundError: No module named 'tensorflow'

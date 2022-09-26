@@ -94,25 +94,22 @@ $W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text
 
 Now recall what the tanh function and its derivative look like:
 
-**TODO: code that in TF2**
-
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-import torch
+import tensorflow as tf
 
 def tanh(x):
-    return 2. / (1. + torch.exp(-2 * x)) - 1.
+    return 2. / (1. + tf.exp(-2 * x)) - 1.
 
-x = torch.autograd.Variable(torch.linspace(-3, 3, 50),
-                            requires_grad=True)
-tan_x = tanh(x)
-tan_x.backward(torch.ones_like(x))
-grad_tanh_x = x.grad
+x = tf.Variable(tf.linspace(-4, 4, 50))
+with tf.GradientTape() as tape:
+    tan_x = tanh(x)
+grad_tanh_x = tape.gradient(tan_x, x)
 
 plt.figure()
-plt.plot(x.detach().numpy(), tan_x.detach().numpy(), label='tanh(x)')
-plt.plot(x.detach().numpy(), grad_tanh_x.detach().numpy(), label='tanh\'(x)')
+plt.plot(x.numpy(), tan_x.numpy(), label='tanh(x)')
+plt.plot(x.numpy(), grad_tanh_x, label='tanh\'(x)')
 plt.legend()
 plt.grid('on');
 ```

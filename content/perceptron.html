@@ -122,6 +122,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="loss.html">
+   Losses
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="optim.html">
    Optimization
   </a>
@@ -377,11 +382,6 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-the-perceptron-for-supervised-classification">
-   Using the perceptron for supervised classification
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#wrap-up">
    Wrap-up
   </a>
@@ -421,11 +421,6 @@ title="Print to PDF"
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-the-perceptron-for-supervised-classification">
-   Using the perceptron for supervised classification
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#wrap-up">
@@ -623,7 +618,7 @@ dataset.</p>
 <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">w</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">w</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
         <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>
 
@@ -634,11 +629,7 @@ dataset.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5010/586817701.py:6: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
-  (w[:, None] * x[None, :] - y[None, :]) ** 2,
-</pre></div>
-</div>
-<img alt="../_images/perceptron_7_1.svg" src="../_images/perceptron_7_1.svg" /></div>
+<img alt="../_images/perceptron_7_0.svg" src="../_images/perceptron_7_0.svg" /></div>
 </div>
 <p>Here, it seems that a value of <span class="math notranslate nohighlight">\(w\)</span> around 4 should be a good pick, but this
 method (generating lots of values for the parameter and computing the loss for
@@ -683,16 +674,14 @@ visualization:</p>
     <span class="n">w_update</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">grad_loss</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w_update</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;ko-&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;ko-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">loss</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;$w_</span><span class="si">{0}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">loss</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;$w_</span><span class="si">{10}</span><span class="s2">$&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5010/586817701.py:6: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
-  (w[:, None] * x[None, :] - y[None, :]) ** 2,
-</pre></div>
-</div>
-<img alt="../_images/perceptron_9_1.svg" src="../_images/perceptron_9_1.svg" /></div>
+<img alt="../_images/perceptron_9_0.svg" src="../_images/perceptron_9_0.svg" /></div>
 </div>
 <p>What would we get if we used a smaller learning rate?</p>
 <div class="cell docutils container">
@@ -707,16 +696,14 @@ visualization:</p>
     <span class="n">w_update</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">grad_loss</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w_update</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;ko-&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;ko-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">loss</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;$w_</span><span class="si">{0}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">loss</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;$w_</span><span class="si">{10}</span><span class="s2">$&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5010/586817701.py:6: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
-  (w[:, None] * x[None, :] - y[None, :]) ** 2,
-</pre></div>
-</div>
-<img alt="../_images/perceptron_11_1.svg" src="../_images/perceptron_11_1.svg" /></div>
+<img alt="../_images/perceptron_11_0.svg" src="../_images/perceptron_11_0.svg" /></div>
 </div>
 <p>It would definitely take more time to converge.
 But, take care, a larger learning rate is not always a good idea:</p>
@@ -732,23 +719,17 @@ But, take care, a larger learning rate is not always a good idea:</p>
     <span class="n">w_update</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">grad_loss</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w_update</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;ko-&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;ko-&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">loss</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;$w_</span><span class="si">{0}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">loss</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;$w_</span><span class="si">{10}</span><span class="s2">$&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5010/586817701.py:6: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
-  (w[:, None] * x[None, :] - y[None, :]) ** 2,
-</pre></div>
-</div>
-<img alt="../_images/perceptron_13_1.svg" src="../_images/perceptron_13_1.svg" /></div>
+<img alt="../_images/perceptron_13_0.svg" src="../_images/perceptron_13_0.svg" /></div>
 </div>
 <p>See how we are slowly diverging because our steps are too large?</p>
 </section>
-</section>
-<section id="using-the-perceptron-for-supervised-classification">
-<h2>Using the perceptron for supervised classification<a class="headerlink" href="#using-the-perceptron-for-supervised-classification" title="Permalink to this headline">#</a></h2>
-<p><strong>TODO: present the notions of activation function and logistic loss</strong></p>
 </section>
 <section id="wrap-up">
 <h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Permalink to this headline">#</a></h2>
@@ -761,8 +742,8 @@ But, take care, a larger learning rate is not always a good idea:</p>
 <li><p><a class="reference internal" href="rnn.html#sec-rnn"><span class="std std-ref">Recurrent architectures</span></a></p></li>
 </ul>
 </li>
-<li><p>the fact that a task comes with a loss function to be minimized (here, we have used the <em>mean squared error (MSE)</em> for regression and <em>logistic loss</em> for classification);</p></li>
-<li><p>the concept of gradient descent to optimize the chosen loss over a model’s single parameter, which will be extended in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">a dedicated chapter</span></a>.</p></li>
+<li><p>the fact that a task comes with a loss function to be minimized (here, we have used the <em>mean squared error (MSE)</em> for our regression task), which will be discussed in <a class="reference internal" href="loss.html#sec-loss"><span class="std std-ref">a dedicated chapter</span></a>;</p></li>
+<li><p>the concept of gradient descent to optimize the chosen loss over a model’s single parameter, and this will be extended in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">our chapter on optimization</span></a>.</p></li>
 </ul>
 </section>
 </section>
