@@ -94,6 +94,8 @@ $W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text
 
 Now recall what the tanh function and its derivative look like:
 
+**TODO: code that in TF2**
+
 ```{code-cell} ipython3
 :tags: [hide-input]
 
