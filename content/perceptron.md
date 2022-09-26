@@ -230,10 +230,6 @@ plt.text(x=w[10]-1., y=loss([w[10]], x, y), s="$w_{10}$");
 
 See how we are slowly diverging because our steps are too large?
 
-## Using the perceptron for supervised classification
-
-**TODO: present the notions of activation function and logistic loss**
-
 ## Wrap-up
 
 In this section, we have introduced:
@@ -241,5 +237,5 @@ In this section, we have introduced:
     * the [Multi-Layer Perceptron](sec:mlp)
     * [Convolutional architectures](sec:cnn)
     * [Recurrent architectures](sec:rnn)
-* the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for regression and _logistic loss_ for classification), which will be discussed in [a dedicated chapter](sec:loss);
+* the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for our regression task), which will be discussed in [a dedicated chapter](sec:loss);
 * the concept of gradient descent to optimize the chosen loss over a model's single parameter, and this will be extended in [our chapter on optimization](sec:sgd).
