@@ -95,6 +95,11 @@ In order to cover a wider range of models, one can stack neurons organized in la
     \node[fill=white] (beta1) at  (4.5, 2) {$\mathbf{w^{(1)}}$};
 ```
 
+So, now we should ask: does this help us cover a wider family of models?
+Here, the answer is that it depends on the activation function we use for the hidden layer.
+**TODO: detail that**, starting with the identity case and showing that it does nothing more than what a Perceptron would do, and then introducing the sigmoid function and the UAT.
+
+
 ```{admonition} Universal Approximation Theorem
 
 The Universal Approximation Theorem states that any continuous function defined on a compact set can be 
