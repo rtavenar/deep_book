@@ -36,3 +36,8 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+
+latex:
+  latex_documents:
+    targetname: book.tex
+  latex_engine: xelatex

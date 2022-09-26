@@ -83,7 +83,6 @@ that of $\nabla_{W_h}(h_t)$ above, and, in the end, one gets:
                h_{t-1} + W_h \cdot \text{tanh}^\prime(o_{t-1}) \cdot
                \left[
                    h_{t-2} + W_h \cdot \left[ \dots \right]
-
                \right]
            \right] \\
           &=& h_{t-1} \text{tanh}^\prime(o_t) + h_{t-2} W_h \text{tanh}^\prime(o_t) \text{tanh}^\prime(o_{t-1}) + \dots \\
