@@ -238,11 +238,11 @@ In practice, we observe empirically that in order to achieve a given approximati
 
 The above graphical representation corresponds to the following model:
 
-\begin{eqnarray}
+\begin{align}
   \hat{y} &= \varphi \left( \sum_i w^{(2)}_{i} h^{(2)}_{i} + b^{(2)} \right) \\
   \forall i, h^{(2)}_{i} &= \varphi \left( \sum_j w^{(1)}_{ij} h^{(1)}_{j} + b^{(1)}_{i} \\
   \forall i, h^{(1)}_{i} &= \varphi \left( \sum_j w^{(0)}_{ij} x_{j} + b^{(0)}_{i}
-\end{eqnarray}
+\end{align}
 
 To be even more precise, the bias terms $b^{(l)}_i$ are not represented in the graphical representation above.
 
