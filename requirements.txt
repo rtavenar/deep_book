@@ -1,6 +1,5 @@
 jupyter-book
 tensorflow
-keras
 celluloid
 sphinxcontrib-tikz
 pandas
