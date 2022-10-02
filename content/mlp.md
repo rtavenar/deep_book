@@ -122,21 +122,21 @@ In practice, we observe empirically that in order to achieve a given approximati
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in3) at  (0, 1) {};
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in4) at  (0, 0) {};
 
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_0) at  (3, 5) {};
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_1) at  (3, 4) {};
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_2) at  (3, 3) {};
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_3) at  (3, 2) {};
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_4) at  (3, 1) {};
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_5) at  (3, 0) {};
-    \node[draw, circle, fill=blue!67!green!33, minimum size=17pt,inner sep=0pt] (h1_6) at  (3, -1) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_0) at  (3, 5) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_1) at  (3, 4) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_2) at  (3, 3) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_3) at  (3, 2) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_4) at  (3, 1) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_5) at  (3, 0) {};
+    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_6) at  (3, -1) {};
 
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_0) at  (6, 5) {};
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_1) at  (6, 4) {};
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_2) at  (6, 3) {};
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_3) at  (6, 2) {};
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_4) at  (6, 1) {};
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_5) at  (6, 0) {};
-    \node[draw, circle, fill=blue!33!green!67, minimum size=17pt,inner sep=0pt] (h2_6) at  (6, -1) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_0) at  (6, 5) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_1) at  (6, 4) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_2) at  (6, 3) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_3) at  (6, 2) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_4) at  (6, 1) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_5) at  (6, 0) {};
+    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_6) at  (6, -1) {};
     
     \node[draw, circle, fill=green, minimum size=17pt,inner sep=0pt] (out_0) at  (9, 2) {};
     \draw[->] (in0) -- (h1_0);
