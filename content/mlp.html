@@ -455,11 +455,11 @@ Moreover, it is not sufficient that such a good approximation exists, another im
 <p>In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :</p>
 <div class="figure" style="text-align: center"><p><img  src="../_images/tikz-f3ee742dbfa8c05a21275e15d664e38c06e03f0c.png" alt="Figure made with TikZ" /></p>
 </div><p>The above graphical representation corresponds to the following model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-404e79e0-5f09-432f-94a3-95433f1a9b0d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-404e79e0-5f09-432f-94a3-95433f1a9b0d" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
-  \hat{y} &amp;=&amp; \varphi \left( \sum_i w^{(2)}_{i} h^{(2)}_{i} + b^{(2)} \right) \\
-  \forall i, h^{(2)}_{i} &amp;=&amp; \varphi \left( \sum_j w^{(1)}_{ij} h^{(1)}_{j} + b^{(1)}_{i} \\
-  \forall i, h^{(1)}_{i} &amp;=&amp; \varphi \left( \sum_j w^{(0)}_{ij} x_{j} + b^{(0)}_{i}
+<div class="amsmath math notranslate nohighlight" id="equation-1c57d22d-4222-4adf-a5d6-8635853628f7">
+<span class="eqno">(1)<a class="headerlink" href="#equation-1c57d22d-4222-4adf-a5d6-8635853628f7" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+  \hat{y} &amp;= \varphi \left( \sum_i w^{(2)}_{i} h^{(2)}_{i} + b^{(2)} \right) \\
+  \forall i, h^{(2)}_{i} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} h^{(1)}_{j} + b^{(1)}_{i} \\
+  \forall i, h^{(1)}_{i} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} x_{j} + b^{(0)}_{i}
 \end{eqnarray}\]</div>
 <p>To be even more precise, the bias terms <span class="math notranslate nohighlight">\(b^{(l)}_i\)</span> are not represented in the graphical representation above.</p>
 <p>Such models with one or more hidden layers are called <strong>Multi Layer Perceptrons</strong> and we will present their characteristics in the following.</p>
@@ -495,16 +495,16 @@ As an example, if one wants to code a model made of:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 10:19:25.540398: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 10:25:06.591171: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-10-02 10:19:25.892084: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-10-02 10:19:25.892105: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-10-02 10:19:25.925286: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-10-02 10:25:06.930358: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-10-02 10:25:06.930382: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2022-10-02 10:25:06.967929: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 10:19:26.664996: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
-2022-10-02 10:19:26.665096: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
-2022-10-02 10:19:26.665104: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 10:25:07.943037: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2022-10-02 10:25:07.943143: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2022-10-02 10:25:07.943151: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
@@ -546,10 +546,10 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 10:19:27.847842: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-10-02 10:19:27.847870: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
-2022-10-02 10:19:27.847891: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az744-782): /proc/driver/nvidia/version does not exist
-2022-10-02 10:19:27.848866: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 10:25:09.096863: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-10-02 10:25:09.096892: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
+2022-10-02 10:25:09.096914: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az173-109): /proc/driver/nvidia/version does not exist
+2022-10-02 10:25:09.097860: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
