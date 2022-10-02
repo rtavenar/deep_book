@@ -465,177 +465,7 @@ approximated as closely as one wants by a one-hidden-layer neural network with s
 Note however that the number of hidden neurons that is necessary to achieve a given approximation quality is not discussed here.
 Moreover, it is not sufficient that such a good approximation exists, another important question is whether the optimization algorithms we will use will eventually converge to this solution or not, which is not guaranteed, as discussed in more details in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">the dedicated chapter</span></a>.</p>
 <p>In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">    \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
-    \node[text width=3cm, align=center] (h1_title) at  (3, 6) {Hidden layer 1\\ $\mathbf{h^{(1)}}$};
-    \node[text width=3cm, align=center] (h1_title) at  (6, 6) {Hidden layer 2\\ $\mathbf{h^{(2)}}$};
-    \node[text width=3cm, align=center] (out_title) at  (9, 6) {Output layer\\ $\mathbf{\hat{y}}$};
-
-    \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in0) at  (0, 4) {};
-    \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in1) at  (0, 3) {};
-    \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in2) at  (0, 2) {};
-    \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in3) at  (0, 1) {};
-    \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in4) at  (0, 0) {};
-
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_0) at  (3, 5) {};
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_1) at  (3, 4) {};
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_2) at  (3, 3) {};
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_3) at  (3, 2) {};
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_4) at  (3, 1) {};
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_5) at  (3, 0) {};
-    \node[draw, circle, fill=cyan, minimum size=17pt,inner sep=0pt] (h1_6) at  (3, -1) {};
-
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_0) at  (6, 5) {};
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_1) at  (6, 4) {};
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_2) at  (6, 3) {};
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_3) at  (6, 2) {};
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_4) at  (6, 1) {};
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_5) at  (6, 0) {};
-    \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_6) at  (6, -1) {};
-    
-    \node[draw, circle, fill=SpringGreen, minimum size=17pt,inner sep=0pt] (out_0) at  (9, 2) {};
-    \draw[-&gt;] (in0) -- (h1_0);
-    \draw[-&gt;] (in0) -- (h1_1);
-    \draw[-&gt;] (in0) -- (h1_2);
-    \draw[-&gt;] (in0) -- (h1_3);
-    \draw[-&gt;] (in0) -- (h1_4);
-    \draw[-&gt;] (in0) -- (h1_5);
-    \draw[-&gt;] (in0) -- (h1_6);
-    \draw[-&gt;] (in1) -- (h1_0);
-    \draw[-&gt;] (in1) -- (h1_1);
-    \draw[-&gt;] (in1) -- (h1_2);
-    \draw[-&gt;] (in1) -- (h1_3);
-    \draw[-&gt;] (in1) -- (h1_4);
-    \draw[-&gt;] (in1) -- (h1_5);
-    \draw[-&gt;] (in1) -- (h1_6);
-    \draw[-&gt;] (in2) -- (h1_0);
-    \draw[-&gt;] (in2) -- (h1_1);
-    \draw[-&gt;] (in2) -- (h1_2);
-    \draw[-&gt;] (in2) -- (h1_3);
-    \draw[-&gt;] (in2) -- (h1_4);
-    \draw[-&gt;] (in2) -- (h1_5);
-    \draw[-&gt;] (in2) -- (h1_6);
-    \draw[-&gt;] (in3) -- (h1_0);
-    \draw[-&gt;] (in3) -- (h1_1);
-    \draw[-&gt;] (in3) -- (h1_2);
-    \draw[-&gt;] (in3) -- (h1_3);
-    \draw[-&gt;] (in3) -- (h1_4);
-    \draw[-&gt;] (in3) -- (h1_5);
-    \draw[-&gt;] (in3) -- (h1_6);
-    \draw[-&gt;] (in4) -- (h1_0);
-    \draw[-&gt;] (in4) -- (h1_1);
-    \draw[-&gt;] (in4) -- (h1_2);
-    \draw[-&gt;] (in4) -- (h1_3);
-    \draw[-&gt;] (in4) -- (h1_4);
-    \draw[-&gt;] (in4) -- (h1_5);
-    \draw[-&gt;] (in4) -- (h1_6);
-
-    \draw[-&gt;] (h1_0) -- (h2_0);
-    \draw[-&gt;] (h1_1) -- (h2_0);
-    \draw[-&gt;] (h1_2) -- (h2_0);
-    \draw[-&gt;] (h1_3) -- (h2_0);
-    \draw[-&gt;] (h1_4) -- (h2_0);
-    \draw[-&gt;] (h1_5) -- (h2_0);
-    \draw[-&gt;] (h1_6) -- (h2_0);
-    \draw[-&gt;] (h1_0) -- (h2_1);
-    \draw[-&gt;] (h1_1) -- (h2_1);
-    \draw[-&gt;] (h1_2) -- (h2_1);
-    \draw[-&gt;] (h1_3) -- (h2_1);
-    \draw[-&gt;] (h1_4) -- (h2_1);
-    \draw[-&gt;] (h1_5) -- (h2_1);
-    \draw[-&gt;] (h1_6) -- (h2_1);
-    \draw[-&gt;] (h1_0) -- (h2_2);
-    \draw[-&gt;] (h1_1) -- (h2_2);
-    \draw[-&gt;] (h1_2) -- (h2_2);
-    \draw[-&gt;] (h1_3) -- (h2_2);
-    \draw[-&gt;] (h1_4) -- (h2_2);
-    \draw[-&gt;] (h1_5) -- (h2_2);
-    \draw[-&gt;] (h1_6) -- (h2_2);
-    \draw[-&gt;] (h1_0) -- (h2_3);
-    \draw[-&gt;] (h1_1) -- (h2_3);
-    \draw[-&gt;] (h1_2) -- (h2_3);
-    \draw[-&gt;] (h1_3) -- (h2_3);
-    \draw[-&gt;] (h1_4) -- (h2_3);
-    \draw[-&gt;] (h1_5) -- (h2_3);
-    \draw[-&gt;] (h1_6) -- (h2_3);
-    \draw[-&gt;] (h1_0) -- (h2_4);
-    \draw[-&gt;] (h1_1) -- (h2_4);
-    \draw[-&gt;] (h1_2) -- (h2_4);
-    \draw[-&gt;] (h1_3) -- (h2_4);
-    \draw[-&gt;] (h1_4) -- (h2_4);
-    \draw[-&gt;] (h1_5) -- (h2_4);
-    \draw[-&gt;] (h1_6) -- (h2_4);
-    \draw[-&gt;] (h1_0) -- (h2_5);
-    \draw[-&gt;] (h1_1) -- (h2_5);
-    \draw[-&gt;] (h1_2) -- (h2_5);
-    \draw[-&gt;] (h1_3) -- (h2_5);
-    \draw[-&gt;] (h1_4) -- (h2_5);
-    \draw[-&gt;] (h1_5) -- (h2_5);
-    \draw[-&gt;] (h1_6) -- (h2_5);
-    \draw[-&gt;] (h1_0) -- (h2_6);
-    \draw[-&gt;] (h1_1) -- (h2_6);
-    \draw[-&gt;] (h1_2) -- (h2_6);
-    \draw[-&gt;] (h1_3) -- (h2_6);
-    \draw[-&gt;] (h1_4) -- (h2_6);
-    \draw[-&gt;] (h1_5) -- (h2_6);
-    \draw[-&gt;] (h1_6) -- (h2_6);
-
-    \draw[-&gt;] (h2_0) -- (out_0);
-    \draw[-&gt;] (h2_1) -- (out_0);
-    \draw[-&gt;] (h2_2) -- (out_0);
-    \draw[-&gt;] (h2_3) -- (out_0);
-    \draw[-&gt;] (h2_4) -- (out_0);
-    \draw[-&gt;] (h2_5) -- (out_0);
-    \draw[-&gt;] (h2_6) -- (out_0);
-
-
-    \node[fill=white] (beta0) at  (1.5, 2) {$\mathbf{w^{(0)}}$};
-    \node[fill=white] (beta1) at  (4.5, 2) {$\mathbf{w^{(1)}}$};
-    \node[fill=white] (beta2) at  (7.5, 2) {$\mathbf{w^{(2)}}$};</span>)</p>
-<p>! Package xcolor Error: Undefined color `SpringGreen'.
-
-See the xcolor package documentation for explanation.
-Type  H &lt;return&gt;  for immediate help.
- ...                                              
-                                                  
-l.34 ...17pt,inner sep=0pt] (out_0) at  (9, 2) {};
-                                                  
-
-! Package pgf Error: Unsupported color model `'. Sorry.
-
-See the pgf package documentation for explanation.
-Type  H &lt;return&gt;  for immediate help.
- ...                                              
-                                                  
-l.34 ...17pt,inner sep=0pt] (out_0) at  (9, 2) {};
-                                                  
-
-! Package xcolor Error: Undefined color `SpringGreen'.
-
-See the xcolor package documentation for explanation.
-Type  H &lt;return&gt;  for immediate help.
- ...                                              
-                                                  
-l.34 ...17pt,inner sep=0pt] (out_0) at  (9, 2) {};
-                                                  
-! Missing \\endcsname inserted.
-&lt;to be read again&gt; 
-                   \\let 
-l.34 ...17pt,inner sep=0pt] (out_0) at  (9, 2) {};
-                                                  
-)
-! Incomplete \\ifx; all text was ignored after line 34.
-&lt;inserted text&gt; 
-                \\fi 
-&lt;*&gt; ...b8046f1005961e70583efa80c78b1527ea1040f.tex
-                                                  
-! Emergency stop.
-&lt;*&gt; ...b8046f1005961e70583efa80c78b1527ea1040f.tex
-                                                  
-No pages of output.
-Transcript written on tikz-1b8046f1005961e70583efa80c78b1527ea1040f.log.
-&quot;</p>
-</div>
+<div class="figure" style="text-align: center"><p><img  src="../_images/tikz-4670b96ed1fdbb9f65a452032fcb97f6198dad87.png" alt="Figure made with TikZ" /></p>
 </div><p>The above graphical representation corresponds to the following model:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -678,16 +508,16 @@ As an example, if one wants to code a model made of:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 20:24:03.759474: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 21:20:04.925878: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-10-02 20:24:04.344091: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-10-02 20:24:04.344123: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-10-02 20:24:04.384121: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-10-02 21:20:05.273550: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-10-02 21:20:05.273598: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2022-10-02 21:20:05.311764: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 20:24:05.510371: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
-2022-10-02 20:24:05.510517: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
-2022-10-02 20:24:05.510532: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 21:20:06.123312: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2022-10-02 21:20:06.123405: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2022-10-02 21:20:06.123413: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
@@ -729,10 +559,10 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 20:24:07.542875: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-10-02 20:24:07.542917: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
-2022-10-02 20:24:07.542949: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az198-930): /proc/driver/nvidia/version does not exist
-2022-10-02 20:24:07.544306: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 21:20:07.297460: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-10-02 21:20:07.297487: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
+2022-10-02 21:20:07.297508: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az213-799): /proc/driver/nvidia/version does not exist
+2022-10-02 21:20:07.298297: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
