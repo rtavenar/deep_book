@@ -469,9 +469,9 @@ Moreover, it is not sufficient that such a good approximation exists, another im
 </div><p>The above graphical representation corresponds to the following model:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-  {\color{green}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{blue!33!green!67}h^{(2)}_{i}} + b^{(2)} \right) \\
-  \forall i, {\color{blue!33!green!67}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color{blue!67!green!33}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
-  \forall i, {\color{blue!67!green!33}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
+  {\color{green}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{cyan}h^{(2)}_{i}} + b^{(2)} \right) \\
+  \forall i, {\color{cyan}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color{teal}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
+  \forall i, {\color{teal}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
 \end{align*}\]</div>
 <p>To be even more precise, the bias terms <span class="math notranslate nohighlight">\(b^{(l)}_i\)</span> are not represented in the graphical representation above.</p>
 <p>Such models with one or more hidden layers are called <strong>Multi Layer Perceptrons</strong> and we will present their characteristics in the following.</p>
@@ -508,16 +508,16 @@ As an example, if one wants to code a model made of:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 18:09:16.079918: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 19:49:48.260011: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-10-02 18:09:16.668959: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-10-02 18:09:16.668986: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-10-02 18:09:16.705401: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-10-02 19:49:48.891929: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2022-10-02 19:49:48.891967: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2022-10-02 19:49:48.985063: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 18:09:17.602724: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
-2022-10-02 18:09:17.602835: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
-2022-10-02 18:09:17.602844: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 19:49:49.854072: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
+2022-10-02 19:49:49.854260: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
+2022-10-02 19:49:49.854274: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
@@ -559,10 +559,10 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 18:09:19.415822: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-10-02 18:09:19.415856: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
-2022-10-02 18:09:19.415880: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az39-946): /proc/driver/nvidia/version does not exist
-2022-10-02 18:09:19.416840: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-02 19:49:51.377288: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2022-10-02 19:49:51.377323: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
+2022-10-02 19:49:51.377351: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az108-236): /proc/driver/nvidia/version does not exist
+2022-10-02 19:49:51.378362: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 </pre></div>
 </div>
