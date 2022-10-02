@@ -110,7 +110,7 @@ In practice, we observe empirically that in order to achieve a given approximati
 ```{tikz}
     \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
     \node[text width=3cm, align=center] (h1_title) at  (3, 6) {Hidden layer 1\\ $\mathbf{h^{(1)}}$};
-    \node[text width=3cm, align=center] (h1_title) at  (6, 6) {Hidden layer 2\\ $\mathbf{h^{(1)}}$};
+    \node[text width=3cm, align=center] (h1_title) at  (6, 6) {Hidden layer 2\\ $\mathbf{h^{(2)}}$};
     \node[text width=3cm, align=center] (out_title) at  (9, 6) {Output layer\\ $\mathbf{\hat{y}}$};
 
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in0) at  (0, 4) {};
