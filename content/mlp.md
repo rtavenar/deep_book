@@ -138,7 +138,7 @@ In practice, we observe empirically that in order to achieve a given approximati
     \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_5) at  (6, 0) {};
     \node[draw, circle, fill=teal, minimum size=17pt,inner sep=0pt] (h2_6) at  (6, -1) {};
     
-    \node[draw, circle, fill=SpringGreen, minimum size=17pt,inner sep=0pt] (out_0) at  (9, 2) {};
+    \node[draw, circle, fill=green, minimum size=17pt,inner sep=0pt] (out_0) at  (9, 2) {};
     \draw[->] (in0) -- (h1_0);
     \draw[->] (in0) -- (h1_1);
     \draw[->] (in0) -- (h1_2);
