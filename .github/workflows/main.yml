@@ -36,6 +36,7 @@ jobs:
     # texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex latexmk 
     - name: install latex dependencies
       run: |
+        sudo apt-get update
         sudo apt-get install texlive texlive-pictures pdf2svg
         
 
