@@ -22,6 +22,9 @@ In this model, the predicted output $\hat{y}$ is computed as a linear combinatio
 $$\hat{y} = \sum_{j=1}^d x_j w_j + b$$
 
 In other words, we were optimizing among the family of linear models, which is a quite restricted family.
+
+## Stacking layers for better expressivity
+
 In order to cover a wider range of models, one can stack neurons organized in layers to form a more complex model, such as the model below, which is called a one-hidden-layer model, since an extra layer of neurons is introduced between the inputs and the output:
 
 ```{tikz}
@@ -103,7 +106,7 @@ approximated as closely as one wants by a one-hidden-layer neural network with s
 
 In other words, by using a hidden layer to map inputs to outputs, one can now approximate any continuous function, which is a very interesting property.
 Note however that the number of hidden neurons that is necessary to achieve a given approximation quality is not discussed here.
-Moreover, it is not sufficient that such a good approximation exists, another important question is whether the optimization algorithms we will use will eventually converge to this solution or not, which is not guaranteed, as discussed in more details in [the dedicqted chapter](sec:sgd).
+Moreover, it is not sufficient that such a good approximation exists, another important question is whether the optimization algorithms we will use will eventually converge to this solution or not, which is not guaranteed, as discussed in more details in [the dedicated chapter](sec:sgd).
 
 In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :
 
@@ -241,7 +244,7 @@ The above graphical representation corresponds to the following model:
 \begin{align*}
   {\color{green}\hat{y}} &= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} h^{(2)}_{i} + b^{(2)} \right) \\
   \forall i, h^{(2)}_{i} &= \varphi \left( \sum_j w^{(1)}_{ij} h^{(1)}_{j} + b^{(1)}_{i} \right) \\
-  \forall i, h^{(1)}_{i} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{green}x_{j}} + b^{(0)}_{i} \right)
+  \forall i, h^{(1)}_{i} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
 \end{align*}
 
 To be even more precise, the bias terms $b^{(l)}_i$ are not represented in the graphical representation above.
