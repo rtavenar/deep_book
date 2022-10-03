@@ -421,8 +421,16 @@ title="Print to PDF"
 When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.</p>
 <section id="stochastic-gradient-descent-sgd">
 <h2>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this headline">#</a></h2>
-<p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity <span class="math notranslate nohighlight">\(\nabla_w \mathcal{L}(X, y ; m_\theta)\)</span>.
-To do so, one draws subsets of data, called <em>minibatches</em>, and <span class="math notranslate nohighlight">\(\nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta)\)</span> is used as an estimator for this quantity.
+<p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity
+$<span class="math notranslate nohighlight">\(
+    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \mathcal{L}(x_i, y_i ; m_\theta)
+\)</span>$</p>
+<p>To do so, one draws subsets of data, called <em>minibatches</em>, and</p>
+<div class="math notranslate nohighlight">
+\[
+    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \mathcal{L}(x_i, y_i ; m_\theta)
+\]</div>
+<p>is used as an estimator for this quantity.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.</p>
 <p><strong>TODO: Include Algo here</strong></p>
 <p><strong>TODO: include animation GD vs SGD here</strong></p>

@@ -27,8 +27,17 @@ When dealing with large datasets, this is a strong limitation, which motivates t
 
 ## Stochastic Gradient Descent (SGD)
 
-The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity $\nabla_w \mathcal{L}(X, y ; m_\theta)$.
-To do so, one draws subsets of data, called _minibatches_, and $\nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta)$ is used as an estimator for this quantity.
+The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity 
+$$
+    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \mathcal{L}(x_i, y_i ; m_\theta)
+$$
+
+To do so, one draws subsets of data, called _minibatches_, and 
+
+$$
+    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \mathcal{L}(x_i, y_i ; m_\theta)
+$$
+is used as an estimator for this quantity.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.
 
 **TODO: Include Algo here**
