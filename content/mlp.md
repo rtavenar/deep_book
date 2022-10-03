@@ -11,8 +11,6 @@ kernelspec:
   display_name: Python 3
   language: python
   name: python3
-mystnb:
-  nb_merge_streams: True
 ---
 
 (sec:mlp)=

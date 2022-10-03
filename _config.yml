@@ -11,6 +11,7 @@ sphinx:
   config:
     bibtex_reference_style: author_year
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    nb_merge_streams: true
   extra_extensions:
   - sphinxcontrib.tikz
 
