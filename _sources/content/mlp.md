@@ -242,9 +242,9 @@ In practice, we observe empirically that in order to achieve a given approximati
 The above graphical representation corresponds to the following model:
 
 \begin{align*}
-  {\color[rgb]{0,255,0}\hat{y}} &= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color[rgb]{0,255,255}h^{(2)}_{i}} + b^{(2)} \right) \\
-  \forall i, {\color[rgb]{0,255,255}h^{(2)}_{i}} &= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0,128,128}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
-  \forall i, {\color[rgb]{0,128,128}h^{(1)}_{i}} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
+  {\color[rgb]{0,1,0}\hat{y}} &= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color[rgb]{0,1,1}h^{(2)}_{i}} + b^{(2)} \right) \\
+  \forall i, {\color[rgb]{0,1,1}h^{(2)}_{i}} &= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0,0.5,0.5}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
+  \forall i, {\color[rgb]{0,0.5,0.5}h^{(1)}_{i}} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
 \end{align*}
 
 To be even more precise, the bias terms $b^{(l)}_i$ are not represented in the graphical representation above.
