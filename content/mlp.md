@@ -243,8 +243,8 @@ The above graphical representation corresponds to the following model:
 
 \begin{align*}
   {\color{SpringGreen}\hat{y}} &= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{cyan}h^{(2)}_{i}} + b^{(2)} \right) \\
-  \forall i, {\color{cyan}h^{(2)}_{i}} &= \varphi \left( \sum_j w^{(1)}_{ij} {\color{teal}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
-  \forall i, {\color{teal}h^{(1)}_{i}} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
+  \forall i, {\color{cyan}h^{(2)}_{i}} &= \varphi \left( \sum_j w^{(1)}_{ij} {\color{rgb}{0, 128, 128}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
+  \forall i, {\color{rgb}{0, 128, 128}h^{(1)}_{i}} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
 \end{align*}
 
 To be even more precise, the bias terms $b^{(l)}_i$ are not represented in the graphical representation above.
