@@ -16,8 +16,11 @@ kernelspec:
 (sec:sgd)=
 # Optimization
 
-In this chapter, we will present an optimization strategy called **Gradient
-Descent** and its variants, and show how they can be used to optimize neural network parameters.
+In this chapter, we will present an optimization strategy called **Gradient Descent** and its variants, and show how they can be used to optimize neural network parameters.
+
+**Coming soon**
+
+<!-- **TODO: Ici, illustrer non convexité ?**
 
 ## SGD
 
@@ -27,4 +30,4 @@ Descent** and its variants, and show how they can be used to optimize neural net
 
 **TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
 
-**TODO**: talk about feature standardization and how it eases the convergence to a good solution
+**TODO**: talk about feature standardization and how it eases the convergence to a good solution -->

@@ -467,8 +467,8 @@ title="Print to PDF"
 <p>Convolutional neural networks for time series rely on the
 1d convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-26844e25-2140-4b40-89ff-11450be9c27c">
-<span class="eqno">(2)<a class="headerlink" href="#equation-26844e25-2140-4b40-89ff-11450be9c27c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b6965777-fc8d-4e72-b8f2-22a5fc25b7f1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-b6965777-fc8d-4e72-b8f2-22a5fc25b7f1" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=1}^L f_{k} x_{t + k}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(L\)</span> is the length (number of timestamps) of the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>.</p>
@@ -561,9 +561,9 @@ output:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5696/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5822/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-/tmp/ipykernel_5696/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
+/tmp/ipykernel_5822/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
   fig2 = plt.subplot(2, 1, 2)
 </pre></div>
 </div>
@@ -752,42 +752,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imga9e4ffeeca05463391166cf273782997">
+  <img id="_anim_img36c6a2c0170841f6a626bdfc64e3afd9">
   <div class="anim-controls">
-    <input id="_anim_slidera9e4ffeeca05463391166cf273782997" type="range" class="anim-slider"
+    <input id="_anim_slider36c6a2c0170841f6a626bdfc64e3afd9" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anima9e4ffeeca05463391166cf273782997.set_frame(parseInt(this.value));">
+           oninput="anim36c6a2c0170841f6a626bdfc64e3afd9.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anima9e4ffeeca05463391166cf273782997.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anima9e4ffeeca05463391166cf273782997.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anima9e4ffeeca05463391166cf273782997.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anima9e4ffeeca05463391166cf273782997.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anima9e4ffeeca05463391166cf273782997.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anima9e4ffeeca05463391166cf273782997.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anima9e4ffeeca05463391166cf273782997.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anima9e4ffeeca05463391166cf273782997.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anima9e4ffeeca05463391166cf273782997.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim36c6a2c0170841f6a626bdfc64e3afd9.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selecta9e4ffeeca05463391166cf273782997"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select36c6a2c0170841f6a626bdfc64e3afd9"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_a9e4ffeeca05463391166cf273782997"
+      <input type="radio" name="state" value="once" id="_anim_radio1_36c6a2c0170841f6a626bdfc64e3afd9"
              >
-      <label for="_anim_radio1_a9e4ffeeca05463391166cf273782997">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_a9e4ffeeca05463391166cf273782997"
+      <label for="_anim_radio1_36c6a2c0170841f6a626bdfc64e3afd9">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_36c6a2c0170841f6a626bdfc64e3afd9"
              checked>
-      <label for="_anim_radio2_a9e4ffeeca05463391166cf273782997">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_a9e4ffeeca05463391166cf273782997"
+      <label for="_anim_radio2_36c6a2c0170841f6a626bdfc64e3afd9">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_36c6a2c0170841f6a626bdfc64e3afd9"
              >
-      <label for="_anim_radio3_a9e4ffeeca05463391166cf273782997">Reflect</label>
+      <label for="_anim_radio3_36c6a2c0170841f6a626bdfc64e3afd9">Reflect</label>
     </form>
   </div>
 </div>
@@ -797,9 +797,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imga9e4ffeeca05463391166cf273782997";
-    var slider_id = "_anim_slidera9e4ffeeca05463391166cf273782997";
-    var loop_select_id = "_anim_loop_selecta9e4ffeeca05463391166cf273782997";
+    var img_id = "_anim_img36c6a2c0170841f6a626bdfc64e3afd9";
+    var slider_id = "_anim_slider36c6a2c0170841f6a626bdfc64e3afd9";
+    var loop_select_id = "_anim_loop_select36c6a2c0170841f6a626bdfc64e3afd9";
     var frames = new Array(60);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -31961,7 +31961,7 @@ ER+jAlBERETEx6gAFBEREfEx/weU0FcRFhj5jAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anima9e4ffeeca05463391166cf273782997 = new Animation(frames, img_id, slider_id, 200.0,
+        anim36c6a2c0170841f6a626bdfc64e3afd9 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
