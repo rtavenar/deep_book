@@ -73,6 +73,7 @@ The problem of finding such parameter values is coined optimization and the deep
 learning field makes extensive use of a specific family of optimization
 strategies called **gradient descent**.
 
+(sec:boston)=
 ### Gradient Descent
 
 To make one's mind about gradient descent, let us assume we are given

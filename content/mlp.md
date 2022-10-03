@@ -241,21 +241,133 @@ In practice, we observe empirically that in order to achieve a given approximati
 
 The above graphical representation corresponds to the following model:
 
-\begin{align*}
+\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
-\end{align*}
+  \label{eq:mlp_2hidden}
+\end{align}
 
 To be even more precise, the bias terms $b^{(l)}_i$ are not represented in the graphical representation above.
 
-Such models with one or more hidden layers are called **Multi Layer Perceptrons** and we will present their characteristics in the following.
+Such models with one or more hidden layers are called **Multi Layer Perceptrons** (MLP).
 
+## Deciding on an MLP architecture
 
+When designing a Multi-Layer Perceptron model to be used for a specific problem, some quantities are fixed by the problem at hand and other are left as hyper-parameters.
+
+Let us take the example of the well-known Iris classification dataset:
+
+```{code-cell}
+import pandas as pd
+
+iris = pd.read_csv("data/iris.csv", index_col=0)
+iris
+```
+
+The goal here is to learn how to infer the `target` attribute (3 different possible classes) from the information in the 4 other attributes.
+
+The structure of this dataset dictates:
+* the number of neurons in the input layer, which is equal to the number of descriptive attributes in our dataset (here, 4), and
+* the number of neurons in the output layer, which is here equal to 3, since the model is expected to output one probability per target class.
+
+In more generality, for the output layer, one might face several situations:
+* when regression is at stake, the number of neurons in the output layer is equal to the number of features to be predicted by the model,
+* when it comes to classification
+  * in the case of binary classification, the model will have a single output neuron which will indicate the probability of the positive class
+  * in the case of multi-class classification, the model will have as many output neurons as the number of classes in the problem.
+
+Once these number of input / output neurons are fixed, the number of hidden neurons as well as the number of neurons per hidden layer are left as hyper-parameters of the model.
 
 ## Activation functions
 
-## The special case of the output layer
+Another important hyper-parameter of neural networks is the choice of the activation function $\varphi$.
+
+Here, it is important to notice that if we used the identity function as our activation function, then whatever the depth of our MLP, we would fall back to covering only the family of linear models.
+In practice, we will then use activation functions that have some linear regime but don't behave like a linear function on the whole range of input values.
+
+Historically, the following activation functions have been proposed :
+
+
+\begin{align*}
+    \text{tanh}(x) =& \frac{2}{1 + e^{-2x}} - 1 \\
+    \text{sigmoid}(x) =& \frac{1}{1 + e^{-x}} \\
+    \text{ReLU}(x) =& \begin{cases}
+                        x \text{ if } x \gt 0\\
+                        0 \text{ otherwise }
+                      \end{cases}
+\end{align*}
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+import numpy as np
+
+%config InlineBackend.figure_format = 'svg'
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+plt.ion();
+
+def tanh(x):
+    return 2. / (1. + np.exp(-2 * x)) - 1.
+
+def sigmoid(x):
+    return 1. / (1. + np.exp(-x))
+
+def relu(x):
+    y = x.copy()
+    y[y < 0] = 0.
+    return y
+
+x = np.linspace(-4, 4, 50)
+
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 3, 1)
+plt.plot(x, tanh(x))
+plt.grid('on')
+plt.ylim([-1.1, 4.1])
+plt.title("tanh")
+
+plt.subplot(1, 3, 2)
+plt.plot(x, sigmoid(x))
+plt.grid('on')
+plt.ylim([-1.1, 4.1])
+plt.title("sigmoid")
+
+plt.subplot(1, 3, 3)
+plt.plot(x, relu(x))
+plt.grid('on')
+plt.ylim([-1.1, 4.1])
+plt.title("ReLU");
+```
+
+In practice the ReLU function (and some of its variants) is the most widely used nowadays, for reasons that will be discussed in more details in [our chapter dedicated to optimization](sec:sgd).
+
+### The special case of the output layer
+
+You might have noticed that in the MLP formulation provided in Equation (1), the output layer has its own activation function, denoted $\varphi_\text{out}$.
+This is because the choice of activation functions for the output layer of a neural network is a bit specific to the problem at hand.
+
+Indeed, you might have seen that the activation functions discussed in the previous section do not share the same range of output values.
+It is hence of prime importance to pick an adequate activation function for the output layer such that our models outputs values that are consistent to the quantities it is supposed to predict.
+
+If, for example, our model was supposed to be used in the Boston Housing dataset we discussed [in the previous chapter](sec:boston).
+In this case, the goal is to predict housing prices, which are expected to be nonnegative quantities.
+It would then be a good idea to use ReLU (which can output any positive value) as the activation function for the output layer in this case.
+
+As stated earlier, in the case of binary classification, the model will have a single output neuron and this neuron will output the probability associated to the positive class.
+This quantity is expected to lie in the $[0, 1]$ interval, and the sigmoid activation function is then the default choice in this setting.
+
+Finally, when multi-class classification is at stake, we have one neuron per output class and each neuron is expected to output the probability for a given class.
+In this context, the output values should be between 0 and 1, and they should sum to 1.
+For this purpose, we use the softmax activation function defined as:
+
+$$
+  \forall i, \text{softmax}(o_i) = \frac{e^{o_i}}{\sum_j e^{o_j}}
+$$
+
+where, for all $i$, $o_i$'s are the values of the output neurons before applying the activation function.
 
 ## Declaring an MLP in `keras`
 
@@ -284,7 +396,7 @@ model.summary()
 
 Note that `model.summary()` provides an interesting overview of a defined model and its parameters.
 
-````{admonition} Exercise
+````{admonition} Exercise #1
 
 Relying on what we have seen in this chapter, can you explain the number of parameters returned by `model.summary()` above?
 
@@ -300,3 +412,45 @@ Similarly, for the connection of the hidden layer neurons to those in the output
 Overall, we have $220 + 63 = 283$ parameters in this model.
 ```
 ````
+
+`````{admonition} Exercise #2
+
+Declare, in `keras`, an MLP with one hidden layer made of 100 neurons and ReLU activation for the Iris dataset presented above.
+
+````{admonition} Solution
+:class: dropdown, tip
+
+```python
+model = Sequential([
+    InputLayer(input_shape=(4, )),
+    Dense(units=100, activation="relu"),
+    Dense(units=3, activation="softmax")
+])
+```
+````
+`````
+
+`````{admonition} Exercise #3
+
+Same question for the full Boston Housing dataset shown below (the goal here is to predict the `PRICE` feature based on the other ones).
+
+````{admonition} Solution
+:class: dropdown, tip
+
+```python
+model = Sequential([
+    InputLayer(input_shape=(6, )),
+    Dense(units=100, activation="relu"),
+    Dense(units=1, activation="relu")
+])
+```
+````
+`````
+
+
+```{code-cell}
+:tags: [hide-input]
+
+boston = pd.read_csv("data/boston.csv")[["RM", "CRIM", "INDUS", "NOX", "AGE", "TAX", "PRICE"]]
+boston
+```
