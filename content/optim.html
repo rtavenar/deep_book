@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Losses" href="loss.html" />
@@ -329,12 +331,46 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stochastic-gradient-descent-sgd">
+   Stochastic Gradient Descent (SGD)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-note-on-adam">
+   A note on Adam
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-curse-of-depth">
+   The curse of depth
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -346,6 +382,29 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stochastic-gradient-descent-sgd">
+   Stochastic Gradient Descent (SGD)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-note-on-adam">
+   A note on Adam
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-curse-of-depth">
+   The curse of depth
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -355,9 +414,20 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="optimization">
 <span id="sec-sgd"></span><h1>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">#</a></h1>
-<p>In this chapter, we will present an optimization strategy called <strong>Gradient Descent</strong> and its variants, and show how they can be used to optimize neural network parameters.</p>
-<p><strong>Coming soon</strong></p>
-<p>As one can see below, the MSE loss is no longer convex in the model parameters as soon as the model has at least one hidden layer:</p>
+<p>In this chapter, we will present variants of the <strong>Gradient Descent</strong> optimization strategy and show how they can be used to optimize neural network parameters.</p>
+<p>Let us start with the basic Gradient Descent algorithm and its limitations.</p>
+<p><strong>TODO: Include Algo here</strong></p>
+<p>As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
+When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.</p>
+<section id="stochastic-gradient-descent-sgd">
+<h2>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this headline">#</a></h2>
+<p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity <span class="math notranslate nohighlight">\(\nabla_w \mathcal{L}(X, y ; m_\theta)\)</span>.
+To do so, one draws subsets of data, called <em>minibatches</em>, and <span class="math notranslate nohighlight">\(\nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta)\)</span> is used as an estimator for this quantity.
+This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.</p>
+<p><strong>TODO: Include Algo here</strong></p>
+<p><strong>TODO: include animation GD vs SGD here</strong></p>
+<p>Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and teh same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -370,13 +440,8 @@ title="Print to PDF"
 
 <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model_forward_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">model_forward_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">outputs</span> <span class="o">=</span> <span class="n">X</span>
     <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">):</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">outputs</span> <span class="o">@</span> <span class="n">w</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
@@ -407,27 +472,28 @@ title="Print to PDF"
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$w$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\mathcal</span><span class="si">{L}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\mathcal</span><span class="si">{L}</span><span class="s1">$&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;$\\mathcal{L}$&#39;)
-</pre></div>
+<img alt="../_images/optim_1_0.svg" src="../_images/optim_1_0.svg" /></div>
 </div>
-<img alt="../_images/optim_2_1.svg" src="../_images/optim_2_1.svg" /></div>
-</div>
-<!-- **TODO: Ici, illustrer non convexité ?**
-
-## SGD
-
-## Variants of SGD (towards Adam)
-
-## The curse of depth
-
-**TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
-
-**TODO**: talk about feature standardization and how it eases the convergence to a good solution --></section>
+<p>Gradient Descent is known to suffer from local optima, and such loss landscapes are a serious problem for GD.
+On the other hand, Stochastic Gradient Descent is likely to benefit from noisy gradient estimations to escape local minima.</p>
+</section>
+<section id="a-note-on-adam">
+<h2>A note on Adam<a class="headerlink" href="#a-note-on-adam" title="Permalink to this headline">#</a></h2>
+<p><strong>TODO: formulas</strong></p>
+<p><strong>TODO: illustrate SGD, SGD+momentum, Adam on a given optimization problem</strong></p>
+</section>
+<section id="the-curse-of-depth">
+<h2>The curse of depth<a class="headerlink" href="#the-curse-of-depth" title="Permalink to this headline">#</a></h2>
+<p><strong>TODO:</strong> MLP illustration with colors and chain rule</p>
+<p><strong>TODO:</strong> A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)</p>
+<p><strong>TODO</strong>: talk about feature standardization and how it eases the convergence to a good solution</p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
