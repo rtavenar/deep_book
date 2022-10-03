@@ -11,6 +11,8 @@ kernelspec:
   display_name: Python 3
   language: python
   name: python3
+mystnb:
+  nb_merge_streams: True
 ---
 
 (sec:mlp)=
@@ -268,7 +270,6 @@ As an example, if one wants to code a model made of:
 the code will look like:
 
 ```{code-cell}
-:tags: [output_scroll]
 
 from tensorflow.keras.layers import Dense, InputLayer
 from tensorflow.keras.models import Sequential
