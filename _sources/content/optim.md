@@ -27,4 +27,4 @@ Descent** and its variants, and show how they can be used to optimize neural net
 
 **TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
 
-
+**TODO**: talk about feature standardization and how it eases the convergence to a good solution
