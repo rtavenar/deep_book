@@ -16,12 +16,28 @@ kernelspec:
 (sec:sgd)=
 # Optimization
 
-In this chapter, we will present an optimization strategy called **Gradient Descent** and its variants, and show how they can be used to optimize neural network parameters.
+In this chapter, we will present variants of the **Gradient Descent** optimization strategy and show how they can be used to optimize neural network parameters.
+
+Let us start with the basic Gradient Descent algorithm and its limitations.
+
+**TODO: Include Algo here**
+
+As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
+When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.
+
+## Stochastic Gradient Descent (SGD)
+
+The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity $\nabla_w \mathcal{L}(X, y ; m_\theta)$.
+To do so, one draws subsets of data, called _minibatches_, and $\nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta)$ is used as an estimator for this quantity.
+This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.
+
+**TODO: Include Algo here**
+
+**TODO: include animation GD vs SGD here**
 
 
-**Coming soon**
-
-As one can see below, the MSE loss is no longer convex in the model parameters as soon as the model has at least one hidden layer:
+Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and teh same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
 
 ```{code-cell}
 :tags: [hide-cell]
@@ -36,9 +52,7 @@ plt.ion();
 
 def sigmoid(x):
     return 1. / (1. + np.exp(-x))
-```
 
-```{code-cell}
 def model_forward_loss(weights, biases, X, y):
     outputs = X
     for w, b in zip(weights, biases):
@@ -70,17 +84,22 @@ for wi in w0:
 plt.plot(w0, losses)
 plt.grid('on')
 plt.xlabel('$w$')
-plt.ylabel('$\mathcal{L}$')
+plt.ylabel('$\mathcal{L}$');
 ```
 
-<!-- **TODO: Ici, illustrer non convexité ?**
+Gradient Descent is known to suffer from local optima, and such loss landscapes are a serious problem for GD.
+On the other hand, Stochastic Gradient Descent is likely to benefit from noisy gradient estimations to escape local minima.
 
-## SGD
+## A note on Adam
 
-## Variants of SGD (towards Adam)
+**TODO: formulas**
+
+**TODO: illustrate SGD, SGD+momentum, Adam on a given optimization problem**
 
 ## The curse of depth
 
+**TODO:** MLP illustration with colors and chain rule
+
 **TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
 
-**TODO**: talk about feature standardization and how it eases the convergence to a good solution -->
+**TODO**: talk about feature standardization and how it eases the convergence to a good solution
