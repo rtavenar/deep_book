@@ -268,6 +268,7 @@ As an example, if one wants to code a model made of:
 the code will look like:
 
 ```{code-cell}
+:tags: [remove-stderr]
 
 from tensorflow.keras.layers import Dense, InputLayer
 from tensorflow.keras.models import Sequential
