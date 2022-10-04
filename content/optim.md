@@ -28,14 +28,15 @@ When dealing with large datasets, this is a strong limitation, which motivates t
 ## Stochastic Gradient Descent (SGD)
 
 The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity 
+
 $$
-    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
 $$
 
 To do so, one draws subsets of data, called _minibatches_, and 
 
 $$
-    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
 $$
 is used as an estimator for this quantity.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.
@@ -49,7 +50,7 @@ Apart from beneficing from more frequent parameter updates, SGD has an extra ben
 Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and teh same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
 
 ```{code-cell}
-:tags: [hide-cell]
+:tags: [hide-input]
 
 import numpy as np
 
