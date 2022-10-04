@@ -369,6 +369,16 @@ title="Print to PDF"
    The curse of depth
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wrapping-things-up-in-keras">
+   Wrapping things up in
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     keras
+    </span>
+   </code>
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -401,6 +411,16 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-curse-of-depth">
    The curse of depth
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wrapping-things-up-in-keras">
+   Wrapping things up in
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     keras
+    </span>
+   </code>
   </a>
  </li>
 </ul>
@@ -437,22 +457,29 @@ title="Print to PDF"
 </li>
 </ol>
 </section>
-</div><p>As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
+</div><p>The typical update rule for the parameters <span class="math notranslate nohighlight">\(\theta\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+    \theta \leftarrow \theta - \rho \nabla_\theta \mathcal{L}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho\)</span> is an important hyper-parameter of the method, called the learning rate.
+Basically, gradient descent updates <span class="math notranslate nohighlight">\(\theta\)</span> in the direction of steepest decrease of the loss <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>.</p>
+<p>As one can see in the previous algorithm, when performing gradient descent, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
 When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.</p>
 <section id="stochastic-gradient-descent-sgd">
 <h2>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this headline">#</a></h2>
 <p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity</p>
 <div class="math notranslate nohighlight">
 \[
-    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{(x_i, y_i) \in \mathcal{D}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_{(x_i, y_i) \in \mathcal{D}} \nabla_\theta \mathcal{L}(x_i, y_i ; m_\theta)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the whole training set.
 To do so, one draws subsets of data, called <em>minibatches</em>, and</p>
 <div class="math notranslate nohighlight">
 \[
-    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{(x_i, y_i) \in \text{minibatch}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_\theta \mathcal{L}(\mathcal{B} ; m_\theta) = \frac{1}{b} \sum_{(x_i, y_i) \in \mathcal{B}} \nabla_\theta \mathcal{L}(x_i, y_i ; m_\theta)
 \]</div>
-<p>is used as an estimator for <span class="math notranslate nohighlight">\(\nabla_w \mathcal{L}(X, y ; m_\theta)\)</span>.
+<p>is used as an estimator for <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta)\)</span>.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.</p>
 <div class="proof algorithm admonition" id="algo:sgd">
 <p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Stochastic Gradient Descent)</p>
@@ -605,7 +632,7 @@ This results in the following algorithm in which, interestingly, parameter updat
             <span class="n">text_epoch</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">i</span> <span class="o">//</span> <span class="n">n_steps_per_epoch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">lines_alphas</span> <span class="o">+</span> <span class="n">texts</span>
 
-    <span class="k">return</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas_gd</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas_gd</span><span class="p">))</span>
 
 
 <span class="c1"># Data</span>
@@ -658,7 +685,7 @@ This results in the following algorithm in which, interestingly, parameter updat
 </div>
 </div>
 </div>
-<p>Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+<p>Apart from implying from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
 Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -706,7 +733,13 @@ On the other hand, Stochastic Gradient Descent is likely to benefit from noisy g
 </section>
 <section id="a-note-on-adam">
 <h2>A note on Adam<a class="headerlink" href="#a-note-on-adam" title="Permalink to this headline">#</a></h2>
-<p><strong>TODO: formulas</strong></p>
+<p><strong>TODO: explain formulas</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+    \mathbf{m}^{(t+1)} &amp; \propto &amp;  \beta_1 \mathbf{m}^{(t)} + (1 - \beta_1) \nabla_\theta \mathcal{L} \\
+    \mathbf{s}^{(t+1)} &amp; \propto &amp;  \beta_{2} \mathbf{s}^{(t)} + (1-\beta_{2}) \nabla_{\theta} \mathcal{L} \otimes \nabla_{\theta} \mathcal{L} \\
+    \theta^{(t+1)} &amp; \leftarrow &amp; \theta^{(t)} - \rho \mathbf{m}^{(t+1)} \oslash \sqrt{\mathbf{s}^{(t+1)}+\epsilon}
+\end{align*}\]</div>
 <p><strong>TODO: illustrate SGD, SGD+momentum, Adam on a given optimization problem</strong></p>
 </section>
 <section id="the-curse-of-depth">
@@ -714,6 +747,57 @@ On the other hand, Stochastic Gradient Descent is likely to benefit from noisy g
 <p><strong>TODO:</strong> MLP illustration with colors and chain rule</p>
 <p><strong>TODO:</strong> A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)</p>
 <p><strong>TODO</strong>: talk about feature standardization and how it eases the convergence to a good solution</p>
+</section>
+<section id="wrapping-things-up-in-keras">
+<h2>Wrapping things up in <code class="docutils literal notranslate"><span class="pre">keras</span></code><a class="headerlink" href="#wrapping-things-up-in-keras" title="Permalink to this headline">#</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">keras</span></code>, loss and optimizer information are passed at compile time:</p>
+<div class="cell tag_remove-stderr docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">InputLayer</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">InputLayer</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">)),</span>
+    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-stderr docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In terms of losses:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mse&quot;</span></code> is the mean squared error loss,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;binary_crossentropy&quot;</span></code> is the logistic loss for binary classification,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;categorical_crossentropy&quot;</span></code> is the logistic loss for multi-class classification.</p></li>
+</ul>
+<p>The optimizers defined in this section are available as <code class="docutils literal notranslate"><span class="pre">&quot;sgd&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;adam&quot;</span></code>.
+In order to get control over optimizer hyper-parameters, one can alternatively use the following syntax:</p>
+<div class="cell tag_remove-stderr docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span><span class="p">,</span> <span class="n">SGD</span>
+
+<span class="c1"># `lr` stands for learning rate </span>
+<span class="c1"># Not a very good idea to tune beat_1 and beta_2 parameters in Adam</span>
+<span class="n">adam_opt</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+<span class="c1"># In order to use SGD with a custom learning rate:</span>
+<span class="c1"># sgd_opt = SGD(lr=0.001)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">adam_opt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

@@ -140,7 +140,7 @@ def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_ste
             text_epoch.set_text(f"Epoch {i // n_steps_per_epoch}")
         return lines_alphas + texts
 
-    return animation.FuncAnimation(fig, animate, interval=100, blit=False, save_count=len(alphas_gd))
+    return animation.FuncAnimation(fig, animate, interval=500, blit=False, save_count=len(alphas_gd))
 
 
 # Data

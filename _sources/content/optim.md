@@ -37,7 +37,16 @@ Let us start with the basic Gradient Descent algorithm and its limitations.
     3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}$
 ```
 
-As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
+The typical update rule for the parameters $\theta$ is
+
+$$
+    \theta \leftarrow \theta - \rho \nabla_\theta \mathcal{L}
+$$
+
+where $\rho$ is an important hyper-parameter of the method, called the learning rate.
+Basically, gradient descent updates $\theta$ in the direction of steepest decrease of the loss $\mathcal{L}$.
+
+As one can see in the previous algorithm, when performing gradient descent, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
 When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.
 
 ## Stochastic Gradient Descent (SGD)
@@ -45,16 +54,16 @@ When dealing with large datasets, this is a strong limitation, which motivates t
 The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity 
 
 $$
-    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{(x_i, y_i) \in \mathcal{D}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_{(x_i, y_i) \in \mathcal{D}} \nabla_\theta \mathcal{L}(x_i, y_i ; m_\theta)
 $$
 
 where $\mathcal{D}$ is the whole training set.
 To do so, one draws subsets of data, called _minibatches_, and 
 
 $$
-    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{(x_i, y_i) \in \text{minibatch}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_\theta \mathcal{L}(\mathcal{B} ; m_\theta) = \frac{1}{b} \sum_{(x_i, y_i) \in \mathcal{B}} \nabla_\theta \mathcal{L}(x_i, y_i ; m_\theta)
 $$
-is used as an estimator for $\nabla_w \mathcal{L}(X, y ; m_\theta)$.
+is used as an estimator for $\nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta)$.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.
 
 ```{prf:algorithm} Stochastic Gradient Descent
@@ -205,7 +214,7 @@ def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_ste
             text_epoch.set_text(f"Epoch {i // n_steps_per_epoch}")
         return lines_alphas + texts
 
-    return animation.FuncAnimation(fig, animate, interval=100, blit=False, save_count=len(alphas_gd))
+    return animation.FuncAnimation(fig, animate, interval=500, blit=False, save_count=len(alphas_gd))
 
 
 # Data
@@ -243,7 +252,7 @@ HTML(ani.to_jshtml())
 ```
 
 
-Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+Apart from implying from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
 Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
 
 ```{code-cell}
@@ -291,7 +300,13 @@ On the other hand, Stochastic Gradient Descent is likely to benefit from noisy g
 
 ## A note on Adam
 
-**TODO: formulas**
+**TODO: explain formulas**
+
+\begin{align*}
+    \mathbf{m}^{(t+1)} & \propto &  \beta_1 \mathbf{m}^{(t)} + (1 - \beta_1) \nabla_\theta \mathcal{L} \\
+    \mathbf{s}^{(t+1)} & \propto &  \beta_{2} \mathbf{s}^{(t)} + (1-\beta_{2}) \nabla_{\theta} \mathcal{L} \otimes \nabla_{\theta} \mathcal{L} \\
+    \theta^{(t+1)} & \leftarrow & \theta^{(t)} - \rho \mathbf{m}^{(t+1)} \oslash \sqrt{\mathbf{s}^{(t+1)}+\epsilon}
+\end{align*}
 
 **TODO: illustrate SGD, SGD+momentum, Adam on a given optimization problem**
 
@@ -302,3 +317,55 @@ On the other hand, Stochastic Gradient Descent is likely to benefit from noisy g
 **TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
 
 **TODO**: talk about feature standardization and how it eases the convergence to a good solution
+
+## Wrapping things up in `keras`
+
+In `keras`, loss and optimizer information are passed at compile time:
+
+
+```{code-cell}
+:tags: [remove-stderr]
+
+from tensorflow.keras.layers import Dense, InputLayer
+from tensorflow.keras.models import Sequential
+
+model = Sequential([
+    InputLayer(input_shape=(10, )),
+    Dense(units=20, activation="relu"),
+    Dense(units=3, activation="softmax")
+])
+
+model.summary()
+```
+
+
+```{code-cell}
+:tags: [remove-stderr]
+
+model.compile(loss="categorical_crossentropy", optimizer="adam")
+```
+
+In terms of losses:
+
+* `"mse"` is the mean squared error loss,
+* `"binary_crossentropy"` is the logistic loss for binary classification,
+* `"categorical_crossentropy"` is the logistic loss for multi-class classification.
+
+The optimizers defined in this section are available as `"sgd"` and `"adam"`.
+In order to get control over optimizer hyper-parameters, one can alternatively use the following syntax:
+
+
+```{code-cell}
+:tags: [remove-stderr]
+
+from tensorflow.keras.optimizers import Adam, SGD
+
+# `lr` stands for learning rate 
+# Not a very good idea to tune beat_1 and beta_2 parameters in Adam
+adam_opt = Adam(lr=0.001, beta_1=0.9, beta_2=0.9)
+
+# In order to use SGD with a custom learning rate:
+# sgd_opt = SGD(lr=0.001)
+
+model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
+```
