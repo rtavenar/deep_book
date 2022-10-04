@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -416,27 +417,69 @@ title="Print to PDF"
 <span id="sec-sgd"></span><h1>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">#</a></h1>
 <p>In this chapter, we will present variants of the <strong>Gradient Descent</strong> optimization strategy and show how they can be used to optimize neural network parameters.</p>
 <p>Let us start with the basic Gradient Descent algorithm and its limitations.</p>
-<p><strong>TODO: Include Algo here</strong></p>
-<p>As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
+<div class="proof algorithm admonition" id="algo:gd">
+<p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Gradient Descent)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input:</strong> A dataset <span class="math notranslate nohighlight">\(\mathcal{D} = (X, y)\)</span></p>
+<ol class="simple">
+<li><p>Initialize model parameters <span class="math notranslate nohighlight">\(\theta\)</span></p></li>
+<li><p>for <span class="math notranslate nohighlight">\(e = 1 .. E\)</span></p>
+<ol class="simple">
+<li><p>for <span class="math notranslate nohighlight">\((x_i, y_i) \in \mathcal{D}\)</span></p>
+<ol class="simple">
+<li><p>Compute prediction <span class="math notranslate nohighlight">\(\hat{y}_i = m_\theta(x_i)\)</span></p></li>
+<li><p>Compute gradient <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L}_i\)</span></p></li>
+</ol>
+</li>
+<li><p>Compute overall gradient <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L} = \frac{1}{n} \sum_i \nabla_\theta \mathcal{L}_i\)</span></p></li>
+<li><p>Update parameters <span class="math notranslate nohighlight">\(\theta\)</span> based on <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L}\)</span></p></li>
+</ol>
+</li>
+</ol>
+</section>
+</div><p>As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
 When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.</p>
 <section id="stochastic-gradient-descent-sgd">
 <h2>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this headline">#</a></h2>
 <p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity</p>
 <div class="math notranslate nohighlight">
 \[
-    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{(x_i, y_i) \in \mathcal{D}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
 \]</div>
-<p>To do so, one draws subsets of data, called <em>minibatches</em>, and</p>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is the whole training set.
+To do so, one draws subsets of data, called <em>minibatches</em>, and</p>
 <div class="math notranslate nohighlight">
 \[
-    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{(x_i, y_i) \in \text{minibatch}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
 \]</div>
-<p>is used as an estimator for this quantity.
+<p>is used as an estimator for <span class="math notranslate nohighlight">\(\nabla_w \mathcal{L}(X, y ; m_\theta)\)</span>.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.</p>
-<p><strong>TODO: Include Algo here</strong></p>
-<p><strong>TODO: include animation GD vs SGD here</strong></p>
-<p>Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
-Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and teh same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:</p>
+<div class="proof algorithm admonition" id="algo:sgd">
+<p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Stochastic Gradient Descent)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input:</strong> A dataset <span class="math notranslate nohighlight">\(\mathcal{D} = (X, y)\)</span></p>
+<ol class="simple">
+<li><p>Initialize model parameters <span class="math notranslate nohighlight">\(\theta\)</span></p></li>
+<li><p>for <span class="math notranslate nohighlight">\(e = 1 .. E\)</span></p>
+<ol class="simple">
+<li><p>for <span class="math notranslate nohighlight">\(t = 1 .. n_\text{minibatches}\)</span></p>
+<ol class="simple">
+<li><p>Draw minibatch <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> as a random sample of size <span class="math notranslate nohighlight">\(b\)</span> from <span class="math notranslate nohighlight">\(\mathcal{D}\)</span></p></li>
+<li><p>for <span class="math notranslate nohighlight">\((x_i, y_i) \in \mathcal{B}\)</span></p>
+<ol class="simple">
+<li><p>Compute prediction <span class="math notranslate nohighlight">\(\hat{y}_i = m_\theta(x_i)\)</span></p></li>
+<li><p>Compute gradient <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L}_i\)</span></p></li>
+</ol>
+</li>
+<li><p>Compute minibatch-level gradient <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L}_\mathcal{B} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i\)</span></p></li>
+<li><p>Update parameters <span class="math notranslate nohighlight">\(\theta\)</span> based on <span class="math notranslate nohighlight">\(\nabla_\theta \mathcal{L}_\mathcal{B}\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</div><p>As a consequence, when using SGD, parameter updates are more frequent, but they are “noisy” since they are based on an minibatch estimation of the gradient instead of relying on the true gradient, as illustrated below:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -444,10 +487,182 @@ Indeed, as one can see below, contrary to what we had in the Perceptron case, th
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">();</span>
 
-<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">optim</span>
+
+
+<span class="k">def</span> <span class="nf">grad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lambd</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">y</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">p</span><span class="p">))</span> <span class="o">+</span> <span class="n">lambd</span> <span class="o">*</span> <span class="n">alpha</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+<span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lambd</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">p</span><span class="p">))</span> <span class="o">+</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">lambd</span> <span class="o">*</span> <span class="n">norm</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="c1"># TODO: 1/n pour pas que le SGD fasse nimp</span>
+
+
+<span class="k">def</span> <span class="nf">optim_gd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha_init</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+    <span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha_init</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="o">-</span> <span class="n">grad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alphas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">lambd</span><span class="p">)</span>        
+        <span class="n">alphas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alphas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">optim_sgd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha_init</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">):</span>
+    <span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="n">alpha_init</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">minibatch_size</span><span class="p">):</span>
+            <span class="n">scaled_lambda</span> <span class="o">=</span> <span class="n">lambd</span> <span class="o">/</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">minibatch_size</span><span class="p">)</span>
+            <span class="n">indices_minibatch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">minibatch_size</span><span class="p">)</span>
+            <span class="n">X_minibatch</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">indices_minibatch</span><span class="p">]</span>
+            <span class="n">y_minibatch</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">indices_minibatch</span><span class="p">]</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="o">-</span> <span class="n">grad</span><span class="p">(</span><span class="n">X_minibatch</span><span class="p">,</span> <span class="n">y_minibatch</span><span class="p">,</span> <span class="n">alphas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">scaled_lambda</span><span class="p">)</span>
+              
+            <span class="n">alphas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alphas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">stretch_to_range</span><span class="p">(</span><span class="n">lim</span><span class="p">,</span> <span class="n">sz_range</span><span class="p">):</span>
+    <span class="n">middle</span> <span class="o">=</span> <span class="p">(</span><span class="n">lim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">middle</span> <span class="o">-</span> <span class="n">sz_range</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">middle</span> <span class="o">+</span> <span class="n">sz_range</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">get_lims</span><span class="p">(</span><span class="o">*</span><span class="n">alphas_list</span><span class="p">):</span>
+    <span class="n">xlims</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">min</span><span class="p">([</span><span class="n">alphas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="n">alphas</span> <span class="ow">in</span> <span class="n">alphas_list</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nb">max</span><span class="p">([</span><span class="n">alphas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">alphas</span> <span class="ow">in</span> <span class="n">alphas_list</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">]</span>
+    <span class="n">ylims</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">min</span><span class="p">([</span><span class="n">alphas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="n">alphas</span> <span class="ow">in</span> <span class="n">alphas_list</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nb">max</span><span class="p">([</span><span class="n">alphas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">alphas</span> <span class="ow">in</span> <span class="n">alphas_list</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">ylims</span> <span class="o">=</span> <span class="n">stretch_to_range</span><span class="p">(</span><span class="n">ylims</span><span class="p">,</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xlims</span> <span class="o">=</span> <span class="n">stretch_to_range</span><span class="p">(</span><span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span>
+
+
+<span class="k">def</span> <span class="nf">gen_anim</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alphas_gd</span><span class="p">,</span> <span class="n">alphas_sgd</span><span class="p">,</span> <span class="n">alpha_star</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="p">,</span> <span class="n">n_steps_per_epoch</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">lines_alphas</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span>   <span class="p">:</span> <span class="mi">18</span><span class="p">}</span>
+    <span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">xv</span><span class="p">,</span> <span class="n">yv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">),</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">xvisu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">xv</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">yv</span><span class="o">.</span><span class="n">ravel</span><span class="p">()[:,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nn</span><span class="p">):</span>
+        <span class="n">pv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xvisu</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lambd</span><span class="p">)</span>
+
+    <span class="n">P</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+    
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+    <span class="n">lines_alphas</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">texts</span> <span class="o">=</span> <span class="p">[]</span>  
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> 
+                                 <span class="p">[</span><span class="n">alphas_gd</span><span class="p">,</span> <span class="n">alphas_sgd</span><span class="p">],</span>
+                                 <span class="p">[</span><span class="s2">&quot;Gradient Descent&quot;</span><span class="p">,</span> <span class="s2">&quot;Stochastic Gradient Descent&quot;</span><span class="p">]):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">xv</span><span class="p">,</span> <span class="n">yv</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">alphas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">fillstyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+        <span class="n">line_alphas</span><span class="p">,</span>  <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">[:</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">alphas</span><span class="p">[:</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+        <span class="n">lines_alphas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_alphas</span><span class="p">)</span>
+        
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alpha_star</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha_star</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;+r&#39;</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$w_0$&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$w_1$&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlims</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylims</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">text_epoch</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.7</span> <span class="o">*</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;Epoch 0&quot;</span><span class="p">)</span>
+        <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_epoch</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">lines_alphas</span>
+        
+        <span class="k">for</span> <span class="n">line_alphas</span><span class="p">,</span> <span class="n">text_epoch</span><span class="p">,</span> <span class="n">alphas</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lines_alphas</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="p">[</span><span class="n">alphas_gd</span><span class="p">,</span> <span class="n">alphas_sgd</span><span class="p">]):</span>
+            <span class="n">line_alphas</span><span class="o">.</span><span class="n">set_xdata</span><span class="p">(</span><span class="n">alphas</span><span class="p">[:</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">line_alphas</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">alphas</span><span class="p">[:</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+            
+            <span class="n">text_epoch</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">i</span> <span class="o">//</span> <span class="n">n_steps_per_epoch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lines_alphas</span> <span class="o">+</span> <span class="n">texts</span>
+
+    <span class="k">return</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">save_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">alphas_gd</span><span class="p">))</span>
+
+
+<span class="c1"># Data</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="mf">1.5</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+<span class="n">y</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="c1"># Optim</span>
+
+<span class="n">lambd</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="mf">2e-1</span>
+<span class="n">alpha_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.</span><span class="p">])</span>
+<span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">minibatch_size</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">res_optim</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">alpha</span><span class="p">:</span> <span class="n">cost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lambd</span><span class="p">),</span>
+                           <span class="n">x0</span><span class="o">=</span><span class="n">alpha_init</span><span class="p">,</span> 
+                           <span class="n">jac</span><span class="o">=</span><span class="k">lambda</span> <span class="n">alpha</span><span class="p">:</span> <span class="n">grad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lambd</span><span class="p">))</span>
+<span class="n">alpha_star</span> <span class="o">=</span> <span class="n">res_optim</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+
+<span class="n">alphas_gd</span> <span class="o">=</span> <span class="n">optim_gd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha_init</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
+<span class="n">alphas_sgd</span> <span class="o">=</span> <span class="n">optim_sgd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha_init</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">)</span>
+
+<span class="c1"># Visualization</span>
+<span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span> <span class="o">=</span> <span class="n">get_lims</span><span class="p">(</span><span class="n">alphas_gd</span><span class="p">,</span> <span class="n">alphas_sgd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">alpha_star</span><span class="p">]))</span>
+
+<span class="n">ani</span> <span class="o">=</span> <span class="n">gen_anim</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> 
+               <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">alphas_gd</span><span class="p">,</span> <span class="mi">20</span> <span class="o">//</span> <span class="n">minibatch_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">alphas_sgd</span><span class="p">,</span>
+               <span class="n">alpha_star</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="p">,</span> 
+               <span class="n">n_steps_per_epoch</span><span class="o">=</span><span class="mi">20</span> <span class="o">//</span> <span class="n">minibatch_size</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">ani</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="ne">---&gt; </span><span class="mi">12</span> <span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">def</span> <span class="nf">grad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lambd</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;scipy&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">model_forward_loss</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">biases</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -485,8 +700,6 @@ Indeed, as one can see below, contrary to what we had in the Perceptron case, th
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/optim_1_0.svg" src="../_images/optim_1_0.svg" /></div>
 </div>
 <p>Gradient Descent is known to suffer from local optima, and such loss landscapes are a serious problem for GD.
 On the other hand, Stochastic Gradient Descent is likely to benefit from noisy gradient estimations to escape local minima.</p>
