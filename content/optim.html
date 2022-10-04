@@ -421,14 +421,15 @@ title="Print to PDF"
 When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.</p>
 <section id="stochastic-gradient-descent-sgd">
 <h2>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this headline">#</a></h2>
-<p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity
-$<span class="math notranslate nohighlight">\(
-    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \mathcal{L}(x_i, y_i ; m_\theta)
-\)</span>$</p>
+<p>The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+    \nabla_w \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_{x_i, y_i \in \mathcal{D}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
+\]</div>
 <p>To do so, one draws subsets of data, called <em>minibatches</em>, and</p>
 <div class="math notranslate nohighlight">
 \[
-    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \mathcal{L}(x_i, y_i ; m_\theta)
+    \nabla_w \mathcal{L}(X_\text{minibatch}, y_\text{minibatch} ; m_\theta) = \frac{1}{b} \sum_{x_i, y_i \in \text{minibatch}} \nabla_w \mathcal{L}(x_i, y_i ; m_\theta)
 \]</div>
 <p>is used as an estimator for this quantity.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.</p>
@@ -436,7 +437,7 @@ This results in the following algorithm in which, interestingly, parameter updat
 <p><strong>TODO: include animation GD vs SGD here</strong></p>
 <p>Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
 Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and teh same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:</p>
-<div class="cell tag_hide-cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
