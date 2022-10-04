@@ -37,10 +37,10 @@ Let us start with the basic Gradient Descent algorithm and its limitations.
     3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}$
 ```
 
-The typical update rule for the parameters $\theta$ is
+The typical update rule for the parameters $\theta$ at iteration $t$ is
 
 $$
-    \theta \leftarrow \theta - \rho \nabla_\theta \mathcal{L}
+    \theta^{(t+1)} \leftarrow \theta^{(t)} - \rho \nabla_\theta \mathcal{L}
 $$
 
 where $\rho$ is an important hyper-parameter of the method, called the learning rate.
@@ -318,7 +318,7 @@ Another important difference between SGD and the Adam variant consists in using 
 In other words, instead of using the same learning rate $\rho$ for all model parameters, the learning rate for a given parameter $\theta_i$ is defined as:
 
 $$
-  \hat{\rho}(\theta_i) = \frac{\rho}{\sqrt{s^{(t+1)}(\theta_i)+\epsilon}}
+  \hat{\rho}^{(t+1)}(\theta_i) = \frac{\rho}{\sqrt{s^{(t+1)}(\theta_i)+\epsilon}}
 $$
 
 where $\epsilon$ is a small constant and
@@ -332,7 +332,7 @@ Here also, the $s$ term uses momentum. As a result, the learning rate will be lo
 Overall, the Adam update rule is:
 
 $$
-  \theta \leftarrow \theta - \hat{\rho}(\theta) \mathbf{m}
+  \theta^{(t+1)} \leftarrow \theta^{(t)} - \hat{\rho}^{(t+1)}(\theta) \mathbf{m}^{(t+1)}
 $$
 
 ## The curse of depth
@@ -340,8 +340,6 @@ $$
 **TODO:** MLP illustration with colors and chain rule
 
 **TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
-
-**TODO**: talk about feature standardization and how it eases the convergence to a good solution
 
 ## Wrapping things up in `keras`
 
