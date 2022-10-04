@@ -221,7 +221,7 @@ def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_ste
 
 np.random.seed(0)
 X = np.random.rand(20, 2) * 3 - 1.5
-y = (X[:, 0] > 0.).astype(np.int)
+y = (X[:, 0] > 0.).astype(int)
 y[y == 0] = -1
 
 # Optim
