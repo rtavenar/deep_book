@@ -3,3 +3,4 @@ tensorflow
 celluloid
 sphinxcontrib-tikz
 pandas
+sphinx-proof

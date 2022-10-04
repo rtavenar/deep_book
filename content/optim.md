@@ -20,7 +20,22 @@ In this chapter, we will present variants of the **Gradient Descent** optimizati
 
 Let us start with the basic Gradient Descent algorithm and its limitations.
 
-**TODO: Include Algo here**
+```{prf:algorithm} Gradient Descent
+:label: algo:gd
+
+**Input:** A dataset $\mathcal{D} = (X, y)$
+
+1. Initialize model parameters $\theta$
+2. for $e = 1 .. E$
+
+    1. for $(x_i, y_i) \in \mathcal{D}$
+
+        1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
+        2. Compute gradient $\nabla_\theta \mathcal{L}_i$
+
+    2. Compute overall gradient $\nabla_\theta \mathcal{L} = \frac{1}{n} \sum_i \nabla_\theta \mathcal{L}_i$
+    3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}$
+```
 
 As one can see in the previous algorithm, in the Gradient Descent algorithm, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
 When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.
@@ -42,13 +57,27 @@ $$
 is used as an estimator for $\nabla_w \mathcal{L}(X, y ; m_\theta)$.
 This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.
 
-**TODO: Include Algo here**
+```{prf:algorithm} Stochastic Gradient Descent
+:label: algo:sgd
 
-**TODO: include animation GD vs SGD here**
+**Input:** A dataset $\mathcal{D} = (X, y)$
 
+1. Initialize model parameters $\theta$
+2. for $e = 1 .. E$
 
-Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
-Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and teh same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
+    1. for $t = 1 .. n_\text{minibatches}$
+
+        1. Draw minibatch $\mathcal{B}$ as a random sample of size $b$ from $\mathcal{D}$
+        1. for $(x_i, y_i) \in \mathcal{B}$
+
+            1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
+            2. Compute gradient $\nabla_\theta \mathcal{L}_i$
+
+        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_\mathcal{B} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
+        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_\mathcal{B}$
+```
+
+As a consequence, when using SGD, parameter updates are more frequent, but they are "noisy" since they are based on an minibatch estimation of the gradient instead of relying on the true gradient, as illustrated below:
 
 ```{code-cell}
 :tags: [hide-input]
@@ -58,8 +87,167 @@ import numpy as np
 %config InlineBackend.figure_format = 'svg'
 %matplotlib inline
 import matplotlib.pyplot as plt
+from IPython.display import HTML
 
 plt.ion();
+
+import matplotlib.animation as animation
+from matplotlib import rc
+import scipy.optimize as optim
+
+
+def grad(X, y, alpha, lambd):
+    p = np.exp(-y * X.dot(alpha))
+    d = - X.T.dot(p * y / (1 + p)) + lambd * alpha
+    return d
+
+def norm(x):
+    return np.sqrt(np.sum(x ** 2))
+
+def cost(X, y, alpha, lambd):
+    p = np.exp(-y * X.dot(alpha))
+    return np.sum(np.log(1 + p)) + .5 * lambd * norm(alpha) ** 2
+    # TODO: 1/n pour pas que le SGD fasse nimp
+
+
+def optim_gd(X, y, alpha_init, n_epochs, lambd, rho):
+    alphas = [alpha_init]
+    for _ in range(n_epochs):
+        d = - grad(X, y, alphas[-1], lambd)        
+        alphas.append(alphas[-1] + rho * d)
+
+    return np.concatenate(alphas, axis=0).reshape((-1, alpha_init.shape[0]))
+
+
+def optim_sgd(X, y, alpha_init, n_epochs, lambd, rho, minibatch_size):
+    alphas = [alpha_init]
+    for i in range(n_epochs):
+        for j in range(X.shape[0] // minibatch_size):
+            scaled_lambda = lambd / (X.shape[0] // minibatch_size)
+            indices_minibatch = np.random.randint(X.shape[0], size=minibatch_size)
+            X_minibatch = X[indices_minibatch]
+            y_minibatch = y[indices_minibatch]
+            d = - grad(X_minibatch, y_minibatch, alphas[-1], scaled_lambda)
+              
+            alphas.append(alphas[-1] + rho * d)
+
+    return np.concatenate(alphas, axis=0).reshape((-1, alpha_init.shape[0]))
+
+
+def stretch_to_range(lim, sz_range):
+    middle = (lim[0] + lim[1]) / 2
+    return [middle - sz_range / 2, middle + sz_range / 2]
+
+
+def get_lims(*alphas_list):
+    xlims = [
+        min([alphas[:, 0].min() for alphas in alphas_list]) - 1,
+        max([alphas[:, 0].max() for alphas in alphas_list]) + 1
+    ]
+    ylims = [
+        min([alphas[:, 1].min() for alphas in alphas_list]) - 1,
+        max([alphas[:, 1].max() for alphas in alphas_list]) + 1
+    ]
+    if xlims[1] - xlims[0] > ylims[1] - ylims[0]:
+        ylims = stretch_to_range(ylims, xlims[1] - xlims[0])
+    else:
+        xlims = stretch_to_range(xlims, ylims[1] - ylims[0])
+    return xlims, ylims
+
+
+def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_steps_per_epoch):
+    global lines_alphas
+    font = {'size'   : 18}
+    rc('font', **font)
+
+    n = 40
+    nn = n * n
+    xv, yv = np.meshgrid(np.linspace(xlims[0], xlims[1], n),
+                         np.linspace(ylims[0], ylims[1], n))
+    xvisu = np.concatenate((xv.ravel()[:, None], yv.ravel()[:, None]), axis=1)
+
+    pv = np.zeros(nn)
+    for i in range(nn):
+        pv[i] = cost(X, y, xvisu[i], lambd)
+
+    P = pv.reshape((n,n))
+    
+    fig = plt.figure(figsize=(13, 6))
+    axes = [plt.subplot(1, 2, i + 1) for i in range(2)]
+
+    lines_alphas = []
+    texts = []  
+    for ax, alphas, title in zip(axes, 
+                                 [alphas_gd, alphas_sgd],
+                                 ["Gradient Descent", "Stochastic Gradient Descent"]):
+        ax.contour(xv, yv, P, alpha=0.5)
+        ax.plot(alphas[0, 0], alphas[0, 1], 'ko', fillstyle='none')
+        line_alphas,  = ax.plot(alphas[:1, 0], alphas[:1, 1], marker="x")
+        lines_alphas.append(line_alphas)
+        
+        ax.plot(alpha_star[0:1], alpha_star[1:2], '+r')
+
+        ax.set_xlabel("$w_0$")
+        ax.set_ylabel("$w_1$")
+        ax.set_xlim(xlims)
+        ax.set_ylim(ylims)
+        ax.set_title(title)
+        text_epoch = ax.text(0.7 * xlims[1], 0.8 * ylims[1], s="Epoch 0")
+        texts.append(text_epoch)
+
+    def animate(i):
+        global lines_alphas
+        
+        for line_alphas, text_epoch, alphas in zip(lines_alphas, texts, [alphas_gd, alphas_sgd]):
+            line_alphas.set_xdata(alphas[:i, 0])
+            line_alphas.set_ydata(alphas[:i, 1])
+            
+            text_epoch.set_text(f"Epoch {i // n_steps_per_epoch}")
+        return lines_alphas + texts
+
+    return animation.FuncAnimation(fig, animate, interval=100, blit=False, save_count=len(alphas_gd))
+
+
+# Data
+
+np.random.seed(0)
+X = np.random.rand(20, 2) * 3 - 1.5
+y = (X[:, 0] > 0.).astype(np.int)
+y[y == 0] = -1
+
+# Optim
+
+lambd = .1
+rho = 2e-1
+alpha_init = np.array([1., -3.])
+n_epochs = 10
+minibatch_size = 4
+
+res_optim = optim.minimize(fun=lambda alpha: cost(X, y, alpha, lambd),
+                           x0=alpha_init, 
+                           jac=lambda alpha: grad(X, y, alpha, lambd))
+alpha_star = res_optim["x"]
+
+alphas_gd = optim_gd(X, y, alpha_init, n_epochs, lambd, rho)
+alphas_sgd = optim_sgd(X, y, alpha_init, n_epochs, lambd, rho, minibatch_size)
+
+# Visualization
+xlims, ylims = get_lims(alphas_gd, alphas_sgd, np.array([alpha_star]))
+
+ani = gen_anim(X, y, 
+               np.repeat(alphas_gd, 20 // minibatch_size, axis=0), alphas_sgd,
+               alpha_star, lambd, xlims, ylims, 
+               n_steps_per_epoch=20 // minibatch_size)
+plt.close()
+HTML(ani.to_jshtml())
+```
+
+
+Apart from beneficing from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
+
+```{code-cell}
+:tags: [hide-input]
 
 def sigmoid(x):
     return 1. / (1. + np.exp(-x))

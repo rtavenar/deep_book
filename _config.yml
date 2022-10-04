@@ -15,6 +15,8 @@ sphinx:
     tikz_proc_suite: pdf2svg
   extra_extensions:
   - sphinxcontrib.tikz
+  - sphinx_proof
+
 
 parse:
   myst_enable_extensions:
