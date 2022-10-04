@@ -360,12 +360,13 @@ In order to get control over optimizer hyper-parameters, one can alternatively u
 
 from tensorflow.keras.optimizers import Adam, SGD
 
-# `lr` stands for learning rate 
-# Not a very good idea to tune beat_1 and beta_2 parameters in Adam
-adam_opt = Adam(lr=0.001, beta_1=0.9, beta_2=0.9)
+# Not a very good idea to tune beta_1 
+# and beta_2 parameters in Adam
+adam_opt = Adam(learning_rate=0.001, 
+                beta_1=0.9, beta_2=0.9)
 
 # In order to use SGD with a custom learning rate:
-# sgd_opt = SGD(lr=0.001)
+# sgd_opt = SGD(learning_rate=0.001)
 
 model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
 ```
