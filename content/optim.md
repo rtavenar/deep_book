@@ -300,15 +300,40 @@ On the other hand, Stochastic Gradient Descent is likely to benefit from noisy g
 
 ## A note on Adam
 
-**TODO: explain formulas**
+Adam {cite}`2015-kingma` is a variant of the Stochastic Gradient Descent method.
+It differs in the definition of the steps to be performed at each parameter update.
 
-\begin{align*}
-    \mathbf{m}^{(t+1)} & \propto &  \beta_1 \mathbf{m}^{(t)} + (1 - \beta_1) \nabla_\theta \mathcal{L} \\
-    \mathbf{s}^{(t+1)} & \propto &  \beta_{2} \mathbf{s}^{(t)} + (1-\beta_{2}) \nabla_{\theta} \mathcal{L} \otimes \nabla_{\theta} \mathcal{L} \\
-    \theta^{(t+1)} & \leftarrow & \theta^{(t)} - \rho \mathbf{m}^{(t+1)} \oslash \sqrt{\mathbf{s}^{(t+1)}+\epsilon}
-\end{align*}
+First, it uses what is called momentum, which basically consists in relying on past gradient updates to smooth out the trajectory in parameter space during optimization.
+An interactive illustration of momentum can be found in {cite}`goh2017why`.
 
-**TODO: illustrate SGD, SGD+momentum, Adam on a given optimization problem**
+The resulting plugin replacement for the gradient is:
+
+$$
+  \mathbf{m}^{(t+1)} \leftarrow \frac{1}{1 - \beta_1^t} \left[\beta_1 \mathbf{m}^{(t)} + (1 - \beta_1) \nabla_\theta \mathcal{L} \right]
+$$
+
+When $\beta_1$ is zero, we have $\mathbf{m}^{(t+1)} = \nabla_\theta \mathcal{L}$ and for $\beta_1 \in ]0, 1[$, $\mathbf{m}^{(t+1)}$ balances the current gradient estimate with information about past estimates, stored in $\mathbf{m}^{(t)}$.
+
+Another important difference between SGD and the Adam variant consists in using an adaptive learning rate.
+In other words, instead of using the same learning rate $\rho$ for all model parameters, the learning rate for a given parameter $\theta_i$ is defined as:
+
+$$
+  \hat{\rho}(\theta_i) = \frac{\rho}{\sqrt{s^{(t+1)}(\theta_i)+\epsilon}}
+$$
+
+where $\epsilon$ is a small constant and
+
+$$
+  s^{(t+1)}(\theta_i) = \frac{1}{1 - \beta_2^t} \left[ \beta_{2} s^{(t)}(\theta_i) + (1-\beta_{2}) \left(\nabla_{\theta_i} \mathcal{L}\right)^2\right]
+$$
+
+Here also, the $s$ term uses momentum. As a result, the learning rate will be lowered for parameters which have suffered large updates in the past iterations.
+
+Overall, the Adam update rule is:
+
+$$
+  \theta \leftarrow \theta - \hat{\rho}(\theta) \mathbf{m}
+$$
 
 ## The curse of depth
 
@@ -369,4 +394,16 @@ adam_opt = Adam(learning_rate=0.001,
 # sgd_opt = SGD(learning_rate=0.001)
 
 model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
+```
+
+## Parameter initialization and data standardization
+
+**TODO**
+
+
+
+## References
+
+```{bibliography}
+:filter: docname in docnames
 ```
