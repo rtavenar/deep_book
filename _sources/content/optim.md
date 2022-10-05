@@ -82,13 +82,13 @@ This results in the following algorithm in which, interestingly, parameter updat
             1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
             2. Compute gradient $\nabla_\theta \mathcal{L}_i$
 
-        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_\mathcal{B} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
-        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_\mathcal{B}$
+        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_{\mathcal{B}} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
+        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_{\mathcal{B}}$
 ```
 
 As a consequence, when using SGD, parameter updates are more frequent, but they are "noisy" since they are based on an minibatch estimation of the gradient instead of relying on the true gradient, as illustrated below:
 
-```{code-cell}
+```{code-cell} ipython3
 :tags: [hide-input]
 
 import numpy as np
@@ -255,8 +255,13 @@ HTML(ani.to_jshtml())
 Apart from implying from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
 Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
 
-```{code-cell}
-:tags: [hide-input]
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+tags: [hide-input]
+---
 
 def sigmoid(x):
     return 1. / (1. + np.exp(-x))

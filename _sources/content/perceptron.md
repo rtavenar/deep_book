@@ -91,6 +91,11 @@ dataset, which is the median value of owner-occupied homes in $1000
 `"PRICE"`, as a function of the average number of rooms per dwelling `"RM"` :
 
 ```{code-cell}
+---
+render:
+  image:
+    tex_specific_width: 60%
+---
 x = boston["RM"]
 y = boston["PRICE"]
 
@@ -127,6 +132,11 @@ dataset.
 Let us have a look at this quantity as a function of $w$:
 
 ```{code-cell}
+---
+render:
+  image:
+    tex_specific_width: 60%
+---
 import numpy as np
 
 def loss(w, x, y):
@@ -171,6 +181,11 @@ This process is repeated until convergence, as illustrated in the following
 visualization:
 
 ```{code-cell}
+---
+render:
+  image:
+    tex_specific_width: 60%
+---
 rho = 1e-5
 
 def grad_loss(w_t, x, y):
@@ -195,6 +210,11 @@ plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 What would we get if we used a smaller learning rate?
 
 ```{code-cell}
+---
+render:
+  image:
+    tex_specific_width: 60%
+---
 rho = 1e-6
 
 ww = np.linspace(-2, 10, num=100)
@@ -214,6 +234,11 @@ It would definitely take more time to converge.
 But, take care, a larger learning rate is not always a good idea:
 
 ```{code-cell}
+---
+render:
+  image:
+    tex_specific_width: 60%
+---
 rho = 5e-5
 
 ww = np.linspace(-2, 10, num=100)
