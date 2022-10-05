@@ -2,3 +2,5 @@ _build/
 .ipynb_checkpoints/
 TODO.md
 py_tests/
+content_tex/
+_toc_tex.yml

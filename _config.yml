@@ -13,9 +13,12 @@ sphinx:
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
     nb_merge_streams: true
     tikz_proc_suite: pdf2svg
+    jblatex_load_imgconverter: true
+    jblatex_captions_to_parts: true
   extra_extensions:
   - sphinxcontrib.tikz
   - sphinx_proof
+  - sphinx_jupyterbook_latex
 
 
 parse:

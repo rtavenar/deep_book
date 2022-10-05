@@ -82,8 +82,8 @@ This results in the following algorithm in which, interestingly, parameter updat
             1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
             2. Compute gradient $\nabla_\theta \mathcal{L}_i$
 
-        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_\mathcal{B} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
-        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_\mathcal{B}$
+        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_{\mathcal{B}} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
+        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_{\mathcal{B}}$
 ```
 
 As a consequence, when using SGD, parameter updates are more frequent, but they are "noisy" since they are based on an minibatch estimation of the gradient instead of relying on the true gradient, as illustrated below:
