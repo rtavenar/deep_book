@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 
 ```
 
-## The model
+## A first model: the Perceptron
 
 In the neural network terminology, a neuron is a parametrized function that
 takes a vector $\mathbf{x}$ as input and outputs a single value $a$ as follows:
