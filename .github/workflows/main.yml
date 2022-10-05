@@ -49,7 +49,7 @@ jobs:
         source prepare_tex.sh
         jupyter-book build . --builder latex --toc _toc_tex.yml
         python post_process_tex.py ./_build/latex/book.tex
-        cd ./_build/latex/ && latexmk && cd -
+        cd ./_build/latex/ && make && cd -
         mv ./_build/latex/book.pdf ./_build/html/
     
     # Push the book's HTML+PDF to github-pages
