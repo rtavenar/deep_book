@@ -167,7 +167,7 @@ def get_lims(*alphas_list):
 def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_steps_per_epoch):
     global lines_alphas
     font = {'size'   : 18}
-    rc('font', **font)
+    # rc('font', **font)
 
     n = 40
     nn = n * n
@@ -522,7 +522,7 @@ These terms can be further developed as:
 Let us inspect what the derivatives of standard activation functions look like:
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input, remove-stderr]
 
 import tensorflow as tf
 
@@ -567,7 +567,7 @@ plt.title("ReLU'(x)")
 plt.tight_layout();
 ```
 
-One can see that the derivative of ReLU has a wider range of input values for which it is non-zero than its competitors, which makes it a very attractive candidate activation function for deep neural networks, as we have seen that the $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ term appears repeatedly in chain rule derivations.
+One can see that the derivative of ReLU has a wider range of input values for which it is non-zero (typically the whole range of positive input values) than its competitors, which makes it a very attractive candidate activation function for deep neural networks, as we have seen that the $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ term appears repeatedly in chain rule derivations.
 
 ## Wrapping things up in `keras`
 
