@@ -21,7 +21,42 @@ series one at a time.
 Typically, at time $t$, a recurrent block will take both the current input $x_t$
 and a hidden state $h_{t-1}$ that aims at summarizing the key information from
 past inputs $\{x_0, \dots, x_{t-1}\}$, and will output an updated hidden state
-$h_{t}$.
+$h_{t}$:
+
+
+```{tikz}
+    \usetikzlibrary{arrows.meta}
+    \node[draw, circle, minimum size=36pt,inner sep=0pt] (prev_rnn_cell) at  (-3, 0) {};
+    \node[draw, circle, minimum size=36pt,inner sep=0pt] (rnn_cell) at  (0, 0) {};
+    \node[draw, circle, minimum size=36pt,inner sep=0pt] (next_rnn_cell) at  (3, 0) {};
+    \node[scale=2] (prev_prev_rnn_cell) at  (-6, 0) {\dots};
+    \node[scale=2] (next_next_rnn_cell) at  (6, 0) {\dots};
+    
+    \node[scale=2] (h_t) at  (0, 3) {$h_t$};
+    \node[scale=2] (x_t) at  (0, -3) {$x_t$};
+    
+    \node[scale=2] (h_tm1) at  (-3, 3) {$h_{t-1}$};
+    \node[scale=2] (x_tm1) at  (-3, -3) {$x_{t-1}$};
+    
+    \node[scale=2] (h_tp1) at  (3, 3) {$h_{t+1}$};
+    \node[scale=2] (x_tp1) at  (3, -3) {$x_{t+1}$};
+
+    \draw[-{Stealth[length=5mm]}] (prev_rnn_cell) -- (h_tm1);
+    \draw[-{Stealth[length=5mm]}] (prev_prev_rnn_cell) -- (prev_rnn_cell);
+    \draw[-{Stealth[length=5mm]}] (x_tm1) -- (prev_rnn_cell);
+
+    \draw[-{Stealth[length=5mm]}] (rnn_cell) -- (h_t);
+    \draw[-{Stealth[length=5mm]}] (x_t) -- (rnn_cell);
+
+    \draw[-{Stealth[length=5mm]}] (next_rnn_cell) -- (h_tp1);
+    \draw[-{Stealth[length=5mm]}] (x_tp1) -- (next_rnn_cell);
+
+    \draw [-{Stealth[length=5mm]}] (0, 1) .. controls (1, 1) and (1.5, 0) .. (next_rnn_cell);
+    \draw [-{Stealth[length=5mm]}] (3, 1) .. controls (4, 1) and (4.5, 0) .. (next_next_rnn_cell);
+    \draw [-{Stealth[length=5mm]}] (-3, 1) .. controls (-2, 1) and (-1.5, 0) .. (rnn_cell);
+```
+
+
 There exist various recurrent modules that mostly differ in the way $h_t$ is
 computed.
 
@@ -95,7 +130,7 @@ $W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text
 Now recall what the tanh function and its derivative look like:
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input, remove-stderr]
 
 import tensorflow as tf
 
@@ -223,9 +258,9 @@ where $r_t$ is an extra gate that can hide part of the previous hidden state.
 Formulas for gates $z_t$ and $r_t$ are similar to those provided for $f_t$,
 $i_t$ and $o_t$ in the case of LSTMs.
 
-A study of the ability of these variants of recurrent networks to learn
+A graphical study of the ability of these variants of recurrent networks to learn
 long-term dependencies is provided
-[in this online publication](https://distill.pub/2019/memorization-in-rnns/).
+in {cite}`madsen2019visualizing`.
 
 ## Conclusion
 

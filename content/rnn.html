@@ -439,8 +439,9 @@ series one at a time.
 Typically, at time <span class="math notranslate nohighlight">\(t\)</span>, a recurrent block will take both the current input <span class="math notranslate nohighlight">\(x_t\)</span>
 and a hidden state <span class="math notranslate nohighlight">\(h_{t-1}\)</span> that aims at summarizing the key information from
 past inputs <span class="math notranslate nohighlight">\(\{x_0, \dots, x_{t-1}\}\)</span>, and will output an updated hidden state
-<span class="math notranslate nohighlight">\(h_{t}\)</span>.
-There exist various recurrent modules that mostly differ in the way <span class="math notranslate nohighlight">\(h_t\)</span> is
+<span class="math notranslate nohighlight">\(h_{t}\)</span>:</p>
+<div class="figure" style="text-align: center"><p><img  src="../_images/tikz-80f52ef9bafabd6b5809c28af7649ffd04631eb0.svg" alt="Figure made with TikZ" /></p>
+</div><p>There exist various recurrent modules that mostly differ in the way <span class="math notranslate nohighlight">\(h_t\)</span> is
 computed.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -456,8 +457,8 @@ computed.</p>
 <section id="vanilla-rnns">
 <h2>“Vanilla” RNNs<a class="headerlink" href="#vanilla-rnns" title="Permalink to this headline">#</a></h2>
 <p>The basic formulation for a RNN block is as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9075d5d7-e4f6-4d46-bbc4-dde2afe71f48">
-<span class="eqno">()<a class="headerlink" href="#equation-9075d5d7-e4f6-4d46-bbc4-dde2afe71f48" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b3890da3-afbc-4a68-abb6-4a93aa6d1708">
+<span class="eqno">()<a class="headerlink" href="#equation-b3890da3-afbc-4a68-abb6-4a93aa6d1708" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(W_h\)</span> is a weight matrix associated to the processing of the previous
@@ -473,19 +474,19 @@ networks are optimized through stochastic gradient descent algorithms.</p>
 <span class="math notranslate nohighlight">\(h_t\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> are both scalar values, and let us have a look at what the
 actual gradient of the output <span class="math notranslate nohighlight">\(h_t\)</span> is, with
 respect to <span class="math notranslate nohighlight">\(W_h\)</span> (which is then also a scalar):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dd7087ec-9c4c-43f4-8831-aeaf33682176">
-<span class="eqno">()<a class="headerlink" href="#equation-dd7087ec-9c4c-43f4-8831-aeaf33682176" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-149aad96-faac-4994-b975-91c9d659609b">
+<span class="eqno">()<a class="headerlink" href="#equation-149aad96-faac-4994-b975-91c9d659609b" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, hence:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9542e0bc-ad31-4160-927f-551fb28d9587">
-<span class="eqno">()<a class="headerlink" href="#equation-9542e0bc-ad31-4160-927f-551fb28d9587" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3bdf67f1-d601-4661-b759-25b27a0c9efe">
+<span class="eqno">()<a class="headerlink" href="#equation-3bdf67f1-d601-4661-b759-25b27a0c9efe" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}\]</div>
 <p>Here, the form of <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> will be similar to
 that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> above, and, in the end, one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-489c6371-000c-404c-9e17-625c4440304c">
-<span class="eqno">()<a class="headerlink" href="#equation-489c6371-000c-404c-9e17-625c4440304c" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-002b939b-c49d-4212-a893-405eab3b0a44">
+<span class="eqno">()<a class="headerlink" href="#equation-002b939b-c49d-4212-a893-405eab3b0a44" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
     \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
         \left[
             h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
@@ -503,7 +504,7 @@ that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> 
 <p>In other words, the influence of <span class="math notranslate nohighlight">\(h_{t^\prime}\)</span> will be mitigated by a factor
 <span class="math notranslate nohighlight">\(W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text{tanh}^\prime(o_{t})\)</span>.</p>
 <p>Now recall what the tanh function and its derivative look like:</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell tag_hide-input tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
@@ -524,21 +525,6 @@ that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-04 21:02:46.478752: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-10-04 21:02:46.625905: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2022-10-04 21:02:46.625924: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-2022-10-04 21:02:46.657711: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-2022-10-04 21:02:47.347784: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer.so.7&#39;; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory
-2022-10-04 21:02:47.347866: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libnvinfer_plugin.so.7&#39;; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory
-2022-10-04 21:02:47.347874: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
-2022-10-04 21:02:48.203828: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-2022-10-04 21:02:48.203869: W tensorflow/stream_executor/cuda/cuda_driver.cc:263] failed call to cuInit: UNKNOWN ERROR (303)
-2022-10-04 21:02:48.203887: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az121-601): /proc/driver/nvidia/version does not exist
-2022-10-04 21:02:48.204177: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-</pre></div>
-</div>
 <img alt="../_images/rnn_3_3.svg" src="../_images/rnn_3_3.svg" /></div>
 </div>
 <p>One can see how quickly gradients gets close to 0 for inputs larger
@@ -553,7 +539,7 @@ This is an occurrence of a more general phenomenon known as the
 </section>
 <section id="long-short-term-memory">
 <h2>Long Short-Term Memory<a class="headerlink" href="#long-short-term-memory" title="Permalink to this headline">#</a></h2>
-<p>The Long Short-Term Memory (LSTM, <span id="id1">[<a class="reference internal" href="#id22" title="Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735–1780, 1997.">Hochreiter and Schmidhuber, 1997</a>]</span>) blocks have
+<p>The Long Short-Term Memory (LSTM, <span id="id1">[<a class="reference internal" href="#id23" title="Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735–1780, 1997.">Hochreiter and Schmidhuber, 1997</a>]</span>) blocks have
 been designed as an alternative
 recurrent block that aims at mitigating this vanishing gradient effect through
 the use of gates that explicitly encode pieces of information that should
@@ -569,8 +555,8 @@ The gate <span class="math notranslate nohighlight">\(g\)</span> will hence tend
 </div>
 <p>In these blocks, an extra state is used, referred to as the cell state <span class="math notranslate nohighlight">\(C_t\)</span>.
 This state is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4b9a17ec-cf9d-4b53-9b79-6b7053cb827a">
-<span class="eqno">()<a class="headerlink" href="#equation-4b9a17ec-cf9d-4b53-9b79-6b7053cb827a" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-553a845a-6737-47e3-aaad-8123468aa68e">
+<span class="eqno">()<a class="headerlink" href="#equation-553a845a-6737-47e3-aaad-8123468aa68e" title="Permalink to this equation">#</a></span>\[\begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_t\)</span> is the forget gate (which pushes the network to forget about
@@ -585,15 +571,15 @@ Indeed, in this case, if the network learns so (through <span class="math notran
 full information from the previous cell state <span class="math notranslate nohighlight">\(C_{t-1}\)</span> can be recovered,
 which would allow gradients to flow through time (and not vanish anymore).</p>
 <p>Then, the link between the cell and hidden states is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c4176709-f68e-4e89-b8e0-2f60bed16636">
-<span class="eqno">()<a class="headerlink" href="#equation-c4176709-f68e-4e89-b8e0-2f60bed16636" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-63bce1e7-d97b-4c34-bf13-205ee89a571e">
+<span class="eqno">()<a class="headerlink" href="#equation-63bce1e7-d97b-4c34-bf13-205ee89a571e" title="Permalink to this equation">#</a></span>\[\begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}\]</div>
 <p>In words, the hidden state is the tanh-transformed version of the cell state,
 further censored by an output gate <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
 <p>All gates used in the formulas above are defined similarly:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-266424fd-91fc-496a-8de4-1f6654834851">
-<span class="eqno">()<a class="headerlink" href="#equation-266424fd-91fc-496a-8de4-1f6654834851" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-41fa4690-e698-4f5a-8bb6-849a814761e1">
+<span class="eqno">()<a class="headerlink" href="#equation-41fa4690-e698-4f5a-8bb6-849a814761e1" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
     f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
     i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
     o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
@@ -602,8 +588,8 @@ further censored by an output gate <span class="math notranslate nohighlight">\(
 (which has values in <span class="math notranslate nohighlight">\([0, 1]\)</span>) and <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> is
 the concatenation of <span class="math notranslate nohighlight">\(h_{t-1}\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> features.</p>
 <p>Finally, the updated cell state <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-da9160d1-bef4-4892-b857-2b5fcf1787b3">
-<span class="eqno">()<a class="headerlink" href="#equation-da9160d1-bef4-4892-b857-2b5fcf1787b3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-80db18b1-1073-4631-8afb-261877a6a0e5">
+<span class="eqno">()<a class="headerlink" href="#equation-80db18b1-1073-4631-8afb-261877a6a0e5" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}\]</div>
 <p>Many variants over these LSTM blocks exist in the literature that still rely
@@ -612,30 +598,30 @@ on the same basic principles.</p>
 <section id="gated-recurrent-unit">
 <h2>Gated Recurrent Unit<a class="headerlink" href="#gated-recurrent-unit" title="Permalink to this headline">#</a></h2>
 <p>A slightly different parametrization of a recurrent block is used in the
-so-called Gatted Recurrent Unit (GRU, <span id="id2">[<a class="reference internal" href="#id23" title="Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. arXiv:1409.1259.">Cho <em>et al.</em>, 2014</a>]</span>).</p>
+so-called Gatted Recurrent Unit (GRU, <span id="id2">[<a class="reference internal" href="#id24" title="Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. arXiv:1409.1259.">Cho <em>et al.</em>, 2014</a>]</span>).</p>
 <p>GRUs also rely on the use of gates to (adaptively) let information flow
 through time.
 A first significant difference between GRUs and LSTMs, though, is that GRUs
 do not resort to the use of a cell state.
 Instead, the update rule for the hidden state is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-372ba725-3cc0-4e7e-bbf5-e464f7d185b5">
-<span class="eqno">()<a class="headerlink" href="#equation-372ba725-3cc0-4e7e-bbf5-e464f7d185b5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-9b04a0f5-78ac-4abb-8e90-54da9682e8fc">
+<span class="eqno">()<a class="headerlink" href="#equation-9b04a0f5-78ac-4abb-8e90-54da9682e8fc" title="Permalink to this equation">#</a></span>\[\begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(z_t\)</span> is a gate that balances (per feature) the amount of information
 that is kept from the previous hidden state with the amount of information
 that should be updated using the new candidate hidden state <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
 computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-327fc2d8-dd26-4e6c-a11a-dfed885fe6c6">
-<span class="eqno">()<a class="headerlink" href="#equation-327fc2d8-dd26-4e6c-a11a-dfed885fe6c6" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-abe7460f-4f9d-42f4-85da-5cbffcb1dc36">
+<span class="eqno">()<a class="headerlink" href="#equation-abe7460f-4f9d-42f4-85da-5cbffcb1dc36" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(r_t\)</span> is an extra gate that can hide part of the previous hidden state.</p>
 <p>Formulas for gates <span class="math notranslate nohighlight">\(z_t\)</span> and <span class="math notranslate nohighlight">\(r_t\)</span> are similar to those provided for <span class="math notranslate nohighlight">\(f_t\)</span>,
 <span class="math notranslate nohighlight">\(i_t\)</span> and <span class="math notranslate nohighlight">\(o_t\)</span> in the case of LSTMs.</p>
-<p>A study of the ability of these variants of recurrent networks to learn
+<p>A graphical study of the ability of these variants of recurrent networks to learn
 long-term dependencies is provided
-<a class="reference external" href="https://distill.pub/2019/memorization-in-rnns/">in this online publication</a>.</p>
+in <span id="id3">[<a class="reference internal" href="#id28" title="Andreas Madsen. Visualizing memorization in rnns. Distill, 2019. URL: https://distill.pub/2019/memorization-in-rnns.">Madsen, 2019</a>]</span>.</p>
 </section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
@@ -654,13 +640,16 @@ learn meaningful representations.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<div class="docutils container" id="id3">
+<div class="docutils container" id="id4">
 <dl class="citation">
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id2">CVMerrienboerBB14</a></span></dt>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id2">CVMerrienboerBB14</a></span></dt>
 <dd><p>Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. <a class="reference external" href="https://arxiv.org/abs/1409.1259">arXiv:1409.1259</a>.</p>
 </dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id1">HS97</a></span></dt>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id1">HS97</a></span></dt>
 <dd><p>Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. <em>Neural computation</em>, 9(8):1735–1780, 1997.</p>
+</dd>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id3">Mad19</a></span></dt>
+<dd><p>Andreas Madsen. Visualizing memorization in rnns. <em>Distill</em>, 2019. URL: <a class="reference external" href="https://distill.pub/2019/memorization-in-rnns">https://distill.pub/2019/memorization-in-rnns</a>.</p>
 </dd>
 </dl>
 </div>
