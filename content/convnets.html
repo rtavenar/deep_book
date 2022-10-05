@@ -456,8 +456,8 @@ title="Print to PDF"
 <p>Convolutional neural networks for time series rely on the
 1d convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f6182ce-e456-473a-8a08-399125ff4063">
-<span class="eqno">()<a class="headerlink" href="#equation-3f6182ce-e456-473a-8a08-399125ff4063" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-0f5ad20a-b35c-47b6-a807-516175f0b2f1">
+<span class="eqno">()<a class="headerlink" href="#equation-0f5ad20a-b35c-47b6-a807-516175f0b2f1" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=1}^L f_{k} x_{t + k}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(L\)</span> is the length (number of timestamps) of the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>.</p>
@@ -469,6 +469,11 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
 </pre></div>
 </div>
 </div>
@@ -550,9 +555,9 @@ output:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5738/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5884/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-/tmp/ipykernel_5738/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
+/tmp/ipykernel_5884/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
   fig2 = plt.subplot(2, 1, 2)
 </pre></div>
 </div>
@@ -741,42 +746,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img7187cc4dfaba4d5cbb11103a6b70e478">
+  <img id="_anim_imgd2ce88605a124f479fec4e73fa8c8eb5">
   <div class="anim-controls">
-    <input id="_anim_slider7187cc4dfaba4d5cbb11103a6b70e478" type="range" class="anim-slider"
+    <input id="_anim_sliderd2ce88605a124f479fec4e73fa8c8eb5" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim7187cc4dfaba4d5cbb11103a6b70e478.set_frame(parseInt(this.value));">
+           oninput="animd2ce88605a124f479fec4e73fa8c8eb5.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim7187cc4dfaba4d5cbb11103a6b70e478.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animd2ce88605a124f479fec4e73fa8c8eb5.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select7187cc4dfaba4d5cbb11103a6b70e478"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectd2ce88605a124f479fec4e73fa8c8eb5"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_7187cc4dfaba4d5cbb11103a6b70e478"
+      <input type="radio" name="state" value="once" id="_anim_radio1_d2ce88605a124f479fec4e73fa8c8eb5"
              >
-      <label for="_anim_radio1_7187cc4dfaba4d5cbb11103a6b70e478">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_7187cc4dfaba4d5cbb11103a6b70e478"
+      <label for="_anim_radio1_d2ce88605a124f479fec4e73fa8c8eb5">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_d2ce88605a124f479fec4e73fa8c8eb5"
              checked>
-      <label for="_anim_radio2_7187cc4dfaba4d5cbb11103a6b70e478">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_7187cc4dfaba4d5cbb11103a6b70e478"
+      <label for="_anim_radio2_d2ce88605a124f479fec4e73fa8c8eb5">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_d2ce88605a124f479fec4e73fa8c8eb5"
              >
-      <label for="_anim_radio3_7187cc4dfaba4d5cbb11103a6b70e478">Reflect</label>
+      <label for="_anim_radio3_d2ce88605a124f479fec4e73fa8c8eb5">Reflect</label>
     </form>
   </div>
 </div>
@@ -786,9 +791,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img7187cc4dfaba4d5cbb11103a6b70e478";
-    var slider_id = "_anim_slider7187cc4dfaba4d5cbb11103a6b70e478";
-    var loop_select_id = "_anim_loop_select7187cc4dfaba4d5cbb11103a6b70e478";
+    var img_id = "_anim_imgd2ce88605a124f479fec4e73fa8c8eb5";
+    var slider_id = "_anim_sliderd2ce88605a124f479fec4e73fa8c8eb5";
+    var loop_select_id = "_anim_loop_selectd2ce88605a124f479fec4e73fa8c8eb5";
     var frames = new Array(60);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -31950,7 +31955,7 @@ ER+jAlBERETEx6gAFBEREfEx/weU0FcRFhj5jAAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim7187cc4dfaba4d5cbb11103a6b70e478 = new Animation(frames, img_id, slider_id, 200.0,
+        animd2ce88605a124f479fec4e73fa8c8eb5 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
