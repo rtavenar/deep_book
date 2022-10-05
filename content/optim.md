@@ -337,9 +337,237 @@ $$
 
 ## The curse of depth
 
-**TODO:** MLP illustration with colors and chain rule
+Let us consider the following neural network:
 
-**TODO:** A first implication: use ReLU activation functions if you have no reason to use anything else. (illustrate this?)
+```{tikz}
+    \tikzset{every path/.style={line width=1pt}}
+
+    \node[draw, circle, minimum size=17pt,inner sep=0pt] (in0) at  (0, 4) {};
+    \node[draw, circle, minimum size=17pt,inner sep=0pt] (in1) at  (0, 3) {};
+    \node[draw, circle, minimum size=17pt,inner sep=0pt] (in2) at  (0, 2) {};
+    \node[draw, circle, minimum size=17pt,inner sep=0pt] (in3) at  (0, 1) {};
+    \node[draw, circle, minimum size=17pt,inner sep=0pt] (in4) at  (0, 0) {};
+
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_0) at  (3, 5) {};
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_1) at  (3, 4) {};
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_2) at  (3, 3) {};
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_3) at  (3, 2) {};
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_4) at  (3, 1) {};
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_5) at  (3, 0) {};
+    \node[draw=red, circle, minimum size=17pt,inner sep=0pt] (h1_6) at  (3, -1) {};
+
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_0) at  (6, 5) {};
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_1) at  (6, 4) {};
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_2) at  (6, 3) {};
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_3) at  (6, 2) {};
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_4) at  (6, 1) {};
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_5) at  (6, 0) {};
+    \node[draw=purple, circle, minimum size=17pt,inner sep=0pt] (h2_6) at  (6, -1) {};
+    
+    \node[draw=blue, circle, minimum size=17pt,inner sep=0pt] (out_0) at  (9, 1) {};
+    \node[draw=blue, circle, minimum size=17pt,inner sep=0pt] (out_1) at  (9, 2) {};
+    \node[draw=blue, circle, minimum size=17pt,inner sep=0pt] (out_2) at  (9, 3) {};
+
+    \draw[->, color=red] (in0) -- (h1_0);
+    \draw[->, color=red] (in0) -- (h1_1);
+    \draw[->, color=red] (in0) -- (h1_2);
+    \draw[->, color=red] (in0) -- (h1_3);
+    \draw[->, color=red] (in0) -- (h1_4);
+    \draw[->, color=red] (in0) -- (h1_5);
+    \draw[->, color=red] (in0) -- (h1_6);
+    \draw[->, color=red] (in1) -- (h1_0);
+    \draw[->, color=red] (in1) -- (h1_1);
+    \draw[->, color=red] (in1) -- (h1_2);
+    \draw[->, color=red] (in1) -- (h1_3);
+    \draw[->, color=red] (in1) -- (h1_4);
+    \draw[->, color=red] (in1) -- (h1_5);
+    \draw[->, color=red] (in1) -- (h1_6);
+    \draw[->, color=red] (in2) -- (h1_0);
+    \draw[->, color=red] (in2) -- (h1_1);
+    \draw[->, color=red] (in2) -- (h1_2);
+    \draw[->, color=red] (in2) -- (h1_3);
+    \draw[->, color=red] (in2) -- (h1_4);
+    \draw[->, color=red] (in2) -- (h1_5);
+    \draw[->, color=red] (in2) -- (h1_6);
+    \draw[->, color=red] (in3) -- (h1_0);
+    \draw[->, color=red] (in3) -- (h1_1);
+    \draw[->, color=red] (in3) -- (h1_2);
+    \draw[->, color=red] (in3) -- (h1_3);
+    \draw[->, color=red] (in3) -- (h1_4);
+    \draw[->, color=red] (in3) -- (h1_5);
+    \draw[->, color=red] (in3) -- (h1_6);
+    \draw[->, color=red] (in4) -- (h1_0);
+    \draw[->, color=red] (in4) -- (h1_1);
+    \draw[->, color=red] (in4) -- (h1_2);
+    \draw[->, color=red] (in4) -- (h1_3);
+    \draw[->, color=red] (in4) -- (h1_4);
+    \draw[->, color=red] (in4) -- (h1_5);
+    \draw[->, color=red] (in4) -- (h1_6);
+
+    \draw[->, color=purple] (h1_0) -- (h2_0);
+    \draw[->, color=purple] (h1_1) -- (h2_0);
+    \draw[->, color=purple] (h1_2) -- (h2_0);
+    \draw[->, color=purple] (h1_3) -- (h2_0);
+    \draw[->, color=purple] (h1_4) -- (h2_0);
+    \draw[->, color=purple] (h1_5) -- (h2_0);
+    \draw[->, color=purple] (h1_6) -- (h2_0);
+    \draw[->, color=purple] (h1_0) -- (h2_1);
+    \draw[->, color=purple] (h1_1) -- (h2_1);
+    \draw[->, color=purple] (h1_2) -- (h2_1);
+    \draw[->, color=purple] (h1_3) -- (h2_1);
+    \draw[->, color=purple] (h1_4) -- (h2_1);
+    \draw[->, color=purple] (h1_5) -- (h2_1);
+    \draw[->, color=purple] (h1_6) -- (h2_1);
+    \draw[->, color=purple] (h1_0) -- (h2_2);
+    \draw[->, color=purple] (h1_1) -- (h2_2);
+    \draw[->, color=purple] (h1_2) -- (h2_2);
+    \draw[->, color=purple] (h1_3) -- (h2_2);
+    \draw[->, color=purple] (h1_4) -- (h2_2);
+    \draw[->, color=purple] (h1_5) -- (h2_2);
+    \draw[->, color=purple] (h1_6) -- (h2_2);
+    \draw[->, color=purple] (h1_0) -- (h2_3);
+    \draw[->, color=purple] (h1_1) -- (h2_3);
+    \draw[->, color=purple] (h1_2) -- (h2_3);
+    \draw[->, color=purple] (h1_3) -- (h2_3);
+    \draw[->, color=purple] (h1_4) -- (h2_3);
+    \draw[->, color=purple] (h1_5) -- (h2_3);
+    \draw[->, color=purple] (h1_6) -- (h2_3);
+    \draw[->, color=purple] (h1_0) -- (h2_4);
+    \draw[->, color=purple] (h1_1) -- (h2_4);
+    \draw[->, color=purple] (h1_2) -- (h2_4);
+    \draw[->, color=purple] (h1_3) -- (h2_4);
+    \draw[->, color=purple] (h1_4) -- (h2_4);
+    \draw[->, color=purple] (h1_5) -- (h2_4);
+    \draw[->, color=purple] (h1_6) -- (h2_4);
+    \draw[->, color=purple] (h1_0) -- (h2_5);
+    \draw[->, color=purple] (h1_1) -- (h2_5);
+    \draw[->, color=purple] (h1_2) -- (h2_5);
+    \draw[->, color=purple] (h1_3) -- (h2_5);
+    \draw[->, color=purple] (h1_4) -- (h2_5);
+    \draw[->, color=purple] (h1_5) -- (h2_5);
+    \draw[->, color=purple] (h1_6) -- (h2_5);
+    \draw[->, color=purple] (h1_0) -- (h2_6);
+    \draw[->, color=purple] (h1_1) -- (h2_6);
+    \draw[->, color=purple] (h1_2) -- (h2_6);
+    \draw[->, color=purple] (h1_3) -- (h2_6);
+    \draw[->, color=purple] (h1_4) -- (h2_6);
+    \draw[->, color=purple] (h1_5) -- (h2_6);
+    \draw[->, color=purple] (h1_6) -- (h2_6);
+
+    \draw[->, color=blue] (h2_0) -- (out_0);
+    \draw[->, color=blue] (h2_1) -- (out_0);
+    \draw[->, color=blue] (h2_2) -- (out_0);
+    \draw[->, color=blue] (h2_3) -- (out_0);
+    \draw[->, color=blue] (h2_4) -- (out_0);
+    \draw[->, color=blue] (h2_5) -- (out_0);
+    \draw[->, color=blue] (h2_6) -- (out_0);
+    \draw[->, color=blue] (h2_0) -- (out_1);
+    \draw[->, color=blue] (h2_1) -- (out_1);
+    \draw[->, color=blue] (h2_2) -- (out_1);
+    \draw[->, color=blue] (h2_3) -- (out_1);
+    \draw[->, color=blue] (h2_4) -- (out_1);
+    \draw[->, color=blue] (h2_5) -- (out_1);
+    \draw[->, color=blue] (h2_6) -- (out_1);
+    \draw[->, color=blue] (h2_0) -- (out_2);
+    \draw[->, color=blue] (h2_1) -- (out_2);
+    \draw[->, color=blue] (h2_2) -- (out_2);
+    \draw[->, color=blue] (h2_3) -- (out_2);
+    \draw[->, color=blue] (h2_4) -- (out_2);
+    \draw[->, color=blue] (h2_5) -- (out_2);
+    \draw[->, color=blue] (h2_6) -- (out_2);
+
+
+    \node[fill=white, text=red] (beta0) at  (1.5, 2) {$\mathbf{w^{(0)}}$};
+    \node[fill=white, text=purple] (beta1) at  (4.5, 2) {$\mathbf{w^{(1)}}$};
+    \node[fill=white, text=blue] (beta2) at  (7.5, 2) {$\mathbf{w^{(2)}}$};
+```
+
+and let us recall that, at a given layer $(\ell)$, the layer output is computed as
+
+$$
+  a^{(\ell)} = \varphi(o^{(\ell)}) = \varphi(w^{(\ell - 1)} a^{(\ell - 1)})
+$$
+
+where $\varphi$ is the activation function for the given layer (we ignore the bias terms in this simplified example).
+
+In order to perform (stochastic) gradient descent, gradients of the loss with respect to model parameters need to be computed.
+
+By using the chain rule, these gradients can be expressed as:
+
+\begin{align*}
+  \frac{\partial \mathcal{L}}{\partial w^{(2)}} &= \frac{\partial \mathcal{L}}{\partial a^{(3)}}
+{\color{blue}\frac{\partial a^{(3)}}{\partial o^{(3)}} \frac{\partial o^{(3)}}{\partial w^{(2)}}} \\
+  \frac{\partial \mathcal{L}}{\partial w^{(1)}} &= \frac{\partial \mathcal{L}}{\partial a^{(3)}}
+{\color{blue}\frac{\partial a^{(3)}}{\partial o^{(3)}} \frac{\partial o^{(3)}}{\partial a^{(2)}}}
+{\color{purple}\frac{\partial a^{(2)}}{\partial o^{(2)}} \frac{\partial o^{(2)}}{\partial w^{(1)}}} \\
+  \frac{\partial \mathcal{L}}{\partial w^{(0)}} &= \frac{\partial \mathcal{L}}{\partial a^{(3)}}
+{\color{blue}\frac{\partial a^{(3)}}{\partial o^{(3)}} \frac{\partial o^{(3)}}{\partial a^{(2)}}}
+{\color{purple}\frac{\partial a^{(2)}}{\partial o^{(2)}} \frac{\partial o^{(2)}}{\partial a^{(1)}}}
+{\color{red}\frac{\partial a^{(1)}}{\partial o^{(1)}} \frac{\partial o^{(1)}}{\partial w^{(0)}}}
+\end{align*}
+
+There are important insights to grasp here.
+
+First, one should notice that weights that are further from the output of the model inherit gradient rules made of more terms.
+As a consequence, when some of these terms get smaller and smaller, there is a higher risk for those weights that their gradients collapse to 0, this is called the **vanishing gradient** effect, which is a very common phenomenon in deep neural networks (_i.e._ those networks made of many layers).
+
+Second, some terms are repeated in these formulas, and in general, terms of the form $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ and $\frac{\partial o^{(\ell)}}{\partial a^{(\ell-1)}}$ are present in several places.
+These terms can be further developed as:
+
+\begin{align*}
+  \frac{\partial a^{(\ell)}}{\partial o^{(\ell)}} &= \varphi^\prime (o^{(\ell)}) \\
+  \frac{\partial o^{(\ell)}}{\partial a^{(\ell - 1)}} &= w^{(\ell - 1)}
+\end{align*}
+
+Let us inspect what the derivatives of standard activation functions look like:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+import tensorflow as tf
+
+def tanh(x):
+    return 2. / (1. + tf.exp(-2 * x)) - 1.
+
+def sigmoid(x):
+    return 1. / (1. + tf.exp(-x))
+
+
+x = tf.Variable(tf.linspace(-4, 4, 100))
+with tf.GradientTape() as tape_grad:
+    tan_x = tanh(x)
+with tf.GradientTape() as tape_sig:
+    sig_x = sigmoid(x)
+with tf.GradientTape() as tape_relu:
+    relu_x = tf.nn.relu(x)
+
+grad_tanh_x = tape_grad.gradient(tan_x, x)
+grad_sig_x = tape_sig.gradient(sig_x, x)
+grad_relu_x = tape_relu.gradient(relu_x, x)
+
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 3, 1)
+plt.plot(x.numpy(), grad_tanh_x)
+plt.grid('on')
+plt.ylim([-.1, 1.1])
+plt.title("tanh'(x)")
+
+plt.subplot(1, 3, 2)
+plt.plot(x.numpy(), grad_sig_x)
+plt.grid('on')
+plt.ylim([-.1, 1.1])
+plt.title("sigmoid'(x)")
+
+plt.subplot(1, 3, 3)
+plt.plot(x.numpy(), grad_relu_x)
+plt.grid('on')
+plt.ylim([-.1, 1.1])
+plt.title("ReLU'(x)")
+
+plt.tight_layout();
+```
+
+One can see that the derivative of ReLU has a wider range of input values for which it is non-zero than its competitors, which makes it a very attractive candidate activation function for deep neural networks, as we have seen that the $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ term appears repeatedly in chain rule derivations.
 
 ## Wrapping things up in `keras`
 
