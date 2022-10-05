@@ -42,7 +42,12 @@ $$
 Its quadratic formulation tends to strongly penalize large errors:
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+---
+render:
+  image:
+    tex_specific_width: 60%
+tags: [hide-input]
+---
 
 import numpy as np
 
@@ -74,7 +79,12 @@ where $p(\hat{y}_i = y_i ; m_\theta)$ is the probability predicted by model $m_\
 Its formulation tends to favor cases where the model outputs a probability of 1 for the correct class, as expected:
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+---
+render:
+  image:
+    tex_specific_width: 60%
+tags: [hide-input]
+---
 
 import numpy as np
 

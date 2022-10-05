@@ -1,6 +1,6 @@
-format: jb-article
+format: jb-book
 root: content/intro 
-sections:
+chapters:
 - file: content/perceptron
 - file: content/mlp
 - file: content/loss
