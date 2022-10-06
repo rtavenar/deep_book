@@ -7,6 +7,9 @@ content = fp.read()
 fp.close()
 
 edited_content = re.sub(r"(?s)\\begin\{sphinxtheindex\}.*\\end\{sphinxtheindex\}", "", content)
+edited_content = edited_content.replace(r"\noindent\sphinxincludegraphics", 
+                                        r"\noindent\centering\sphinxincludegraphics")
+
 
 fp = open(target_filename, "w", encoding="utf8")
 fp.write(edited_content)
