@@ -164,10 +164,10 @@ def get_lims(*alphas_list):
     return xlims, ylims
 
 
-def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_steps_per_epoch):
+def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_steps_per_epoch, gen_video=True):
     global lines_alphas
     font = {'size'   : 18}
-    # rc('font', **font)
+    rc('font', **font)
 
     n = 40
     nn = n * n
@@ -213,8 +213,13 @@ def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_ste
             
             text_epoch.set_text(f"Epoch {i // n_steps_per_epoch}")
         return lines_alphas + texts
-
-    return animation.FuncAnimation(fig, animate, interval=500, blit=False, save_count=len(alphas_gd))
+    
+    if gen_video:
+        ani = animation.FuncAnimation(fig, animate, interval=500, blit=False, save_count=len(alphas_gd))
+        return HTML(ani.to_jshtml())
+    else:
+        animate(len(alphas_gd))
+        return fig
 
 
 # Data
@@ -243,12 +248,14 @@ alphas_sgd = optim_sgd(X, y, alpha_init, n_epochs, lambd, rho, minibatch_size)
 # Visualization
 xlims, ylims = get_lims(alphas_gd, alphas_sgd, np.array([alpha_star]))
 
-ani = gen_anim(X, y, 
+is_html_output = True
+viz = gen_anim(X, y, 
                np.repeat(alphas_gd, 20 // minibatch_size, axis=0), alphas_sgd,
                alpha_star, lambd, xlims, ylims, 
-               n_steps_per_epoch=20 // minibatch_size)
+               n_steps_per_epoch=20 // minibatch_size, gen_video=is_html_output)
 plt.close()
-HTML(ani.to_jshtml())
+
+viz
 ```
 
 
