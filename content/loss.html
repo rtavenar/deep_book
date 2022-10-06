@@ -420,7 +420,7 @@ title="Print to PDF"
 In order to train these models (<em>i.e.</em> tune their parameters to fit the data), we need to define a loss function to be optimized.
 Indeed, once this loss function is picked, optimization will consist in tuning the model parameters so as to minimize the loss.</p>
 <p>In this section, we will present two standard losses, that are the mean squared error (that is mainly used for regression) and logistic loss (which is used in classification settings).</p>
-<p>In the following, we assume that we are given a dataset <span class="math notranslate nohighlight">\((X, y)\)</span> made of <span class="math notranslate nohighlight">\(n\)</span> annotated samples <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, and we denote the model’s output:</p>
+<p>In the following, we assume that we are given a dataset <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> made of <span class="math notranslate nohighlight">\(n\)</span> annotated samples <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, and we denote the model’s output:</p>
 <div class="math notranslate nohighlight">
 \[
   \forall i, \hat{y}_i = m_\theta(x_i)
@@ -432,7 +432,7 @@ Indeed, once this loss function is picked, optimization will consist in tuning t
 It is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
-  \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2
+  \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2
 \]</div>
 <p>Its quadratic formulation tends to strongly penalize large errors:</p>
 <div class="cell tag_hide-input docutils container">
@@ -455,7 +455,10 @@ It is defined as:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/loss_1_0.svg" src="../_images/loss_1_0.svg" /></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
+</div>
+<img alt="../_images/loss_1_1.svg" src="../_images/loss_1_1.svg" /></div>
 </div>
 </section>
 <section id="logistic-loss">
@@ -464,7 +467,7 @@ It is defined as:</p>
 It is defined as:</p>
 <div class="math notranslate nohighlight">
 \[
-  \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_i - \log p(\hat{y}_i = y_i ; m_\theta)
+  \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i - \log p(\hat{y}_i = y_i ; m_\theta)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(p(\hat{y}_i = y_i ; m_\theta)\)</span> is the probability predicted by model <span class="math notranslate nohighlight">\(m_\theta\)</span> for the correct class <span class="math notranslate nohighlight">\(y_i\)</span>.</p>
 <p>Its formulation tends to favor cases where the model outputs a probability of 1 for the correct class, as expected:</p>
