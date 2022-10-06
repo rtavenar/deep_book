@@ -306,8 +306,8 @@ import numpy as np
 %config InlineBackend.figure_format = 'svg'
 %matplotlib inline
 import matplotlib.pyplot as plt
-
-plt.ion();
+from notebook_utils import prepare_notebook_graphics
+prepare_notebook_graphics()
 
 def tanh(x):
     return 2. / (1. + np.exp(-2 * x)) - 1.

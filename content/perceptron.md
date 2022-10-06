@@ -25,7 +25,8 @@ This model is a neural network made of a single neuron, and we will use it here 
 %config InlineBackend.figure_format = 'svg'
 %matplotlib inline
 import matplotlib.pyplot as plt
-
+from notebook_utils import prepare_notebook_graphics
+prepare_notebook_graphics()
 ```
 
 ## A first model: the Perceptron

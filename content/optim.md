@@ -97,13 +97,10 @@ import numpy as np
 %matplotlib inline
 import matplotlib.pyplot as plt
 from IPython.display import HTML
-
-plt.ion();
-
 import matplotlib.animation as animation
-from matplotlib import rc
 import scipy.optimize as optim
-
+from notebook_utils import prepare_notebook_graphics
+prepare_notebook_graphics()
 
 def grad(X, y, alpha, lambd):
     p = np.exp(-y * X.dot(alpha))
@@ -166,8 +163,6 @@ def get_lims(*alphas_list):
 
 def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_steps_per_epoch, gen_video=True):
     global lines_alphas
-    font = {'size'   : 18}
-    rc('font', **font)
 
     n = 40
     nn = n * n

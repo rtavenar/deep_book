@@ -66,8 +66,8 @@ computed.
 %config InlineBackend.figure_format = 'svg'
 %matplotlib inline
 import matplotlib.pyplot as plt
-
-plt.ion();
+from notebook_utils import prepare_notebook_graphics
+prepare_notebook_graphics()
 ```
 
 ## "Vanilla" RNNs
