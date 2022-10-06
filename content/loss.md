@@ -22,7 +22,7 @@ Indeed, once this loss function is picked, optimization will consist in tuning t
 
 In this section, we will present two standard losses, that are the mean squared error (that is mainly used for regression) and logistic loss (which is used in classification settings).
 
-In the following, we assume that we are given a dataset $(X, y)$ made of $n$ annotated samples $(x_i, y_i)$, and we denote the model's output:
+In the following, we assume that we are given a dataset $\mathcal{D}$ made of $n$ annotated samples $(x_i, y_i)$, and we denote the model's output:
 
 $$
   \forall i, \hat{y}_i = m_\theta(x_i)
@@ -36,7 +36,7 @@ The Mean Squared Error (MSE) is the most commonly used loss function in regressi
 It is defined as:
 
 $$
-  \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2
+  \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2
 $$
 
 Its quadratic formulation tends to strongly penalize large errors:
@@ -71,7 +71,7 @@ The logistic loss is the most widely used loss to train neural networks in class
 It is defined as:
 
 $$
-  \mathcal{L}(X, y ; m_\theta) = \frac{1}{n} \sum_i - \log p(\hat{y}_i = y_i ; m_\theta)
+  \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i - \log p(\hat{y}_i = y_i ; m_\theta)
 $$
 
 where $p(\hat{y}_i = y_i ; m_\theta)$ is the probability predicted by model $m_\theta$ for the correct class $y_i$.
