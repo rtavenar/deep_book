@@ -35,9 +35,10 @@ where $m_\theta$ is our model and $\theta$ is the set of all its parameters (wei
 The Mean Squared Error (MSE) is the most commonly used loss function in regression settings.
 It is defined as:
 
-$$
-  \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2
-$$
+\begin{align*}
+  \mathcal{L}(\mathcal{D} ; m_\theta) &= \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2 \\
+      &= \frac{1}{n} \sum_i \|m_{\theta}(x_i) - y_i\|^2
+\end{align*}
 
 Its quadratic formulation tends to strongly penalize large errors:
 
