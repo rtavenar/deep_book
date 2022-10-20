@@ -40,7 +40,7 @@ As illustrated below, it can be observed that training a neural network for a to
 Note that here, the true risk is estimated through the use of a validation set that is not seen during training.
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input,remove-stderr]
 
 import numpy as np
 import pandas as pd
@@ -148,6 +148,51 @@ And now, even is the model was scheduled to be trained for 70 epochs, training i
 
 
 ## Loss penalization
+
+Another important way to enforce regularization in neural networks is through loss penalization.
+A typical instance of this regularization strategy is the L2 regularization.
+If we denote by $\mathcal{L}_r$ the L2-regularized loss, it can be expressed as:
+
+$$
+  \mathcal{L}_r(\mathcal{D} ; m_\theta) = \mathcal{L}(\mathcal{D} ; m_\theta) + \lambda \sum_{\ell} \| \theta^{(\ell)} \|_2^2
+$$
+
+where $\theta^{(\ell)}$ is the weight matrix of layer $\ell$.
+
+This regularization tends to shrink large parameter values during the learning process, which is known to help improve generalization.
+
+In `keras`, this is implemented as:
+
+```{code-cell} ipython3
+:tags: [remove-stderr]
+
+from tensorflow.keras.regularizers import L2
+
+λ = 0.01
+
+model = Sequential([
+    InputLayer(input_shape=(4, )),
+    Dense(units=256, activation="relu", kernel_regularizer=L2(λ)),
+    Dense(units=256, activation="relu", kernel_regularizer=L2(λ)),
+    Dense(units=256, activation="relu", kernel_regularizer=L2(λ)),
+    Dense(units=3, activation="softmax")
+])
+
+n_epochs = 100
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
+```
+
+```{code-cell} ipython
+:tags: [hide-input]
+
+plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
+plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
+plt.ylabel("Loss")
+plt.xlabel("Epochs")
+plt.legend();
+```
 
 ## DropOut
 
