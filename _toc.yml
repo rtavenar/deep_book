@@ -5,5 +5,6 @@ chapters:
 - file: content/mlp
 - file: content/loss
 - file: content/optim
+- file: content/regularization
 # - file: content/convnets
 # - file: content/rnn

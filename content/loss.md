@@ -103,6 +103,3 @@ plt.xlabel("$p(\hat{y} = y)$")
 plt.ylabel("$- \log p(\hat{y} = y)$");
 ```
 
-## Loss regularizers
-
-**Coming soon**
