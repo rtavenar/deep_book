@@ -69,8 +69,10 @@ X /= X.std(axis=0)
 
 from tensorflow.keras.layers import Dense, InputLayer
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.utils import set_random_seed
 
 
+set_random_seed(0)
 model = Sequential([
     InputLayer(input_shape=(4, )),
     Dense(units=256, activation="relu"),
@@ -118,6 +120,7 @@ In `keras`, early stopping can be set up via a callback, as in the following exa
 from tensorflow.keras.callbacks import EarlyStopping
 
 
+set_random_seed(0)
 model = Sequential([
     InputLayer(input_shape=(4, )),
     Dense(units=256, activation="relu"),
@@ -180,6 +183,7 @@ from tensorflow.keras.regularizers import L2
 
 λ = 0.01
 
+set_random_seed(0)
 model = Sequential([
     InputLayer(input_shape=(4, )),
     Dense(units=256, activation="relu", kernel_regularizer=L2(λ)),
@@ -352,6 +356,7 @@ In `keras`, this is implemented as a layer, which acts by switching off neurons 
 
 from tensorflow.keras.layers import Dropout
 
+set_random_seed(0)
 switchoff_proba = 0.2
 model = Sequential([
     InputLayer(input_shape=(4, )),
