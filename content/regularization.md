@@ -79,7 +79,7 @@ model = Sequential([
     Dense(units=3, activation="softmax")
 ])
 
-n_epochs = 70
+n_epochs = 100
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
 ```
@@ -90,7 +90,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
 plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
 plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
-plt.xlim([0, 72])
+plt.xlim([0, 102])
 plt.ylabel("Loss")
 plt.xlabel("Epochs")
 plt.legend()
@@ -123,7 +123,7 @@ model = Sequential([
 
 cb_es = EarlyStopping(monitor="val_loss", patience=10, restore_best_weights=True)
 
-n_epochs = 70
+n_epochs = 100
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 h = model.fit(X, y, 
               validation_split=0.3, epochs=n_epochs, batch_size=30, 
@@ -136,7 +136,7 @@ h = model.fit(X, y,
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
 plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
-plt.xlim([0, 72])
+plt.xlim([0, 102])
 plt.ylabel("Loss")
 plt.xlabel("Epochs")
 plt.legend()
