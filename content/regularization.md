@@ -357,7 +357,7 @@ In `keras`, this is implemented as a layer, which acts by switching off neurons 
 from tensorflow.keras.layers import Dropout
 
 set_random_seed(0)
-switchoff_proba = 0.2
+switchoff_proba = 0.3
 model = Sequential([
     InputLayer(input_shape=(4, )),
     Dropout(rate=switchoff_proba),
@@ -399,7 +399,7 @@ When observing the loss values in the figure above, can you explain why the vali
 :class: dropdown, tip
 
 In fact, the training loss is computed as the average loss over all training mini-batches during an epoch.
-Now, if we recall that during training, at each minibatch, 20% of the neurons are switched-off, one can see that only a subpart of the full model is used when evaluating the training loss while the ful model is retrieved when predicting on the validation set, which explains why the measured validation loss is lower than the training one.
+Now, if we recall that during training, at each minibatch, 30% of the neurons are switched-off, one can see that only a subpart of the full model is used when evaluating the training loss while the ful model is retrieved when predicting on the validation set, which explains why the measured validation loss is lower than the training one.
 ```
 ````
 
