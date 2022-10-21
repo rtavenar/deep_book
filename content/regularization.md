@@ -84,8 +84,13 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
-```{code-cell} ipython
-:tags: [hide-input]
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+hide-input: True
+---
 
 plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
 plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
@@ -130,8 +135,13 @@ h = model.fit(X, y,
               verbose=0, callbacks=[cb_es])
 ```
 
-```{code-cell} ipython
-:tags: [hide-input]
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+hide-input: True
+---
 
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
@@ -183,8 +193,13 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
-```{code-cell} ipython
-:tags: [hide-input]
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+hide-input: True
+---
 
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
@@ -355,8 +370,13 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
-```{code-cell} ipython
-:tags: [hide-input]
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+hide-input: True
+---
 
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
