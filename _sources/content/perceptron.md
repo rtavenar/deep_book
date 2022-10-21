@@ -132,7 +132,7 @@ dataset.
 
 Let us have a look at this quantity as a function of $w$:
 
-```{code-cell}
+```{code-cell} ipython3
 ---
 render:
   image:
@@ -181,7 +181,7 @@ parameters too).
 This process is repeated until convergence, as illustrated in the following
 visualization:
 
-```{code-cell}
+```{code-cell} ipython3
 ---
 render:
   image:
@@ -210,7 +210,7 @@ plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 
 What would we get if we used a smaller learning rate?
 
-```{code-cell}
+```{code-cell} ipython3
 ---
 render:
   image:
@@ -234,7 +234,7 @@ plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 It would definitely take more time to converge.
 But, take care, a larger learning rate is not always a good idea:
 
-```{code-cell}
+```{code-cell} ipython3
 ---
 render:
   image:
