@@ -21,7 +21,7 @@ When using universal approximators in machine learning settings, an important re
 More formally, given a training dataset $\mathcal{D}_t$ drawn from an unknown distribution $\mathcal{D}$, model parameters are optimized so as to minimize the empirical risk:
 
 $$
-  \mathcal{R}_e(\theta) = \sum_{(x_i, y_i) \in \mathcal{D}_t} \mathcal{L}(x_i, y_i ; m_\theta)
+  \mathcal{R}_e(\theta) = \frac{1}{|\mathcal{D}_t|} \sum_{(x_i, y_i) \in \mathcal{D}_t} \mathcal{L}(x_i, y_i ; m_\theta)
 $$
 
 whereas the real objective is to minimize the "true" risk:
@@ -399,7 +399,7 @@ When observing the loss values in the figure above, can you explain why the vali
 :class: dropdown, tip
 
 In fact, the training loss is computed as the average loss over all training mini-batches during an epoch.
-Now, if we recall that during training, at each minibatch, 30% of the neurons are switched-off, one can see that only a subpart of the full model is used when evaluating the training loss while the ful model is retrieved when predicting on the validation set, which explains why the measured validation loss is lower than the training one.
+Now, if we recall that during training, at each minibatch, 30% of the neurons are switched-off, one can see that only a subpart of the full model is used when evaluating the training loss while the full model is retrieved when predicting on the validation set, which explains why the measured validation loss is lower than the training one.
 ```
 ````
 
