@@ -196,7 +196,7 @@ plt.legend();
 
 ## DropOut
 
-```{tikz}
+```{tikz} Illustration of the DropOut mechanism. In order to train a given model (left), at each mini-batch, a given proportion of neurons is picked at random to be "switched off" and the subsequent sub-network is used for the current optimization step (_cf._ right-hand side figure, in which 40% of the neurons -- coloured in gray -- are switched off).
     % Model 0
     \node[draw, circle, minimum size=17pt,inner sep=0pt] (in0_model0) at  (0, 5) {};
     \node[draw, circle, minimum size=17pt,inner sep=0pt] (in1_model0) at  (0, 4) {};
@@ -320,4 +320,55 @@ plt.legend();
     \draw[->] (h2_model1_0) -- (out_0_model1);
     \draw[->] (h2_model1_1) -- (out_0_model1);
     \draw[->] (h2_model1_2) -- (out_0_model1);
+```
+
+
+In this section, we present the DropOut strategy, which was introduced in {cite}`JMLR:v15:srivastava14a`.
+The idea behind DropOut is to _switch off_ some of the neurons during training.
+The switched off neurons change at each mini-batch such that, overall, all neurons are trained during the whole process.
+
+The concept is very similar in spirit to a strategy that is used for training random forest, which consists in randomly selecting candidate variables for each tree split inside a forest, which is known to lead to better generalization performance for random forests.
+The main difference here is that one can not only switch off _input neurons_ but also _hidden-layer ones_ during training.
+
+In `keras`, this is implemented as a layer, which acts by switching off neurons from the previous layer in the network:
+
+```{code-cell} ipython3
+:tags: [remove-stderr]
+
+from tensorflow.keras.layers import Dropout
+
+switchoff_proba = 0.2
+model = Sequential([
+    InputLayer(input_shape=(4, )),
+    Dropout(rate=switchoff_proba),
+    Dense(units=256, activation="relu"),
+    Dropout(rate=switchoff_proba),
+    Dense(units=256, activation="relu"),
+    Dropout(rate=switchoff_proba),
+    Dense(units=256, activation="relu"),
+    Dropout(rate=switchoff_proba),
+    Dense(units=3, activation="softmax")
+])
+
+n_epochs = 100
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
+```
+
+```{code-cell} ipython
+:tags: [hide-input]
+
+plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
+plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
+plt.ylabel("Loss")
+plt.xlabel("Epochs")
+plt.legend();
+```
+
+
+## References
+
+```{bibliography}
+:filter: docname in docnames
 ```
