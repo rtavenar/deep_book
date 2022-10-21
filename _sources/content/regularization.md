@@ -391,6 +391,18 @@ plt.xlabel("Epochs")
 plt.legend();
 ```
 
+````{admonition} Exercise #1
+
+When observing the loss values in the figure above, can you explain why the validation loss is almost consistently lower than the training one?
+
+```{admonition} Solution
+:class: dropdown, tip
+
+In fact, the training loss is computed as the average loss over all training mini-batches during an epoch.
+Now, if we recall that during training, at each minibatch, 20% of the neurons are switched-off, one can see that only a subpart of the full model is used when evaluating the training loss while the ful model is retrieved when predicting on the validation set, which explains why the measured validation loss is lower than the training one.
+```
+````
+
 
 ## References
 
