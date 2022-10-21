@@ -89,7 +89,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 render:
   image:
     tex_specific_width: 60%
-hide-input: True
+tags: [hide-input]
 ---
 
 plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
@@ -140,7 +140,7 @@ h = model.fit(X, y,
 render:
   image:
     tex_specific_width: 60%
-hide-input: True
+tags: [hide-input]
 ---
 
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
@@ -198,7 +198,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 render:
   image:
     tex_specific_width: 60%
-hide-input: True
+tags: [hide-input]
 ---
 
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
@@ -375,7 +375,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 render:
   image:
     tex_specific_width: 60%
-hide-input: True
+tags: [hide-input]
 ---
 
 plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
