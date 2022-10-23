@@ -699,7 +699,7 @@ render:
 tags: [hide-input]
 ---
 
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
 plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Without data standardization")
 plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="With data standardization")
