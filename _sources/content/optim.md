@@ -663,7 +663,7 @@ model = Sequential([
 ])
 
 n_epochs = 100
-model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer="sgd", metrics=["accuracy"])
 h = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
@@ -687,7 +687,7 @@ model = Sequential([
 ])
 
 n_epochs = 100
-model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer="sgd", metrics=["accuracy"])
 h_standardized = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
