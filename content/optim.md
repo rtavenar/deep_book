@@ -629,7 +629,7 @@ adam_opt = Adam(learning_rate=0.001,
 model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
 ```
 
-## Making things work in practice
+## Data preprocessing
 
 In practice, for the model fitting phase to behave well, it is important to scale the input features. 
 In the following example, we will compare two trainings of the same model, with similar initialization and the only difference between both will be whether input data is center-reduced or left as-is.
@@ -663,7 +663,7 @@ model = Sequential([
 ])
 
 n_epochs = 100
-model.compile(loss="categorical_crossentropy", optimizer="sgd", metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 h = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
@@ -687,7 +687,7 @@ model = Sequential([
 ])
 
 n_epochs = 100
-model.compile(loss="categorical_crossentropy", optimizer="sgd", metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 h_standardized = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
@@ -711,8 +711,7 @@ plt.subplot(1, 2, 2)
 plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Without data standardization")
 plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="With data standardization")
 plt.ylabel("Accuracy")
-plt.xlabel("Epochs")
-#plt.legend();
+plt.xlabel("Epochs");
 ```
 
 
