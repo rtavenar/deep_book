@@ -631,7 +631,93 @@ model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
 
 ## Parameter initialization and data standardization
 
-**TODO**
+```{code-cell} ipython3
+
+iris = pd.read_csv("data/iris.csv", index_col=0)
+iris = iris.sample(frac=1)
+y = to_categorical(iris["target"])
+X = iris.drop(columns=["target"])
+```
+
+```{code-cell} ipython3
+:tags: [remove-stderr]
+
+from tensorflow.keras.layers import Dense, InputLayer
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.utils import set_random_seed
+
+
+set_random_seed(0)
+model = Sequential([
+    InputLayer(input_shape=(4, )),
+    Dense(units=256, activation="relu"),
+    Dense(units=256, activation="relu"),
+    Dense(units=256, activation="relu"),
+    Dense(units=3, activation="softmax")
+])
+
+n_epochs = 100
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
+```
+
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+tags: [hide-input]
+---
+
+plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
+plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
+plt.xlim([0, 102])
+plt.ylabel("Loss")
+plt.xlabel("Epochs")
+plt.legend();
+```
+
+Let us first standardize our data and see if things improve:
+
+```{code-cell} ipython3
+:tags: [remove-stderr]
+
+
+X -= X.mean(axis=0)
+X /= X.std(axis=0)
+
+
+set_random_seed(0)
+model = Sequential([
+    InputLayer(input_shape=(4, )),
+    Dense(units=256, activation="relu"),
+    Dense(units=256, activation="relu"),
+    Dense(units=256, activation="relu"),
+    Dense(units=3, activation="softmax")
+])
+
+n_epochs = 100
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
+```
+
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+tags: [hide-input]
+---
+
+plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
+plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
+plt.xlim([0, 102])
+plt.ylabel("Loss")
+plt.xlabel("Epochs")
+plt.legend();
+```
 
 
 
