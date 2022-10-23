@@ -629,10 +629,14 @@ adam_opt = Adam(learning_rate=0.001,
 model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
 ```
 
-## Parameter initialization and data standardization
+## Making things work in practice
+
+In practice, for the model fitting phase to behave well, it is important to scale the input features. 
+In the following example, we will compare two trainings of the same model, with similar initialization and the only difference between both will be whether input data is center-reduced or left as-is.
 
 ```{code-cell} ipython3
 
+import pandas as pd
 iris = pd.read_csv("data/iris.csv", index_col=0)
 iris = iris.sample(frac=1)
 y = to_categorical(iris["target"])
@@ -658,24 +662,7 @@ model = Sequential([
 
 n_epochs = 100
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
-```
-
-```{code-cell} ipython3
----
-render:
-  image:
-    tex_specific_width: 60%
-tags: [hide-input]
----
-
-plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
-plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
-plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
-plt.xlim([0, 102])
-plt.ylabel("Loss")
-plt.xlabel("Epochs")
-plt.legend();
+h = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
 Let us first standardize our data and see if things improve:
@@ -699,7 +686,7 @@ model = Sequential([
 
 n_epochs = 100
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbose=0)
+h_standardized = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
 ```{code-cell} ipython3
@@ -710,11 +697,24 @@ render:
 tags: [hide-input]
 ---
 
-plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
-plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
-plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
-plt.xlim([0, 102])
+plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Without data standardization")
+plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="With data standardization")
 plt.ylabel("Loss")
+plt.xlabel("Epochs")
+plt.legend();
+```
+
+```{code-cell} ipython3
+---
+render:
+  image:
+    tex_specific_width: 60%
+tags: [hide-input]
+---
+
+plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Without data standardization")
+plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="With data standardization")
+plt.ylabel("Accuracy")
 plt.xlabel("Epochs")
 plt.legend();
 ```
