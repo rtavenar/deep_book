@@ -637,6 +637,8 @@ In the following example, we will compare two trainings of the same model, with 
 ```{code-cell} ipython3
 
 import pandas as pd
+from tensorflow.keras.utils import to_categorical
+
 iris = pd.read_csv("data/iris.csv", index_col=0)
 iris = iris.sample(frac=1)
 y = to_categorical(iris["target"])
