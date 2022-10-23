@@ -707,12 +707,12 @@ plt.ylabel("Loss")
 plt.xlabel("Epochs")
 plt.legend();
 
-plt.subplot(1, 2, 1)
+plt.subplot(1, 2, 2)
 plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Without data standardization")
 plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="With data standardization")
 plt.ylabel("Accuracy")
 plt.xlabel("Epochs")
-plt.legend();
+#plt.legend();
 ```
 
 
