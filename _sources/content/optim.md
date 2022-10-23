@@ -667,7 +667,7 @@ model.compile(loss="categorical_crossentropy", optimizer="sgd", metrics=["accura
 h = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
-Let us first standardize our data and see if things improve:
+Let us now standardize our data and compare performance:
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -699,21 +699,15 @@ render:
 tags: [hide-input]
 ---
 
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
 plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Without data standardization")
 plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="With data standardization")
 plt.ylabel("Loss")
 plt.xlabel("Epochs")
 plt.legend();
-```
 
-```{code-cell} ipython3
----
-render:
-  image:
-    tex_specific_width: 60%
-tags: [hide-input]
----
-
+plt.subplot(1, 2, 1)
 plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Without data standardization")
 plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="With data standardization")
 plt.ylabel("Accuracy")
