@@ -692,12 +692,7 @@ h_standardized = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
 ```{code-cell} ipython3
----
-render:
-  image:
-    tex_specific_width: 60%
-tags: [hide-input]
----
+:tags: [hide-input]
 
 plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
