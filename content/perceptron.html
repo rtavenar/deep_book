@@ -449,20 +449,6 @@ This model is a neural network made of a single neuron, and we will use it here 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">notebook_utils</span> <span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">prepare_notebook_graphics</span><span class="p">()</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <section id="a-first-model-the-perceptron">
 <h2>A first model: the Perceptron<a class="headerlink" href="#a-first-model-the-perceptron" title="Permalink to this headline">#</a></h2>
@@ -500,6 +486,89 @@ the following dataset about house prices:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RM</th>
+      <th>PRICE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6.575</td>
+      <td>24.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6.421</td>
+      <td>21.6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7.185</td>
+      <td>34.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6.998</td>
+      <td>33.4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7.147</td>
+      <td>36.2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>501</th>
+      <td>6.593</td>
+      <td>22.4</td>
+    </tr>
+    <tr>
+      <th>502</th>
+      <td>6.120</td>
+      <td>20.6</td>
+    </tr>
+    <tr>
+      <th>503</th>
+      <td>6.976</td>
+      <td>23.9</td>
+    </tr>
+    <tr>
+      <th>504</th>
+      <td>6.794</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>505</th>
+      <td>6.030</td>
+      <td>11.9</td>
+    </tr>
+  </tbody>
+</table>
+<p>506 rows × 2 columns</p>
+</div></div></div>
 </div>
 <p>In our case, we will try (for a start) to predict the target value of this
 dataset, which is the median value of owner-occupied homes in $1000
@@ -510,6 +579,8 @@ dataset, which is the median value of owner-occupied homes in $1000
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/perceptron_5_0.svg" src="../_images/perceptron_5_0.svg" /></div>
 </div>
 <aside class="sidebar">
 <p class="sidebar-title">A short note on this model</p>
@@ -555,6 +626,8 @@ dataset.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/perceptron_7_0.svg" src="../_images/perceptron_7_0.svg" /></div>
 </div>
 <p>Here, it seems that a value of <span class="math notranslate nohighlight">\(w\)</span> around 4 should be a good pick, but this
 method (generating lots of values for the parameter and computing the loss for
@@ -605,6 +678,8 @@ visualization:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/perceptron_9_0.svg" src="../_images/perceptron_9_0.svg" /></div>
 </div>
 <p>What would we get if we used a smaller learning rate?</p>
 <div class="cell docutils container">
@@ -625,6 +700,8 @@ visualization:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/perceptron_11_0.svg" src="../_images/perceptron_11_0.svg" /></div>
 </div>
 <p>It would definitely take more time to converge.
 But, take care, a larger learning rate is not always a good idea:</p>
@@ -646,6 +723,8 @@ But, take care, a larger learning rate is not always a good idea:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/perceptron_13_0.svg" src="../_images/perceptron_13_0.svg" /></div>
 </div>
 <p>See how we are slowly diverging because our steps are too large?</p>
 </section>
