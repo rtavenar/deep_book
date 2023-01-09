@@ -5,3 +5,4 @@ sphinxcontrib-tikz
 pandas
 scipy
 sphinx-proof
+seaborn
