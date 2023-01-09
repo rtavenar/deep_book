@@ -350,7 +350,7 @@ You might have noticed that in the MLP formulation provided in Equation (1), the
 This is because the choice of activation functions for the output layer of a neural network is a bit specific to the problem at hand.
 
 Indeed, you might have seen that the activation functions discussed in the previous section do not share the same range of output values.
-It is hence of prime importance to pick an adequate activation function for the output layer such that our models outputs values that are consistent to the quantities it is supposed to predict.
+It is hence of prime importance to pick an adequate activation function for the output layer such that our model outputs values that are consistent to the quantities it is supposed to predict.
 
 If, for example, our model was supposed to be used in the Boston Housing dataset we discussed [in the previous chapter](sec:boston).
 In this case, the goal is to predict housing prices, which are expected to be nonnegative quantities.

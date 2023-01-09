@@ -254,7 +254,7 @@ viz
 ```
 
 
-Apart from implying from more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
+Apart from implying more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
 Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
 
 ```{code-cell} ipython3
