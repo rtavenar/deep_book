@@ -25,6 +25,7 @@ This model is a neural network made of a single neuron, and we will use it here 
 %config InlineBackend.figure_format = 'svg'
 %matplotlib inline
 import matplotlib.pyplot as plt
+import seaborn as sns
 from notebook_utils import prepare_notebook_graphics
 prepare_notebook_graphics()
 ```
@@ -45,13 +46,13 @@ _a priori_
 
 ```{tikz}
     \node[draw,circle,minimum size=25pt,inner sep=0pt] (x) at (0,0) {$o$};
-    \node[minimum size=10pt,inner sep=0pt] (a) at (2, 0) {$\tiny a$};
+    \node[draw,circle,fill=green,fill opacity=.2,text opacity=1.,minimum size=25pt,inner sep=0pt] (a) at (2, 0) {$\tiny a$};
 
-	\node[minimum size=10pt,inner sep=0pt] (x0) at (-2, 1.5) {$\tiny x_0$};
-	\node[minimum size=10pt,inner sep=0pt] (x1) at (-2, 0.75) {$\tiny x_1$};
-	\node[minimum size=10pt,inner sep=0pt] (x2) at (-2, 0) {$\tiny x_2$};
-	\node[minimum size=10pt,inner sep=0pt] (x3) at (-2, -0.75) {$\tiny x_3$};
-	\node[minimum size=10pt,inner sep=0pt] (b) at (-2, -1.5) {$\tiny +1$};
+	\node[draw,circle,fill=blue,fill opacity=.2,text opacity=1.,minimum size=25pt,inner sep=0pt] (x0) at (-2, 2) {$\tiny x_0$};
+	\node[draw,circle,fill=blue,fill opacity=.2,text opacity=1.,minimum size=25pt,inner sep=0pt] (x1) at (-2, 1) {$\tiny x_1$};
+	\node[draw,circle,fill=blue,fill opacity=.2,text opacity=1.,minimum size=25pt,inner sep=0pt] (x2) at (-2, 0) {$\tiny x_2$};
+	\node[draw,circle,fill=blue,fill opacity=.2,text opacity=1.,minimum size=25pt,inner sep=0pt] (x3) at (-2, -1) {$\tiny x_3$};
+	\node[draw,circle,fill=blue,fill opacity=.2,text opacity=1.,minimum size=25pt,inner sep=0pt] (b) at (-2, -2) {$\tiny +1$};
 
 	\draw[->, thick] (x0) to[out=0,in=120] node [midway, sloped, above=-2] {$w_0$} (x);
 	\draw[->, thick] (x1) to[out=0,in=150] node [midway, sloped, above=-2] {$w_1$} (x);
@@ -97,10 +98,7 @@ render:
   image:
     tex_specific_width: 60%
 ---
-x = boston["RM"]
-y = boston["PRICE"]
-
-plt.scatter(x, y);
+sns.scatterplot(data=boston, x="RM", y="PRICE");
 ```
 
 ```{sidebar} A short note on this model
@@ -149,6 +147,8 @@ def loss(w, x, y):
 
 w = np.linspace(-2, 10, num=100)
 
+x = boston["RM"]
+y = boston["PRICE"]
 plt.plot(w, loss(w, x, y), "r-");
 ```
 
@@ -263,6 +263,5 @@ In this section, we have introduced:
 * a very simple model, called the Perceptron: this will be a building block for the more advanced models we will detail later in the course, such as:
     * the [Multi-Layer Perceptron](sec:mlp)
     * [Convolutional architectures](sec:cnn)
-    * [Recurrent architectures](sec:rnn)
 * the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for our regression task), which will be discussed in [a dedicated chapter](sec:loss);
 * the concept of gradient descent to optimize the chosen loss over a model's single parameter, and this will be extended in [our chapter on optimization](sec:sgd).

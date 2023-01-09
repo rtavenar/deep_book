@@ -477,8 +477,8 @@ Moreover, it is not sufficient that such a good approximation exists, another im
 <p>In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :</p>
 <div class="figure" style="text-align: center"><p><img  src="../_images/tikz-4670b96ed1fdbb9f65a452032fcb97f6198dad87.svg" alt="Figure made with TikZ" /></p>
 </div><p>The above graphical representation corresponds to the following model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-863423d8-276f-4113-875f-abaf6e2db1d6">
-<span class="eqno">(1)<a class="headerlink" href="#equation-863423d8-276f-4113-875f-abaf6e2db1d6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8fadd10b-a6f4-4b52-b146-a8751b91bf5c">
+<span class="eqno">(1)<a class="headerlink" href="#equation-8fadd10b-a6f4-4b52-b146-a8751b91bf5c" title="Permalink to this equation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
@@ -706,7 +706,7 @@ In practice, we will then use activation functions that have some linear regime 
 <p>You might have noticed that in the MLP formulation provided in Equation (1), the output layer has its own activation function, denoted <span class="math notranslate nohighlight">\(\varphi_\text{out}\)</span>.
 This is because the choice of activation functions for the output layer of a neural network is a bit specific to the problem at hand.</p>
 <p>Indeed, you might have seen that the activation functions discussed in the previous section do not share the same range of output values.
-It is hence of prime importance to pick an adequate activation function for the output layer such that our models outputs values that are consistent to the quantities it is supposed to predict.</p>
+It is hence of prime importance to pick an adequate activation function for the output layer such that our model outputs values that are consistent to the quantities it is supposed to predict.</p>
 <p>If, for example, our model was supposed to be used in the Boston Housing dataset we discussed <a class="reference internal" href="perceptron.html#sec-boston"><span class="std std-ref">in the previous chapter</span></a>.
 In this case, the goal is to predict housing prices, which are expected to be nonnegative quantities.
 It would then be a good idea to use ReLU (which can output any positive value) as the activation function for the output layer in this case.</p>

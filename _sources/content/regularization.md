@@ -30,7 +30,7 @@ $$
   \mathcal{R}(\theta) = \mathbb{E}_{x, y \sim \mathcal{D}} \mathcal{L}(x, y; m_\theta)
 $$
 
-and both objective do not have the same minimizer.
+and both objectives do not have the same minimizer.
 
 To avoid this pitfall, one should use regularization techniques, such as the ones presented in the following.
 

@@ -443,8 +443,23 @@ This model is a neural network made of a single neuron, and we will use it here 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">notebook_utils</span> <span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
 <span class="n">prepare_notebook_graphics</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">notebook_utils</span> <span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">prepare_notebook_graphics</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
 </pre></div>
 </div>
 </div>
@@ -461,7 +476,7 @@ takes a vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> 
 and a bias term <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(\varphi\)</span> is an activation function that is chosen
 <em>a priori</em>
 (we will come back to it in more details later in the course):</p>
-<div class="figure" style="text-align: center"><p><img  src="../_images/tikz-73742fa69d5c19ac60db9fefff9c8611fbea5182.svg" alt="Figure made with TikZ" /></p>
+<div class="figure" style="text-align: center"><p><img  src="../_images/tikz-dbe7456fde9972163cde15b20b8daf6303bfbb7d.svg" alt="Figure made with TikZ" /></p>
 </div><p>A model made of a single neuron is called a Perceptron.</p>
 </section>
 <section id="optimization">
@@ -485,104 +500,16 @@ the following dataset about house prices:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>RM</th>
-      <th>PRICE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>6.575</td>
-      <td>24.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>6.421</td>
-      <td>21.6</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>7.185</td>
-      <td>34.7</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>6.998</td>
-      <td>33.4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>7.147</td>
-      <td>36.2</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>501</th>
-      <td>6.593</td>
-      <td>22.4</td>
-    </tr>
-    <tr>
-      <th>502</th>
-      <td>6.120</td>
-      <td>20.6</td>
-    </tr>
-    <tr>
-      <th>503</th>
-      <td>6.976</td>
-      <td>23.9</td>
-    </tr>
-    <tr>
-      <th>504</th>
-      <td>6.794</td>
-      <td>22.0</td>
-    </tr>
-    <tr>
-      <th>505</th>
-      <td>6.030</td>
-      <td>11.9</td>
-    </tr>
-  </tbody>
-</table>
-<p>506 rows × 2 columns</p>
-</div></div></div>
 </div>
 <p>In our case, we will try (for a start) to predict the target value of this
 dataset, which is the median value of owner-occupied homes in $1000
 <code class="docutils literal notranslate"><span class="pre">&quot;PRICE&quot;</span></code>, as a function of the average number of rooms per dwelling <code class="docutils literal notranslate"><span class="pre">&quot;RM&quot;</span></code> :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s2">&quot;RM&quot;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s2">&quot;PRICE&quot;</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">boston</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;RM&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;PRICE&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/perceptron_5_0.svg" src="../_images/perceptron_5_0.svg" /></div>
 </div>
 <aside class="sidebar">
 <p class="sidebar-title">A short note on this model</p>
@@ -622,12 +549,12 @@ dataset.</p>
 
 <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
+<span class="n">x</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s2">&quot;RM&quot;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">boston</span><span class="p">[</span><span class="s2">&quot;PRICE&quot;</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">&quot;r-&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/perceptron_7_0.svg" src="../_images/perceptron_7_0.svg" /></div>
 </div>
 <p>Here, it seems that a value of <span class="math notranslate nohighlight">\(w\)</span> around 4 should be a good pick, but this
 method (generating lots of values for the parameter and computing the loss for
@@ -678,8 +605,6 @@ visualization:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/perceptron_9_0.svg" src="../_images/perceptron_9_0.svg" /></div>
 </div>
 <p>What would we get if we used a smaller learning rate?</p>
 <div class="cell docutils container">
@@ -700,8 +625,6 @@ visualization:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/perceptron_11_0.svg" src="../_images/perceptron_11_0.svg" /></div>
 </div>
 <p>It would definitely take more time to converge.
 But, take care, a larger learning rate is not always a good idea:</p>
@@ -723,8 +646,6 @@ But, take care, a larger learning rate is not always a good idea:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/perceptron_13_0.svg" src="../_images/perceptron_13_0.svg" /></div>
 </div>
 <p>See how we are slowly diverging because our steps are too large?</p>
 </section>
@@ -737,7 +658,6 @@ But, take care, a larger learning rate is not always a good idea:</p>
 <ul>
 <li><p>the <a class="reference internal" href="mlp.html#sec-mlp"><span class="std std-ref">Multi-Layer Perceptron</span></a></p></li>
 <li><p><span class="xref myst">Convolutional architectures</span></p></li>
-<li><p><span class="xref myst">Recurrent architectures</span></p></li>
 </ul>
 </li>
 <li><p>the fact that a task comes with a loss function to be minimized (here, we have used the <em>mean squared error (MSE)</em> for our regression task), which will be discussed in <a class="reference internal" href="loss.html#sec-loss"><span class="std std-ref">a dedicated chapter</span></a>;</p></li>
