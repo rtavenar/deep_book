@@ -16,11 +16,8 @@ kernelspec:
 (sec:cnn)=
 # Convolutional Neural Networks (CNN)
 
-## CNNs _à la_ LeNet
-
-## Anatomy of a ResNet
-
-## Using a pre-trained model for better performance
+Convolutional Neural Networks (_aka_ ConvNets) are designed to take advantage of the structure in the data.
+In this chapter, we will discuss two flavours of ConvNets: we will start with the monodimensional case and see how ConvNets with 1d convolutions can be helpful to process time series and we will then introduce the 2D case that is especially useful to process image data.
 
 ## ConvNets for time series
 
@@ -135,6 +132,52 @@ These models (and more) are presented and benchmarked in
 {cite:p}`fawaz2019deep` that we
 advise the interested reader to refer to for more details.
 
+## Convolutional neural networks for images
+
+We now turn our focus to the 2D case, in which our convolution filters will not slide on a single axis as in the time series case but rather on the two dimensions (width and height) of an image.
+
+### What's an image?
+
+As seen below, an image is a pixel grid, and each pixel has an intensity value in each of the image channels. 
+Color images are typically made of 3 channels (Red, Green and Blue here).
+
+```{code-cell} ipython3
+---
+tags: [hide-input]
+figure:
+    caption: |
+        An image and its 3 channels 
+        (Red, Green and Blue intensity, 
+        from left to right).
+---
+
+from matplotlib import image
+
+image = image.imread('data/cat.jpg')
+image_r = image.copy()
+image_g = image.copy()
+image_b = image.copy()
+image_r[:, :, 1:] = 0.
+image_g[:, :, 0] = 0.
+image_g[:, :, -1] = 0.
+image_b[:, :, :-1] = 0.
+
+plt.figure(figsize=(20, 8))
+plt.subplot(2, 3, 2)
+plt.imshow(image)
+plt.axis("off")
+
+for i, img in enumerate([image_r, image_g, image_b]):
+    plt.subplot(2, 3, i + 4)
+    plt.imshow(img)
+    plt.axis("off")
+```
+
+### CNNs _à la_ LeNet
+
+<!-- ### Anatomy of a ResNet
+
+### Using a pre-trained model for better performance -->
 
 ## References
 
