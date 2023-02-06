@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Recurrent Neural Networks &#8212; Deep Learning Basics (lecture notes)</title>
+    <title>Recurrent Neural Networks &#8212; Introduction au Deep Learning (notes de cours)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -43,6 +43,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -54,10 +55,10 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Convolutional Neural Networks" href="convnets.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
+    <link rel="prev" title="Réseaux neuronaux convolutifs" href="convnets.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="fr">
     
 
     <!-- Google Analytics -->
@@ -94,7 +95,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <h1 class="site-logo" id="site-title">Deep Learning Basics (lecture notes)</h1>
+      <h1 class="site-logo" id="site-title">Introduction au Deep Learning (notes de cours)</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -106,7 +107,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Les bases du Deep Learning
+                    Introduction au Deep Learning
                 </a>
             </li>
         </ul>
@@ -138,7 +139,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="convnets.html">
-   Convolutional Neural Networks
+   Réseaux neuronaux convolutifs
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -154,8 +155,8 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            <a href="../../../book_en.pdf">Download these notes as PDF</a><br />
-<a href="../fr/index.html">Basculer en Français</a>
+            <a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
+<a href="../../../en/index.html">Switch to English</a>
 
             </div>
             
@@ -373,7 +374,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vanilla-rnns">
-   “Vanilla” RNNs
+   « Vanilla » RNNs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -417,7 +418,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vanilla-rnns">
-   “Vanilla” RNNs
+   « Vanilla » RNNs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -451,7 +452,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="recurrent-neural-networks">
-<span id="sec-rnn"></span><h1>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this headline">#</a></h1>
+<span id="sec-rnn"></span><h1>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Lien permanent vers ce titre">#</a></h1>
 <p>Recurrent neural networks (RNNs) proceed by processing elements of a time
 series one at a time.
 Typically, at time <span class="math notranslate nohighlight">\(t\)</span>, a recurrent block will take both the current input <span class="math notranslate nohighlight">\(x_t\)</span>
@@ -473,10 +474,10 @@ computed.</p>
 </div>
 </div>
 <section id="vanilla-rnns">
-<h2>“Vanilla” RNNs<a class="headerlink" href="#vanilla-rnns" title="Permalink to this headline">#</a></h2>
+<h2>« Vanilla » RNNs<a class="headerlink" href="#vanilla-rnns" title="Lien permanent vers ce titre">#</a></h2>
 <p>The basic formulation for a RNN block is as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3f00a76e-cfa9-424c-9d5a-3fa560b67f30">
-<span class="eqno">(5)<a class="headerlink" href="#equation-3f00a76e-cfa9-424c-9d5a-3fa560b67f30" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-70099a56-c482-4098-beda-f9f4e15b576c">
+<span class="eqno">(5)<a class="headerlink" href="#equation-70099a56-c482-4098-beda-f9f4e15b576c" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(W_h\)</span> is a weight matrix associated to the processing of the previous
@@ -492,19 +493,19 @@ networks are optimized through stochastic gradient descent algorithms.</p>
 <span class="math notranslate nohighlight">\(h_t\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> are both scalar values, and let us have a look at what the
 actual gradient of the output <span class="math notranslate nohighlight">\(h_t\)</span> is, with
 respect to <span class="math notranslate nohighlight">\(W_h\)</span> (which is then also a scalar):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5cd8236a-dc29-4de1-af90-c3ba30dad078">
-<span class="eqno">(6)<a class="headerlink" href="#equation-5cd8236a-dc29-4de1-af90-c3ba30dad078" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-5e5a8ea2-a229-4043-9800-4df6f27df986">
+<span class="eqno">(6)<a class="headerlink" href="#equation-5e5a8ea2-a229-4043-9800-4df6f27df986" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, hence:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-94cb91da-e61e-4ec5-a2fa-5b2b04901d9a">
-<span class="eqno">(7)<a class="headerlink" href="#equation-94cb91da-e61e-4ec5-a2fa-5b2b04901d9a" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-bb5b2d88-d056-4055-9b7a-f7da62d7a9a2">
+<span class="eqno">(7)<a class="headerlink" href="#equation-bb5b2d88-d056-4055-9b7a-f7da62d7a9a2" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}\]</div>
 <p>Here, the form of <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> will be similar to
 that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> above, and, in the end, one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e1aa58fc-54ed-4862-822e-f13ad614e20c">
-<span class="eqno">(8)<a class="headerlink" href="#equation-e1aa58fc-54ed-4862-822e-f13ad614e20c" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-7e32e2fe-93ab-4c9c-b77d-0edf8b2f04df">
+<span class="eqno">(8)<a class="headerlink" href="#equation-7e32e2fe-93ab-4c9c-b77d-0edf8b2f04df" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
     \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
         \left[
             h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
@@ -556,7 +557,7 @@ This is an occurrence of a more general phenomenon known as the
 <strong>vanishing gradient</strong> effect.</p>
 </section>
 <section id="long-short-term-memory">
-<h2>Long Short-Term Memory<a class="headerlink" href="#long-short-term-memory" title="Permalink to this headline">#</a></h2>
+<h2>Long Short-Term Memory<a class="headerlink" href="#long-short-term-memory" title="Lien permanent vers ce titre">#</a></h2>
 <p>The Long Short-Term Memory (LSTM, <span id="id1">[<a class="reference internal" href="#id23" title="Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735–1780, 1997.">Hochreiter and Schmidhuber, 1997</a>]</span>) blocks have
 been designed as an alternative
 recurrent block that aims at mitigating this vanishing gradient effect through
@@ -573,8 +574,8 @@ The gate <span class="math notranslate nohighlight">\(g\)</span> will hence tend
 </div>
 <p>In these blocks, an extra state is used, referred to as the cell state <span class="math notranslate nohighlight">\(C_t\)</span>.
 This state is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-75db5181-48bb-47b1-85d9-622c5ced85ac">
-<span class="eqno">(9)<a class="headerlink" href="#equation-75db5181-48bb-47b1-85d9-622c5ced85ac" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f410ece4-27fb-44e6-8ecf-a71086b7e74a">
+<span class="eqno">(9)<a class="headerlink" href="#equation-f410ece4-27fb-44e6-8ecf-a71086b7e74a" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_t\)</span> is the forget gate (which pushes the network to forget about
@@ -589,15 +590,15 @@ Indeed, in this case, if the network learns so (through <span class="math notran
 full information from the previous cell state <span class="math notranslate nohighlight">\(C_{t-1}\)</span> can be recovered,
 which would allow gradients to flow through time (and not vanish anymore).</p>
 <p>Then, the link between the cell and hidden states is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d2a3e88e-993b-491b-9fa6-d9d2e6b7fe35">
-<span class="eqno">(10)<a class="headerlink" href="#equation-d2a3e88e-993b-491b-9fa6-d9d2e6b7fe35" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b049c4e7-f629-44d6-8d5b-bdfd6e2669f9">
+<span class="eqno">(10)<a class="headerlink" href="#equation-b049c4e7-f629-44d6-8d5b-bdfd6e2669f9" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}\]</div>
 <p>In words, the hidden state is the tanh-transformed version of the cell state,
 further censored by an output gate <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
 <p>All gates used in the formulas above are defined similarly:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9492289b-507b-4298-9076-94e544c2313d">
-<span class="eqno">(11)<a class="headerlink" href="#equation-9492289b-507b-4298-9076-94e544c2313d" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-e8d16c04-f876-4bf6-a2e8-d5f35094e908">
+<span class="eqno">(11)<a class="headerlink" href="#equation-e8d16c04-f876-4bf6-a2e8-d5f35094e908" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
     f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
     i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
     o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
@@ -606,15 +607,15 @@ further censored by an output gate <span class="math notranslate nohighlight">\(
 (which has values in <span class="math notranslate nohighlight">\([0, 1]\)</span>) and <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> is
 the concatenation of <span class="math notranslate nohighlight">\(h_{t-1}\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> features.</p>
 <p>Finally, the updated cell state <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1cce8418-2624-49c3-97ba-7058336cecb9">
-<span class="eqno">(12)<a class="headerlink" href="#equation-1cce8418-2624-49c3-97ba-7058336cecb9" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2831c104-7f92-4c21-af02-963da85f010c">
+<span class="eqno">(12)<a class="headerlink" href="#equation-2831c104-7f92-4c21-af02-963da85f010c" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}\]</div>
 <p>Many variants over these LSTM blocks exist in the literature that still rely
 on the same basic principles.</p>
 </section>
 <section id="gated-recurrent-unit">
-<h2>Gated Recurrent Unit<a class="headerlink" href="#gated-recurrent-unit" title="Permalink to this headline">#</a></h2>
+<h2>Gated Recurrent Unit<a class="headerlink" href="#gated-recurrent-unit" title="Lien permanent vers ce titre">#</a></h2>
 <p>A slightly different parametrization of a recurrent block is used in the
 so-called Gatted Recurrent Unit (GRU, <span id="id2">[<a class="reference internal" href="#id24" title="Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. arXiv:1409.1259.">Cho <em>et al.</em>, 2014</a>]</span>).</p>
 <p>GRUs also rely on the use of gates to (adaptively) let information flow
@@ -622,16 +623,16 @@ through time.
 A first significant difference between GRUs and LSTMs, though, is that GRUs
 do not resort to the use of a cell state.
 Instead, the update rule for the hidden state is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-773ccacf-9950-4eda-9eaf-75e48c3d30cf">
-<span class="eqno">(13)<a class="headerlink" href="#equation-773ccacf-9950-4eda-9eaf-75e48c3d30cf" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-785cc58a-3b8a-4782-aede-4b29676dc1e0">
+<span class="eqno">(13)<a class="headerlink" href="#equation-785cc58a-3b8a-4782-aede-4b29676dc1e0" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(z_t\)</span> is a gate that balances (per feature) the amount of information
 that is kept from the previous hidden state with the amount of information
 that should be updated using the new candidate hidden state <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
 computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b4563653-991e-4eef-babc-f238a9e29ef3">
-<span class="eqno">(14)<a class="headerlink" href="#equation-b4563653-991e-4eef-babc-f238a9e29ef3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-66b63387-9328-4152-a0b7-d65da074d2bb">
+<span class="eqno">(14)<a class="headerlink" href="#equation-66b63387-9328-4152-a0b7-d65da074d2bb" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(r_t\)</span> is an extra gate that can hide part of the previous hidden state.</p>
@@ -642,7 +643,7 @@ long-term dependencies is provided
 in <span id="id3">[<a class="reference internal" href="#id28" title="Andreas Madsen. Visualizing memorization in rnns. Distill, 2019. URL: https://distill.pub/2019/memorization-in-rnns.">Madsen, 2019</a>]</span>.</p>
 </section>
 <section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Lien permanent vers ce titre">#</a></h2>
 <p>In this chapter, we have reviewed neural network architectures that are
 used to learn from time series datasets.
 Because of time constraints, we have not tackled attention-based models
@@ -657,7 +658,7 @@ their convolutional counterparts in order to
 learn meaningful representations.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Lien permanent vers ce titre">#</a></h2>
 <div class="docutils container" id="id4">
 <dl class="citation">
 <dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id2">CVMerrienboerBB14</a></span></dt>
@@ -701,11 +702,11 @@ learn meaningful representations.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="convnets.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="convnets.html" title="précédent page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Convolutional Neural Networks</p>
+            <p class="prev-next-subtitle">précédent</p>
+            <p class="prev-next-title">Réseaux neuronaux convolutifs</p>
         </div>
     </a>
 </div>

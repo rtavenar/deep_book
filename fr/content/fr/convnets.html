@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Convolutional Neural Networks &#8212; Deep Learning Basics (lecture notes)</title>
+    <title>Réseaux neuronaux convolutifs &#8212; Introduction au Deep Learning (notes de cours)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -43,6 +43,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/translations.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -54,11 +55,11 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
     <link rel="next" title="Recurrent Neural Networks" href="rnn.html" />
     <link rel="prev" title="Regularization" href="regularization.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <meta name="docsearch:language" content="fr">
     
 
     <!-- Google Analytics -->
@@ -95,7 +96,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <h1 class="site-logo" id="site-title">Deep Learning Basics (lecture notes)</h1>
+      <h1 class="site-logo" id="site-title">Introduction au Deep Learning (notes de cours)</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -107,7 +108,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Les bases du Deep Learning
+                    Introduction au Deep Learning
                 </a>
             </li>
         </ul>
@@ -139,7 +140,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Convolutional Neural Networks
+   Réseaux neuronaux convolutifs
   </a>
  </li>
  <li class="toctree-l1">
@@ -155,8 +156,8 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            <a href="../../../book_en.pdf">Download these notes as PDF</a><br />
-<a href="../fr/index.html">Basculer en Français</a>
+            <a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
+<a href="../../../en/index.html">Switch to English</a>
 
             </div>
             
@@ -373,42 +374,44 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convnets-for-time-series">
-   ConvNets for time series
+  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles">
+   Réseaux de neurones convolutifs pour les séries temporelles
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convolutional-neural-networks-for-images">
-   Convolutional neural networks for images
+  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-images">
+   Réseaux de neurones convolutifs pour les images
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#images-and-convolutions">
-     Images and convolutions
+    <a class="reference internal nav-link" href="#images-et-convolutions">
+     Images et convolutions
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cnns-a-la-lenet">
-     CNNs
-     <em>
-      à la
-     </em>
-     LeNet
+    <a class="reference internal nav-link" href="#reseaux-convolutifs-de-type-lenet">
+     Réseaux convolutifs de type LeNet
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#convolution-layers">
-       Convolution layers
+      <a class="reference internal nav-link" href="#couches-de-convolution">
+       Couches de convolution
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#pooling-layers">
-       Pooling layers
+      <a class="reference internal nav-link" href="#couches-de-pooling">
+       Couches de
+       <em>
+        pooling
+       </em>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plugging-fully-connected-layers-at-the-output">
-       Plugging fully-connected layers at the output
+      <a class="reference internal nav-link" href="#ajout-d-une-tete-de-classification">
+       Ajout d’une
+       <em>
+        tête de classification
+       </em>
       </a>
      </li>
     </ul>
@@ -417,7 +420,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
-   References
+   Références
   </a>
  </li>
 </ul>
@@ -429,7 +432,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Convolutional Neural Networks</h1>
+                <h1>Réseaux neuronaux convolutifs</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -440,42 +443,44 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convnets-for-time-series">
-   ConvNets for time series
+  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles">
+   Réseaux de neurones convolutifs pour les séries temporelles
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convolutional-neural-networks-for-images">
-   Convolutional neural networks for images
+  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-images">
+   Réseaux de neurones convolutifs pour les images
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#images-and-convolutions">
-     Images and convolutions
+    <a class="reference internal nav-link" href="#images-et-convolutions">
+     Images et convolutions
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cnns-a-la-lenet">
-     CNNs
-     <em>
-      à la
-     </em>
-     LeNet
+    <a class="reference internal nav-link" href="#reseaux-convolutifs-de-type-lenet">
+     Réseaux convolutifs de type LeNet
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#convolution-layers">
-       Convolution layers
+      <a class="reference internal nav-link" href="#couches-de-convolution">
+       Couches de convolution
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#pooling-layers">
-       Pooling layers
+      <a class="reference internal nav-link" href="#couches-de-pooling">
+       Couches de
+       <em>
+        pooling
+       </em>
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plugging-fully-connected-layers-at-the-output">
-       Plugging fully-connected layers at the output
+      <a class="reference internal nav-link" href="#ajout-d-une-tete-de-classification">
+       Ajout d’une
+       <em>
+        tête de classification
+       </em>
       </a>
      </li>
     </ul>
@@ -484,7 +489,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#references">
-   References
+   Références
   </a>
  </li>
 </ul>
@@ -501,21 +506,20 @@ title="Print to PDF"
 <style>
   .ss-layout-default-AB { grid-template-areas: 'A B'; }
 </style>
-<section class="tex2jax_ignore mathjax_ignore" id="convolutional-neural-networks">
-<span id="sec-cnn"></span><h1>Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this headline">#</a></h1>
-<p>Convolutional Neural Networks (<em>aka</em> ConvNets) are designed to take advantage of the structure in the data.
-In this chapter, we will discuss two flavours of ConvNets: we will start with the monodimensional case and see how ConvNets with 1D convolutions can be helpful to process time series and we will then introduce the 2D case that is especially useful to process image data.</p>
-<section id="convnets-for-time-series">
-<h2>ConvNets for time series<a class="headerlink" href="#convnets-for-time-series" title="Permalink to this headline">#</a></h2>
-<p>Convolutional neural networks for time series rely on the
-1D convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
-<span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4078cedb-15a4-4c46-83fe-3acd04b6d682">
-<span class="eqno">(2)<a class="headerlink" href="#equation-4078cedb-15a4-4c46-83fe-3acd04b6d682" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<section class="tex2jax_ignore mathjax_ignore" id="reseaux-neuronaux-convolutifs">
+<span id="sec-cnn"></span><h1>Réseaux neuronaux convolutifs<a class="headerlink" href="#reseaux-neuronaux-convolutifs" title="Lien permanent vers ce titre">#</a></h1>
+<p>Les réseaux de neurones convolutifs (aussi appelés ConvNets) sont conçus pour tirer parti de la structure des données.
+Dans ce chapitre, nous aborderons deux types de réseaux convolutifs : nous commencerons par le cas monodimensionnel et verrons comment les réseaux convolutifs à convolutions 1D peuvent être utiles pour traiter les séries temporelles. Nous présenterons ensuite le cas 2D, particulièrement utile pour traiter les données d’image.</p>
+<section id="reseaux-de-neurones-convolutifs-pour-les-series-temporelles">
+<h2>Réseaux de neurones convolutifs pour les séries temporelles<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles" title="Lien permanent vers ce titre">#</a></h2>
+<p>Les réseaux de neurones convolutifs pour les séries temporelles reposent sur l’opérateur de convolution 1D qui, étant donné une série temporelle <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> et un filtre
+<span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, calcule une carte d’activation comme :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e26389b9-ba22-4b23-a45d-ddb60346f7a7">
+<span class="eqno">(2)<a class="headerlink" href="#equation-e26389b9-ba22-4b23-a45d-ddb60346f7a7" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}\]</div>
-<p>where the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is of length <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
-<p>The following code illustrates this notion using a Gaussian filter:</p>
+<p>où le filtre <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> est de longueur <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
+<p>Le code suivant illustre cette notion en utilisant un filtre gaussien :</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
@@ -539,9 +543,9 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 <span class="n">f</span> <span class="o">/=</span> <span class="n">f</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;raw time series&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Série temporelle&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
-         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;activation map (gaussian smoothed time series)&#39;</span><span class="p">)</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Carte d</span><span class="se">\&#39;</span><span class="s1">activation (série temporelle passée à travers un filtre Gaussien)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -549,12 +553,8 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 <div class="cell_output docutils container">
 <img alt="../../_images/convnets_1_0.svg" src="../../_images/convnets_1_0.svg" /></div>
 </div>
-<p>Convolutional neural networks are made of convolution blocks whose parameters
-are the coefficients of the filters they embed (hence filters are not fixed
-<em>a priori</em> as in the example above but rather learned).
-These convolution blocks are translation equivariant, which means that a
-(temporal) shift in their input results in the same temporal shift in the
-output:</p>
+<p>Les réseaux de neurones convolutifs sont constitués de blocs de convolution dont les paramètres sont les coefficients des filtres qu’ils intègrent (les filtres ne sont donc pas fixés <em>a priori</em> comme dans l’exemple ci-dessus mais plutôt appris).
+Ces blocs de convolution sont équivariants par translation, ce qui signifie qu’un décalage (temporel) de leur entrée entraîne le même décalage temporel de leur sortie :</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
@@ -599,9 +599,9 @@ output:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7119/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7101/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-/tmp/ipykernel_7119/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
+/tmp/ipykernel_7101/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
   fig2 = plt.subplot(2, 1, 2)
 </pre></div>
 </div>
@@ -790,42 +790,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img6494e96a26d24e9387ddef546e5e7072">
+  <img id="_anim_imgf81eafed91524a41aeb55bf88d90740f">
   <div class="anim-controls">
-    <input id="_anim_slider6494e96a26d24e9387ddef546e5e7072" type="range" class="anim-slider"
+    <input id="_anim_sliderf81eafed91524a41aeb55bf88d90740f" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim6494e96a26d24e9387ddef546e5e7072.set_frame(parseInt(this.value));">
+           oninput="animf81eafed91524a41aeb55bf88d90740f.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim6494e96a26d24e9387ddef546e5e7072.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animf81eafed91524a41aeb55bf88d90740f.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim6494e96a26d24e9387ddef546e5e7072.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animf81eafed91524a41aeb55bf88d90740f.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim6494e96a26d24e9387ddef546e5e7072.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animf81eafed91524a41aeb55bf88d90740f.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim6494e96a26d24e9387ddef546e5e7072.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animf81eafed91524a41aeb55bf88d90740f.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim6494e96a26d24e9387ddef546e5e7072.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animf81eafed91524a41aeb55bf88d90740f.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim6494e96a26d24e9387ddef546e5e7072.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animf81eafed91524a41aeb55bf88d90740f.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim6494e96a26d24e9387ddef546e5e7072.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animf81eafed91524a41aeb55bf88d90740f.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim6494e96a26d24e9387ddef546e5e7072.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animf81eafed91524a41aeb55bf88d90740f.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim6494e96a26d24e9387ddef546e5e7072.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animf81eafed91524a41aeb55bf88d90740f.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select6494e96a26d24e9387ddef546e5e7072"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectf81eafed91524a41aeb55bf88d90740f"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_6494e96a26d24e9387ddef546e5e7072"
+      <input type="radio" name="state" value="once" id="_anim_radio1_f81eafed91524a41aeb55bf88d90740f"
              >
-      <label for="_anim_radio1_6494e96a26d24e9387ddef546e5e7072">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_6494e96a26d24e9387ddef546e5e7072"
+      <label for="_anim_radio1_f81eafed91524a41aeb55bf88d90740f">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_f81eafed91524a41aeb55bf88d90740f"
              checked>
-      <label for="_anim_radio2_6494e96a26d24e9387ddef546e5e7072">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_6494e96a26d24e9387ddef546e5e7072"
+      <label for="_anim_radio2_f81eafed91524a41aeb55bf88d90740f">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_f81eafed91524a41aeb55bf88d90740f"
              >
-      <label for="_anim_radio3_6494e96a26d24e9387ddef546e5e7072">Reflect</label>
+      <label for="_anim_radio3_f81eafed91524a41aeb55bf88d90740f">Reflect</label>
     </form>
   </div>
 </div>
@@ -835,9 +835,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img6494e96a26d24e9387ddef546e5e7072";
-    var slider_id = "_anim_slider6494e96a26d24e9387ddef546e5e7072";
-    var loop_select_id = "_anim_loop_select6494e96a26d24e9387ddef546e5e7072";
+    var img_id = "_anim_imgf81eafed91524a41aeb55bf88d90740f";
+    var slider_id = "_anim_sliderf81eafed91524a41aeb55bf88d90740f";
+    var loop_select_id = "_anim_loop_selectf81eafed91524a41aeb55bf88d90740f";
     var frames = new Array(60);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -34225,39 +34225,34 @@ PkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mP+H/WVaJekOOUnAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim6494e96a26d24e9387ddef546e5e7072 = new Animation(frames, img_id, slider_id, 200.0,
+        animf81eafed91524a41aeb55bf88d90740f = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
 </script>
 </div></div>
 </div>
-<p>Convolutional models are known to perform very well in computer vision
-applications, using moderate amounts of parameters compared to fully connected
-ones (of course, counter-examples exist, and the term “moderate” is
-especially vague).</p>
-<p>Most standard time series architectures that rely on convolutional blocks
-are straight-forward adaptations of
-models from the computer vision community
-(<span id="id1">[<a class="reference internal" href="#id19" title="Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data. Riva Del Garda, Italy, September 2016.">Le Guennec <em>et al.</em>, 2016</a>]</span> relies on an
-old-fashioned alternance between convolution and pooling layers,
-while more recent works rely on residual connections and
-inception modules <span id="id2">[<a class="reference internal" href="#id20" title="Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. Data Mining and Knowledge Discovery, 34(6):1936–1962, 2020.">Fawaz <em>et al.</em>, 2020</a>]</span>).
-These basic blocks (convolution, pooling, residual layers) are discussed
-in more details in the next Section.</p>
-<p>These time series classification models (and more) are presented and
-benchmarked in <span id="id3">[<a class="reference internal" href="#id21" title="Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. Data Mining and Knowledge Discovery, 33(4):917–963, 2019.">Fawaz <em>et al.</em>, 2019</a>]</span> that we
-advise the interested reader to refer to for more details.</p>
+<p>Les modèles convolutifs sont connus pour être très performants dans les applications de vision par ordinateur,
+utilisant des quantités modérées de paramètres par rapport aux modèles entièrement connectés (bien sûr, des contre-exemples existent, et le terme « modéré » est
+particulièrement vague).</p>
+<p>La plupart des architectures standard de séries temporelles qui reposent sur des blocs convolutionnels
+sont des adaptations directes de
+modèles de la communauté de la vision par ordinateur
+(<span id="id1">[<a class="reference internal" href="#id19" title="Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data. Riva Del Garda, Italy, September 2016.">Le Guennec <em>et al.</em>, 2016</a>]</span> s’appuie sur une
+alternance entre couches de convolution et couches de <em>pooling</em>,
+tandis que des travaux plus récents s’appuient sur des connexions résiduelles et des
+modules d”<em>inception</em> <span id="id2">[<a class="reference internal" href="#id20" title="Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. Data Mining and Knowledge Discovery, 34(6):1936–1962, 2020.">Fawaz <em>et al.</em>, 2020</a>]</span>).
+Ces blocs de base (convolution, pooling, couches résiduelles) sont discutés plus en détail dans la section suivante.</p>
+<p>Ces modèles de classification des séries temporelles (et bien d’autres) sont présentés et évalués dans <span id="id3">[<a class="reference internal" href="#id21" title="Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. Data Mining and Knowledge Discovery, 33(4):917–963, 2019.">Fawaz <em>et al.</em>, 2019</a>]</span> que nous
+conseillons au lecteur intéressé.</p>
 </section>
-<section id="convolutional-neural-networks-for-images">
-<h2>Convolutional neural networks for images<a class="headerlink" href="#convolutional-neural-networks-for-images" title="Permalink to this headline">#</a></h2>
-<p>We now turn our focus to the 2D case, in which our convolution
-filters will not slide on a single axis as in the time series case but rather
-on the two dimensions (width and height) of an image.</p>
-<section id="images-and-convolutions">
-<h3>Images and convolutions<a class="headerlink" href="#images-and-convolutions" title="Permalink to this headline">#</a></h3>
-<p>As seen below, an image is a pixel grid, and each pixel has an intensity value in each of the image channels.
-Color images are typically made of 3 channels (Red, Green and Blue here).</p>
+<section id="reseaux-de-neurones-convolutifs-pour-les-images">
+<h2>Réseaux de neurones convolutifs pour les images<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-images" title="Lien permanent vers ce titre">#</a></h2>
+<p>Nous allons maintenant nous intéresser au cas 2D, dans lequel les filtres de convolution ne glisseront pas sur un seul axe comme dans le cas des séries temporelles, mais plutôt sur les deux dimensions (largeur et hauteur) d’une image.</p>
+<section id="images-et-convolutions">
+<h3>Images et convolutions<a class="headerlink" href="#images-et-convolutions" title="Lien permanent vers ce titre">#</a></h3>
+<p>Comme on le voit ci-dessous, une image est une grille de pixels, et chaque pixel a une valeur d’intensité dans chacun des canaux de l’image.
+Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et Bleu).</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span>
@@ -34274,14 +34269,14 @@ Color images are typically made of 3 channels (Red, Green and Blue here).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;An RGB image&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Une image RGB&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">image_r</span><span class="p">,</span> <span class="n">image_g</span><span class="p">,</span> <span class="n">image_b</span><span class="p">],</span>
-                                     <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">])):</span>
+                                     <span class="p">[</span><span class="s2">&quot;Rouge&quot;</span><span class="p">,</span> <span class="s2">&quot;Vert&quot;</span><span class="p">,</span> <span class="s2">&quot;Bleu&quot;</span><span class="p">])):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2"> channel&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Canal </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -34289,21 +34284,20 @@ Color images are typically made of 3 channels (Red, Green and Blue here).</p>
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-cat">
 <img alt="../../_images/convnets_5_0.svg" src="../../_images/convnets_5_0.svg" /><figcaption>
-<p><span class="caption-text"><p>An image and its 3 channels
-(Red, Green and Blue intensity,
-from left to right).</p>
-</span><a class="headerlink" href="#fig-cat" title="Permalink to this image">#</a></p>
+<p><span class="caption-text"><p>Une image et ses 3 canaux
+(intensités de Rouge, Vert et Bleu, de gauche à droite).</p>
+</span><a class="headerlink" href="#fig-cat" title="Lien permanent vers cette image">#</a></p>
 </figcaption>
 </figure>
 </div>
 </div>
-<p>The output of a convolution on an image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a new image, whose pixel values can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3904faa4-7a95-42a3-b8bf-0631c2a564cc">
-<span class="eqno">(3)<a class="headerlink" href="#equation-3904faa4-7a95-42a3-b8bf-0631c2a564cc" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<p>La sortie d’une convolution sur une image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> est une nouvelle image, dont les valeurs des pixels peuvent être calculées comme suit :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-13402e44-a141-41b7-8788-860d8cb0c4f1">
+<span class="eqno">(3)<a class="headerlink" href="#equation-13402e44-a141-41b7-8788-860d8cb0c4f1" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}\]</div>
-<p>In other words, the output image pixels are computed as the dot product between a convolution filter (which is a tensor of shape <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) and the image patch centered at the given position.</p>
-<p>Let us, for example, consider the following 9x9 convolution filter:</p>
+<p>En d’autres termes, les pixels de l’image de sortie sont calculés comme le produit scalaire entre un filtre de convolution (qui est un tenseur de forme <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) et un <em>patch</em> d’image centré à la position donnée.</p>
+<p>Considérons, par exemple, le filtre de convolution 9x9 suivant :</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sz</span> <span class="o">=</span> <span class="mi">9</span>
@@ -34322,7 +34316,7 @@ from left to right).</p>
 <div class="cell_output docutils container">
 <img alt="../../_images/convnets_7_0.svg" src="../../_images/convnets_7_0.svg" /></div>
 </div>
-<p>Then the output of the convolution of the cat image above with this filter is the following greyscale (<em>ie.</em> single channel) image:</p>
+<p>Le résultat de la convolution de l’image de chat ci-dessus avec ce filtre est l’image suivante en niveaux de gris (c’est-à-dire constituée d’un seul canal) :</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">convolve2d</span>
@@ -34340,35 +34334,35 @@ from left to right).</p>
 <div class="cell_output docutils container">
 <img alt="../../_images/convnets_9_0.svg" src="../../_images/convnets_9_0.svg" /></div>
 </div>
-<p>One might notice that this image is a blurred version of the original image.
-This is because we used a Gaussian filter in the process.
-As for time series, when using convolution operations in neural networks, the contents of the filters will be learnt, rather than set <em>a priori</em>.</p>
+<p>On peut remarquer que cette image est une version floue de l’image originale.
+C’est parce que nous avons utilisé un filtre Gaussien.
+Comme pour les séries temporelles, lors de l’utilisation d’opérations de convolution dans les réseaux neuronaux, le contenu des filtres sera appris, plutôt que défini <em>a priori</em>.</p>
 </section>
-<section id="cnns-a-la-lenet">
-<h3>CNNs <em>à la</em> LeNet<a class="headerlink" href="#cnns-a-la-lenet" title="Permalink to this headline">#</a></h3>
-<p>In <span id="id4">[<a class="reference internal" href="#id31" title="Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.">LeCun <em>et al.</em>, 1998</a>]</span>, a stack of convolution, pooling and fully connected layers is introduced for an image classification task, more specifically a digit recognition application.
-The resulting neural network, called LeNet, is depicted below:</p>
+<section id="reseaux-convolutifs-de-type-lenet">
+<h3>Réseaux convolutifs de type LeNet<a class="headerlink" href="#reseaux-convolutifs-de-type-lenet" title="Lien permanent vers ce titre">#</a></h3>
+<p>Dans <span id="id4">[<a class="reference internal" href="#id31" title="Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.">LeCun <em>et al.</em>, 1998</a>]</span>, un empilement de couches de convolution, de <em>pooling</em> et de couches entièrement connectées est introduit pour une tâche de classification d’images, plus spécifiquement une application de reconnaissance de chiffres.
+Le réseau neuronal résultant, appelé LeNet, est représenté ci-dessous :</p>
 <figure class="align-default" id="fig-lenet">
 <img alt="../../_images/lenet.png" src="../../_images/lenet.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">LeNet-5 model</span><a class="headerlink" href="#fig-lenet" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Modèle LeNet-5</span><a class="headerlink" href="#fig-lenet" title="Lien permanent vers cette image">#</a></p>
 </figcaption>
 </figure>
-<section id="convolution-layers">
-<h4>Convolution layers<a class="headerlink" href="#convolution-layers" title="Permalink to this headline">#</a></h4>
-<p>A convolution layer is made of several convolution filters (also called <em>kernels</em>) that operate in parallel on the same input image.
-Each convolution filter generates an output activation map and all these maps are stacked (in the channel dimension) to form the output of the convolution layer.
-All filters in a layer share the same width and height.
-A bias term and an activation function can be used in convolution layers, as in other neural network layers.
-All in all, the output of a convolution filter is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8b166de4-b35e-426e-9919-28b22ec561a4">
-<span class="eqno">(4)<a class="headerlink" href="#equation-8b166de4-b35e-426e-9919-28b22ec561a4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<section id="couches-de-convolution">
+<h4>Couches de convolution<a class="headerlink" href="#couches-de-convolution" title="Lien permanent vers ce titre">#</a></h4>
+<p>Une couche de convolution est constituée de plusieurs filtres de convolution (également appelés <em>kernels</em>) qui opèrent en parallèle sur la même image d’entrée.
+Chaque filtre de convolution génère une carte d’activation en sortie et toutes ces cartes sont empilées pour former la sortie de la couche de convolution.
+Tous les filtres d’une couche partagent la même largeur et la même hauteur.
+Un terme de biais et une fonction d’activation peuvent être utilisés dans les couches de convolution, comme dans d’autres couches de réseaux neuronaux.
+Dans l’ensemble, la sortie d’un filtre de convolution est calculée comme suit :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-be1ae835-1755-44fb-bcd7-b2ff2af205c5">
+<span class="eqno">(4)<a class="headerlink" href="#equation-be1ae835-1755-44fb-bcd7-b2ff2af205c5" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}\]</div>
-<p>where <span class="math notranslate nohighlight">\(c\)</span> denotes the output channel (note that each output channel is associated with a filter <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> is its associated bias term and <span class="math notranslate nohighlight">\(\varphi\)</span> is the activation function to be used.</p>
+<p>où <span class="math notranslate nohighlight">\(c\)</span> désigne le canal de sortie (notez que chaque canal de sortie est associé à un filtre <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> est le terme de biais qui lui est associé et <span class="math notranslate nohighlight">\(\varphi\)</span> est la fonction d’activation utilisée.</p>
 <div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">keras</span></code>, such a layer is implemented using the <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> class:</p>
+<p class="admonition-title">Astuce</p>
+<p>En <code class="docutils literal notranslate"><span class="pre">keras</span></code>, une telle couche est implémentée à l’aide de la classe <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
 
 <span class="n">layer</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
@@ -34387,25 +34381,25 @@ All in all, the output of a convolution filter is computed as:</p>
 </div>
 </div>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">A visual explanation of padding (source: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning</a>).
-Left: Without padding, right: With padding.</span><a class="headerlink" href="#fig-padding" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Visualisation de l’effet du <em>padding</em> (source: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning</a>).
+Gauche: sans <em>padding</em>, droite: avec <em>padding</em>.</span><a class="headerlink" href="#fig-padding" title="Lien permanent vers cette image">#</a></p>
 </figcaption>
 </figure>
-<p>When processing an input image, it can be useful to ensure that the output feature map has the same width and height as the input image.
-This can be achieved by padding the input image with surrounding zeros, as illustrated in <a class="reference internal" href="#fig-padding"><span class="std std-numref">Fig. 3</span></a> in which the padding area is represented in white.</p>
+<p>Lors du traitement d’une image d’entrée, il peut être utile de s’assurer que la carte de caractéristiques (ou carte d’activation) de sortie a la même largeur et la même hauteur que l’image d’entrée.
+Cela peut être réalisé en agrandissant artificiellement l’image d’entrée et en remplissant les zones ajoutées avec des zéros, comme illustré dans <a class="reference internal" href="#fig-padding"><span class="std std-numref">Fig. 3</span></a> dans lequel la zone de <em>padding</em> est représentée en blanc.</p>
 </div>
 </section>
-<section id="pooling-layers">
-<h4>Pooling layers<a class="headerlink" href="#pooling-layers" title="Permalink to this headline">#</a></h4>
-<p>Pooling layers perform a subsampling operation that somehow summarizes the information contained in feature maps in lower resolution maps.</p>
-<p>The idea is to compute, for each image patch, an output feature that computes an aggregate of the pixels in the patch.
-Typical aggregation operators are average (in this case the corresponding layer is called an average pooling layer) or maximum (for max pooling layers) operators.
-In order to reduce the resolution of the output maps, these aggregates are typically computed on sliding windows that do not overlap, as illustrated below, for a max pooling with a pool size of 2x2:</p>
+<section id="couches-de-pooling">
+<h4>Couches de <em>pooling</em><a class="headerlink" href="#couches-de-pooling" title="Lien permanent vers ce titre">#</a></h4>
+<p>Les couches de <em>pooling</em> effectuent une opération de sous-échantillonnage qui résume en quelque sorte les informations contenues dans les cartes de caractéristiques dans des cartes à plus faible résolution.</p>
+<p>L’idée est de calculer, pour chaque parcelle d’image, une caractéristique de sortie qui calcule un agrégat des pixels de la parcelle.
+Les opérateurs d’agrégation typiques sont les opérateurs de moyenne (dans ce cas, la couche correspondante est appelée <em>average pooling</em>) ou de maximum (pour les couches de <em>max pooling</em>).
+Afin de réduire la résolution des cartes de sortie, ces agrégats sont généralement calculés sur des fenêtres glissantes qui ne se chevauchent pas, comme illustré ci-dessous, pour un <em>max pooling</em> avec une taille de <em>pooling</em> de 2x2 :</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-eb3a68a5d0ea5b8574cd1ee5603257c193c38dda.svg" alt="Figure made with TikZ" /></p>
-</div><p>Such layers were widely used in the early years of convolutional models and are now less and less used as the available amount of computational power grows.</p>
+</div><p>Ces couches étaient largement utilisées historiquement dans les premiers modèles convolutifs et le sont de moins en moins à mesure que la puissance de calcul disponible augmente.</p>
 <div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>In <code class="docutils literal notranslate"><span class="pre">keras</span></code>, pooling layers are implemented through the <code class="docutils literal notranslate"><span class="pre">MaxPool2D</span></code> and <code class="docutils literal notranslate"><span class="pre">AvgPool2D</span></code> classes:</p>
+<p class="admonition-title">Astuce</p>
+<p>En <code class="docutils literal notranslate"><span class="pre">keras</span></code>, les couches de <em>pooling</em> sont implémentées à travers les classes <code class="docutils literal notranslate"><span class="pre">MaxPool2D</span></code> et <code class="docutils literal notranslate"><span class="pre">AvgPool2D</span></code> :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">AvgPool2D</span>
 
 <span class="n">max_pooling_layer</span> <span class="o">=</span> <span class="n">MaxPool2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -34414,12 +34408,12 @@ In order to reduce the resolution of the output maps, these aggregates are typic
 </div>
 </div>
 </section>
-<section id="plugging-fully-connected-layers-at-the-output">
-<h4>Plugging fully-connected layers at the output<a class="headerlink" href="#plugging-fully-connected-layers-at-the-output" title="Permalink to this headline">#</a></h4>
-<p>A stack of convolution and pooling layers outputs a structured activation map (that takes the form of 2d grid with an additional channel dimension).
-When image classification is targeted, the goal is to output the most probable class for the input image, which is usually performed by a classification head that consists in fully-connected layers.</p>
-<p>In order for the classification head to be able to process an activation map, information from this map needs to be transformed into a vector.
-This operation is called flattening in <code class="docutils literal notranslate"><span class="pre">keras</span></code>, and the model corresponding to <a class="reference internal" href="#fig-lenet"><span class="std std-numref">Fig. 2</span></a> can be implemented as:</p>
+<section id="ajout-d-une-tete-de-classification">
+<h4>Ajout d’une <em>tête de classification</em><a class="headerlink" href="#ajout-d-une-tete-de-classification" title="Lien permanent vers ce titre">#</a></h4>
+<p>Un empilement de couches de convolution et de <em>pooling</em> produit une carte d’activation structurée (qui prend la forme d’une grille 2d avec une dimension supplémentaire pour les différents canaux).
+Lorsque l’on vise une tâche de classification d’images, l’objectif est de produire la classe la plus probable pour l’image d’entrée, ce qui est généralement réalisé par une tête de classification (<em>classification head</em>) composée de couches entièrement connectées.</p>
+<p>Pour que la tête de classification soit capable de traiter une carte d’activation, les informations de cette carte doivent être transformées en un vecteur.
+Cette opération est appelée <em>Flatten</em> dans <code class="docutils literal notranslate"><span class="pre">keras</span></code>, et le modèle correspondant à <a class="reference internal" href="#fig-lenet"><span class="std std-numref">Fig. 2</span></a> peut être implémenté comme :</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
@@ -34479,7 +34473,7 @@ _________________________________________________________________
 </section>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<h2>Références<a class="headerlink" href="#references" title="Lien permanent vers ce titre">#</a></h2>
 <div class="docutils container" id="id5">
 <dl class="citation">
 <dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id3">FFW+19</a></span></dt>
@@ -34526,16 +34520,16 @@ _________________________________________________________________
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="regularization.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="regularization.html" title="précédent page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-subtitle">précédent</p>
             <p class="prev-next-title">Regularization</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="rnn.html" title="next page">
+    <a class='right-next' id="next-link" href="rnn.html" title="suivant page">
     <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">suivant</p>
         <p class="prev-next-title">Recurrent Neural Networks</p>
     </div>
     <i class="fas fa-angle-right"></i>

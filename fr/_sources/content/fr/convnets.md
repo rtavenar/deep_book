@@ -14,24 +14,23 @@ kernelspec:
 ---
 
 (sec:cnn)=
-# Convolutional Neural Networks
+# Réseaux neuronaux convolutifs
 
-Convolutional Neural Networks (_aka_ ConvNets) are designed to take advantage of the structure in the data.
-In this chapter, we will discuss two flavours of ConvNets: we will start with the monodimensional case and see how ConvNets with 1D convolutions can be helpful to process time series and we will then introduce the 2D case that is especially useful to process image data.
+Les réseaux de neurones convolutifs (aussi appelés ConvNets) sont conçus pour tirer parti de la structure des données.
+Dans ce chapitre, nous aborderons deux types de réseaux convolutifs : nous commencerons par le cas monodimensionnel et verrons comment les réseaux convolutifs à convolutions 1D peuvent être utiles pour traiter les séries temporelles. Nous présenterons ensuite le cas 2D, particulièrement utile pour traiter les données d'image.
 
-## ConvNets for time series
+## Réseaux de neurones convolutifs pour les séries temporelles
 
-Convolutional neural networks for time series rely on the
-1D convolution operator that, given a time series $\mathbf{x}$ and a filter
-$\mathbf{f}$, computes an activation map as:
+Les réseaux de neurones convolutifs pour les séries temporelles reposent sur l'opérateur de convolution 1D qui, étant donné une série temporelle $\mathbf{x}$ et un filtre
+$\mathbf{f}$, calcule une carte d'activation comme :
 
 \begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}
 
-where the filter $\mathbf{f}$ is of length $(2L + 1)$.
+où le filtre $\mathbf{f}$ est de longueur $(2L + 1)$.
 
-The following code illustrates this notion using a Gaussian filter:
+Le code suivant illustre cette notion en utilisant un filtre gaussien :
 
 ```{code-cell} ipython3
 :tags: [hide-cell]
@@ -57,18 +56,14 @@ f = np.exp(- np.linspace(-2, 2, num=5) ** 2 / 2)
 f /= f.sum()
 
 plt.figure()
-plt.plot(x, label='raw time series')
+plt.plot(x, label='Série temporelle')
 plt.plot(np.correlate(x, f, mode='same'),
-         label='activation map (gaussian smoothed time series)')
+         label='Carte d\'activation (série temporelle passée à travers un filtre Gaussien)')
 plt.legend();
 ```
 
-Convolutional neural networks are made of convolution blocks whose parameters
-are the coefficients of the filters they embed (hence filters are not fixed
-    _a priori_ as in the example above but rather learned).
-These convolution blocks are translation equivariant, which means that a
-(temporal) shift in their input results in the same temporal shift in the
-output:
+Les réseaux de neurones convolutifs sont constitués de blocs de convolution dont les paramètres sont les coefficients des filtres qu'ils intègrent (les filtres ne sont donc pas fixés _a priori_ comme dans l'exemple ci-dessus mais plutôt appris).
+Ces blocs de convolution sont équivariants par translation, ce qui signifie qu'un décalage (temporel) de leur entrée entraîne le même décalage temporel de leur sortie :
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -113,35 +108,30 @@ plt.close()
 HTML(anim.to_jshtml())
 ```
 
-Convolutional models are known to perform very well in computer vision
-applications, using moderate amounts of parameters compared to fully connected
-ones (of course, counter-examples exist, and the term "moderate" is
-especially vague).
+Les modèles convolutifs sont connus pour être très performants dans les applications de vision par ordinateur,
+utilisant des quantités modérées de paramètres par rapport aux modèles entièrement connectés (bien sûr, des contre-exemples existent, et le terme "modéré" est
+particulièrement vague).
 
-Most standard time series architectures that rely on convolutional blocks
-are straight-forward adaptations of
-models from the computer vision community
-({cite:p}`leguennec:halshs-01357973` relies on an
-old-fashioned alternance between convolution and pooling layers,
-while more recent works rely on residual connections and
-inception modules {cite:p}`fawaz2020inceptiontime`).
-These basic blocks (convolution, pooling, residual layers) are discussed 
-in more details in the next Section.
+La plupart des architectures standard de séries temporelles qui reposent sur des blocs convolutionnels
+sont des adaptations directes de
+modèles de la communauté de la vision par ordinateur
+({cite:p}`leguennec:halshs-01357973` s'appuie sur une
+alternance entre couches de convolution et couches de _pooling_,
+tandis que des travaux plus récents s'appuient sur des connexions résiduelles et des
+modules d'_inception_ {cite:p}`fawaz2020inceptiontime`).
+Ces blocs de base (convolution, pooling, couches résiduelles) sont discutés plus en détail dans la section suivante.
 
-These time series classification models (and more) are presented and 
-benchmarked in {cite:p}`fawaz2019deep` that we
-advise the interested reader to refer to for more details.
+Ces modèles de classification des séries temporelles (et bien d'autres) sont présentés et évalués dans {cite:p}`fawaz2019deep` que nous
+conseillons au lecteur intéressé.
 
-## Convolutional neural networks for images
+## Réseaux de neurones convolutifs pour les images
 
-We now turn our focus to the 2D case, in which our convolution 
-filters will not slide on a single axis as in the time series case but rather 
-on the two dimensions (width and height) of an image.
+Nous allons maintenant nous intéresser au cas 2D, dans lequel les filtres de convolution ne glisseront pas sur un seul axe comme dans le cas des séries temporelles, mais plutôt sur les deux dimensions (largeur et hauteur) d'une image.
 
-### Images and convolutions
+### Images et convolutions
 
-As seen below, an image is a pixel grid, and each pixel has an intensity value in each of the image channels. 
-Color images are typically made of 3 channels (Red, Green and Blue here).
+Comme on le voit ci-dessous, une image est une grille de pixels, et chaque pixel a une valeur d'intensité dans chacun des canaux de l'image. 
+Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et Bleu).
 
 ```{code-cell} ipython3
 ---
@@ -149,9 +139,8 @@ tags: [hide-input]
 render:
     figure:
         caption: |
-            An image and its 3 channels 
-            (Red, Green and Blue intensity, 
-            from left to right).
+            Une image et ses 3 canaux
+            (intensités de Rouge, Vert et Bleu, de gauche à droite).
         name: fig-cat
 ---
 
@@ -169,26 +158,26 @@ image_b[:, :, :-1] = 0.
 plt.figure(figsize=(20, 8))
 plt.subplot(2, 3, 2)
 plt.imshow(image)
-plt.title("An RGB image")
+plt.title("Une image RGB")
 plt.axis("off")
 
 for i, (img, color) in enumerate(zip([image_r, image_g, image_b],
-                                     ["Red", "Green", "Blue"])):
+                                     ["Rouge", "Vert", "Bleu"])):
     plt.subplot(2, 3, i + 4)
     plt.imshow(img)
-    plt.title(f"{color} channel")
+    plt.title(f"Canal {color}")
     plt.axis("off")
 ```
 
-The output of a convolution on an image $\mathbf{x}$ is a new image, whose pixel values can be computed as:
+La sortie d'une convolution sur une image $\mathbf{x}$ est une nouvelle image, dont les valeurs des pixels peuvent être calculées comme suit :
 
 \begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}
 
-In other words, the output image pixels are computed as the dot product between a convolution filter (which is a tensor of shape $(2K + 1, 2L + 1, c)$) and the image patch centered at the given position.
+En d'autres termes, les pixels de l'image de sortie sont calculés comme le produit scalaire entre un filtre de convolution (qui est un tenseur de forme $(2K + 1, 2L + 1, c)$) et un _patch_ d'image centré à la position donnée.
 
-Let us, for example, consider the following 9x9 convolution filter:
+Considérons, par exemple, le filtre de convolution 9x9 suivant :
 
 ```{code-cell} ipython3
 ---
@@ -208,7 +197,7 @@ plt.imshow(filter_3d)
 plt.axis("off");
 ```
 
-Then the output of the convolution of the cat image above with this filter is the following greyscale (_ie._ single channel) image:
+Le résultat de la convolution de l'image de chat ci-dessus avec ce filtre est l'image suivante en niveaux de gris (c'est-à-dire constituée d'un seul canal) :
 
 ```{code-cell} ipython3
 ---
@@ -225,37 +214,37 @@ plt.imshow(convoluted_signal, cmap="gray")
 plt.axis("off");
 ```
 
-One might notice that this image is a blurred version of the original image.
-This is because we used a Gaussian filter in the process.
-As for time series, when using convolution operations in neural networks, the contents of the filters will be learnt, rather than set _a priori_.
+On peut remarquer que cette image est une version floue de l'image originale.
+C'est parce que nous avons utilisé un filtre Gaussien.
+Comme pour les séries temporelles, lors de l'utilisation d'opérations de convolution dans les réseaux neuronaux, le contenu des filtres sera appris, plutôt que défini _a priori_.
 
-### CNNs _à la_ LeNet
+### Réseaux convolutifs de type LeNet
 
-In {cite:p}`lecun1998gradient`, a stack of convolution, pooling and fully connected layers is introduced for an image classification task, more specifically a digit recognition application.
-The resulting neural network, called LeNet, is depicted below:
+Dans {cite:p}`lecun1998gradient`, un empilement de couches de convolution, de _pooling_ et de couches entièrement connectées est introduit pour une tâche de classification d'images, plus spécifiquement une application de reconnaissance de chiffres.
+Le réseau neuronal résultant, appelé LeNet, est représenté ci-dessous :
 
 ```{figure} ../img/lenet.png
 :name: fig-lenet
 
-LeNet-5 model
+Modèle LeNet-5
 ```
 
-#### Convolution layers
+#### Couches de convolution
 
-A convolution layer is made of several convolution filters (also called _kernels_) that operate in parallel on the same input image.
-Each convolution filter generates an output activation map and all these maps are stacked (in the channel dimension) to form the output of the convolution layer.
-All filters in a layer share the same width and height.
-A bias term and an activation function can be used in convolution layers, as in other neural network layers.
-All in all, the output of a convolution filter is computed as:
+Une couche de convolution est constituée de plusieurs filtres de convolution (également appelés _kernels_) qui opèrent en parallèle sur la même image d'entrée.
+Chaque filtre de convolution génère une carte d'activation en sortie et toutes ces cartes sont empilées pour former la sortie de la couche de convolution.
+Tous les filtres d'une couche partagent la même largeur et la même hauteur.
+Un terme de biais et une fonction d'activation peuvent être utilisés dans les couches de convolution, comme dans d'autres couches de réseaux neuronaux.
+Dans l'ensemble, la sortie d'un filtre de convolution est calculée comme suit :
 
 \begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}
 
-where $c$ denotes the output channel (note that each output channel is associated with a filter $f^c$), $b_c$ is its associated bias term and $\varphi$ is the activation function to be used.
+où $c$ désigne le canal de sortie (notez que chaque canal de sortie est associé à un filtre $f^c$), $b_c$ est le terme de biais qui lui est associé et $\varphi$ est la fonction d'activation utilisée.
 
 ````{tip}
-In `keras`, such a layer is implemented using the `Conv2D` class:
+En `keras`, une telle couche est implémentée à l'aide de la classe `Conv2D` :
 
 ```python
 from tensorflow.keras.layers import Conv2D
@@ -277,21 +266,21 @@ layer = Conv2D(filters=6, kernel_size=5, padding="valid", activation="relu")
 ```{image} ../img/same_padding_no_strides.gif
 ```
 
-A visual explanation of padding (source: [V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning](https://github.com/vdumoulin/conv_arithmetic)).
-Left: Without padding, right: With padding.
+Visualisation de l'effet du _padding_ (source: [V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning](https://github.com/vdumoulin/conv_arithmetic)).
+Gauche: sans _padding_, droite: avec _padding_.
 ````
 
-When processing an input image, it can be useful to ensure that the output feature map has the same width and height as the input image.
-This can be achieved by padding the input image with surrounding zeros, as illustrated in {numref}`fig-padding` in which the padding area is represented in white.
+Lors du traitement d'une image d'entrée, il peut être utile de s'assurer que la carte de caractéristiques (ou carte d'activation) de sortie a la même largeur et la même hauteur que l'image d'entrée.
+Cela peut être réalisé en agrandissant artificiellement l'image d'entrée et en remplissant les zones ajoutées avec des zéros, comme illustré dans {numref}`fig-padding` dans lequel la zone de _padding_ est représentée en blanc.
 `````
 
-#### Pooling layers
+#### Couches de _pooling_
 
-Pooling layers perform a subsampling operation that somehow summarizes the information contained in feature maps in lower resolution maps.
+Les couches de _pooling_ effectuent une opération de sous-échantillonnage qui résume en quelque sorte les informations contenues dans les cartes de caractéristiques dans des cartes à plus faible résolution.
 
-The idea is to compute, for each image patch, an output feature that computes an aggregate of the pixels in the patch.
-Typical aggregation operators are average (in this case the corresponding layer is called an average pooling layer) or maximum (for max pooling layers) operators.
-In order to reduce the resolution of the output maps, these aggregates are typically computed on sliding windows that do not overlap, as illustrated below, for a max pooling with a pool size of 2x2:
+L'idée est de calculer, pour chaque parcelle d'image, une caractéristique de sortie qui calcule un agrégat des pixels de la parcelle.
+Les opérateurs d'agrégation typiques sont les opérateurs de moyenne (dans ce cas, la couche correspondante est appelée _average pooling_) ou de maximum (pour les couches de _max pooling_).
+Afin de réduire la résolution des cartes de sortie, ces agrégats sont généralement calculés sur des fenêtres glissantes qui ne se chevauchent pas, comme illustré ci-dessous, pour un _max pooling_ avec une taille de _pooling_ de 2x2 :
 
 ```{tikz}
 \filldraw[fill=gray!20, draw=black] (0,0) rectangle (2,2);
@@ -332,10 +321,10 @@ In order to reduce the resolution of the output maps, these aggregates are typic
 \draw[->] (max) to node{} (13,5);
 ```
 
-Such layers were widely used in the early years of convolutional models and are now less and less used as the available amount of computational power grows.
+Ces couches étaient largement utilisées historiquement dans les premiers modèles convolutifs et le sont de moins en moins à mesure que la puissance de calcul disponible augmente.
 
 ````{tip}
-In `keras`, pooling layers are implemented through the `MaxPool2D` and `AvgPool2D` classes:
+En `keras`, les couches de _pooling_ sont implémentées à travers les classes `MaxPool2D` et `AvgPool2D` :
 
 ```python
 from tensorflow.keras.layers import MaxPool2D, AvgPool2D
@@ -346,13 +335,13 @@ average_pooling_layer = AvgPool2D(pool_size=2)
 ````
 
 
-#### Plugging fully-connected layers at the output
+#### Ajout d'une _tête de classification_
 
-A stack of convolution and pooling layers outputs a structured activation map (that takes the form of 2d grid with an additional channel dimension).
-When image classification is targeted, the goal is to output the most probable class for the input image, which is usually performed by a classification head that consists in fully-connected layers.
+Un empilement de couches de convolution et de _pooling_ produit une carte d'activation structurée (qui prend la forme d'une grille 2d avec une dimension supplémentaire pour les différents canaux).
+Lorsque l'on vise une tâche de classification d'images, l'objectif est de produire la classe la plus probable pour l'image d'entrée, ce qui est généralement réalisé par une tête de classification (_classification head_) composée de couches entièrement connectées.
 
-In order for the classification head to be able to process an activation map, information from this map needs to be transformed into a vector.
-This operation is called flattening in `keras`, and the model corresponding to {numref}`fig-lenet` can be implemented as:
+Pour que la tête de classification soit capable de traiter une carte d'activation, les informations de cette carte doivent être transformées en un vecteur.
+Cette opération est appelée _Flatten_ dans `keras`, et le modèle correspondant à {numref}`fig-lenet` peut être implémenté comme :
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -378,7 +367,7 @@ model.summary()
 
 ### Using a pre-trained model for better performance -->
 
-## References
+## Références
 
 ```{bibliography}
 :filter: docname in docnames

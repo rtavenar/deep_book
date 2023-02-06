@@ -1,8 +1,8 @@
-# Les bases du Deep Learning
+# Introduction au Deep Learning
 
 **par Romain Tavenard**
 
-Ce document sert de notes de cours pour une formation dispensée à l'Université de Rennes 2 (France) et à l'EDHEC Lille (France).
+Ce document sert de notes de cours pour un cours dispensé à l'Université de Rennes 2 (France) et à l'EDHEC Lille (France).
 
 Le cours traite des bases des réseaux de neurones pour la classification et la régression sur des données tabulaires
 (y compris les algorithmes d'optimisation pour les perceptrons multicouches),
