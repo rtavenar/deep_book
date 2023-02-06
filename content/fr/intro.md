@@ -1,15 +1,14 @@
-# Deep Learning Basics
+# Les bases du Deep Learning
 
-**by Romain Tavenard**
+**par Romain Tavenard**
 
-This document serves as lecture notes for a course that is taught at
-Université de Rennes 2 (France) and EDHEC Lille (France).
+Ce document sert de notes de cours pour une formation dispensée à l'Université de Rennes 2 (France) et à l'EDHEC Lille (France).
 
-The course deals with the basics of neural networks for classification and
-regression over tabular data
-(including optimization algorithms for multi-layer perceptrons),
-convolutional neural networks for image classification
-(including notions of transfer learning) and sequence classification /
-forecasting.
+Le cours traite des bases des réseaux de neurones pour la classification et la régression sur des données tabulaires
+(y compris les algorithmes d'optimisation pour les perceptrons multicouches),
+les réseaux de neurones convolutifs pour la classification d'images
+(y compris les notions d'apprentissage par transfert) et la classification / prévision de séquences.
 
-The labs for this course will use `keras`, hence so will these lecture notes.
+Les séances de travaux pratiques de ce cours utiliseront `keras`, tout comme ces notes de cours.
+
+_NB : ces notes sont en cours de traduction vers le français_

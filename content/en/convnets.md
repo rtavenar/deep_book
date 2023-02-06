@@ -14,15 +14,15 @@ kernelspec:
 ---
 
 (sec:cnn)=
-# Convolutional Neural Networks (CNN)
+# Convolutional Neural Networks
 
 Convolutional Neural Networks (_aka_ ConvNets) are designed to take advantage of the structure in the data.
-In this chapter, we will discuss two flavours of ConvNets: we will start with the monodimensional case and see how ConvNets with 1d convolutions can be helpful to process time series and we will then introduce the 2D case that is especially useful to process image data.
+In this chapter, we will discuss two flavours of ConvNets: we will start with the monodimensional case and see how ConvNets with 1D convolutions can be helpful to process time series and we will then introduce the 2D case that is especially useful to process image data.
 
 ## ConvNets for time series
 
 Convolutional neural networks for time series rely on the
-1d convolution operator that, given a time series $\mathbf{x}$ and a filter
+1D convolution operator that, given a time series $\mathbf{x}$ and a filter
 $\mathbf{f}$, computes an activation map as:
 
 \begin{equation}
