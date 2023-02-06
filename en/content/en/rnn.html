@@ -1,0 +1,736 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Recurrent Neural Networks &#8212; Deep Learning Basics (lecture notes)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Convolutional Neural Networks" href="convnets.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Deep Learning Basics (lecture notes)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Deep Learning Basics
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="perceptron.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mlp.html">
+   Multi Layer Perceptrons (MLP)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="loss.html">
+   Losses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="optim.html">
+   Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="regularization.html">
+   Regularization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="convnets.html">
+   Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Recurrent Neural Networks
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            <a href="../../../book_en.pdf">Download these notes as PDF</a><br />
+<a href="../fr/index.html">Basculer en Français</a>
+
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/rtavenar/deep_book/main?urlpath=tree/content/en/rnn.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rtavenar/deep_book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/en/rnn.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/content/en/rnn.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/content/en/rnn.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vanilla-rnns">
+   “Vanilla” RNNs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#long-short-term-memory">
+   Long Short-Term Memory
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gated-recurrent-unit">
+   Gated Recurrent Unit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Recurrent Neural Networks</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vanilla-rnns">
+   “Vanilla” RNNs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#long-short-term-memory">
+   Long Short-Term Memory
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gated-recurrent-unit">
+   Gated Recurrent Unit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="recurrent-neural-networks">
+<span id="sec-rnn"></span><h1>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this headline">#</a></h1>
+<p>Recurrent neural networks (RNNs) proceed by processing elements of a time
+series one at a time.
+Typically, at time <span class="math notranslate nohighlight">\(t\)</span>, a recurrent block will take both the current input <span class="math notranslate nohighlight">\(x_t\)</span>
+and a hidden state <span class="math notranslate nohighlight">\(h_{t-1}\)</span> that aims at summarizing the key information from
+past inputs <span class="math notranslate nohighlight">\(\{x_0, \dots, x_{t-1}\}\)</span>, and will output an updated hidden state
+<span class="math notranslate nohighlight">\(h_{t}\)</span>:</p>
+<div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-80f52ef9bafabd6b5809c28af7649ffd04631eb0.svg" alt="Figure made with TikZ" /></p>
+</div><p>There exist various recurrent modules that mostly differ in the way <span class="math notranslate nohighlight">\(h_t\)</span> is
+computed.</p>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">notebook_utils</span> <span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
+<span class="n">prepare_notebook_graphics</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="vanilla-rnns">
+<h2>“Vanilla” RNNs<a class="headerlink" href="#vanilla-rnns" title="Permalink to this headline">#</a></h2>
+<p>The basic formulation for a RNN block is as follows:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6569ac5f-050e-4873-9765-5014ed6de7f9">
+<span class="eqno">(5)<a class="headerlink" href="#equation-6569ac5f-050e-4873-9765-5014ed6de7f9" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(W_h\)</span> is a weight matrix associated to the processing of the previous
+hidden state, <span class="math notranslate nohighlight">\(W_x\)</span> is another weight matrix associated to the processing of
+the current input and <span class="math notranslate nohighlight">\(b\)</span> is a bias term.</p>
+<p>Note here that <span class="math notranslate nohighlight">\(W_h\)</span>, <span class="math notranslate nohighlight">\(W_x\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are not indexed by <span class="math notranslate nohighlight">\(t\)</span>, which means that
+they are <strong>shared across all timestamps</strong>.</p>
+<p>An important limitation of this formula is that it easily fails at capturing
+long-term dependencies.
+To better understand why, one should remind that the parameters of these
+networks are optimized through stochastic gradient descent algorithms.</p>
+<p>To simplify notations, let us consider a simplified case in which
+<span class="math notranslate nohighlight">\(h_t\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> are both scalar values, and let us have a look at what the
+actual gradient of the output <span class="math notranslate nohighlight">\(h_t\)</span> is, with
+respect to <span class="math notranslate nohighlight">\(W_h\)</span> (which is then also a scalar):</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cbf6c7aa-7e93-453b-adec-98e6030e8a41">
+<span class="eqno">(6)<a class="headerlink" href="#equation-cbf6c7aa-7e93-453b-adec-98e6030e8a41" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, hence:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7651f955-3bd6-4794-bbd4-0abdac94efb7">
+<span class="eqno">(7)<a class="headerlink" href="#equation-7651f955-3bd6-4794-bbd4-0abdac94efb7" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
+\end{equation}\]</div>
+<p>Here, the form of <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> will be similar to
+that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> above, and, in the end, one gets:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c3e69401-f534-4d85-9259-3aeb4d117764">
+<span class="eqno">(8)<a class="headerlink" href="#equation-c3e69401-f534-4d85-9259-3aeb4d117764" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+    \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
+        \left[
+            h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
+        \right] \\
+        &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
+           \left[
+               h_{t-1} + W_h \cdot \text{tanh}^\prime(o_{t-1}) \cdot
+               \left[
+                   h_{t-2} + W_h \cdot \left[ \dots \right]
+               \right]
+           \right] \\
+          &amp;=&amp; h_{t-1} \text{tanh}^\prime(o_t) + h_{t-2} W_h \text{tanh}^\prime(o_t) \text{tanh}^\prime(o_{t-1}) + \dots \\
+         &amp;=&amp; \sum_{t^\prime = 1}^{t-1} h_{t^\prime} \left[ W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text{tanh}^\prime(o_{t}) \right]
+\end{eqnarray}\]</div>
+<p>In other words, the influence of <span class="math notranslate nohighlight">\(h_{t^\prime}\)</span> will be mitigated by a factor
+<span class="math notranslate nohighlight">\(W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text{tanh}^\prime(o_{t})\)</span>.</p>
+<p>Now recall what the tanh function and its derivative look like:</p>
+<div class="cell tag_hide-input tag_remove-stderr docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+    <span class="n">tan_x</span> <span class="o">=</span> <span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">grad_tanh_x</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">tan_x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">tan_x</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;tanh(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">grad_tanh_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;tanh</span><span class="se">\&#39;</span><span class="s1">(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/rnn_3_3.svg" src="../../_images/rnn_3_3.svg" /></div>
+</div>
+<p>One can see how quickly gradients gets close to 0 for inputs larger
+(in absolute value) than 2, and having multiple such terms in a
+computation chain will likely make the corresponding terms vanish.</p>
+<p>In other words, the gradient of the hidden state at time <span class="math notranslate nohighlight">\(t\)</span> will only be
+influenced by a few of its predecessors <span class="math notranslate nohighlight">\(\{h_{t-1}, h_{t-2}, \dots\}\)</span> and
+long-term dependencies will be ignored when updating model parameters through
+gradient descent.
+This is an occurrence of a more general phenomenon known as the
+<strong>vanishing gradient</strong> effect.</p>
+</section>
+<section id="long-short-term-memory">
+<h2>Long Short-Term Memory<a class="headerlink" href="#long-short-term-memory" title="Permalink to this headline">#</a></h2>
+<p>The Long Short-Term Memory (LSTM, <span id="id1">[<a class="reference internal" href="#id23" title="Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735–1780, 1997.">Hochreiter and Schmidhuber, 1997</a>]</span>) blocks have
+been designed as an alternative
+recurrent block that aims at mitigating this vanishing gradient effect through
+the use of gates that explicitly encode pieces of information that should
+(resp. should not) be kept in computations.</p>
+<div class="tip admonition">
+<p class="admonition-title">Gates in neural networks</p>
+<p>In the neural networks terminology, a gate <span class="math notranslate nohighlight">\(g \in [0, 1]^d\)</span> is a vector that is
+used to filter out information from an incoming feature vector
+<span class="math notranslate nohighlight">\(v \in \mathbb{R}^d\)</span> such that the result of applying the gate is: <span class="math notranslate nohighlight">\(g \odot v\)</span>
+where <span class="math notranslate nohighlight">\(\odot\)</span> is the element-wise product.
+The gate <span class="math notranslate nohighlight">\(g\)</span> will hence tend to remove part of the features in <span class="math notranslate nohighlight">\(v\)</span>
+(those corresponding to very low values in <span class="math notranslate nohighlight">\(g\)</span>).</p>
+</div>
+<p>In these blocks, an extra state is used, referred to as the cell state <span class="math notranslate nohighlight">\(C_t\)</span>.
+This state is computed as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-23ad284f-d6cb-4006-bd73-a08cf2140754">
+<span class="eqno">(9)<a class="headerlink" href="#equation-23ad284f-d6cb-4006-bd73-a08cf2140754" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(f_t\)</span> is the forget gate (which pushes the network to forget about
+useless parts of the past cell state),
+<span class="math notranslate nohighlight">\(i_t\)</span> is the input gate and <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is
+an updated version of the cell state (which, in turn, can be partly censored
+by the input gate).</p>
+<p>Let us delay for now the details about how these 3 terms are computed, and
+rather focus on how the formula above is significantly different from the
+update rule of the hidden state in vanilla RNNs.
+Indeed, in this case, if the network learns so (through <span class="math notranslate nohighlight">\(f_t\)</span>), the
+full information from the previous cell state <span class="math notranslate nohighlight">\(C_{t-1}\)</span> can be recovered,
+which would allow gradients to flow through time (and not vanish anymore).</p>
+<p>Then, the link between the cell and hidden states is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0e949346-4933-49d8-ad23-1b4c13b0122b">
+<span class="eqno">(10)<a class="headerlink" href="#equation-0e949346-4933-49d8-ad23-1b4c13b0122b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    h_t = o_t \odot \text{tanh}(C_{t}) \, .
+\end{equation}\]</div>
+<p>In words, the hidden state is the tanh-transformed version of the cell state,
+further censored by an output gate <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
+<p>All gates used in the formulas above are defined similarly:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-89f24b34-6471-4758-bc27-8904cbc47afa">
+<span class="eqno">(11)<a class="headerlink" href="#equation-89f24b34-6471-4758-bc27-8904cbc47afa" title="Permalink to this equation">#</a></span>\[\begin{eqnarray}
+    f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
+    i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
+    o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
+\end{eqnarray}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid activation function
+(which has values in <span class="math notranslate nohighlight">\([0, 1]\)</span>) and <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> is
+the concatenation of <span class="math notranslate nohighlight">\(h_{t-1}\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> features.</p>
+<p>Finally, the updated cell state <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is computed as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-deea1273-44b7-4d7f-bddf-079c8433b03b">
+<span class="eqno">(12)<a class="headerlink" href="#equation-deea1273-44b7-4d7f-bddf-079c8433b03b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
+\end{equation}\]</div>
+<p>Many variants over these LSTM blocks exist in the literature that still rely
+on the same basic principles.</p>
+</section>
+<section id="gated-recurrent-unit">
+<h2>Gated Recurrent Unit<a class="headerlink" href="#gated-recurrent-unit" title="Permalink to this headline">#</a></h2>
+<p>A slightly different parametrization of a recurrent block is used in the
+so-called Gatted Recurrent Unit (GRU, <span id="id2">[<a class="reference internal" href="#id24" title="Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. arXiv:1409.1259.">Cho <em>et al.</em>, 2014</a>]</span>).</p>
+<p>GRUs also rely on the use of gates to (adaptively) let information flow
+through time.
+A first significant difference between GRUs and LSTMs, though, is that GRUs
+do not resort to the use of a cell state.
+Instead, the update rule for the hidden state is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1402a703-01c1-40cc-8e87-010980dc611d">
+<span class="eqno">(13)<a class="headerlink" href="#equation-1402a703-01c1-40cc-8e87-010980dc611d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(z_t\)</span> is a gate that balances (per feature) the amount of information
+that is kept from the previous hidden state with the amount of information
+that should be updated using the new candidate hidden state <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
+computed as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-dde15d91-8dae-4aee-bfe7-a33e7edd41ff">
+<span class="eqno">(14)<a class="headerlink" href="#equation-dde15d91-8dae-4aee-bfe7-a33e7edd41ff" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
+\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(r_t\)</span> is an extra gate that can hide part of the previous hidden state.</p>
+<p>Formulas for gates <span class="math notranslate nohighlight">\(z_t\)</span> and <span class="math notranslate nohighlight">\(r_t\)</span> are similar to those provided for <span class="math notranslate nohighlight">\(f_t\)</span>,
+<span class="math notranslate nohighlight">\(i_t\)</span> and <span class="math notranslate nohighlight">\(o_t\)</span> in the case of LSTMs.</p>
+<p>A graphical study of the ability of these variants of recurrent networks to learn
+long-term dependencies is provided
+in <span id="id3">[<a class="reference internal" href="#id28" title="Andreas Madsen. Visualizing memorization in rnns. Distill, 2019. URL: https://distill.pub/2019/memorization-in-rnns.">Madsen, 2019</a>]</span>.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>In this chapter, we have reviewed neural network architectures that are
+used to learn from time series datasets.
+Because of time constraints, we have not tackled attention-based models
+in this course.
+We have presented convolutional models that aim at extracting discriminative
+local shapes in the series and recurrent models that rather leverage the
+notion of sequence.
+Concerning the latter, variants that aim at facing the vanishing gradient
+effect have been introduced.
+Note that recurrent models are known to require more training data than
+their convolutional counterparts in order to
+learn meaningful representations.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<div class="docutils container" id="id4">
+<dl class="citation">
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id2">CVMerrienboerBB14</a></span></dt>
+<dd><p>Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: encoder-decoder approaches. 2014. <a class="reference external" href="https://arxiv.org/abs/1409.1259">arXiv:1409.1259</a>.</p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id1">HS97</a></span></dt>
+<dd><p>Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. <em>Neural computation</em>, 9(8):1735–1780, 1997.</p>
+</dd>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id3">Mad19</a></span></dt>
+<dd><p>Andreas Madsen. Visualizing memorization in rnns. <em>Distill</em>, 2019. URL: <a class="reference external" href="https://distill.pub/2019/memorization-in-rnns">https://distill.pub/2019/memorization-in-rnns</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content/en"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="convnets.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Convolutional Neural Networks</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Romain Tavenard<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
