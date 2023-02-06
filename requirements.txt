@@ -5,4 +5,5 @@ sphinxcontrib-tikz
 pandas
 scipy
 sphinx-proof
+sphinx-subfigure
 seaborn
