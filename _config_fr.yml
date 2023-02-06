@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: "Deep Learning Basics (lecture notes)"
+title: "Les bases du Deep Learning (notes de cours)"
 author: Romain Tavenard
 
 # Bibliography
@@ -46,8 +46,9 @@ repository:
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
   use_issues_button: true
-  use_repository_button: true
-  extra_navbar: <a href="../book.pdf">Download these notes as PDF</a>
+  use_repository_button: true |
+    <a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
+    <a href="../en/index.html">Switch to English</a>
 
 latex:
   latex_documents:

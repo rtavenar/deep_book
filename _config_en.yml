@@ -1,0 +1,57 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: "Deep Learning Basics (lecture notes)"
+author: Romain Tavenard
+
+# Bibliography
+bibtex_bibfiles:
+  - content/references.bib
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    nb_merge_streams: true
+    tikz_proc_suite: pdf2svg
+    jblatex_load_imgconverter: true
+    latex_elements:
+      fncychap: "\\usepackage[Conny]{fncychap}"
+      printindex: ""
+  extra_extensions:
+  - sphinxcontrib.tikz
+  - sphinx_proof
+  - sphinx_jupyterbook_latex
+  - sphinx_subfigure
+
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - dollarmath
+    - amsmath
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: force
+only_build_toc_files: true
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/rtavenar/deep_book  # Online location of your book
+  branch: main  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
+  extra_navbar: |
+    <a href="../../../book_en.pdf">Download these notes as PDF</a><br />
+    <a href="../fr/index.html">Basculer en Français</a>
+
+latex:
+  latex_documents:
+    targetname: book.tex
+  latex_engine: xelatex

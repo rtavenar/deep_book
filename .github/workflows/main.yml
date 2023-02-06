@@ -47,7 +47,7 @@ jobs:
     - name: Build the pdf book
       run: |
         make pdf
-        mv ./_build/latex/book.pdf ./_build/html/
+        mv ./_build/latex/book*.pdf ./_build/html/
     
     # Push the book's HTML+PDF to github-pages
     - name: GitHub Pages action
