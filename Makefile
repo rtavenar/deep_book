@@ -11,7 +11,7 @@ html_en: ${SRC_EN}
 	echo '<meta http-equiv="Refresh" content="0; url=en/index.html" />' >> _build/html/index.html
 
 html_fr: ${SRC_FR}
-	jupyter-book build . --path-output _build/html/fr/ --toc _toc_fr.yml --config _config_en.yml
+	jupyter-book build . --path-output _build/html/fr/ --toc _toc_fr.yml --config _config_fr.yml
 	mv _build/html/fr/_build/html _build/html/fr_
 	rm -fR _build/html/fr
 	mv _build/html/fr_ _build/html/fr

@@ -49,7 +49,7 @@ html:
   use_repository_button: true
   extra_navbar: |
     <a href="../../../book_en.pdf">Download these notes as PDF</a><br />
-    <a href="../fr/index.html">Basculer en Français</a>
+    <a href="../../../fr/index.html">Basculer en Français</a>
 
 latex:
   latex_documents:
