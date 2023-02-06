@@ -42,14 +42,11 @@ jobs:
     # Build the html version of the book
     - name: Build the html-book
       run: |
-        jupyter-book build .
+        make html
 
     - name: Build the pdf book
       run: |
-        source prepare_tex.sh
-        jupyter-book build . --builder latex --toc _toc_tex.yml
-        python post_process_tex.py ./_build/latex/book.tex
-        cd ./_build/latex/ && make && cd -
+        make pdf
         mv ./_build/latex/book.pdf ./_build/html/
     
     # Push the book's HTML+PDF to github-pages

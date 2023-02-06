@@ -7,4 +7,4 @@ chapters:
 - file: content/optim
 - file: content/regularization
 - file: content/convnets
-# - file: content/rnn
+- file: content/rnn

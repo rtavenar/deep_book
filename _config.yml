@@ -21,6 +21,7 @@ sphinx:
   - sphinxcontrib.tikz
   - sphinx_proof
   - sphinx_jupyterbook_latex
+  - sphinx_subfigure
 
 
 parse:
