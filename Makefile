@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 SRC_EN=$(wildcard content/en/*)
 SRC_FR=$(wildcard content/fr/*)
 
@@ -18,18 +20,18 @@ pdf_en: _build/latex/en/book.pdf
 pdf_fr: _build/latex/fr/book.pdf
 
 _build/latex/en/book.pdf: prepare_tex.sh post_process_tex.py ${SRC_EN}
-	source prepare_tex.sh
+	chmod u+x prepare_tex.sh && ./prepare_tex.sh
 	jupyter-book build . --builder latex --toc _toc_tex_en.yml --path-output _build/latex/en/
 	python post_process_tex.py ./_build/latex/en/_build/latex/book.tex
-	cd ./_build/latex/en/ && make && cd -
-	mv ./_build/latex/en/_build/latex/book.pdf ./_build/latex/en/book.pdf
+	cd ./_build/latex/en/_build/latex/ && make && cd -
+	mv ./_build/latex/en/_build/latex/book.pdf ./_build/latex/book_en.pdf
 
 _build/latex/fr/book.pdf: prepare_tex.sh post_process_tex.py ${SRC_FR}
-	source prepare_tex.sh
+	chmod u+x prepare_tex.sh && ./prepare_tex.sh
 	jupyter-book build . --builder latex --toc _toc_tex_fr.yml --path-output _build/latex/fr/
 	python post_process_tex.py ./_build/latex/fr/_build/latex/book.tex
 	cd ./_build/latex/fr/_build/latex/ && make && cd -
-	mv ./_build/latex/fr/_build/latex/book.pdf ./_build/latex/fr/book.pdf
+	mv ./_build/latex/fr/_build/latex/book.pdf ./_build/latex/book_fr.pdf
 
 clean:
 	rm -fR _build/

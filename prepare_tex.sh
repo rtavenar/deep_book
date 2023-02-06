@@ -7,8 +7,9 @@ do
     done
     cp content/${lang}/*.py content_tex/${lang}/;
 
-    cp -R content/data content_tex/${lang}/;
-    cp content/references.bib content_tex/${lang}/;
+    cp -R content/data content_tex/;
+    cp -R content/img content_tex/;
+    cp content/references.bib content_tex/${lang}/; #Probably useless
 
-    sed "s/content\//content_tex\/${lang}\//g" _toc_${lang}.yml > _toc_tex_${lang}.yml;
+    sed "s/content\//content_tex\//g" _toc_${lang}.yml > _toc_tex_${lang}.yml;
 done
