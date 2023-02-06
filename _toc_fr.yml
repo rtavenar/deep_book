@@ -1,0 +1,10 @@
+format: jb-book
+root: content/fr/intro 
+chapters:
+- file: content/fr/perceptron
+- file: content/fr/mlp
+- file: content/fr/loss
+- file: content/fr/optim
+- file: content/fr/regularization
+- file: content/fr/convnets
+- file: content/fr/rnn

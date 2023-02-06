@@ -84,7 +84,7 @@ the following dataset about house prices:
 ```{code-cell}
 import pandas as pd
 
-boston = pd.read_csv("data/boston.csv")[["RM", "PRICE"]]
+boston = pd.read_csv("../data/boston.csv")[["RM", "PRICE"]]
 boston
 ```
 

@@ -261,7 +261,7 @@ Let us take the example of the well-known Iris classification dataset:
 ```{code-cell}
 import pandas as pd
 
-iris = pd.read_csv("data/iris.csv", index_col=0)
+iris = pd.read_csv("../data/iris.csv", index_col=0)
 iris
 ```
 
@@ -451,6 +451,6 @@ model = Sequential([
 ```{code-cell}
 :tags: [hide-input]
 
-boston = pd.read_csv("data/boston.csv")[["RM", "CRIM", "INDUS", "NOX", "AGE", "TAX", "PRICE"]]
+boston = pd.read_csv("../data/boston.csv")[["RM", "CRIM", "INDUS", "NOX", "AGE", "TAX", "PRICE"]]
 boston
 ```

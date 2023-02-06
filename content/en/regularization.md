@@ -56,7 +56,7 @@ prepare_notebook_graphics()
 
 ```{code-cell} ipython3
 
-iris = pd.read_csv("data/iris.csv", index_col=0)
+iris = pd.read_csv("../data/iris.csv", index_col=0)
 iris = iris.sample(frac=1)
 y = to_categorical(iris["target"])
 X = iris.drop(columns=["target"])

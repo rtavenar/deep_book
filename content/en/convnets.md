@@ -157,7 +157,7 @@ render:
 
 from matplotlib import image
 
-image = image.imread('data/cat.jpg')
+image = image.imread('../data/cat.jpg')
 image_r = image.copy()
 image_g = image.copy()
 image_b = image.copy()
@@ -234,7 +234,7 @@ As for time series, when using convolution operations in neural networks, the co
 In {cite:p}`lecun1998gradient`, a stack of convolution, pooling and fully connected layers is introduced for an image classification task, more specifically a digit recognition application.
 The resulting neural network, called LeNet, is depicted below:
 
-```{figure} img/lenet.png
+```{figure} ../img/lenet.png
 :name: fig-lenet
 
 LeNet-5 model
@@ -271,10 +271,10 @@ layer = Conv2D(filters=6, kernel_size=5, padding="valid", activation="relu")
 :name: fig-padding
 :subcaptions: above
 
-```{image} img/no_padding_no_strides.gif
+```{image} ../img/no_padding_no_strides.gif
 ```
 
-```{image} img/same_padding_no_strides.gif
+```{image} ../img/same_padding_no_strides.gif
 ```
 
 A visual explanation of padding (source: [V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning](https://github.com/vdumoulin/conv_arithmetic)).

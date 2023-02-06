@@ -3,4 +3,4 @@ _build/
 TODO.md
 py_tests/
 content_tex/
-_toc_tex.yml
+_toc_tex_*.yml
