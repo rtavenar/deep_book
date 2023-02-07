@@ -119,7 +119,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="mlp.html">
-   Multi Layer Perceptrons (MLP)
+   Multi Layer Perceptrons
   </a>
  </li>
  <li class="toctree-l1">
@@ -533,8 +533,8 @@ Note that here, the true risk is estimated through the use of a validation set t
 <div class="cell_output docutils container">
 <img alt="../../_images/regularization_4_1.svg" src="../../_images/regularization_4_1.svg" /></div>
 </div>
-<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="pasted-inline"><code class="output text_plain docutils literal notranslate"><span class="pre">26</span></code></span>.
-In other words, if we had stopped the learning process after epoch <span class="pasted-inline"><code class="output text_plain docutils literal notranslate"><span class="pre">26</span></code></span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
+<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="pasted-inline"><code class="output text_plain docutils literal notranslate"><span class="pre">19</span></code></span>.
+In other words, if we had stopped the learning process after epoch <span class="pasted-inline"><code class="output text_plain docutils literal notranslate"><span class="pre">19</span></code></span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
 <p>This is the whole idea behind the “early stopping” strategy, which consists in stopping the learning process as soon as the validation loss stops improving.
 As can be seen in the visualization above, however, the validation loss tends to oscillate, and one often waits for several epochs before assuming that the loss is unlikely to improve in the future.
 The number of epochs to wait is called the <em>patience</em> parameter.</p>
@@ -581,7 +581,7 @@ The number of epochs to wait is called the <em>patience</em> parameter.</p>
 <div class="cell_output docutils container">
 <img alt="../../_images/regularization_7_1.svg" src="../../_images/regularization_7_1.svg" /></div>
 </div>
-<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="pasted-inline"><code class="output text_plain docutils literal notranslate"><span class="pre">26</span></code></span>.</p>
+<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="pasted-inline"><code class="output text_plain docutils literal notranslate"><span class="pre">19</span></code></span>.</p>
 </section>
 <section id="loss-penalization">
 <h2>Loss penalization<a class="headerlink" href="#loss-penalization" title="Permalink to this headline">#</a></h2>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Multi Layer Perceptrons (MLP) &#8212; Introduction au Deep Learning (notes de cours)</title>
+    <title>Perceptrons multicouches &#8212; Introduction au Deep Learning (notes de cours)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Recherche" href="../../search.html" />
-    <link rel="next" title="Losses" href="loss.html" />
+    <link rel="next" title="Fonctions de coût" href="loss.html" />
     <link rel="prev" title="Introduction" href="perceptron.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="fr">
@@ -120,12 +120,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Multi Layer Perceptrons (MLP)
+   Perceptrons multicouches
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="loss.html">
-   Losses
+   Fonctions de coût
   </a>
  </li>
  <li class="toctree-l1">
@@ -374,30 +374,30 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#stacking-layers-for-better-expressivity">
-   Stacking layers for better expressivity
+  <a class="reference internal nav-link" href="#empiler-des-couches-pour-une-meilleure-expressivite">
+   Empiler des couches pour une meilleure expressivité
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deciding-on-an-mlp-architecture">
-   Deciding on an MLP architecture
+  <a class="reference internal nav-link" href="#decider-de-l-architecture-d-un-mlp">
+   Décider de l’architecture d’un MLP
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#activation-functions">
-   Activation functions
+  <a class="reference internal nav-link" href="#fonctions-d-activation">
+   Fonctions d’activation
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-special-case-of-the-output-layer">
-     The special case of the output layer
+    <a class="reference internal nav-link" href="#le-cas-particulier-de-la-couche-de-sortie">
+     Le cas particulier de la couche de sortie
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#declaring-an-mlp-in-keras">
-   Declaring an MLP in
+  <a class="reference internal nav-link" href="#declarer-un-mlp-en-keras">
+   Déclarer un MLP en
    <code class="docutils literal notranslate">
     <span class="pre">
      keras
@@ -414,7 +414,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Multi Layer Perceptrons (MLP)</h1>
+                <h1>Perceptrons multicouches</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -425,30 +425,30 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#stacking-layers-for-better-expressivity">
-   Stacking layers for better expressivity
+  <a class="reference internal nav-link" href="#empiler-des-couches-pour-une-meilleure-expressivite">
+   Empiler des couches pour une meilleure expressivité
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deciding-on-an-mlp-architecture">
-   Deciding on an MLP architecture
+  <a class="reference internal nav-link" href="#decider-de-l-architecture-d-un-mlp">
+   Décider de l’architecture d’un MLP
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#activation-functions">
-   Activation functions
+  <a class="reference internal nav-link" href="#fonctions-d-activation">
+   Fonctions d’activation
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-special-case-of-the-output-layer">
-     The special case of the output layer
+    <a class="reference internal nav-link" href="#le-cas-particulier-de-la-couche-de-sortie">
+     Le cas particulier de la couche de sortie
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#declaring-an-mlp-in-keras">
-   Declaring an MLP in
+  <a class="reference internal nav-link" href="#declarer-un-mlp-en-keras">
+   Déclarer un MLP en
    <code class="docutils literal notranslate">
     <span class="pre">
      keras
@@ -466,44 +466,44 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="multi-layer-perceptrons-mlp">
-<span id="sec-mlp"></span><h1>Multi Layer Perceptrons (MLP)<a class="headerlink" href="#multi-layer-perceptrons-mlp" title="Lien permanent vers ce titre">#</a></h1>
-<p>In the previous chapter, we have seen a very simple model called the Perceptron.
-In this model, the predicted output <span class="math notranslate nohighlight">\(\hat{y}\)</span> is computed as a linear combination of the input features plus a bias:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="perceptrons-multicouches">
+<span id="sec-mlp"></span><h1>Perceptrons multicouches<a class="headerlink" href="#perceptrons-multicouches" title="Lien permanent vers ce titre">#</a></h1>
+<p>Dans le chapitre précédent, nous avons vu un modèle très simple appelé le perceptron.
+Dans ce modèle, la sortie prédite <span class="math notranslate nohighlight">\(\hat{y}\)</span> est calculée comme une combinaison linéaire des caractéristiques d’entrée plus un biais :</p>
 <div class="math notranslate nohighlight">
 \[\hat{y} = \sum_{j=1}^d x_j w_j + b\]</div>
-<p>In other words, we were optimizing among the family of linear models, which is a quite restricted family.</p>
-<section id="stacking-layers-for-better-expressivity">
-<h2>Stacking layers for better expressivity<a class="headerlink" href="#stacking-layers-for-better-expressivity" title="Lien permanent vers ce titre">#</a></h2>
-<p>In order to cover a wider range of models, one can stack neurons organized in layers to form a more complex model, such as the model below, which is called a one-hidden-layer model, since an extra layer of neurons is introduced between the inputs and the output:</p>
+<p>En d’autres termes, nous optimisions parmi la famille des modèles linéaires, qui est une famille assez restreinte.</p>
+<section id="empiler-des-couches-pour-une-meilleure-expressivite">
+<h2>Empiler des couches pour une meilleure expressivité<a class="headerlink" href="#empiler-des-couches-pour-une-meilleure-expressivite" title="Lien permanent vers ce titre">#</a></h2>
+<p>Afin de couvrir un plus large éventail de modèles, on peut empiler des neurones organisés en couches pour former un modèle plus complexe, comme le modèle ci-dessous, qui est appelé modèle à une couche cachée, car une couche supplémentaire de neurones est introduite entre les entrées et la sortie :</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-893c0f887238dd346442cf161777437949fb3fd0.svg" alt="Figure made with TikZ" /></p>
-</div><p>The question one might ask now is whether this added hidden layer effectively allows to cover a wider family of models.
-This is what the Universal Approximation Theorem below is all about.</p>
-<div class="admonition-universal-approximation-theorem admonition">
-<p class="admonition-title">Universal Approximation Theorem</p>
-<p>The Universal Approximation Theorem states that any continuous function defined on a compact set can be
-approximated as closely as one wants by a one-hidden-layer neural network with sigmoid activation.</p>
+</div><p>La question que l’on peut se poser maintenant est de savoir si cette couche cachée supplémentaire permet effectivement de couvrir une plus grande famille de modèles.
+C’est à cela que sert le théorème d’approximation universelle ci-dessous.</p>
+<div class="admonition-theoreme-d-approximation-universelle admonition">
+<p class="admonition-title">Théorème d’approximation universelle</p>
+<p>Le théorème d’approximation universelle stipule que toute fonction continue définie sur un ensemble compact peut être
+approchée d’aussi près que l’on veut par un réseau neuronal à une couche cachée avec activation sigmoïde.</p>
 </div>
-<p>In other words, by using a hidden layer to map inputs to outputs, one can now approximate any continuous function, which is a very interesting property.
-Note however that the number of hidden neurons that is necessary to achieve a given approximation quality is not discussed here.
-Moreover, it is not sufficient that such a good approximation exists, another important question is whether the optimization algorithms we will use will eventually converge to this solution or not, which is not guaranteed, as discussed in more details in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">the dedicated chapter</span></a>.</p>
-<p>In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :</p>
+<p>En d’autres termes, en utilisant une couche cachée pour mettre en correspondance les entrées et les sorties, on peut maintenant approximer n’importe quelle fonction continue, ce qui est une propriété très intéressante.
+Notez cependant que le nombre de neurones cachés nécessaire pour obtenir une qualité d’approximation donnée n’est pas discuté ici.
+De plus, il n’est pas suffisant qu’une telle bonne approximation existe, une autre question importante est de savoir si les algorithmes d’optimisation que nous utiliserons convergeront <em>in fine</em> vers cette solution ou non, ce qui n’est pas garanti, comme discuté plus en détail dans <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">le chapitre dédié</span></a>.</p>
+<p>En pratique, nous observons empiriquement que pour atteindre une qualité d’approximation donnée, il est plus efficace (en termes de nombre de paramètres requis) d’empiler plusieurs couches cachées plutôt que de s’appuyer sur une seule :</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-4670b96ed1fdbb9f65a452032fcb97f6198dad87.svg" alt="Figure made with TikZ" /></p>
-</div><p>The above graphical representation corresponds to the following model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-afcb47b1-beb7-4a24-8f05-5c255fae3273">
-<span class="eqno">(1)<a class="headerlink" href="#equation-afcb47b1-beb7-4a24-8f05-5c255fae3273" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
+</div><p>La représentation graphique ci-dessus correspond au modèle suivant :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-07b424e2-5366-42b2-9d3e-5ca1705770aa">
+<span class="eqno">(1)<a class="headerlink" href="#equation-07b424e2-5366-42b2-9d3e-5ca1705770aa" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
   \label{eq:mlp_2hidden}
 \end{align}\]</div>
-<p>To be even more precise, the bias terms <span class="math notranslate nohighlight">\(b^{(l)}_i\)</span> are not represented in the graphical representation above.</p>
-<p>Such models with one or more hidden layers are called <strong>Multi Layer Perceptrons</strong> (MLP).</p>
+<p>Pour être précis, les termes de biais <span class="math notranslate nohighlight">\(b^{(l)}_i\)</span> ne sont pas représentés dans la représentation graphique ci-dessus.</p>
+<p>De tels modèles avec une ou plusieurs couches cachées sont appelés <strong>Perceptrons multicouches</strong> (ou <em>Multi-Layer Perceptrons</em>, MLP).</p>
 </section>
-<section id="deciding-on-an-mlp-architecture">
-<h2>Deciding on an MLP architecture<a class="headerlink" href="#deciding-on-an-mlp-architecture" title="Lien permanent vers ce titre">#</a></h2>
-<p>When designing a Multi-Layer Perceptron model to be used for a specific problem, some quantities are fixed by the problem at hand and other are left as hyper-parameters.</p>
-<p>Let us take the example of the well-known Iris classification dataset:</p>
+<section id="decider-de-l-architecture-d-un-mlp">
+<h2>Décider de l’architecture d’un MLP<a class="headerlink" href="#decider-de-l-architecture-d-un-mlp" title="Lien permanent vers ce titre">#</a></h2>
+<p>Lors de la conception d’un modèle de perceptron multicouche destiné à être utilisé pour un problème spécifique, certaines quantités sont fixées par le problème en question et d’autres sont des hyper-paramètres du modèle.</p>
+<p>Prenons l’exemple du célèbre jeu de données de classification d’iris :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -633,30 +633,30 @@ Moreover, it is not sufficient that such a good approximation exists, another im
 <p>150 rows × 5 columns</p>
 </div></div></div>
 </div>
-<p>The goal here is to learn how to infer the <code class="docutils literal notranslate"><span class="pre">target</span></code> attribute (3 different possible classes) from the information in the 4 other attributes.</p>
-<p>The structure of this dataset dictates:</p>
+<p>L’objectif ici est d’apprendre à déduire l’attribut « cible » (3 classes différentes possibles) à partir des informations contenues dans les 4 autres attributs.</p>
+<p>La structure de ce jeu de données dicte :</p>
 <ul class="simple">
-<li><p>the number of neurons in the input layer, which is equal to the number of descriptive attributes in our dataset (here, 4), and</p></li>
-<li><p>the number of neurons in the output layer, which is here equal to 3, since the model is expected to output one probability per target class.</p></li>
+<li><p>le nombre de neurones dans la couche d’entrée, qui est égal au nombre d’attributs descriptifs dans notre jeu de données (ici, 4), et</p></li>
+<li><p>le nombre de neurones dans la couche de sortie, qui est ici égal à 3, puisque le modèle est censé produire une probabilité par classe cible.</p></li>
 </ul>
-<p>In more generality, for the output layer, one might face several situations:</p>
+<p>De manière plus générale, pour la couche de sortie, on peut être confronté à plusieurs situations :</p>
 <ul class="simple">
-<li><p>when regression is at stake, the number of neurons in the output layer is equal to the number of features to be predicted by the model,</p></li>
-<li><p>when it comes to classification</p>
+<li><p>lorsqu’il s’agit de régression, le nombre de neurones de la couche de sortie est égal au nombre de caractéristiques à prédire par le modèle,</p></li>
+<li><p>quand il s’agit de classification</p>
 <ul>
-<li><p>in the case of binary classification, the model will have a single output neuron which will indicate the probability of the positive class</p></li>
-<li><p>in the case of multi-class classification, the model will have as many output neurons as the number of classes in the problem.</p></li>
+<li><p>Dans le cas d’une classification binaire, le modèle aura un seul neurone de sortie qui indiquera la probabilité de la classe positive,</p></li>
+<li><p>dans le cas d’une classification multi-classes, le modèle aura autant de neurones de sortie que le nombre de classes du problème.</p></li>
 </ul>
 </li>
 </ul>
-<p>Once these number of input / output neurons are fixed, the number of hidden neurons as well as the number of neurons per hidden layer are left as hyper-parameters of the model.</p>
+<p>Une fois que ces nombres de neurones d’entrée / sortie sont fixés, le nombre de neurones cachés ainsi que le nombre de neurones par couche cachée restent des hyper-paramètres du modèle.</p>
 </section>
-<section id="activation-functions">
-<h2>Activation functions<a class="headerlink" href="#activation-functions" title="Lien permanent vers ce titre">#</a></h2>
-<p>Another important hyper-parameter of neural networks is the choice of the activation function <span class="math notranslate nohighlight">\(\varphi\)</span>.</p>
-<p>Here, it is important to notice that if we used the identity function as our activation function, then whatever the depth of our MLP, we would fall back to covering only the family of linear models.
-In practice, we will then use activation functions that have some linear regime but don’t behave like a linear function on the whole range of input values.</p>
-<p>Historically, the following activation functions have been proposed :</p>
+<section id="fonctions-d-activation">
+<h2>Fonctions d’activation<a class="headerlink" href="#fonctions-d-activation" title="Lien permanent vers ce titre">#</a></h2>
+<p>Un autre hyper-paramètre important des réseaux neuronaux est le choix de la fonction d’activation <span class="math notranslate nohighlight">\(\varphi\)</span>.</p>
+<p>Il est important de noter que si nous utilisons la fonction identité comme fonction d’activation, quelle que soit la profondeur de notre MLP, nous ne couvrirons plus que la famille des modèles linéaires.
+En pratique, nous utiliserons donc des fonctions d’activation qui ont un certain régime linéaire mais qui ne se comportent pas comme une fonction linéaire sur toute la gamme des valeurs d’entrée.</p>
+<p>Historiquement, les fonctions d’activation suivantes ont été proposées :</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
     \text{tanh}(x) =&amp; \frac{2}{1 + e^{-2x}} - 1 \\
@@ -713,38 +713,37 @@ In practice, we will then use activation functions that have some linear regime 
 <div class="cell_output docutils container">
 <img alt="../../_images/mlp_3_0.svg" src="../../_images/mlp_3_0.svg" /></div>
 </div>
-<p>In practice the ReLU function (and some of its variants) is the most widely used nowadays, for reasons that will be discussed in more details in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">our chapter dedicated to optimization</span></a>.</p>
-<section id="the-special-case-of-the-output-layer">
-<h3>The special case of the output layer<a class="headerlink" href="#the-special-case-of-the-output-layer" title="Lien permanent vers ce titre">#</a></h3>
-<p>You might have noticed that in the MLP formulation provided in Equation (1), the output layer has its own activation function, denoted <span class="math notranslate nohighlight">\(\varphi_\text{out}\)</span>.
-This is because the choice of activation functions for the output layer of a neural network is a bit specific to the problem at hand.</p>
-<p>Indeed, you might have seen that the activation functions discussed in the previous section do not share the same range of output values.
-It is hence of prime importance to pick an adequate activation function for the output layer such that our model outputs values that are consistent to the quantities it is supposed to predict.</p>
-<p>If, for example, our model was supposed to be used in the Boston Housing dataset we discussed <a class="reference internal" href="perceptron.html#sec-boston"><span class="std std-ref">in the previous chapter</span></a>.
-In this case, the goal is to predict housing prices, which are expected to be nonnegative quantities.
-It would then be a good idea to use ReLU (which can output any positive value) as the activation function for the output layer in this case.</p>
-<p>As stated earlier, in the case of binary classification, the model will have a single output neuron and this neuron will output the probability associated to the positive class.
-This quantity is expected to lie in the <span class="math notranslate nohighlight">\([0, 1]\)</span> interval, and the sigmoid activation function is then the default choice in this setting.</p>
-<p>Finally, when multi-class classification is at stake, we have one neuron per output class and each neuron is expected to output the probability for a given class.
-In this context, the output values should be between 0 and 1, and they should sum to 1.
-For this purpose, we use the softmax activation function defined as:</p>
+<p>En pratique, la fonction ReLU (et certaines de ses variantes) est la plus utilisée de nos jours, pour des raisons qui seront discutées plus en détail dans <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">notre chapitre consacré à l’optimisation</span></a>.</p>
+<section id="le-cas-particulier-de-la-couche-de-sortie">
+<h3>Le cas particulier de la couche de sortie<a class="headerlink" href="#le-cas-particulier-de-la-couche-de-sortie" title="Lien permanent vers ce titre">#</a></h3>
+<p>Vous avez peut-être remarqué que dans la formulation du MLP fournie par l’équation (1), la couche de sortie possède sa propre fonction d’activation, notée <span class="math notranslate nohighlight">\(\varphi_\text{out}\)</span>.
+Cela s’explique par le fait que le choix de la fonction d’activation pour la couche de sortie d’un réseau neuronal est spécifique au problème à résoudre.</p>
+<p>En effet, vous avez pu constater que les fonctions d’activation abordées dans la section précédente ne partagent pas la même plage de valeurs de sortie.
+Il est donc primordial de choisir une fonction d’activation adéquate pour la couche de sortie, de sorte que notre modèle produise des valeurs cohérentes avec les quantités qu’il est censé prédire.</p>
+<p>Si, par exemple, notre modèle est censé être utilisé dans l’ensemble de données sur les logements de Boston dont nous avons parlé <a class="reference internal" href="perceptron.html#sec-boston"><span class="std std-ref">dans le chapitre précédent</span></a>, l’objectif est de prédire les prix des logements, qui sont censés être des quantités non négatives.
+Il serait donc judicieux d’utiliser ReLU (qui peut produire toute valeur positive) comme fonction d’activation pour la couche de sortie dans ce cas.</p>
+<p>Comme indiqué précédemment, dans le cas de la classification binaire, le modèle aura un seul neurone de sortie et ce neurone produira la probabilité associée à la classe positive.
+Cette quantité devra se situer dans l’intervalle <span class="math notranslate nohighlight">\([0, 1]\)</span>, et la fonction d’activation sigmoïde est alors le choix par défaut dans ce cas.</p>
+<p>Enfin, lorsque la classification multi-classes est en jeu, nous avons un neurone par classe de sortie et chaque neurone est censé fournir la probabilité pour une classe donnée.
+Dans ce contexte, les valeurs de sortie doivent être comprises entre 0 et 1, et leur somme doit être égale à 1.
+À cette fin, nous utilisons la fonction d’activation softmax définie comme suit :</p>
 <div class="math notranslate nohighlight">
 \[
   \forall i, \text{softmax}(o_i) = \frac{e^{o_i}}{\sum_j e^{o_j}}
 \]</div>
-<p>where, for all <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(o_i\)</span>’s are the values of the output neurons before applying the activation function.</p>
+<p>où, pour tous les <span class="math notranslate nohighlight">\(i\)</span>, les <span class="math notranslate nohighlight">\(o_i\)</span> sont les valeurs des neurones de sortie avant application de la fonction d’activation.</p>
 </section>
 </section>
-<section id="declaring-an-mlp-in-keras">
-<h2>Declaring an MLP in <code class="docutils literal notranslate"><span class="pre">keras</span></code><a class="headerlink" href="#declaring-an-mlp-in-keras" title="Lien permanent vers ce titre">#</a></h2>
-<p>In order to define a MLP model in <code class="docutils literal notranslate"><span class="pre">keras</span></code>, one just has to stack layers.
-As an example, if one wants to code a model made of:</p>
+<section id="declarer-un-mlp-en-keras">
+<h2>Déclarer un MLP en <code class="docutils literal notranslate"><span class="pre">keras</span></code><a class="headerlink" href="#declarer-un-mlp-en-keras" title="Lien permanent vers ce titre">#</a></h2>
+<p>Pour définir un modèle MLP dans <code class="docutils literal notranslate"><span class="pre">keras</span></code>, il suffit d’empiler des couches.
+A titre d’exemple, si l’on veut coder un modèle composé de :</p>
 <ul class="simple">
-<li><p>an input layer with 10 neurons,</p></li>
-<li><p>a hidden layer made of 20 neurons with ReLU activation,</p></li>
-<li><p>an output layer made of 3 neurons with softmax activation,</p></li>
+<li><p>une couche d’entrée avec 10 neurones,</p></li>
+<li><p>d’une couche cachée de 20 neurones avec activation ReLU,</p></li>
+<li><p>une couche de sortie composée de 3 neurones avec activation softmax,</p></li>
 </ul>
-<p>the code will look like:</p>
+<p>le code sera le suivant :</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">InputLayer</span>
@@ -778,22 +777,22 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code> provides an interesting overview of a defined model and its parameters.</p>
-<div class="admonition-exercise-1 admonition">
-<p class="admonition-title">Exercise #1</p>
-<p>Relying on what we have seen in this chapter, can you explain the number of parameters returned by <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code> above?</p>
+<p>Notez que <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code> fournit un aperçu intéressant d’un modèle défini et de ses paramètres.</p>
+<div class="admonition-exercice-1 admonition">
+<p class="admonition-title">Exercice #1</p>
+<p>En vous basant sur ce que nous avons vu dans ce chapitre, pouvez-vous expliquer le nombre de paramètres retournés par <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code> ci-dessus ?</p>
 <div class="dropdown tip admonition">
 <p class="admonition-title">Solution</p>
-<p>Our input layer is made of 10 neurons, and our first layer is fully connected, hence each of these neurons is connected to a neuron in the hidden layer through a parameter, which already makes <span class="math notranslate nohighlight">\(10 \times 20 = 200\)</span> parameters.
-Moreover, each of the hidden layer neurons has its own bias parameter, which is <span class="math notranslate nohighlight">\(20\)</span> more parameters.
-We then have 220 parameters, as output by <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code> for the layer <code class="docutils literal notranslate"><span class="pre">&quot;dense</span> <span class="pre">(Dense)&quot;</span></code>.</p>
-<p>Similarly, for the connection of the hidden layer neurons to those in the output layer, the total number of parameters is <span class="math notranslate nohighlight">\(20 \times 3 = 60\)</span> for the weights plus <span class="math notranslate nohighlight">\(3\)</span> extra parameters for the biases.</p>
-<p>Overall, we have <span class="math notranslate nohighlight">\(220 + 63 = 283\)</span> parameters in this model.</p>
+<p>Notre couche d’entrée est composée de 10 neurones, et notre première couche est entièrement connectée, donc chacun de ces neurones est connecté à un neurone de la couche cachée par un paramètre, ce qui fait déjà <span class="math notranslate nohighlight">\(10 \times 20 = 200\)</span> paramètres.
+De plus, chacun des neurones de la couche cachée possède son propre paramètre de biais, ce qui fait <span class="math notranslate nohighlight">\(20\)</span> paramètres supplémentaires.
+Nous avons donc 220 paramètres, tels que sortis par <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code> pour la couche <code class="docutils literal notranslate"><span class="pre">&quot;dense</span> <span class="pre">(Dense)&quot;</span></code>.</p>
+<p>De la même manière, pour la connexion des neurones de la couche cachée à ceux de la couche de sortie, le nombre total de paramètres est de <span class="math notranslate nohighlight">\(20 \times 3 = 60\)</span> pour les poids plus <span class="math notranslate nohighlight">\(3\)</span> paramètres supplémentaires pour les biais.</p>
+<p>Au total, nous avons <span class="math notranslate nohighlight">\(220 + 63 = 283\)</span> paramètres dans ce modèle.</p>
 </div>
 </div>
-<div class="admonition-exercise-2 admonition">
-<p class="admonition-title">Exercise #2</p>
-<p>Declare, in <code class="docutils literal notranslate"><span class="pre">keras</span></code>, an MLP with one hidden layer made of 100 neurons and ReLU activation for the Iris dataset presented above.</p>
+<div class="admonition-exercice-2 admonition">
+<p class="admonition-title">Exercice #2</p>
+<p>Déclarez, en <code class="docutils literal notranslate"><span class="pre">keras</span></code>, un MLP avec une couche cachée composée de 100 neurones et une activation ReLU pour le jeu de données Iris présenté ci-dessus.</p>
 <div class="dropdown tip admonition">
 <p class="admonition-title">Solution</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
@@ -805,9 +804,9 @@ We then have 220 parameters, as output by <code class="docutils literal notransl
 </div>
 </div>
 </div>
-<div class="admonition-exercise-3 admonition">
-<p class="admonition-title">Exercise #3</p>
-<p>Same question for the full Boston Housing dataset shown below (the goal here is to predict the <code class="docutils literal notranslate"><span class="pre">PRICE</span></code> feature based on the other ones).</p>
+<div class="admonition-exercice-3 admonition">
+<p class="admonition-title">Exercice #3</p>
+<p>Même question pour le jeu de données sur le logement à Boston présenté ci-dessous (le but ici est de prédire l’attribut <code class="docutils literal notranslate"><span class="pre">PRICE</span></code> en fonction des autres).</p>
 <div class="dropdown tip admonition">
 <p class="admonition-title">Solution</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
@@ -1010,7 +1009,7 @@ We then have 220 parameters, as output by <code class="docutils literal notransl
     <a class='right-next' id="next-link" href="loss.html" title="suivant page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">suivant</p>
-        <p class="prev-next-title">Losses</p>
+        <p class="prev-next-title">Fonctions de coût</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

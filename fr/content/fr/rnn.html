@@ -119,12 +119,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="mlp.html">
-   Multi Layer Perceptrons (MLP)
+   Perceptrons multicouches
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="loss.html">
-   Losses
+   Fonctions de coût
   </a>
  </li>
  <li class="toctree-l1">
@@ -476,8 +476,8 @@ computed.</p>
 <section id="vanilla-rnns">
 <h2>« Vanilla » RNNs<a class="headerlink" href="#vanilla-rnns" title="Lien permanent vers ce titre">#</a></h2>
 <p>The basic formulation for a RNN block is as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-70099a56-c482-4098-beda-f9f4e15b576c">
-<span class="eqno">(5)<a class="headerlink" href="#equation-70099a56-c482-4098-beda-f9f4e15b576c" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-cdee32da-091d-470f-b2b6-103c14a55af0">
+<span class="eqno">(5)<a class="headerlink" href="#equation-cdee32da-091d-470f-b2b6-103c14a55af0" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(W_h\)</span> is a weight matrix associated to the processing of the previous
@@ -493,19 +493,19 @@ networks are optimized through stochastic gradient descent algorithms.</p>
 <span class="math notranslate nohighlight">\(h_t\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> are both scalar values, and let us have a look at what the
 actual gradient of the output <span class="math notranslate nohighlight">\(h_t\)</span> is, with
 respect to <span class="math notranslate nohighlight">\(W_h\)</span> (which is then also a scalar):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5e5a8ea2-a229-4043-9800-4df6f27df986">
-<span class="eqno">(6)<a class="headerlink" href="#equation-5e5a8ea2-a229-4043-9800-4df6f27df986" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c1ff2f15-282d-499d-a1f6-82b7deec6e1d">
+<span class="eqno">(6)<a class="headerlink" href="#equation-c1ff2f15-282d-499d-a1f6-82b7deec6e1d" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, hence:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bb5b2d88-d056-4055-9b7a-f7da62d7a9a2">
-<span class="eqno">(7)<a class="headerlink" href="#equation-bb5b2d88-d056-4055-9b7a-f7da62d7a9a2" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b2d61615-3f01-46e4-8f7b-534789c613ae">
+<span class="eqno">(7)<a class="headerlink" href="#equation-b2d61615-3f01-46e4-8f7b-534789c613ae" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}\]</div>
 <p>Here, the form of <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> will be similar to
 that of <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> above, and, in the end, one gets:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7e32e2fe-93ab-4c9c-b77d-0edf8b2f04df">
-<span class="eqno">(8)<a class="headerlink" href="#equation-7e32e2fe-93ab-4c9c-b77d-0edf8b2f04df" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-ce935927-c64d-48fe-b631-8f82567750f1">
+<span class="eqno">(8)<a class="headerlink" href="#equation-ce935927-c64d-48fe-b631-8f82567750f1" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
     \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
         \left[
             h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
@@ -574,8 +574,8 @@ The gate <span class="math notranslate nohighlight">\(g\)</span> will hence tend
 </div>
 <p>In these blocks, an extra state is used, referred to as the cell state <span class="math notranslate nohighlight">\(C_t\)</span>.
 This state is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f410ece4-27fb-44e6-8ecf-a71086b7e74a">
-<span class="eqno">(9)<a class="headerlink" href="#equation-f410ece4-27fb-44e6-8ecf-a71086b7e74a" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-caaec771-392b-4a2f-99b0-8f876ac49add">
+<span class="eqno">(9)<a class="headerlink" href="#equation-caaec771-392b-4a2f-99b0-8f876ac49add" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_t\)</span> is the forget gate (which pushes the network to forget about
@@ -590,15 +590,15 @@ Indeed, in this case, if the network learns so (through <span class="math notran
 full information from the previous cell state <span class="math notranslate nohighlight">\(C_{t-1}\)</span> can be recovered,
 which would allow gradients to flow through time (and not vanish anymore).</p>
 <p>Then, the link between the cell and hidden states is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b049c4e7-f629-44d6-8d5b-bdfd6e2669f9">
-<span class="eqno">(10)<a class="headerlink" href="#equation-b049c4e7-f629-44d6-8d5b-bdfd6e2669f9" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2a6fb0c8-0d75-4f5b-8ab5-781d6262e4d8">
+<span class="eqno">(10)<a class="headerlink" href="#equation-2a6fb0c8-0d75-4f5b-8ab5-781d6262e4d8" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}\]</div>
 <p>In words, the hidden state is the tanh-transformed version of the cell state,
 further censored by an output gate <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
 <p>All gates used in the formulas above are defined similarly:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e8d16c04-f876-4bf6-a2e8-d5f35094e908">
-<span class="eqno">(11)<a class="headerlink" href="#equation-e8d16c04-f876-4bf6-a2e8-d5f35094e908" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-41e0dc10-31b4-4e2b-9781-e9a3a2347294">
+<span class="eqno">(11)<a class="headerlink" href="#equation-41e0dc10-31b4-4e2b-9781-e9a3a2347294" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
     f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
     i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
     o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
@@ -607,8 +607,8 @@ further censored by an output gate <span class="math notranslate nohighlight">\(
 (which has values in <span class="math notranslate nohighlight">\([0, 1]\)</span>) and <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> is
 the concatenation of <span class="math notranslate nohighlight">\(h_{t-1}\)</span> and <span class="math notranslate nohighlight">\(x_t\)</span> features.</p>
 <p>Finally, the updated cell state <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2831c104-7f92-4c21-af02-963da85f010c">
-<span class="eqno">(12)<a class="headerlink" href="#equation-2831c104-7f92-4c21-af02-963da85f010c" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-087fb0bd-b1b5-4148-83b4-8801d7161f16">
+<span class="eqno">(12)<a class="headerlink" href="#equation-087fb0bd-b1b5-4148-83b4-8801d7161f16" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}\]</div>
 <p>Many variants over these LSTM blocks exist in the literature that still rely
@@ -623,16 +623,16 @@ through time.
 A first significant difference between GRUs and LSTMs, though, is that GRUs
 do not resort to the use of a cell state.
 Instead, the update rule for the hidden state is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-785cc58a-3b8a-4782-aede-4b29676dc1e0">
-<span class="eqno">(13)<a class="headerlink" href="#equation-785cc58a-3b8a-4782-aede-4b29676dc1e0" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f7b05077-8385-4821-b347-601af341eff2">
+<span class="eqno">(13)<a class="headerlink" href="#equation-f7b05077-8385-4821-b347-601af341eff2" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(z_t\)</span> is a gate that balances (per feature) the amount of information
 that is kept from the previous hidden state with the amount of information
 that should be updated using the new candidate hidden state <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
 computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-66b63387-9328-4152-a0b7-d65da074d2bb">
-<span class="eqno">(14)<a class="headerlink" href="#equation-66b63387-9328-4152-a0b7-d65da074d2bb" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-eac93044-64a9-4a9d-b4e6-f4f757cc8284">
+<span class="eqno">(14)<a class="headerlink" href="#equation-eac93044-64a9-4a9d-b4e6-f4f757cc8284" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(r_t\)</span> is an extra gate that can hide part of the previous hidden state.</p>

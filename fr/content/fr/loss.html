@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Losses &#8212; Introduction au Deep Learning (notes de cours)</title>
+    <title>Fonctions de coût &#8212; Introduction au Deep Learning (notes de cours)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Recherche" href="../../search.html" />
     <link rel="next" title="Optimization" href="optim.html" />
-    <link rel="prev" title="Multi Layer Perceptrons (MLP)" href="mlp.html" />
+    <link rel="prev" title="Perceptrons multicouches" href="mlp.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="fr">
     
@@ -120,12 +120,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="mlp.html">
-   Multi Layer Perceptrons (MLP)
+   Perceptrons multicouches
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Losses
+   Fonctions de coût
   </a>
  </li>
  <li class="toctree-l1">
@@ -374,13 +374,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mean-squared-error">
-   Mean Squared Error
+  <a class="reference internal nav-link" href="#erreur-quadratique-moyenne">
+   Erreur quadratique moyenne
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-loss">
-   Logistic loss
+  <a class="reference internal nav-link" href="#perte-logistique">
+   Perte logistique
   </a>
  </li>
 </ul>
@@ -392,7 +392,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Losses</h1>
+                <h1>Fonctions de coût</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -403,13 +403,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mean-squared-error">
-   Mean Squared Error
+  <a class="reference internal nav-link" href="#erreur-quadratique-moyenne">
+   Erreur quadratique moyenne
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-loss">
-   Logistic loss
+  <a class="reference internal nav-link" href="#perte-logistique">
+   Perte logistique
   </a>
  </li>
 </ul>
@@ -422,28 +422,28 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="losses">
-<span id="sec-loss"></span><h1>Losses<a class="headerlink" href="#losses" title="Lien permanent vers ce titre">#</a></h1>
-<p>We have now presented a first family of models, which is the MLP family.
-In order to train these models (<em>i.e.</em> tune their parameters to fit the data), we need to define a loss function to be optimized.
-Indeed, once this loss function is picked, optimization will consist in tuning the model parameters so as to minimize the loss.</p>
-<p>In this section, we will present two standard losses, that are the mean squared error (that is mainly used for regression) and logistic loss (which is used in classification settings).</p>
-<p>In the following, we assume that we are given a dataset <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> made of <span class="math notranslate nohighlight">\(n\)</span> annotated samples <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, and we denote the model’s output:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="fonctions-de-cout">
+<span id="sec-loss"></span><h1>Fonctions de coût<a class="headerlink" href="#fonctions-de-cout" title="Lien permanent vers ce titre">#</a></h1>
+<p>Nous avons maintenant présenté une première famille de modèles, qui est la famille MLP.
+Afin d’entraîner ces modèles (<em>i.e.</em> d’ajuster leurs paramètres pour qu’ils s’adaptent aux données), nous devons définir une fonction de coût (aussi appelée fonction de perte, ou <em>loss function</em>) à optimiser.
+Une fois cette fonction choisie, l’optimisation consistera à régler les paramètres du modèle de manière à la minimiser.</p>
+<p>Dans cette section, nous présenterons deux fonctions de pertes standard, à savoir l’erreur quadratique moyenne (principalement utilisée pour la régression) et la fonction de perte logistique (utilisée en classification).</p>
+<p>Dans ce qui suit, nous supposons connu un ensemble de données <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> composé de <span class="math notranslate nohighlight">\(n\)</span> échantillons annotés <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, et nous désignons la sortie du modèle :</p>
 <div class="math notranslate nohighlight">
 \[
   \forall i, \hat{y}_i = m_\theta(x_i)
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(m_\theta\)</span> is our model and <span class="math notranslate nohighlight">\(\theta\)</span> is the set of all its parameters (weights and biases).</p>
-<section id="mean-squared-error">
-<h2>Mean Squared Error<a class="headerlink" href="#mean-squared-error" title="Lien permanent vers ce titre">#</a></h2>
-<p>The Mean Squared Error (MSE) is the most commonly used loss function in regression settings.
-It is defined as:</p>
+<p>où <span class="math notranslate nohighlight">\(m_\theta\)</span> est notre modèle et <span class="math notranslate nohighlight">\(\theta\)</span> est l’ensemble de tous ses paramètres (poids et biais).</p>
+<section id="erreur-quadratique-moyenne">
+<h2>Erreur quadratique moyenne<a class="headerlink" href="#erreur-quadratique-moyenne" title="Lien permanent vers ce titre">#</a></h2>
+<p>L’erreur quadratique moyenne (ou <em>Mean Squared Error</em>, MSE) est la fonction de perte la plus couramment utilisée dans les contextes de régression.
+Elle est définie comme suit</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
   \mathcal{L}(\mathcal{D} ; m_\theta) &amp;= \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2 \\
       &amp;= \frac{1}{n} \sum_i \|m_{\theta}(x_i) - y_i\|^2
 \end{align*}\]</div>
-<p>Its quadratic formulation tends to strongly penalize large errors:</p>
+<p>Sa forme quadratique tend à pénaliser fortement les erreurs importantes :</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -467,16 +467,16 @@ It is defined as:</p>
 <img alt="../../_images/loss_1_0.svg" src="../../_images/loss_1_0.svg" /></div>
 </div>
 </section>
-<section id="logistic-loss">
-<h2>Logistic loss<a class="headerlink" href="#logistic-loss" title="Lien permanent vers ce titre">#</a></h2>
-<p>The logistic loss is the most widely used loss to train neural networks in classification settings.
-It is defined as:</p>
+<section id="perte-logistique">
+<h2>Perte logistique<a class="headerlink" href="#perte-logistique" title="Lien permanent vers ce titre">#</a></h2>
+<p>La perte logistique est la fonction de perte la plus largement utilisée pour entraîner des réseaux neuronaux dans des contextes de classification.
+Elle est définie comme suit</p>
 <div class="math notranslate nohighlight">
 \[
   \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i - \log p(\hat{y}_i = y_i ; m_\theta)
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(p(\hat{y}_i = y_i ; m_\theta)\)</span> is the probability predicted by model <span class="math notranslate nohighlight">\(m_\theta\)</span> for the correct class <span class="math notranslate nohighlight">\(y_i\)</span>.</p>
-<p>Its formulation tends to favor cases where the model outputs a probability of 1 for the correct class, as expected:</p>
+<p>où <span class="math notranslate nohighlight">\(p(\hat{y}_i = y_i ; m_\theta)\)</span> est la probabilité prédite par le modèle <span class="math notranslate nohighlight">\(m_\theta\)</span> pour la classe correcte <span class="math notranslate nohighlight">\(y_i\)</span>.</p>
+<p>Sa formulation tend à favoriser les cas où le modèle prédit la classe correcte avec une probabilité proche de 1, comme on peut s’y attendre :</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -533,7 +533,7 @@ It is defined as:</p>
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">précédent</p>
-            <p class="prev-next-title">Multi Layer Perceptrons (MLP)</p>
+            <p class="prev-next-title">Perceptrons multicouches</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="optim.html" title="suivant page">

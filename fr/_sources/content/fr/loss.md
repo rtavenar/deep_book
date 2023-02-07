@@ -14,33 +14,33 @@ kernelspec:
 ---
 
 (sec:loss)=
-# Losses
+# Fonctions de coût
 
-We have now presented a first family of models, which is the MLP family.
-In order to train these models (_i.e._ tune their parameters to fit the data), we need to define a loss function to be optimized.
-Indeed, once this loss function is picked, optimization will consist in tuning the model parameters so as to minimize the loss.
+Nous avons maintenant présenté une première famille de modèles, qui est la famille MLP.
+Afin d'entraîner ces modèles (_i.e._ d'ajuster leurs paramètres pour qu'ils s'adaptent aux données), nous devons définir une fonction de coût (aussi appelée fonction de perte, ou _loss function_) à optimiser.
+Une fois cette fonction choisie, l'optimisation consistera à régler les paramètres du modèle de manière à la minimiser.
 
-In this section, we will present two standard losses, that are the mean squared error (that is mainly used for regression) and logistic loss (which is used in classification settings).
+Dans cette section, nous présenterons deux fonctions de pertes standard, à savoir l'erreur quadratique moyenne (principalement utilisée pour la régression) et la fonction de perte logistique (utilisée en classification).
 
-In the following, we assume that we are given a dataset $\mathcal{D}$ made of $n$ annotated samples $(x_i, y_i)$, and we denote the model's output:
+Dans ce qui suit, nous supposons connu un ensemble de données $\mathcal{D}$ composé de $n$ échantillons annotés $(x_i, y_i)$, et nous désignons la sortie du modèle :
 
 $$
   \forall i, \hat{y}_i = m_\theta(x_i)
 $$
 
-where $m_\theta$ is our model and $\theta$ is the set of all its parameters (weights and biases).
+où $m_\theta$ est notre modèle et $\theta$ est l'ensemble de tous ses paramètres (poids et biais).
 
-## Mean Squared Error
+## Erreur quadratique moyenne
 
-The Mean Squared Error (MSE) is the most commonly used loss function in regression settings.
-It is defined as:
+L'erreur quadratique moyenne (ou _Mean Squared Error_, MSE) est la fonction de perte la plus couramment utilisée dans les contextes de régression.
+Elle est définie comme suit
 
 \begin{align*}
   \mathcal{L}(\mathcal{D} ; m_\theta) &= \frac{1}{n} \sum_i \|\hat{y}_i - y_i\|^2 \\
       &= \frac{1}{n} \sum_i \|m_{\theta}(x_i) - y_i\|^2
 \end{align*}
 
-Its quadratic formulation tends to strongly penalize large errors:
+Sa forme quadratique tend à pénaliser fortement les erreurs importantes :
 
 ```{code-cell} ipython3
 ---
@@ -66,18 +66,18 @@ plt.xlabel("$\hat{y} - y$")
 plt.ylabel("$\|\hat{y} - y\|^2$");
 ```
 
-## Logistic loss
+## Perte logistique
 
-The logistic loss is the most widely used loss to train neural networks in classification settings.
-It is defined as:
+La perte logistique est la fonction de perte la plus largement utilisée pour entraîner des réseaux neuronaux dans des contextes de classification.
+Elle est définie comme suit
 
 $$
   \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_i - \log p(\hat{y}_i = y_i ; m_\theta)
 $$
 
-where $p(\hat{y}_i = y_i ; m_\theta)$ is the probability predicted by model $m_\theta$ for the correct class $y_i$.
+où $p(\hat{y}_i = y_i ; m_\theta)$ est la probabilité prédite par le modèle $m_\theta$ pour la classe correcte $y_i$.
 
-Its formulation tends to favor cases where the model outputs a probability of 1 for the correct class, as expected:
+Sa formulation tend à favoriser les cas où le modèle prédit la classe correcte avec une probabilité proche de 1, comme on peut s'y attendre :
 
 ```{code-cell} ipython3
 ---
