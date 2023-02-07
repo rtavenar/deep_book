@@ -14,30 +14,30 @@ kernelspec:
 ---
 
 (sec:reg)=
-# Regularization
+# Régularisation
 
-As discussed in previous chapters, one of the strengths of the neural networks is that they can approximate any continuous functions when a sufficient number of parameters is used.
-When using universal approximators in machine learning settings, an important related risk is that of overfitting the training data.
-More formally, given a training dataset $\mathcal{D}_t$ drawn from an unknown distribution $\mathcal{D}$, model parameters are optimized so as to minimize the empirical risk:
+Comme nous l'avons vu dans les chapitres précédents, l'une des forces des réseaux neuronaux est qu'ils peuvent approximer n'importe quelle fonction continue lorsqu'un nombre suffisant de paramètres est utilisé.
+Lors de l'utilisation d'approximateurs universels dans des contextes d'apprentissage automatique, un risque connexe important est celui du surajustement (_overfitting_) aux données d'apprentissage.
+Plus formellement, étant donné un jeu de données d'apprentissage $\mathcal{D}_t$ tiré d'une distribution inconnue $\mathcal{D}$, les paramètres du modèle sont optimisés de manière à minimiser le risque empirique :
 
 $$
   \mathcal{R}_e(\theta) = \frac{1}{|\mathcal{D}_t|} \sum_{(x_i, y_i) \in \mathcal{D}_t} \mathcal{L}(x_i, y_i ; m_\theta)
 $$
 
-whereas the real objective is to minimize the "true" risk:
+alors que le véritable objectif est de minimiser le "vrai" risque :
 
 $$
   \mathcal{R}(\theta) = \mathbb{E}_{x, y \sim \mathcal{D}} \mathcal{L}(x, y; m_\theta)
 $$
 
-and both objectives do not have the same minimizer.
+et les deux objectifs n'ont pas le même minimiseur.
 
-To avoid this pitfall, one should use regularization techniques, such as the ones presented in the following.
+Pour éviter cet écueil, il faut utiliser des techniques de régularisation, telles que celles présentées ci-après.
 
-## Early Stopping
+## _Early stopping_
 
-As illustrated below, it can be observed that training a neural network for a too large number of epochs can lead to overfitting.
-Note that here, the true risk is estimated through the use of a validation set that is not seen during training.
+Comme illustré ci-dessous, on peut observer que l'entraînement d'un réseau neuronal pendant un trop grand nombre d'_epochs_ peut conduire à un surajustement.
+Notez qu'ici, le risque réel est estimé grâce à l'utilisation d'un ensemble de validation qui n'est pas vu pendant l'entraînement.
 
 ```{code-cell} ipython3
 :tags: [hide-input,remove-stderr]
@@ -105,14 +105,14 @@ plt.legend()
 glue("epoch_best_model", np.argmin(h.history["val_loss"]) + 1, display=False)
 ```
 
-Here, the best model (in terms of generalization capabilities) seems to be the model at epoch {glue:}`epoch_best_model`.
-In other words, if we had stopped the learning process after epoch {glue:}`epoch_best_model`, we would have gotten a better model than if we use the model trained during 70 epochs.
+Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l'_epoch_ {glue:}`epoch_best_model`.
+En d'autres termes, si nous avions arrêté le processus d'apprentissage après l'_epoch_ {glue:}`epoch_best_model`, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 _epochs_.
 
-This is the whole idea behind the "early stopping" strategy, which consists in stopping the learning process as soon as the validation loss stops improving.
-As can be seen in the visualization above, however, the validation loss tends to oscillate, and one often waits for several epochs before assuming that the loss is unlikely to improve in the future.
-The number of epochs to wait is called the _patience_ parameter.
+C'est toute l'idée derrière la stratégie d'_early stopping_, qui consiste à arrêter le processus d'apprentissage dès que la perte de validation cesse de s'améliorer.
+Cependant, comme on peut le voir dans la visualisation ci-dessus, la perte de validation a tendance à osciller, et on attend souvent plusieurs _epochs_ avant de supposer que la perte a peu de chances de s'améliorer dans le futur.
+Le nombre d'_epochs_ à attendre est appelé le paramètre de _patience_.
 
-In `keras`, early stopping can be set up via a callback, as in the following example:
+Dans `keras`, l'arrêt anticipé peut être configuré via un _callback_, comme dans l'exemple suivant :
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -157,24 +157,24 @@ plt.legend()
 glue("epoch_best_model_es", np.argmin(h.history["val_loss"]) + 1, display=False)
 ```
 
-And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch {glue:}`epoch_best_model_es`.
+Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 _epochs_, l'entraînement est arrêté dès qu'il atteint 10 _epochs_ consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l'_epoch_ {glue:}`epoch_best_model_es`.
 
 
-## Loss penalization
+## Pénalisation de la perte
 
-Another important way to enforce regularization in neural networks is through loss penalization.
-A typical instance of this regularization strategy is the L2 regularization.
-If we denote by $\mathcal{L}_r$ the L2-regularized loss, it can be expressed as:
+Une autre façon importante d'appliquer la régularisation dans les réseaux neuronaux est la pénalisation des pertes.
+Un exemple typique de cette stratégie de régularisation est la régularisation L2.
+Si nous désignons par $\mathcal{L}_r$ la perte régularisée par L2, elle peut être exprimée comme suit :
 
 $$
   \mathcal{L}_r(\mathcal{D} ; m_\theta) = \mathcal{L}(\mathcal{D} ; m_\theta) + \lambda \sum_{\ell} \| \theta^{(\ell)} \|_2^2
 $$
 
-where $\theta^{(\ell)}$ is the weight matrix of layer $\ell$.
+où $\theta^{(\ell)}$ est la matrice de poids de la couche $\ell$.
 
-This regularization tends to shrink large parameter values during the learning process, which is known to help improve generalization.
+Cette régularisation tend à réduire les grandes valeurs des paramètres pendant le processus d'apprentissage, ce qui est connu pour aider à améliorer la généralisation.
 
-In `keras`, this is implemented as:
+En `keras`, ceci est implémenté comme :
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -213,9 +213,9 @@ plt.xlabel("Epochs")
 plt.legend();
 ```
 
-## DropOut
+## _DropOut_
 
-```{tikz} Illustration of the DropOut mechanism. In order to train a given model (left), at each mini-batch, a given proportion of neurons is picked at random to be "switched off" and the subsequent sub-network is used for the current optimization step (_cf._ right-hand side figure, in which 40% of the neurons -- coloured in gray -- are switched off).
+```{tikz} Illustration du mécanisme de _DropOut_. Afin d'entraîner un modèle donné (à gauche), à chaque _minibatch_, une proportion donnée de neurones est choisie au hasard pour être "désactivée" et le sous-réseau résultant est utilisé pour l'étape d'optimisation en cours (_cf._ figure de droite, dans laquelle 40% des neurones -- colorés en gris -- sont désactivés).
     % Model 0
     \node[draw, circle, minimum size=17pt,inner sep=0pt] (in0_model0) at  (0, 5) {};
     \node[draw, circle, minimum size=17pt,inner sep=0pt] (in1_model0) at  (0, 4) {};
@@ -342,14 +342,14 @@ plt.legend();
 ```
 
 
-In this section, we present the DropOut strategy, which was introduced in {cite}`JMLR:v15:srivastava14a`.
-The idea behind DropOut is to _switch off_ some of the neurons during training.
-The switched off neurons change at each mini-batch such that, overall, all neurons are trained during the whole process.
+Dans cette section, nous présentons la stratégie _DropOut_, qui a été introduite dans {cite}`JMLR:v15:srivastava14a`.
+L'idée derrière le _DropOut_ est d'éteindre certains neurones pendant l'apprentissage.
+Les neurones désactivés changent à chaque _minibatch_ de sorte que, globalement, tous les neurones sont entraînés pendant tout le processus.
 
-The concept is very similar in spirit to a strategy that is used for training random forest, which consists in randomly selecting candidate variables for each tree split inside a forest, which is known to lead to better generalization performance for random forests.
-The main difference here is that one can not only switch off _input neurons_ but also _hidden-layer ones_ during training.
+Le concept est très similaire dans l'esprit à une stratégie utilisée pour l'entraînement des forêts aléatoires, qui consiste à sélectionner aléatoirement des variables candidates pour chaque division d'arbre à l'intérieur d'une forêt, ce qui est connu pour conduire à de meilleures performances de généralisation pour les forêts aléatoires.
+La principale différence ici est que l'on peut non seulement désactiver les _neurones d'entrée_ mais aussi les _neurones de la couche cachée_ pendant l'apprentissage.
 
-In `keras`, this is implemented as a layer, which acts by switching off neurons from the previous layer in the network:
+Dans `keras`, ceci est implémenté comme une couche, qui agit en désactivant les neurones de la couche précédente dans le réseau :
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -391,20 +391,20 @@ plt.xlabel("Epochs")
 plt.legend();
 ```
 
-````{admonition} Exercise #1
+````{admonition} Exercice #1
 
-When observing the loss values in the figure above, can you explain why the validation loss is almost consistently lower than the training one?
+En observant les valeurs de perte dans la figure ci-dessus, pouvez-vous expliquer pourquoi la perte de validation est presque systématiquement inférieure à celle calculée sur le jeu d'apprentissage ?
 
 ```{admonition} Solution
 :class: dropdown, tip
 
-In fact, the training loss is computed as the average loss over all training mini-batches during an epoch.
-Now, if we recall that during training, at each minibatch, 30% of the neurons are switched-off, one can see that only a subpart of the full model is used when evaluating the training loss while the full model is retrieved when predicting on the validation set, which explains why the measured validation loss is lower than the training one.
+En fait, la perte d'apprentissage est calculée comme la perte moyenne sur tous les _minibatchs_ d'apprentissage pendant une _epoch_.
+Si nous nous rappelons que pendant l'apprentissage, à chaque _minibatch_, 30% des neurones sont désactivés, on peut voir que seule une sous-partie du modèle complet est utilisée lors de l'évaluation de la perte d'apprentissage alors que le modèle complet est utilisé lors de la prédiction sur l'ensemble de validation, ce qui explique pourquoi la perte de validation mesurée est inférieure à celle de l'apprentissage.
 ```
 ````
 
 
-## References
+## Références
 
 ```{bibliography}
 :filter: docname in docnames

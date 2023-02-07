@@ -14,14 +14,15 @@ kernelspec:
 ---
 
 (sec:rnn)=
-# Recurrent Neural Networks
+# Réseaux neuronaux récurrents
 
-Recurrent neural networks (RNNs) proceed by processing elements of a time
-series one at a time.
-Typically, at time $t$, a recurrent block will take both the current input $x_t$
-and a hidden state $h_{t-1}$ that aims at summarizing the key information from
-past inputs $\{x_0, \dots, x_{t-1}\}$, and will output an updated hidden state
-$h_{t}$:
+Les réseaux neuronaux récurrents (RNN) traitent les éléments d'une série temporelle un par un.
+Typiquement, à l'instant $t$, un bloc récurrent prend en entrée :
+* l'entrée courante $x_t$ et 
+* un état caché $h_{t-1}$ qui a pour but de résumer les informations clés provenant de
+des entrées passées $\{x_0, \dots, x_{t-1}\}$
+
+Ce bloc retourne un état caché mis à jour $h_{t}$ :
 
 
 ```{tikz}
@@ -57,8 +58,8 @@ $h_{t}$:
 ```
 
 
-There exist various recurrent modules that mostly differ in the way $h_t$ is
-computed.
+Il existe différentes couches récurrentes qui diffèrent principalement par la façon dont $h_t$ est
+calculée.
 
 ```{code-cell} ipython3
 :tags: [hide-cell]
@@ -70,43 +71,38 @@ from notebook_utils import prepare_notebook_graphics
 prepare_notebook_graphics()
 ```
 
-## "Vanilla" RNNs
+## Réseaux récurrents standard
 
-The basic formulation for a RNN block is as follows:
+La formulation originale d'une RNN est la suivante :
 
 \begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}
 
-where $W_h$ is a weight matrix associated to the processing of the previous
-hidden state, $W_x$ is another weight matrix associated to the processing of
-the current input and $b$ is a bias term.
+où $W_h$ est une matrice de poids associée au traitement de l'état caché précédent, $W_x$ est une autre matrice de poids associée au traitement de la
+l'entrée actuelle et $b$ est un terme de biais.
 
-Note here that $W_h$, $W_x$ and $b$ are not indexed by $t$, which means that
-they are **shared across all timestamps**.
+On notera ici que $W_h$, $W_x$ et $b$ ne sont pas indexés par $t$, ce qui signifie que
+qu'ils sont **partagés entre tous les temps**.
 
-An important limitation of this formula is that it easily fails at capturing
-long-term dependencies.
-To better understand why, one should remind that the parameters of these
-networks are optimized through stochastic gradient descent algorithms.
+Une limitation importante de cette formule est qu'elle échoue à capturer les dépendances à long terme.
+Pour mieux comprendre pourquoi, il faut se rappeler que les paramètres de ces réseaux sont optimisés par des  algorithmes de descente de gradient stochastique.
 
-To simplify notations, let us consider a simplified case in which
-$h_t$ and $x_t$ are both scalar values, and let us have a look at what the
-actual gradient of the output $h_t$ is, with
-respect to $W_h$ (which is then also a scalar):
+Pour simplifier les notations, considérons un cas simplifié dans lequel
+$h_t$ et $x_t$ sont tous deux des valeurs scalaires, et regardons ce que vaut le gradient de la sortie $h_t$ par rapport à $W_h$ (qui est alors aussi un scalaire) :
 
 \begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}
 
-where $o_t = W_h h_{t-1} + W_x x_t + b$, hence:
+où $o_t = W_h h_{t-1} + W_x x_t + b$, donc:
 
 \begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}
 
-Here, the form of $\frac{\partial h_{t-1}}{\partial W_h}$ will be similar to
-that of $\nabla_{W_h}(h_t)$ above, and, in the end, one gets:
+Ici, la forme de $\frac{\partial h_{t-1}}{\partial W_h}$ sera similaire à
+celle de $\nabla_{W_h}(h_t)$ ci-dessus, et, au final, on obtient :
 
 \begin{eqnarray}
     \nabla_{W_h}(h_t) &=& \text{tanh}^\prime(o_t) \cdot
@@ -124,10 +120,10 @@ that of $\nabla_{W_h}(h_t)$ above, and, in the end, one gets:
          &=& \sum_{t^\prime = 1}^{t-1} h_{t^\prime} \left[ W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text{tanh}^\prime(o_{t}) \right]
 \end{eqnarray}
 
-In other words, the influence of $h_{t^\prime}$ will be mitigated by a factor
-$W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot  \text{tanh}^\prime(o_{t})$.
+En d'autres termes, l'influence de $h_{t^\prime}$ sera atténuée par un facteur
+$W_h^{t-t^\prime-1} \text{tanh}^\prime(o_{t^\prime+1}) \cdot \cdots \cdot \text{tanh}^\prime(o_{t})$.
 
-Now recall what the tanh function and its derivative look like:
+Rappelons maintenant à quoi ressemblent la fonction tanh et sa dérivée :
 
 ```{code-cell} ipython3
 :tags: [hide-input, remove-stderr]
@@ -149,66 +145,55 @@ plt.legend()
 plt.grid('on');
 ```
 
-One can see how quickly gradients gets close to 0 for inputs larger
-(in absolute value) than 2, and having multiple such terms in a
-computation chain will likely make the corresponding terms vanish.
+On peut voir à quel point les gradients se rapprochent rapidement de 0 pour des entrées plus grandes (en valeur absolue) que 2, et avoir plusieurs termes de ce type dans une
+dérivation en chaîne fera tendre les termes correspondants vers 0.
 
-In other words, the gradient of the hidden state at time $t$ will only be
-influenced by a few of its predecessors $\{h_{t-1}, h_{t-2}, \dots\}$ and
-long-term dependencies will be ignored when updating model parameters through
-gradient descent.
-This is an occurrence of a more general phenomenon known as the
-**vanishing gradient** effect.
+En d'autres termes, le gradient de l'état caché au temps $t$ sera seulement
+influencé par quelques uns de ses prédécesseurs ${h_{t-1}, h_{t-2}, \dots\}$ et les
+les dépendances à long terme seront ignorées lors de l'actualisation des paramètres du modèle par
+descente de gradient.
+Il s'agit d'une occurrence d'un phénomène plus général connu sous le nom de _vanishing gradient_.
 
-## Long Short-Term Memory
+## _Long Short Term Memory_
 
-The Long Short-Term Memory (LSTM, {cite:p}`hochreiter1997long`) blocks have
-been designed as an alternative
-recurrent block that aims at mitigating this vanishing gradient effect through
-the use of gates that explicitly encode pieces of information that should
-(resp. should not) be kept in computations.
+Les blocs _Long Short Term Memory_ (LSTM, {cite:p}`hochreiter1997long`) ont été conçus comme une alternative à aux blocs récurrents classiques.
+Ils visent à atténuer l'effet de _vanishing gradient_ par l'utilisation de portes qui codent explicitement quelle partie de l'information doit (resp. ne doit pas) être utilisée.
 
-```{admonition} Gates in neural networks
+```{admonition} Les portes dans les réseaux neuronaux
 :class: tip
 
-In the neural networks terminology, a gate $g \in [0, 1]^d$ is a vector that is
-used to filter out information from an incoming feature vector
-$v \in \mathbb{R}^d$ such that the result of applying the gate is: $g \odot v$
-where $\odot$ is the element-wise product.
-The gate $g$ will hence tend to remove part of the features in $v$
-(those corresponding to very low values in $g$).
+Dans la terminologie des réseaux de neurones, une porte $g \in [0, 1]^d$ est un vecteur utilisé pour filtrer les informations d'un vecteur caractéristique entrant $v \in \mathbb{R}^d$ de telle sorte que le résultat de l'application de la porte est : $g \odot v$.
+où $\odot$ est le produit élément-par-élément.
+La porte $g$ aura donc tendance à supprimer une partie des caractéristiques de $v$.
+(celles qui correspondent à des valeurs très faibles de $g$).
 ```
 
-In these blocks, an extra state is used, referred to as the cell state $C_t$.
-This state is computed as:
+Dans ces blocs, un état supplémentaire est utilisé, appelé état de la cellule $C_t$.
+Cet état est calculé comme suit :
 
 \begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}
 
-where $f_t$ is the forget gate (which pushes the network to forget about
-useless parts of the past cell state),
-$i_t$ is the input gate and $\tilde{C}_t$ is
-an updated version of the cell state (which, in turn, can be partly censored
-by the input gate).
+où $f_t$ est appelée _forget gate_ (elle pousse le réseau à oublier les parties inutiles de l'état passé de la cellule),
+$i_t$ est l'_input gate_ et $\tilde{C}_t$ est une version actualisée de l'état de la cellule 
+(qui, à son tour, peut être partiellement censurée
+par l'_input gate_).
 
-Let us delay for now the details about how these 3 terms are computed, and
-rather focus on how the formula above is significantly different from the
-update rule of the hidden state in vanilla RNNs.
-Indeed, in this case, if the network learns so (through $f_t$), the
-full information from the previous cell state $C_{t-1}$ can be recovered,
-which would allow gradients to flow through time (and not vanish anymore).
+Laissons de côté pour l'instant les détails concernant le calcul de ces 3 termes et concentrons-nous plutôt sur la façon dont la formule ci-dessus est est significativement différente de la règle de mise à jour de l'état caché dans le modèle classique.
+En effet, dans ce cas, si le réseau l'apprend (par l'intermédiaire de $f_t$), l'information complète de l'état précédent  de la cellule $C_{t-1}$ peut être récupérée,
+ce qui permet aux gradients de se propager à rebours de l'axe du temps (et de ne plus disparaître).
 
-Then, the link between the cell and hidden states is:
+Alors, le lien entre l'état de la cellule et l'état caché est :
 
 \begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}
 
-In words, the hidden state is the tanh-transformed version of the cell state,
-further censored by an output gate $o_t$.
+En d'autres termes, l'état caché est la version transformée (par la fonction tanh) de l'état de la cellule,
+encore censuré par une porte de sortie (_output gate_) $o_t$.
 
-All gates used in the formulas above are defined similarly:
+Toutes les portes utilisées dans les formules ci-dessus sont définies de manière similaire :
 
 \begin{eqnarray}
     f_t &=& \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
@@ -216,68 +201,56 @@ All gates used in the formulas above are defined similarly:
     o_t &=& \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
 \end{eqnarray}
 
-where $\sigma$ is the sigmoid activation function
-(which has values in $[0, 1]$) and $[h_{t-1}, x_t]$ is
-the concatenation of $h_{t-1}$ and $x_t$ features.
+où $\sigma$ est la fonction d'activation sigmoïde
+(dont les valeurs sont comprises dans $[0, 1]$) et 
+$[h_{t-1}, x_t]$ la concaténation des caractéristiques $h_{t-1}$ et $x_t$.
 
-Finally, the updated cell state $\tilde{C}_t$ is computed as:
+Enfin, l'état de cellule mis à jour $\tilde{C}_t$ est calculé comme suit :
 
 \begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}
 
-Many variants over these LSTM blocks exist in the literature that still rely
-on the same basic principles.
+Il existe dans la littérature de nombreuses variantes de ces blocs LSTM qui reposent toujours sur les mêmes principes de base.
 
 ## Gated Recurrent Unit
 
-A slightly different parametrization of a recurrent block is used in the
-so-called Gatted Recurrent Unit (GRU, {cite:p}`cho2014properties`).
+Une paramétrisation légèrement différente d'un bloc récurrent est utilisée dans les Gated Recurrent Units (GRU, {cite:p}`cho2014properties`).
 
-GRUs also rely on the use of gates to (adaptively) let information flow
-through time.
-A first significant difference between GRUs and LSTMs, though, is that GRUs
-do not resort to the use of a cell state.
-Instead, the update rule for the hidden state is:
+Les GRUs reposent également sur l'utilisation de portes pour laisser (de manière adaptative) l'information circuler à travers le temps.
+Une première différence significative entre les GRUs et les LSTMs est que les GRUs n'ont pas recours à l'utilisation d'un état de cellule.
+Au lieu de cela, la règle de mise à jour de l'état caché est la suivante :
 
 \begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}
 
-where $z_t$ is a gate that balances (per feature) the amount of information
-that is kept from the previous hidden state with the amount of information
-that should be updated using the new candidate hidden state $\tilde{h}_t$,
-computed as:
+où $z_t$ est une porte qui équilibre (par caractéristique) la quantité d'informations
+qui est conservée de l'état caché précédent avec la quantité d'informations
+qui doit être mise à jour en utilisant le nouvel état caché candidat $\tilde{h}_t$,
+calculé comme suit :
 
 \begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}
 
-where $r_t$ is an extra gate that can hide part of the previous hidden state.
+où $r_t$ est une porte supplémentaire qui peut cacher une partie de l'état caché précédent.
 
-Formulas for gates $z_t$ and $r_t$ are similar to those provided for $f_t$,
-$i_t$ and $o_t$ in the case of LSTMs.
+Les formules pour les portes $z_t$ et $r_t$ sont similaires à celles fournies pour $f_t$,
+$i_t$ et $o_t$ dans le cas des LSTMs.
 
-A graphical study of the ability of these variants of recurrent networks to learn
-long-term dependencies is provided
-in {cite}`madsen2019visualizing`.
+Une étude graphique de la capacité de ces variantes de réseaux récurrents à apprendre des dépendances à long terme est fournie
+dans {cite}`madsen2019visualizing`.
 
 ## Conclusion
 
-In this chapter, we have reviewed neural network architectures that are
-used to learn from time series datasets.
-Because of time constraints, we have not tackled attention-based models
-in this course.
-We have presented convolutional models that aim at extracting discriminative
-local shapes in the series and recurrent models that rather leverage the
-notion of sequence.
-Concerning the latter, variants that aim at facing the vanishing gradient
-effect have been introduced.
-Note that recurrent models are known to require more training data than
-their convolutional counterparts in order to
-learn meaningful representations.
+Dans ce chapitre et le précédent, nous avons passé en revue les architectures de réseaux de neurones qui sont utilisées pour apprendre à partir de données temporelles ou séquentielles.
+En raison de contraintes de temps, nous n'avons pas abordé les modèles basés sur l'attention dans ce cours.
+Nous avons présenté les modèles convolutifs qui visent à extraire des formes locales discriminantes dans les séries et les modèles récurrents qui exploitent plutôt la notion de séquence.
+Concernant ces derniers, des variantes visant à faire face à l'effet de gradient évanescent ont été introduites.
+Il est à noter que les modèles récurrents sont connus pour nécessiter plus de données d'entraînement que leurs homologues convolutifs.
 
-## References
+## Références
 
 ```{bibliography}
 :filter: docname in docnames

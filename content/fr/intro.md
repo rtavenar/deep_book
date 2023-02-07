@@ -11,4 +11,4 @@ les réseaux de neurones convolutifs pour la classification d'images
 
 Les séances de travaux pratiques de ce cours utiliseront `keras`, tout comme ces notes de cours.
 
-_NB : ces notes sont en cours de traduction vers le français_
+_NB : ces notes ont été traduites vers le français de manière semi-automatique, n'hésitez pas à vous référer à la version anglaise en cas de doute._
