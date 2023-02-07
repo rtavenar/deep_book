@@ -14,7 +14,7 @@ kernelspec:
 ---
 
 (sec:mlp)=
-# Multi Layer Perceptrons (MLP)
+# Multi Layer Perceptrons
 
 In the previous chapter, we have seen a very simple model called the Perceptron.
 In this model, the predicted output $\hat{y}$ is computed as a linear combination of the input features plus a bias:
@@ -108,7 +108,7 @@ In other words, by using a hidden layer to map inputs to outputs, one can now ap
 Note however that the number of hidden neurons that is necessary to achieve a given approximation quality is not discussed here.
 Moreover, it is not sufficient that such a good approximation exists, another important question is whether the optimization algorithms we will use will eventually converge to this solution or not, which is not guaranteed, as discussed in more details in [the dedicated chapter](sec:sgd).
 
-In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :
+In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one:
 
 ```{tikz}
     \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
@@ -286,7 +286,7 @@ Another important hyper-parameter of neural networks is the choice of the activa
 Here, it is important to notice that if we used the identity function as our activation function, then whatever the depth of our MLP, we would fall back to covering only the family of linear models.
 In practice, we will then use activation functions that have some linear regime but don't behave like a linear function on the whole range of input values.
 
-Historically, the following activation functions have been proposed :
+Historically, the following activation functions have been proposed:
 
 
 \begin{align*}

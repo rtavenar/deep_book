@@ -14,18 +14,18 @@ kernelspec:
 ---
 
 (sec:mlp)=
-# Multi Layer Perceptrons (MLP)
+# Perceptrons multicouches
 
-In the previous chapter, we have seen a very simple model called the Perceptron.
-In this model, the predicted output $\hat{y}$ is computed as a linear combination of the input features plus a bias:
+Dans le chapitre précédent, nous avons vu un modèle très simple appelé le perceptron.
+Dans ce modèle, la sortie prédite $\hat{y}$ est calculée comme une combinaison linéaire des caractéristiques d'entrée plus un biais :
 
 $$\hat{y} = \sum_{j=1}^d x_j w_j + b$$
 
-In other words, we were optimizing among the family of linear models, which is a quite restricted family.
+En d'autres termes, nous optimisions parmi la famille des modèles linéaires, qui est une famille assez restreinte.
 
-## Stacking layers for better expressivity
+## Empiler des couches pour une meilleure expressivité
 
-In order to cover a wider range of models, one can stack neurons organized in layers to form a more complex model, such as the model below, which is called a one-hidden-layer model, since an extra layer of neurons is introduced between the inputs and the output:
+Afin de couvrir un plus large éventail de modèles, on peut empiler des neurones organisés en couches pour former un modèle plus complexe, comme le modèle ci-dessous, qui est appelé modèle à une couche cachée, car une couche supplémentaire de neurones est introduite entre les entrées et la sortie :
 
 ```{tikz}
     \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
@@ -95,20 +95,20 @@ In order to cover a wider range of models, one can stack neurons organized in la
     \node[fill=white] (beta1) at  (4.5, 2) {$\mathbf{w^{(1)}}$};
 ```
 
-The question one might ask now is whether this added hidden layer effectively allows to cover a wider family of models.
-This is what the Universal Approximation Theorem below is all about.
+La question que l'on peut se poser maintenant est de savoir si cette couche cachée supplémentaire permet effectivement de couvrir une plus grande famille de modèles.
+C'est à cela que sert le théorème d'approximation universelle ci-dessous.
 
-```{admonition} Universal Approximation Theorem
+```{admonition} Théorème d'approximation universelle
 
-The Universal Approximation Theorem states that any continuous function defined on a compact set can be 
-approximated as closely as one wants by a one-hidden-layer neural network with sigmoid activation.
+Le théorème d'approximation universelle stipule que toute fonction continue définie sur un ensemble compact peut être 
+approchée d'aussi près que l'on veut par un réseau neuronal à une couche cachée avec activation sigmoïde.
 ```
 
-In other words, by using a hidden layer to map inputs to outputs, one can now approximate any continuous function, which is a very interesting property.
-Note however that the number of hidden neurons that is necessary to achieve a given approximation quality is not discussed here.
-Moreover, it is not sufficient that such a good approximation exists, another important question is whether the optimization algorithms we will use will eventually converge to this solution or not, which is not guaranteed, as discussed in more details in [the dedicated chapter](sec:sgd).
+En d'autres termes, en utilisant une couche cachée pour mettre en correspondance les entrées et les sorties, on peut maintenant approximer n'importe quelle fonction continue, ce qui est une propriété très intéressante.
+Notez cependant que le nombre de neurones cachés nécessaire pour obtenir une qualité d'approximation donnée n'est pas discuté ici.
+De plus, il n'est pas suffisant qu'une telle bonne approximation existe, une autre question importante est de savoir si les algorithmes d'optimisation que nous utiliserons convergeront _in fine_ vers cette solution ou non, ce qui n'est pas garanti, comme discuté plus en détail dans [le chapitre dédié](sec:sgd).
 
-In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one :
+En pratique, nous observons empiriquement que pour atteindre une qualité d'approximation donnée, il est plus efficace (en termes de nombre de paramètres requis) d'empiler plusieurs couches cachées plutôt que de s'appuyer sur une seule :
 
 ```{tikz}
     \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
@@ -239,7 +239,7 @@ In practice, we observe empirically that in order to achieve a given approximati
     \node[fill=white] (beta2) at  (7.5, 2) {$\mathbf{w^{(2)}}$};
 ```
 
-The above graphical representation corresponds to the following model:
+La représentation graphique ci-dessus correspond au modèle suivant :
 
 \begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
@@ -248,15 +248,15 @@ The above graphical representation corresponds to the following model:
   \label{eq:mlp_2hidden}
 \end{align}
 
-To be even more precise, the bias terms $b^{(l)}_i$ are not represented in the graphical representation above.
+Pour être précis, les termes de biais $b^{(l)}_i$ ne sont pas représentés dans la représentation graphique ci-dessus.
 
-Such models with one or more hidden layers are called **Multi Layer Perceptrons** (MLP).
+De tels modèles avec une ou plusieurs couches cachées sont appelés **Perceptrons multicouches** (ou _Multi-Layer Perceptrons_, MLP).
 
-## Deciding on an MLP architecture
+## Décider de l'architecture d'un MLP
 
-When designing a Multi-Layer Perceptron model to be used for a specific problem, some quantities are fixed by the problem at hand and other are left as hyper-parameters.
+Lors de la conception d'un modèle de perceptron multicouche destiné à être utilisé pour un problème spécifique, certaines quantités sont fixées par le problème en question et d'autres sont des hyper-paramètres du modèle.
 
-Let us take the example of the well-known Iris classification dataset:
+Prenons l'exemple du célèbre jeu de données de classification d'iris :
 
 ```{code-cell}
 import pandas as pd
@@ -265,28 +265,28 @@ iris = pd.read_csv("../data/iris.csv", index_col=0)
 iris
 ```
 
-The goal here is to learn how to infer the `target` attribute (3 different possible classes) from the information in the 4 other attributes.
+L'objectif ici est d'apprendre à déduire l'attribut "cible" (3 classes différentes possibles) à partir des informations contenues dans les 4 autres attributs.
 
-The structure of this dataset dictates:
-* the number of neurons in the input layer, which is equal to the number of descriptive attributes in our dataset (here, 4), and
-* the number of neurons in the output layer, which is here equal to 3, since the model is expected to output one probability per target class.
+La structure de ce jeu de données dicte :
+* le nombre de neurones dans la couche d'entrée, qui est égal au nombre d'attributs descriptifs dans notre jeu de données (ici, 4), et
+* le nombre de neurones dans la couche de sortie, qui est ici égal à 3, puisque le modèle est censé produire une probabilité par classe cible.
 
-In more generality, for the output layer, one might face several situations:
-* when regression is at stake, the number of neurons in the output layer is equal to the number of features to be predicted by the model,
-* when it comes to classification
-  * in the case of binary classification, the model will have a single output neuron which will indicate the probability of the positive class
-  * in the case of multi-class classification, the model will have as many output neurons as the number of classes in the problem.
+De manière plus générale, pour la couche de sortie, on peut être confronté à plusieurs situations :
+* lorsqu'il s'agit de régression, le nombre de neurones de la couche de sortie est égal au nombre de caractéristiques à prédire par le modèle,
+* quand il s'agit de classification
+  * Dans le cas d'une classification binaire, le modèle aura un seul neurone de sortie qui indiquera la probabilité de la classe positive,
+  * dans le cas d'une classification multi-classes, le modèle aura autant de neurones de sortie que le nombre de classes du problème.
 
-Once these number of input / output neurons are fixed, the number of hidden neurons as well as the number of neurons per hidden layer are left as hyper-parameters of the model.
+Une fois que ces nombres de neurones d'entrée / sortie sont fixés, le nombre de neurones cachés ainsi que le nombre de neurones par couche cachée restent des hyper-paramètres du modèle.
 
-## Activation functions
+## Fonctions d'activation
 
-Another important hyper-parameter of neural networks is the choice of the activation function $\varphi$.
+Un autre hyper-paramètre important des réseaux neuronaux est le choix de la fonction d'activation $\varphi$.
 
-Here, it is important to notice that if we used the identity function as our activation function, then whatever the depth of our MLP, we would fall back to covering only the family of linear models.
-In practice, we will then use activation functions that have some linear regime but don't behave like a linear function on the whole range of input values.
+Il est important de noter que si nous utilisons la fonction identité comme fonction d'activation, quelle que soit la profondeur de notre MLP, nous ne couvrirons plus que la famille des modèles linéaires.
+En pratique, nous utiliserons donc des fonctions d'activation qui ont un certain régime linéaire mais qui ne se comportent pas comme une fonction linéaire sur toute la gamme des valeurs d'entrée.
 
-Historically, the following activation functions have been proposed :
+Historiquement, les fonctions d'activation suivantes ont été proposées :
 
 
 \begin{align*}
@@ -342,42 +342,41 @@ plt.ylim([-1.1, 4.1])
 plt.title("ReLU");
 ```
 
-In practice the ReLU function (and some of its variants) is the most widely used nowadays, for reasons that will be discussed in more details in [our chapter dedicated to optimization](sec:sgd).
+En pratique, la fonction ReLU (et certaines de ses variantes) est la plus utilisée de nos jours, pour des raisons qui seront discutées plus en détail dans [notre chapitre consacré à l'optimisation](sec:sgd).
 
-### The special case of the output layer
+### Le cas particulier de la couche de sortie
 
-You might have noticed that in the MLP formulation provided in Equation (1), the output layer has its own activation function, denoted $\varphi_\text{out}$.
-This is because the choice of activation functions for the output layer of a neural network is a bit specific to the problem at hand.
+Vous avez peut-être remarqué que dans la formulation du MLP fournie par l'équation (1), la couche de sortie possède sa propre fonction d'activation, notée $\varphi_\text{out}$.
+Cela s'explique par le fait que le choix de la fonction d'activation pour la couche de sortie d'un réseau neuronal est spécifique au problème à résoudre.
 
-Indeed, you might have seen that the activation functions discussed in the previous section do not share the same range of output values.
-It is hence of prime importance to pick an adequate activation function for the output layer such that our model outputs values that are consistent to the quantities it is supposed to predict.
+En effet, vous avez pu constater que les fonctions d'activation abordées dans la section précédente ne partagent pas la même plage de valeurs de sortie.
+Il est donc primordial de choisir une fonction d'activation adéquate pour la couche de sortie, de sorte que notre modèle produise des valeurs cohérentes avec les quantités qu'il est censé prédire.
 
-If, for example, our model was supposed to be used in the Boston Housing dataset we discussed [in the previous chapter](sec:boston).
-In this case, the goal is to predict housing prices, which are expected to be nonnegative quantities.
-It would then be a good idea to use ReLU (which can output any positive value) as the activation function for the output layer in this case.
+Si, par exemple, notre modèle est censé être utilisé dans l'ensemble de données sur les logements de Boston dont nous avons parlé [dans le chapitre précédent](sec:boston), l'objectif est de prédire les prix des logements, qui sont censés être des quantités non négatives.
+Il serait donc judicieux d'utiliser ReLU (qui peut produire toute valeur positive) comme fonction d'activation pour la couche de sortie dans ce cas.
 
-As stated earlier, in the case of binary classification, the model will have a single output neuron and this neuron will output the probability associated to the positive class.
-This quantity is expected to lie in the $[0, 1]$ interval, and the sigmoid activation function is then the default choice in this setting.
+Comme indiqué précédemment, dans le cas de la classification binaire, le modèle aura un seul neurone de sortie et ce neurone produira la probabilité associée à la classe positive.
+Cette quantité devra se situer dans l'intervalle $[0, 1]$, et la fonction d'activation sigmoïde est alors le choix par défaut dans ce cas.
 
-Finally, when multi-class classification is at stake, we have one neuron per output class and each neuron is expected to output the probability for a given class.
-In this context, the output values should be between 0 and 1, and they should sum to 1.
-For this purpose, we use the softmax activation function defined as:
+Enfin, lorsque la classification multi-classes est en jeu, nous avons un neurone par classe de sortie et chaque neurone est censé fournir la probabilité pour une classe donnée.
+Dans ce contexte, les valeurs de sortie doivent être comprises entre 0 et 1, et leur somme doit être égale à 1.
+À cette fin, nous utilisons la fonction d'activation softmax définie comme suit :
 
 $$
   \forall i, \text{softmax}(o_i) = \frac{e^{o_i}}{\sum_j e^{o_j}}
 $$
 
-where, for all $i$, $o_i$'s are the values of the output neurons before applying the activation function.
+où, pour tous les $i$, les $o_i$ sont les valeurs des neurones de sortie avant application de la fonction d'activation.
 
-## Declaring an MLP in `keras`
+## Déclarer un MLP en `keras`
 
-In order to define a MLP model in `keras`, one just has to stack layers.
-As an example, if one wants to code a model made of:
-* an input layer with 10 neurons,
-* a hidden layer made of 20 neurons with ReLU activation,
-* an output layer made of 3 neurons with softmax activation, 
+Pour définir un modèle MLP dans `keras`, il suffit d'empiler des couches.
+A titre d'exemple, si l'on veut coder un modèle composé de :
+* une couche d'entrée avec 10 neurones,
+* d'une couche cachée de 20 neurones avec activation ReLU,
+* une couche de sortie composée de 3 neurones avec activation softmax, 
 
-the code will look like:
+le code sera le suivant :
 
 ```{code-cell}
 :tags: [remove-stderr]
@@ -394,28 +393,28 @@ model = Sequential([
 model.summary()
 ```
 
-Note that `model.summary()` provides an interesting overview of a defined model and its parameters.
+Notez que `model.summary()` fournit un aperçu intéressant d'un modèle défini et de ses paramètres.
 
-````{admonition} Exercise #1
+````{admonition} Exercice #1
 
-Relying on what we have seen in this chapter, can you explain the number of parameters returned by `model.summary()` above?
+En vous basant sur ce que nous avons vu dans ce chapitre, pouvez-vous expliquer le nombre de paramètres retournés par `model.summary()` ci-dessus ?
 
 ```{admonition} Solution
 :class: dropdown, tip
 
-Our input layer is made of 10 neurons, and our first layer is fully connected, hence each of these neurons is connected to a neuron in the hidden layer through a parameter, which already makes $10 \times 20 = 200$ parameters.
-Moreover, each of the hidden layer neurons has its own bias parameter, which is $20$ more parameters.
-We then have 220 parameters, as output by `model.summary()` for the layer `"dense (Dense)"`.
+Notre couche d'entrée est composée de 10 neurones, et notre première couche est entièrement connectée, donc chacun de ces neurones est connecté à un neurone de la couche cachée par un paramètre, ce qui fait déjà $10 \times 20 = 200$ paramètres.
+De plus, chacun des neurones de la couche cachée possède son propre paramètre de biais, ce qui fait $20$ paramètres supplémentaires.
+Nous avons donc 220 paramètres, tels que sortis par `model.summary()` pour la couche `"dense (Dense)"`.
 
-Similarly, for the connection of the hidden layer neurons to those in the output layer, the total number of parameters is $20 \times 3 = 60$ for the weights plus $3$ extra parameters for the biases.
+De la même manière, pour la connexion des neurones de la couche cachée à ceux de la couche de sortie, le nombre total de paramètres est de $20 \times 3 = 60$ pour les poids plus $3$ paramètres supplémentaires pour les biais.
 
-Overall, we have $220 + 63 = 283$ parameters in this model.
+Au total, nous avons $220 + 63 = 283$ paramètres dans ce modèle.
 ```
 ````
 
-`````{admonition} Exercise #2
+`````{admonition} Exercice #2
 
-Declare, in `keras`, an MLP with one hidden layer made of 100 neurons and ReLU activation for the Iris dataset presented above.
+Déclarez, en `keras`, un MLP avec une couche cachée composée de 100 neurones et une activation ReLU pour le jeu de données Iris présenté ci-dessus.
 
 ````{admonition} Solution
 :class: dropdown, tip
@@ -430,9 +429,9 @@ model = Sequential([
 ````
 `````
 
-`````{admonition} Exercise #3
+`````{admonition} Exercice #3
 
-Same question for the full Boston Housing dataset shown below (the goal here is to predict the `PRICE` feature based on the other ones).
+Même question pour le jeu de données sur le logement à Boston présenté ci-dessous (le but ici est de prédire l'attribut `PRICE` en fonction des autres).
 
 ````{admonition} Solution
 :class: dropdown, tip
