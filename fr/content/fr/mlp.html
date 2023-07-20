@@ -397,8 +397,8 @@ De plus, il n’est pas suffisant qu’une telle bonne approximation existe, une
 <p>En pratique, nous observons empiriquement que pour atteindre une qualité d’approximation donnée, il est plus efficace (en termes de nombre de paramètres requis) d’empiler plusieurs couches cachées plutôt que de s’appuyer sur une seule :</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-6f97efcd4a35b40413cad3130d197c24fc769224.svg" alt="Figure made with TikZ" /></p>
 </div><p>La représentation graphique ci-dessus correspond au modèle suivant :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fc8ba7b5-c280-4ee5-8030-240c7452711a">
-<span class="eqno">(1)<a class="headerlink" href="#equation-fc8ba7b5-c280-4ee5-8030-240c7452711a" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3c6b9722-2405-46c3-89e6-8b8d9056947c">
+<span class="eqno">(1)<a class="headerlink" href="#equation-3c6b9722-2405-46c3-89e6-8b8d9056947c" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
@@ -624,7 +624,7 @@ En pratique, nous utiliserons donc des fonctions d’activation qui ont un certa
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/06d864258c490ee3eb167401e76a0743a5ba7e59229355cef7368470ba6889d2.svg" src="../../_images/06d864258c490ee3eb167401e76a0743a5ba7e59229355cef7368470ba6889d2.svg" /></div>
+<img alt="../../_images/7ec42dc7ca4aaba7004664d7c9f586794612f4f6145d75103c1cfd7e2a5926bc.svg" src="../../_images/7ec42dc7ca4aaba7004664d7c9f586794612f4f6145d75103c1cfd7e2a5926bc.svg" /></div>
 </div>
 <p>En pratique, la fonction ReLU (et certaines de ses variantes) est la plus utilisée de nos jours, pour des raisons qui seront discutées plus en détail dans <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">notre chapitre consacré à l’optimisation</span></a>.</p>
 <section id="le-cas-particulier-de-la-couche-de-sortie">
@@ -675,70 +675,19 @@ A titre d’exemple, si l’on veut coder un modèle composé de :</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using TensorFlow backend
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">keras_core</span> <span class="k">as</span> <span class="nn">keras</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">InputLayer</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;DO NOT EDIT.</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> </span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> This file was autogenerated. Do not edit it by hand,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> since your modifications would be overwritten.</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">keras_core</span> <span class="kn">import</span> <span class="n">activations</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">keras_core</span> <span class="kn">import</span> <span class="n">applications</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">keras_core</span> <span class="kn">import</span> <span class="n">backend</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">activations</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;DO NOT EDIT.</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> </span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> This file was autogenerated. Do not edit it by hand,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> since your modifications would be overwritten.</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">keras_core.src.activations</span> <span class="kn">import</span> <span class="n">deserialize</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">keras_core.src.activations</span> <span class="kn">import</span> <span class="n">get</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">keras_core.src.activations</span> <span class="kn">import</span> <span class="n">serialize</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">keras_core.src</span> <span class="kn">import</span> <span class="n">activations</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">keras_core.src</span> <span class="kn">import</span> <span class="n">applications</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">keras_core.src</span> <span class="kn">import</span> <span class="n">backend</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">activations</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">types</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">keras_core.src.activations.activations</span> <span class="kn">import</span> <span class="n">elu</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">keras_core.src.activations.activations</span> <span class="kn">import</span> <span class="n">exponential</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">keras_core.src.activations.activations</span> <span class="kn">import</span> <span class="n">gelu</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">activations</span><span class="o">/</span><span class="n">activations</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">keras_core.src</span> <span class="kn">import</span> <span class="n">backend</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">keras_core.src</span> <span class="kn">import</span> <span class="n">ops</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">keras_core.src.api_export</span> <span class="kn">import</span> <span class="n">keras_core_export</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">backend</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">33</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">if</span> <span class="n">backend</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;tensorflow&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="n">print_msg</span><span class="p">(</span><span class="s2">&quot;Using TensorFlow backend&quot;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">33</span>     <span class="kn">from</span> <span class="nn">keras_core.src.backend.tensorflow</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="k">elif</span> <span class="n">backend</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;jax&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>     <span class="n">print_msg</span><span class="p">(</span><span class="s2">&quot;Using JAX backend.&quot;</span><span class="p">)</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">backend</span><span class="o">/</span><span class="n">tensorflow</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">keras_core.src.backend.tensorflow</span> <span class="kn">import</span> <span class="n">core</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">keras_core.src.backend.tensorflow</span> <span class="kn">import</span> <span class="n">image</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">keras_core.src.backend.tensorflow</span> <span class="kn">import</span> <span class="n">math</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hostedtoolcache</span><span class="o">/</span><span class="n">Python</span><span class="o">/</span><span class="mf">3.9.17</span><span class="o">/</span><span class="n">x64</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">keras_core</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">backend</span><span class="o">/</span><span class="n">tensorflow</span><span class="o">/</span><span class="n">core</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tensorflow.compiler.tf2xla.python.xla</span> <span class="kn">import</span> <span class="n">dynamic_update_slice</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">keras_core.src.backend.common</span> <span class="kn">import</span> <span class="n">KerasVariable</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
+Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ dense (Dense)               (None, 20)                220       
+                                                                 
+ dense_1 (Dense)             (None, 3)                 63        
+                                                                 
+=================================================================
+Total params: 283 (1.11 KB)
+Trainable params: 283 (1.11 KB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -797,6 +746,149 @@ Nous avons donc 220 paramètres, tels que sortis par <code class="docutils liter
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RM</th>
+      <th>CRIM</th>
+      <th>INDUS</th>
+      <th>NOX</th>
+      <th>AGE</th>
+      <th>TAX</th>
+      <th>PRICE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6.575</td>
+      <td>0.00632</td>
+      <td>2.31</td>
+      <td>0.538</td>
+      <td>65.2</td>
+      <td>296.0</td>
+      <td>24.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6.421</td>
+      <td>0.02731</td>
+      <td>7.07</td>
+      <td>0.469</td>
+      <td>78.9</td>
+      <td>242.0</td>
+      <td>21.6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7.185</td>
+      <td>0.02729</td>
+      <td>7.07</td>
+      <td>0.469</td>
+      <td>61.1</td>
+      <td>242.0</td>
+      <td>34.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6.998</td>
+      <td>0.03237</td>
+      <td>2.18</td>
+      <td>0.458</td>
+      <td>45.8</td>
+      <td>222.0</td>
+      <td>33.4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7.147</td>
+      <td>0.06905</td>
+      <td>2.18</td>
+      <td>0.458</td>
+      <td>54.2</td>
+      <td>222.0</td>
+      <td>36.2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>501</th>
+      <td>6.593</td>
+      <td>0.06263</td>
+      <td>11.93</td>
+      <td>0.573</td>
+      <td>69.1</td>
+      <td>273.0</td>
+      <td>22.4</td>
+    </tr>
+    <tr>
+      <th>502</th>
+      <td>6.120</td>
+      <td>0.04527</td>
+      <td>11.93</td>
+      <td>0.573</td>
+      <td>76.7</td>
+      <td>273.0</td>
+      <td>20.6</td>
+    </tr>
+    <tr>
+      <th>503</th>
+      <td>6.976</td>
+      <td>0.06076</td>
+      <td>11.93</td>
+      <td>0.573</td>
+      <td>91.0</td>
+      <td>273.0</td>
+      <td>23.9</td>
+    </tr>
+    <tr>
+      <th>504</th>
+      <td>6.794</td>
+      <td>0.10959</td>
+      <td>11.93</td>
+      <td>0.573</td>
+      <td>89.3</td>
+      <td>273.0</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>505</th>
+      <td>6.030</td>
+      <td>0.04741</td>
+      <td>11.93</td>
+      <td>0.573</td>
+      <td>80.8</td>
+      <td>273.0</td>
+      <td>11.9</td>
+    </tr>
+  </tbody>
+</table>
+<p>506 rows × 7 columns</p>
+</div></div></div>
 </div>
 </section>
 </section>
