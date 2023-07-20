@@ -136,7 +136,7 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 ```{code-cell} ipython3
 ---
 tags: [hide-input]
-render:
+mystnb:
     figure:
         caption: |
             Une image et ses 3 canaux
@@ -247,7 +247,8 @@ où $c$ désigne le canal de sortie (notez que chaque canal de sortie est associ
 En `keras`, une telle couche est implémentée à l'aide de la classe `Conv2D` :
 
 ```python
-from tensorflow.keras.layers import Conv2D
+import keras_core as keras
+from keras.layers import Conv2D
 
 layer = Conv2D(filters=6, kernel_size=5, padding="valid", activation="relu")
 ```
@@ -327,7 +328,7 @@ Ces couches étaient largement utilisées historiquement dans les premiers modè
 En `keras`, les couches de _pooling_ sont implémentées à travers les classes `MaxPool2D` et `AvgPool2D` :
 
 ```python
-from tensorflow.keras.layers import MaxPool2D, AvgPool2D
+from keras.layers import MaxPool2D, AvgPool2D
 
 max_pooling_layer = MaxPool2D(pool_size=2)
 average_pooling_layer = AvgPool2D(pool_size=2)
@@ -346,8 +347,8 @@ Cette opération est appelée _Flatten_ dans `keras`, et le modèle correspondan
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import InputLayer, Conv2D, MaxPool2D, Flatten, Dense
+from keras.models import Sequential
+from keras.layers import InputLayer, Conv2D, MaxPool2D, Flatten, Dense
 
 model = Sequential([
     InputLayer(input_shape=(32, 32, 1)),

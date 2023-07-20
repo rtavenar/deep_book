@@ -382,8 +382,9 @@ the code will look like:
 ```{code-cell}
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dense, InputLayer
-from tensorflow.keras.models import Sequential
+import keras_core as keras
+from keras.layers import Dense, InputLayer
+from keras.models import Sequential
 
 model = Sequential([
     InputLayer(input_shape=(10, )),

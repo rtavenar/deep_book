@@ -44,7 +44,7 @@ Sa forme quadratique tend à pénaliser fortement les erreurs importantes :
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -81,7 +81,7 @@ Sa formulation tend à favoriser les cas où le modèle prédit la classe correc
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]

@@ -15,9 +15,9 @@ kernelspec:
 
 # Introduction
 
-In this introduction chapter, we will present a first neural network called
-the Perceptron.
-This model is a neural network made of a single neuron, and we will use it here as a way to introduce key concepts that we will detail later in the course.
+Dans ce chapitre d'introduction, nous allons présenter un premier réseau neuronal appelé
+le Perceptron.
+Ce modèle est un réseau neuronal constitué d'un seul neurone, et nous l'utiliserons ici pour introduire des concepts-clés que nous détaillerons plus tard dans le cours.
 
 ```{code-cell}
 :tags: [hide-cell]
@@ -30,19 +30,19 @@ from notebook_utils import prepare_notebook_graphics
 prepare_notebook_graphics()
 ```
 
-## A first model: the Perceptron
+## Un premier modèle : le perceptron
 
-In the neural network terminology, a neuron is a parametrized function that
-takes a vector $\mathbf{x}$ as input and outputs a single value $a$ as follows:
+Dans la terminologie des réseaux de neurones, un neurone est une fonction paramétrée qui
+prend un vecteur $\mathbf{x}$ en entrée et sort une valeur unique $a$ comme suit :
 
 $$
     a = \varphi(\underbrace{\mathbf{w} \mathbf{x} + b}_{o}) ,
 $$
 
-where the parameters of the neuron are its weights stored in $\mathbf{w}$
-and a bias term $b$, and $\varphi$ is an activation function that is chosen
-_a priori_
-(we will come back to it in more details later in the course):
+où les paramètres du neurone sont ses poids stockés dans $\mathbf{w}$.
+et un terme de biais $b$, et $\varphi$ est une fonction d'activation qui est choisie
+a priori
+(nous y reviendrons plus en détail plus tard dans le cours) :
 
 ```{tikz}
     \node[draw,circle,minimum size=25pt,inner sep=0pt] (x) at (0,0) {$o$};
@@ -63,23 +63,21 @@ _a priori_
 	\draw[->, thick] (x) to node [midway,above=-0.1cm] {$\varphi$} (a);
 ```
 
-A model made of a single neuron is called a Perceptron.
+Un modèle constitué d'un seul neurone est appelé perceptron.
 
-## Optimization
+## Optimisation
 
-The models presented in this book are aimed at solving prediction problems, in
-which the goal is to find "good enough" parameter values for the model at stake
-given some observed data.
+Les modèles présentés dans ce document ont pour but de résoudre des problèmes de prédiction
+dans lesquels l'objectif est de trouver des valeurs de paramètres "suffisamment bonnes" pour le modèle en jeu
+compte tenu de données observées.
 
-The problem of finding such parameter values is coined optimization and the deep
-learning field makes extensive use of a specific family of optimization
-strategies called **gradient descent**.
+Le problème de la recherche de telles valeurs de paramètres est appelé optimisation.
+L'apprentissage profond (ou _deep learning_) fait un usage intensif d'une famille spécifique de stratégies d'optimisation appelée **descente gradiente**.
 
 (sec:boston)=
-### Gradient Descent
+### Descente de gradient
 
-To make one's mind about gradient descent, let us assume we are given
-the following dataset about house prices:
+Pour se faire une idée de la descente de gradient, supposons que l'on nous donne le jeu de données suivant sur les prix de l'immobilier :
 
 ```{code-cell}
 import pandas as pd
@@ -88,51 +86,47 @@ boston = pd.read_csv("../data/boston.csv")[["RM", "PRICE"]]
 boston
 ```
 
-In our case, we will try (for a start) to predict the target value of this
-dataset, which is the median value of owner-occupied homes in $1000
-`"PRICE"`, as a function of the average number of rooms per dwelling `"RM"` :
+Dans notre cas, nous essaierons (pour commencer) de prédire la valeur cible `"PRICE"` de ce jeu de données, qui est la valeur médiane des maisons occupées par leur propriétaire en milliers de dollars en fonction du nombre moyen de pièces par logement `"RM"` :
 
 ```{code-cell}
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
 sns.scatterplot(data=boston, x="RM", y="PRICE");
 ```
 
-```{sidebar} A short note on this model
+```{sidebar} Une courte note sur ce modèle
 
-In the Perceptron terminology, this model:
-* has no activation function (_i.e._ $\varphi$ is the identity function)
-* has no bias (_i.e._ $b$ is forced to be $0$, it is not learnt)
+Dans la terminologie du Perceptron, ce modèle :
+* n'a pas de fonction d'activation (_i.e._ $\varphi$ est la fonction d'identité)
+* n'a pas de biais (_i.e._ $b$ est fixé à $0$, il n'est pas appris)
 ```
 
-Let us assume we have a naive approach in which our prediction model is linear
-without intercept, that is, for a given input $x_i$ the predicted output is
-computed as:
+Supposons que nous ayons une approche naïve dans laquelle notre modèle de prédiction est linéaire sans biais, c'est-à-dire que pour une entrée donnée $x_i$ la sortie prédite est
+calculée comme suit :
 
 $$
     \hat{y_i} = w x_i
 $$
 
-where $w$ is the only parameter of our model.
+où $w$ est le seul paramètre de notre modèle.
 
-Let us further assume that the quantity we aim at minimizing
-(our objective, also called loss) is:
+Supposons en outre que la quantité que nous cherchons à minimiser
+(notre objectif, également appelé fonction de perte) est :
 
 $$
     \mathcal{L}(w) = \sum_i \left(\hat{y_i} - y_i\right)^2
 $$
 
-where $y_i$ is the ground truth value associated with the $i$-th sample in our
-dataset.
+où $y_i$ est la valeur cible associée au $i$-ème échantillon de jeu de données.
 
-Let us have a look at this quantity as a function of $w$:
+Examinons cette quantité en fonction de $w$ :
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -152,38 +146,33 @@ y = boston["PRICE"]
 plt.plot(w, loss(w, x, y), "r-");
 ```
 
-Here, it seems that a value of $w$ around 4 should be a good pick, but this
-method (generating lots of values for the parameter and computing the loss for
-each value) cannot scale to models that have lots of parameters, so we will
-try something else.
+Ici, il semble qu'une valeur de $w$ autour de 4 devrait être un bon choix.
+Cette méthode (générer de nombreuses valeurs pour le paramètre et calculer la perte pour
+chaque valeur) ne peut pas s'adapter aux modèles qui ont beaucoup de paramètres, donc nous allons
+donc essayer autre chose.
 
-Let us suppose we have access, each time we pick a candidate value for $w$,
-to both the loss $\mathcal{L}$ and information about how $\mathcal{L}$ varies,
-locally.
-We could, in this case, compute a new candidate value for $w$ by moving from
-the previous candidate value in the direction of steepest descent.
-This is the basic idea behind the gradient descent algorithm that, from an
-initial candidate $w_0$, iteratively computes new candidates as:
+Supposons que nous ayons accès, à chaque fois que nous choisissons une valeur candidate pour $w$,
+à la fois à la perte $\mathcal{L}$ et aux informations sur la façon dont $\mathcal{L}$ varie,
+localement.
+Nous pourrions, dans ce cas, calculer une nouvelle valeur candidate pour $w$ en nous déplaçant à partir de la valeur candidate précédente dans la direction de la descente la plus raide.
+C'est l'idée de base de l'algorithme de descente du gradient qui, à partir d'un candidat initial $w_0$, calcule itérativement de nouveaux candidats comme :
 
 $$
     w_{t+1} = w_t - \rho \left. \frac{\partial \mathcal{L}}{\partial w} \right|_{w=w_t}
 $$
 
-where $\rho$ is a hyper-parameter (called the learning rate)
-that controls the size of the steps to be done, and
-$\left. \frac{\partial \mathcal{L}}{\partial w} \right|_{w=w_t}$ is the
-gradient of
-$\mathcal{L}$ with respect to $w$, evaluated at $w=w_t$.
-As you can see, the direction of steepest descent is the opposite of the
-direction pointed by the gradient (and this holds when dealing with vector
-parameters too).
+où $\rho$ est un hyper-paramètre (appelé taux d'apprentissage)
+qui contrôle la taille des pas à effectuer, et
+$\left. \frac{\partial \mathcal{L}}{\partial w} \right|_{w=w_t}$ est le
+gradient de
+$\mathcal{L}$ par rapport à $w$, évalué en $w=w_t$.
+Comme vous pouvez le voir, la direction de la descente la plus raide est l'opposé de la direction indiquée par le gradient (et cela vaut aussi pour les paramètres vectoriels).
 
-This process is repeated until convergence, as illustrated in the following
-visualization:
+Ce processus est répété jusqu'à la convergence, comme l'illustre la figure suivante :
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -208,11 +197,11 @@ plt.text(x=w[0]+.1, y=loss([w[0]], x, y), s="$w_{0}$")
 plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 ```
 
-What would we get if we used a smaller learning rate?
+Qu'obtiendrions-nous si nous utilisions un taux d'apprentissage plus faible ?
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -231,12 +220,12 @@ plt.text(x=w[0]+.1, y=loss([w[0]], x, y), s="$w_{0}$")
 plt.text(x=w[10]+.1, y=loss([w[10]], x, y), s="$w_{10}$");
 ```
 
-It would definitely take more time to converge.
-But, take care, a larger learning rate is not always a good idea:
+Cela prendrait certainement plus de temps pour converger.
+Mais attention, un taux d'apprentissage plus élevé n'est pas toujours une bonne idée :
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -255,14 +244,14 @@ plt.text(x=w[0]-1., y=loss([w[0]], x, y), s="$w_{0}$")
 plt.text(x=w[10]-1., y=loss([w[10]], x, y), s="$w_{10}$");
 ```
 
-See how we are slowly diverging because our steps are too large?
+Vous voyez comment nous divergeons lentement parce que nos pas sont trop grands ?
 
-## Wrap-up
+## Récapitulatif
 
-In this section, we have introduced:
-* a very simple model, called the Perceptron: this will be a building block for the more advanced models we will detail later in the course, such as:
-    * the [Multi-Layer Perceptron](sec:mlp)
-    * [Convolutional architectures](sec:cnn)
-    * [Recurrent architectures](sec:rnn)
-* the fact that a task comes with a loss function to be minimized (here, we have used the _mean squared error (MSE)_ for our regression task), which will be discussed in [a dedicated chapter](sec:loss);
-* the concept of gradient descent to optimize the chosen loss over a model's single parameter, and this will be extended in [our chapter on optimization](sec:sgd).
+Dans cette section, nous avons introduit :
+* un modèle très simple, appelé le Perceptron : ce sera une brique de base pour les modèles plus avancés que nous détaillerons plus tard dans le cours, tels que :
+    * le [Perceptron multi-couches](sec:mlp)
+    * les [architectures convolutionnelles](sec:cnn)
+    * les [architectures récurrentes](sec:rnn)
+* le fait qu'une tâche s'accompagne d'une fonction de perte à minimiser (ici, nous avons utilisé l'erreur quadratique moyenne pour notre tâche de régression), qui sera discutée dans [un chapitre dédié](sec:loss) ;
+* le concept de descente de gradient pour optimiser la perte choisie sur le paramètre unique d'un modèle, et ceci sera étendu dans [notre chapitre sur l'optimisation](sec:sgd).

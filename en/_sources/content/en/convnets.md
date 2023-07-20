@@ -146,7 +146,7 @@ Color images are typically made of 3 channels (Red, Green and Blue here).
 ```{code-cell} ipython3
 ---
 tags: [hide-input]
-render:
+mystnb:
     figure:
         caption: |
             An image and its 3 channels 
@@ -258,7 +258,8 @@ where $c$ denotes the output channel (note that each output channel is associate
 In `keras`, such a layer is implemented using the `Conv2D` class:
 
 ```python
-from tensorflow.keras.layers import Conv2D
+import keras_core as keras
+from keras.layers import Conv2D
 
 layer = Conv2D(filters=6, kernel_size=5, padding="valid", activation="relu")
 ```
@@ -338,7 +339,7 @@ Such layers were widely used in the early years of convolutional models and are 
 In `keras`, pooling layers are implemented through the `MaxPool2D` and `AvgPool2D` classes:
 
 ```python
-from tensorflow.keras.layers import MaxPool2D, AvgPool2D
+from keras.layers import MaxPool2D, AvgPool2D
 
 max_pooling_layer = MaxPool2D(pool_size=2)
 average_pooling_layer = AvgPool2D(pool_size=2)
@@ -357,8 +358,8 @@ This operation is called flattening in `keras`, and the model corresponding to {
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import InputLayer, Conv2D, MaxPool2D, Flatten, Dense
+from keras.models import Sequential
+from keras.layers import InputLayer, Conv2D, MaxPool2D, Flatten, Dense
 
 model = Sequential([
     InputLayer(input_shape=(32, 32, 1)),

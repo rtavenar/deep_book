@@ -14,79 +14,79 @@ kernelspec:
 ---
 
 (sec:sgd)=
-# Optimization
+# Optimisation
 
-In this chapter, we will present variants of the **Gradient Descent** optimization strategy and show how they can be used to optimize neural network parameters.
+Dans ce chapitre, nous présenterons des variantes de la stratégie d'optimisation **de descente de gradient** et montrerons comment elles peuvent être utilisées pour optimiser les paramètres des réseaux de neurones.
 
-Let us start with the basic Gradient Descent algorithm and its limitations.
+Commençons par l'algorithme de base de la descente de gradient et ses limites.
 
-```{prf:algorithm} Gradient Descent
+```{prf:algorithm} Descente de Gradient
 :label: algo:gd
 
-**Input:** A dataset $\mathcal{D} = (X, y)$
+**Entrée:** Un jeu de données $\mathcal{D} = (X, y)$
 
-1. Initialize model parameters $\theta$
+1. Initialiser les paramètres $\theta$ du modèle
 2. for $e = 1 .. E$
 
     1. for $(x_i, y_i) \in \mathcal{D}$
 
-        1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
-        2. Compute gradient $\nabla_\theta \mathcal{L}_i$
+        1. Calculer la prédiction $\hat{y}_i = m_\theta(x_i)$
+        2. Calculer le gradient individuel $\nabla_\theta \mathcal{L}_i$
 
-    2. Compute overall gradient $\nabla_\theta \mathcal{L} = \frac{1}{n} \sum_i \nabla_\theta \mathcal{L}_i$
-    3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}$
+    2. Calculer le gradient total $\nabla_\theta \mathcal{L} = \frac{1}{n} \sum_i \nabla_\theta \mathcal{L}_i$
+    3. Mettre à jour les paramètres $\theta$ à partir de $\nabla_\theta \mathcal{L}$
 ```
 
-The typical update rule for the parameters $\theta$ at iteration $t$ is
+La règle de mise à jour typique pour les paramètres $\theta$ à l'itération $t$ est
 
 $$
     \theta^{(t+1)} \leftarrow \theta^{(t)} - \rho \nabla_\theta \mathcal{L}
 $$
 
-where $\rho$ is an important hyper-parameter of the method, called the learning rate.
-Basically, gradient descent updates $\theta$ in the direction of steepest decrease of the loss $\mathcal{L}$.
+où $\rho$ est un hyper-paramètre important de la méthode, appelé le taux d'apprentissage (ou _learning rate_).
+La descente de gradient consiste à jour itérativement $\theta$ dans la direction de la plus forte diminution de la perte $\mathcal{L}$.
 
-As one can see in the previous algorithm, when performing gradient descent, model parameters are updated once per epoch, which means a full pass over the whole dataset is required before the update can occur.
-When dealing with large datasets, this is a strong limitation, which motivates the use of stochastic variants.
+Comme on peut le voir dans l'algorithme précédent, lors d'un descente de gradient, les paramètres du modèle sont mis à jour une fois par _epoch_, ce qui signifie qu'un passage complet sur l'ensemble des données est nécessaire avant la mise à jour.
+Lorsque l'on traite de grands jeux de données, cela constitue une forte limitation, ce qui motive l'utilisation de variantes stochastiques.
 
-## Stochastic Gradient Descent (SGD)
+## Descente de gradient stochastique
 
-The idea behind the Stochastic Gradient Descent algorithm is to get cheap estimates for the quantity 
+L'idée derrière l'algorithme de descente de gradient stochastique (ou _Stochastic Gradient Descent_, SGD) est d'obtenir des estimations bon marché (au sens de la quantité de calculs nécessaires) pour la quantité
 
 $$
     \nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta) = \frac{1}{n} \sum_{(x_i, y_i) \in \mathcal{D}} \nabla_\theta \mathcal{L}(x_i, y_i ; m_\theta)
 $$
 
-where $\mathcal{D}$ is the whole training set.
-To do so, one draws subsets of data, called _minibatches_, and 
+où $\mathcal{D}$ est l'ensemble d'apprentissage.
+Pour ce faire, on tire des sous-ensembles de données, appelés _minibatchs_, et
 
 $$
     \nabla_\theta \mathcal{L}(\mathcal{B} ; m_\theta) = \frac{1}{b} \sum_{(x_i, y_i) \in \mathcal{B}} \nabla_\theta \mathcal{L}(x_i, y_i ; m_\theta)
 $$
-is used as an estimator for $\nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta)$.
-This results in the following algorithm in which, interestingly, parameter updates occur after each minibatch, which is multiple times per epoch.
+est utilisé comme estimateur de $\nabla_\theta \mathcal{L}(\mathcal{D} ; m_\theta)$.
+Il en résulte l'algorithme suivant dans lequel les mises à jour des paramètres se produisent après chaque _minibatch_, c'est-à-dire plusieurs fois par _epoch_.
 
-```{prf:algorithm} Stochastic Gradient Descent
+```{prf:algorithm} Descente de gradient stochastique
 :label: algo:sgd
 
 **Input:** A dataset $\mathcal{D} = (X, y)$
 
-1. Initialize model parameters $\theta$
+1. Initialiser les paramètres $\theta$ du modèle
 2. for $e = 1 .. E$
 
     1. for $t = 1 .. n_\text{minibatches}$
 
-        1. Draw minibatch $\mathcal{B}$ as a random sample of size $b$ from $\mathcal{D}$
+        1. Tirer un échantillon aléatoire de taillle $b$ dans $\mathcal{D}$ que l'on appelle _minibatch_
         1. for $(x_i, y_i) \in \mathcal{B}$
 
-            1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
-            2. Compute gradient $\nabla_\theta \mathcal{L}_i$
+            1. Calculer la prédiction $\hat{y}_i = m_\theta(x_i)$
+            2. Calculer le gradient individuel $\nabla_\theta \mathcal{L}_i$
 
-        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_{\mathcal{B}} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
-        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_{\mathcal{B}}$
+        2. Calculer le gradient sommé sur le _minibatch_ $\nabla_\theta \mathcal{L}_{\mathcal{B}} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
+        3. Mettre à jour les paramètres $\theta$ à partir de $\nabla_\theta \mathcal{L}_{\mathcal{B}}$
 ```
 
-As a consequence, when using SGD, parameter updates are more frequent, but they are "noisy" since they are based on an minibatch estimation of the gradient instead of relying on the true gradient, as illustrated below:
+Par conséquent, lors de l'utilisation de SGD, les mises à jour des paramètres sont plus fréquentes, mais elles sont "bruitées" puisqu'elles sont basées sur une estimation du gradient par _minibatch_ au lieu de s'appuyer sur le vrai gradient, comme illustré ci-dessous :
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -183,7 +183,7 @@ def gen_anim(X, y, alphas_gd, alphas_sgd, alpha_star, lambd, xlims, ylims, n_ste
     texts = []  
     for ax, alphas, title in zip(axes, 
                                  [alphas_gd, alphas_sgd],
-                                 ["Gradient Descent", "Stochastic Gradient Descent"]):
+                                 ["Descente de Gradient", "Descente de Gradient Stochastique"]):
         ax.contour(xv, yv, P, alpha=0.5)
         ax.plot(alphas[0, 0], alphas[0, 1], 'ko', fillstyle='none')
         line_alphas,  = ax.plot(alphas[:1, 0], alphas[:1, 1], marker="x")
@@ -254,12 +254,12 @@ viz
 ```
 
 
-Apart from implying more frequent parameter updates, SGD has an extra benefit in terms of optimization, which is key for neural networks.
-Indeed, as one can see below, contrary to what we had in the Perceptron case, the MSE loss (and the same applies for the logistic loss) is no longer convex in the model parameters as soon as the model has at least one hidden layer:
+Outre le fait qu'elle implique des mises à jour plus fréquentes des paramètres, la SGD présente un avantage supplémentaire en termes d'optimisation, qui est essentiel pour les réseaux de neurones.
+En effet, comme on peut le voir ci-dessous, contrairement à ce que nous avions dans le cas du Perceptron, la perte MSE (et il en va de même pour la perte logistique) n'est plus convexe en les paramètres du modèle dès que celui-ci possède au moins une couche cachée :
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -302,49 +302,49 @@ plt.xlabel('$w$')
 plt.ylabel('$\mathcal{L}$');
 ```
 
-Gradient Descent is known to suffer from local optima, and such loss landscapes are a serious problem for GD.
-On the other hand, Stochastic Gradient Descent is likely to benefit from noisy gradient estimations to escape local minima.
+La descente de gradient est connue pour souffrir d'optima locaux, et de tels fonctions de pertes constituent un problème sérieux pour la descente de gradient.
+D'un autre côté, la descente de gradient stochastique est susceptible de bénéficier d'estimations de gradient bruitées pour s'échapper des minima locaux.
 
-## A note on Adam
+## Une note sur Adam
 
-Adam {cite}`2015-kingma` is a variant of the Stochastic Gradient Descent method.
-It differs in the definition of the steps to be performed at each parameter update.
+Adam {cite}`2015-kingma` est une variante de la méthode de descente de gradient stochastique.
+Elle diffère dans la règle de mise à jour des paramètres.
 
-First, it uses what is called momentum, which basically consists in relying on past gradient updates to smooth out the trajectory in parameter space during optimization.
-An interactive illustration of momentum can be found in {cite}`goh2017why`.
+Tout d'abord, elle utilise ce qu'on appelle le momentum, qui consiste essentiellement à s'appuyer sur les mises à jour antérieures du gradient pour lisser la trajectoire dans l'espace des paramètres pendant l'optimisation.
+Une illustration interactive du momentum peut être trouvée dans {cite}`goh2017why`.
 
-The resulting plugin replacement for the gradient is:
+L'estimation du gradient est remplacée par la quantité :
 
 $$
   \mathbf{m}^{(t+1)} \leftarrow \frac{1}{1 - \beta_1^t} \left[\beta_1 \mathbf{m}^{(t)} + (1 - \beta_1) \nabla_\theta \mathcal{L} \right]
 $$
 
-When $\beta_1$ is zero, we have $\mathbf{m}^{(t+1)} = \nabla_\theta \mathcal{L}$ and for $\beta_1 \in ]0, 1[$, $\mathbf{m}^{(t+1)}$ balances the current gradient estimate with information about past estimates, stored in $\mathbf{m}^{(t)}$.
+Lorsque $\beta_1$ est égal à zéro, nous avons $\mathbf{m}^{(t+1)} = \nabla_\theta \mathcal{L}$ et pour $\beta_1 \in ]0, 1[$, $\mathbf{m}^{(t+1)}$ l'estimation courante du gradient utilise l'information sur les estimations passées, stockée dans $\mathbf{m}^{(t)}$.
 
-Another important difference between SGD and the Adam variant consists in using an adaptive learning rate.
-In other words, instead of using the same learning rate $\rho$ for all model parameters, the learning rate for a given parameter $\theta_i$ is defined as:
+Une autre différence importante entre SGD et la Adam consiste à utiliser un taux d'apprentissage adaptatif.
+En d'autres termes, au lieu d'utiliser le même taux d'apprentissage $\rho$ pour tous les paramètres du modèle, le taux d'apprentissage pour un paramètre donné $\theta_i$ est défini comme :
 
 $$
   \hat{\rho}^{(t+1)}(\theta_i) = \frac{\rho}{\sqrt{s^{(t+1)}(\theta_i)+\epsilon}}
 $$
 
-where $\epsilon$ is a small constant and
+où $\epsilon$ est une constante petite devant 1 et 
 
 $$
   s^{(t+1)}(\theta_i) = \frac{1}{1 - \beta_2^t} \left[ \beta_{2} s^{(t)}(\theta_i) + (1-\beta_{2}) \left(\nabla_{\theta_i} \mathcal{L}\right)^2\right]
 $$
 
-Here also, the $s$ term uses momentum. As a result, the learning rate will be lowered for parameters which have suffered large updates in the past iterations.
+Ici aussi, le terme $s$ utilise le momentum. Par conséquent, le taux d'apprentissage sera réduit pour les paramètres qui ont subi de grandes mises à jour dans les itérations précédentes.
 
-Overall, the Adam update rule is:
+Globalement, la règle de mise à jour d'Adam est la suivante :
 
 $$
   \theta^{(t+1)} \leftarrow \theta^{(t)} - \hat{\rho}^{(t+1)}(\theta) \mathbf{m}^{(t+1)}
 $$
 
-## The curse of depth
+## La malédiction de la profondeur
 
-Let us consider the following neural network:
+Considérons le réseau neuronal suivant :
 
 ```{tikz}
     \tikzset{every path/.style={line width=1pt}}
@@ -489,17 +489,17 @@ Let us consider the following neural network:
     \node[fill=white, text=blue] (beta2) at  (7.5, 2) {$\mathbf{w^{(2)}}$};
 ```
 
-and let us recall that, at a given layer $(\ell)$, the layer output is computed as
+et rappelons que, pour une couche donnée $(\ell)$, la sortie de la couche est calculée comme suit
 
 $$
   a^{(\ell)} = \varphi(o^{(\ell)}) = \varphi(w^{(\ell - 1)} a^{(\ell - 1)})
 $$
 
-where $\varphi$ is the activation function for the given layer (we ignore the bias terms in this simplified example).
+où $\varphi$ est la fonction d'activation pour la couche donnée (nous ignorons les termes de biais dans cet exemple simplifié).
 
-In order to perform (stochastic) gradient descent, gradients of the loss with respect to model parameters need to be computed.
+Afin d'effectuer une descente de gradient (stochastique), les gradients de la perte par rapport aux paramètres du modèle doivent être calculés.
 
-By using the chain rule, these gradients can be expressed as:
+En utilisant la règle de la dérivation en chaîne, ces gradients peuvent être exprimés comme suit :
 
 \begin{align*}
   \frac{\partial \mathcal{L}}{\partial w^{(2)}} &= \frac{\partial \mathcal{L}}{\partial a^{(3)}}
@@ -513,20 +513,20 @@ By using the chain rule, these gradients can be expressed as:
 {\color{red}\frac{\partial a^{(1)}}{\partial o^{(1)}} \frac{\partial o^{(1)}}{\partial w^{(0)}}}
 \end{align*}
 
-There are important insights to grasp here.
+Il y a des idées importantes à saisir ici.
 
-First, one should notice that weights that are further from the output of the model inherit gradient rules made of more terms.
-As a consequence, when some of these terms get smaller and smaller, there is a higher risk for those weights that their gradients collapse to 0, this is called the **vanishing gradient** effect, which is a very common phenomenon in deep neural networks (_i.e._ those networks made of many layers).
+Tout d'abord, il faut remarquer que les poids qui sont plus éloignés de la sortie du modèle héritent de règles de gradient composées de plus de termes.
+Par conséquent, lorsque certains de ces termes deviennent de plus en plus petits, il y a un risque plus élevé pour ces poids que leurs gradients tombent à 0. C'est ce qu'on appelle l'effet de **gradient évanescent** (_vanishing gradient_), qui est un phénomène très courant dans les réseaux neuronaux profonds (c'est-à-dire les réseaux composés de nombreuses couches).
 
-Second, some terms are repeated in these formulas, and in general, terms of the form $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ and $\frac{\partial o^{(\ell)}}{\partial a^{(\ell-1)}}$ are present in several places.
-These terms can be further developed as:
+Deuxièmement, certains termes sont répétés dans ces formules, et en général, des termes de la forme $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ et $\frac{\partial o^{(\ell)}}{\partial a^{(\ell-1)}}$ sont présents à plusieurs endroits.
+Ces termes peuvent être développés comme suit :
 
 \begin{align*}
   \frac{\partial a^{(\ell)}}{\partial o^{(\ell)}} &= \varphi^\prime (o^{(\ell)}) \\
   \frac{\partial o^{(\ell)}}{\partial a^{(\ell - 1)}} &= w^{(\ell - 1)}
 \end{align*}
 
-Let us inspect what the derivatives of standard activation functions look like:
+Voyons à quoi ressemblent les dérivées des fonctions d'activation standard :
 
 ```{code-cell} ipython3
 :tags: [hide-input, remove-stderr]
@@ -574,18 +574,19 @@ plt.title("ReLU'(x)")
 plt.tight_layout();
 ```
 
-One can see that the derivative of ReLU has a wider range of input values for which it is non-zero (typically the whole range of positive input values) than its competitors, which makes it a very attractive candidate activation function for deep neural networks, as we have seen that the $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ term appears repeatedly in chain rule derivations.
+On peut constater que la dérivée de ReLU possède une plus grande plage de valeurs d'entrée pour lesquelles elle est non nulle (typiquement toute la plage de valeurs d'entrée positives) que ses concurrentes, ce qui en fait une fonction d'activation très intéressante pour les réseaux neuronaux profonds, car nous avons vu que le terme $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ apparaît de manière répétée dans les dérivations en chaîne.
 
-## Wrapping things up in `keras`
+## En finir avec les `keras`.
 
-In `keras`, loss and optimizer information are passed at compile time:
+Dans `keras`, les informations sur les pertes et l'optimiseur sont transmises au moment de la compilation :
 
 
 ```{code-cell}
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dense, InputLayer
-from tensorflow.keras.models import Sequential
+import keras_core as keras
+from keras.layers import Dense, InputLayer
+from keras.models import Sequential
 
 model = Sequential([
     InputLayer(input_shape=(10, )),
@@ -603,20 +604,20 @@ model.summary()
 model.compile(loss="categorical_crossentropy", optimizer="adam")
 ```
 
-In terms of losses:
+En termes de pertes :
 
-* `"mse"` is the mean squared error loss,
-* `"binary_crossentropy"` is the logistic loss for binary classification,
-* `"categorical_crossentropy"` is the logistic loss for multi-class classification.
+* `"mse"` est la perte d'erreur quadratique moyenne,
+* `"binary_crossentropy"` est la perte logistique pour la classification binaire,
+* `"categorical_crossentropy"` est la perte logistique pour la classification multi-classes.
 
-The optimizers defined in this section are available as `"sgd"` and `"adam"`.
-In order to get control over optimizer hyper-parameters, one can alternatively use the following syntax:
+Les optimiseurs définis dans cette section sont disponibles sous forme de `"sgd"` et `"adam"`.
+Afin d'avoir le contrôle sur les hyper-paramètres des optimiseurs, on peut alternativement utiliser la syntaxe suivante :
 
 
 ```{code-cell}
 :tags: [remove-stderr]
 
-from tensorflow.keras.optimizers import Adam, SGD
+from keras.optimizers import Adam, SGD
 
 # Not a very good idea to tune beta_1 
 # and beta_2 parameters in Adam
@@ -629,15 +630,15 @@ adam_opt = Adam(learning_rate=0.001,
 model.compile(loss="categorical_crossentropy", optimizer=adam_opt)
 ```
 
-## Data preprocessing
+## Prétraitement des données
 
-In practice, for the model fitting phase to behave well, it is important to scale the input features. 
-In the following example, we will compare two trainings of the same model, with similar initialization and the only difference between both will be whether input data is center-reduced or left as-is.
+En pratique, pour que la phase d'ajustement du modèle se déroule correctement, il est important de mettre à l'échelle les données d'entrée. 
+Dans l'exemple suivant, nous allons comparer deux entraînements du même modèle, avec une initialisation similaire et la seule différence entre les deux sera de savoir si les données d'entrée sont centrées-réduites ou laissées telles quelles.
 
 ```{code-cell} ipython3
 
 import pandas as pd
-from tensorflow.keras.utils import to_categorical
+from keras.utils import to_categorical
 
 iris = pd.read_csv("../data/iris.csv", index_col=0)
 iris = iris.sample(frac=1)
@@ -648,9 +649,9 @@ X = iris.drop(columns=["target"])
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dense, InputLayer
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.utils import set_random_seed
+from keras.layers import Dense, InputLayer
+from keras.models import Sequential
+from keras.utils import set_random_seed
 
 
 set_random_seed(0)
@@ -667,7 +668,7 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 h = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
-Let us now standardize our data and compare performance:
+Standardisons maintenant nos données et comparons les performances obtenues :
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -696,16 +697,16 @@ h_standardized = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 
 plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
-plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Without data standardization")
-plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="With data standardization")
-plt.ylabel("Loss")
+plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Sans standardisation des données")
+plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="Avec standardisation des données")
+plt.ylabel("Valeur de la fonction de coût (loss)")
 plt.xlabel("Epochs")
 plt.legend();
 
 plt.subplot(1, 2, 2)
-plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Without data standardization")
-plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="With data standardization")
-plt.ylabel("Accuracy")
+plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Sans standardisation des données")
+plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="Avec standardisation des données")
+plt.ylabel("Taux de bonnes classifications")
 plt.xlabel("Epochs");
 ```
 

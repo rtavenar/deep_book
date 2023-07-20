@@ -1,50 +1,61 @@
 
+
 <!DOCTYPE html>
 
-<html lang="fr">
+
+<html lang="fr" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Réseaux neuronaux convolutifs &#8212; Introduction au Deep Learning (notes de cours)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/translations.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -54,56 +65,87 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/fr/convnets';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Recherche" href="../../search.html" />
-    <link rel="next" title="Recurrent Neural Networks" href="rnn.html" />
-    <link rel="prev" title="Regularization" href="regularization.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="fr">
-    
-
-    <!-- Google Analytics -->
-    
+    <link rel="next" title="Réseaux neuronaux récurrents" href="rnn.html" />
+    <link rel="prev" title="Régularisation" href="regularization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+  
+  
+  <a class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="container-fluid" id="banner"></div>
-
     
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">Introduction au Deep Learning (notes de cours)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction au Deep Learning (notes de cours)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -113,414 +155,253 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="perceptron.html">
-   Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="mlp.html">
-   Perceptrons multicouches
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="loss.html">
-   Fonctions de coût
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="optim.html">
-   Optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="regularization.html">
-   Regularization
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Réseaux neuronaux convolutifs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="rnn.html">
-   Recurrent Neural Networks
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="perceptron.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mlp.html">Perceptrons multicouches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loss.html">Fonctions de coût</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regularization.html">Régularisation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Réseaux neuronaux convolutifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rnn.html">Réseaux neuronaux récurrents</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            <a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
-<a href="../../../en/index.html">Switch to English</a>
-
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/rtavenar/deep_book/main?urlpath=tree/content/fr/convnets.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/deep_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Dépôt source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/fr/convnets.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Ouvrez un problème"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/fr/convnets.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/rtavenar/deep_book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/fr/convnets.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../_sources/content/fr/convnets.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../_sources/content/fr/convnets.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles">
-   Réseaux de neurones convolutifs pour les séries temporelles
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-images">
-   Réseaux de neurones convolutifs pour les images
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#images-et-convolutions">
-     Images et convolutions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reseaux-convolutifs-de-type-lenet">
-     Réseaux convolutifs de type LeNet
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#couches-de-convolution">
-       Couches de convolution
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#couches-de-pooling">
-       Couches de
-       <em>
-        pooling
-       </em>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#ajout-d-une-tete-de-classification">
-       Ajout d’une
-       <em>
-        tête de classification
-       </em>
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   Références
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Réseaux neuronaux convolutifs</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles">
-   Réseaux de neurones convolutifs pour les séries temporelles
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-images">
-   Réseaux de neurones convolutifs pour les images
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#images-et-convolutions">
-     Images et convolutions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reseaux-convolutifs-de-type-lenet">
-     Réseaux convolutifs de type LeNet
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#couches-de-convolution">
-       Couches de convolution
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#couches-de-pooling">
-       Couches de
-       <em>
-        pooling
-       </em>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#ajout-d-une-tete-de-classification">
-       Ajout d’une
-       <em>
-        tête de classification
-       </em>
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   Références
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Réseaux neuronaux convolutifs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles">Réseaux de neurones convolutifs pour les séries temporelles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-images">Réseaux de neurones convolutifs pour les images</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#images-et-convolutions">Images et convolutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reseaux-convolutifs-de-type-lenet">Réseaux convolutifs de type LeNet</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#couches-de-convolution">Couches de convolution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#couches-de-pooling">Couches de <em>pooling</em></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ajout-d-une-tete-de-classification">Ajout d’une <em>tête de classification</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">Références</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   
 <style>
   .ss-layout-default-AB { grid-template-areas: 'A B'; }
 </style>
 <section class="tex2jax_ignore mathjax_ignore" id="reseaux-neuronaux-convolutifs">
-<span id="sec-cnn"></span><h1>Réseaux neuronaux convolutifs<a class="headerlink" href="#reseaux-neuronaux-convolutifs" title="Lien permanent vers ce titre">#</a></h1>
+<span id="sec-cnn"></span><h1>Réseaux neuronaux convolutifs<a class="headerlink" href="#reseaux-neuronaux-convolutifs" title="Lien permanent vers cette rubrique">#</a></h1>
 <p>Les réseaux de neurones convolutifs (aussi appelés ConvNets) sont conçus pour tirer parti de la structure des données.
 Dans ce chapitre, nous aborderons deux types de réseaux convolutifs : nous commencerons par le cas monodimensionnel et verrons comment les réseaux convolutifs à convolutions 1D peuvent être utiles pour traiter les séries temporelles. Nous présenterons ensuite le cas 2D, particulièrement utile pour traiter les données d’image.</p>
 <section id="reseaux-de-neurones-convolutifs-pour-les-series-temporelles">
-<h2>Réseaux de neurones convolutifs pour les séries temporelles<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles" title="Lien permanent vers ce titre">#</a></h2>
+<h2>Réseaux de neurones convolutifs pour les séries temporelles<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles" title="Lien permanent vers cette rubrique">#</a></h2>
 <p>Les réseaux de neurones convolutifs pour les séries temporelles reposent sur l’opérateur de convolution 1D qui, étant donné une série temporelle <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> et un filtre
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, calcule une carte d’activation comme :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-71c5faf8-d4a7-48aa-96f6-38d0a9d60e59">
-<span class="eqno">(2)<a class="headerlink" href="#equation-71c5faf8-d4a7-48aa-96f6-38d0a9d60e59" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-4e17393e-f51f-4e4c-85b3-dae7f6aa1d10">
+<span class="eqno">(2)<a class="headerlink" href="#equation-4e17393e-f51f-4e4c-85b3-dae7f6aa1d10" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}\]</div>
 <p>où le filtre <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> est de longueur <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
 <p>Le code suivant illustre cette notion en utilisant un filtre gaussien :</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -551,11 +432,17 @@ Dans ce chapitre, nous aborderons deux types de réseaux convolutifs : nous comm
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/convnets_1_0.svg" src="../../_images/convnets_1_0.svg" /></div>
+<img alt="../../_images/16e6a20bf8880529059d4973d8e9904bbc67774a720ce26b516cd2274bb03500.svg" src="../../_images/16e6a20bf8880529059d4973d8e9904bbc67774a720ce26b516cd2274bb03500.svg" /></div>
+</details>
 </div>
 <p>Les réseaux de neurones convolutifs sont constitués de blocs de convolution dont les paramètres sont les coefficients des filtres qu’ils intègrent (les filtres ne sont donc pas fixés <em>a priori</em> comme dans l’exemple ci-dessus mais plutôt appris).
 Ces blocs de convolution sont équivariants par translation, ce qui signifie qu’un décalage (temporel) de leur entrée entraîne le même décalage temporel de leur sortie :</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 <span class="kn">from</span> <span class="nn">celluloid</span> <span class="kn">import</span> <span class="n">Camera</span>
@@ -598,11 +485,14 @@ Ces blocs de convolution sont équivariants par translation, ce qui signifie qu�
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_7041/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5546/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-/tmp/ipykernel_7041/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
+/tmp/ipykernel_5546/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
   fig2 = plt.subplot(2, 1, 2)
+/tmp/ipykernel_5546/368849627.py:32: UserWarning: The figure layout has changed to tight
+  plt.tight_layout()
 </pre></div>
 </div>
 <div class="output text_html">
@@ -790,42 +680,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img7f42958e37ae41a89a41661d1b3f18c6">
+  <img id="_anim_imgaa3ecbcc9d664605bb79707bd61046b5">
   <div class="anim-controls">
-    <input id="_anim_slider7f42958e37ae41a89a41661d1b3f18c6" type="range" class="anim-slider"
+    <input id="_anim_slideraa3ecbcc9d664605bb79707bd61046b5" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim7f42958e37ae41a89a41661d1b3f18c6.set_frame(parseInt(this.value));">
+           oninput="animaa3ecbcc9d664605bb79707bd61046b5.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animaa3ecbcc9d664605bb79707bd61046b5.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animaa3ecbcc9d664605bb79707bd61046b5.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animaa3ecbcc9d664605bb79707bd61046b5.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animaa3ecbcc9d664605bb79707bd61046b5.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animaa3ecbcc9d664605bb79707bd61046b5.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animaa3ecbcc9d664605bb79707bd61046b5.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animaa3ecbcc9d664605bb79707bd61046b5.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animaa3ecbcc9d664605bb79707bd61046b5.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim7f42958e37ae41a89a41661d1b3f18c6.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animaa3ecbcc9d664605bb79707bd61046b5.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select7f42958e37ae41a89a41661d1b3f18c6"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectaa3ecbcc9d664605bb79707bd61046b5"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_7f42958e37ae41a89a41661d1b3f18c6"
+      <input type="radio" name="state" value="once" id="_anim_radio1_aa3ecbcc9d664605bb79707bd61046b5"
              >
-      <label for="_anim_radio1_7f42958e37ae41a89a41661d1b3f18c6">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_7f42958e37ae41a89a41661d1b3f18c6"
+      <label for="_anim_radio1_aa3ecbcc9d664605bb79707bd61046b5">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_aa3ecbcc9d664605bb79707bd61046b5"
              checked>
-      <label for="_anim_radio2_7f42958e37ae41a89a41661d1b3f18c6">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_7f42958e37ae41a89a41661d1b3f18c6"
+      <label for="_anim_radio2_aa3ecbcc9d664605bb79707bd61046b5">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_aa3ecbcc9d664605bb79707bd61046b5"
              >
-      <label for="_anim_radio3_7f42958e37ae41a89a41661d1b3f18c6">Reflect</label>
+      <label for="_anim_radio3_aa3ecbcc9d664605bb79707bd61046b5">Reflect</label>
     </form>
   </div>
 </div>
@@ -835,13 +725,13 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img7f42958e37ae41a89a41661d1b3f18c6";
-    var slider_id = "_anim_slider7f42958e37ae41a89a41661d1b3f18c6";
-    var loop_select_id = "_anim_loop_select7f42958e37ae41a89a41661d1b3f18c6";
+    var img_id = "_anim_imgaa3ecbcc9d664605bb79707bd61046b5";
+    var slider_id = "_anim_slideraa3ecbcc9d664605bb79707bd61046b5";
+    var loop_select_id = "_anim_loop_selectaa3ecbcc9d664605bb79707bd61046b5";
     var frames = new Array(60);
-
+    
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7GUlEQVR4nO3deZyNdf/H8deZFbPZ9zGWbFmStZC16KZFJClroWghQvp1Z6ks\
 RftOWZMWpYVCGCJUtpREsu+KGWMZs3x/f3zvOUwzwwxz5joz5/18PObhONd1zvmccw3znu/qMsYY\
 RERERMRn+DldgIiIiIjkLAVAERERER+jACgiIiLiYxQARURERHyMAqCIiIiIj1EAFBEREfExCoAi\
@@ -1398,7 +1288,7 @@ UERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiIiI9RABQRERHxMQqAIiIi\
 Ij7m/wHbHkRllxiHXwAAAABJRU5ErkJggg==\
 "
   frames[1] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7NklEQVR4nO3dd3gU1dvG8e+mEtLoPYQiAlJEqhQpoqDYUEQE6QIKoiKIgK9K\
 UUEU7F2UpigqiA0FFEITEGliQXrvCgkBCSnn/eP8shCTQALZzCZ7f64rF5OZ2d1nd4DcOXOKyxhj\
 EBERERGf4ed0ASIiIiKSuxQARURERHyMAqCIiIiIj1EAFBEREfExCoAiIiIiPkYBUERERMTHKACK\
@@ -1955,7 +1845,7 @@ RERExMcoAIqIiIj4GAVAERERER+jACgiIiLiYxQARURERHyMAqCIiIiIj1EAFBEREfExCoAiIiIi\
 PkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mP+H/WVaJekOOUnAAAAAElFTkSuQmCC\
 "
   frames[2] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7IUlEQVR4nO3dd3hU1dbH8e+EFEIavYdQpEkRqdJBFBQbiqj0IoJgQ5Dm9UpR\
 ARVQ1GtFqWIFsaGgQmgCF2kXC9KLFAGBFJCQst8/9puBmAQSyORMMr/P88zDyTlnzqyZk5CVXdZ2\
 GWMMIiIiIuIz/JwOQERERERylxJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREf\
@@ -2512,7 +2402,7 @@ FBEREfExSgBFREREfIwSQBEREREfowRQRERExMcoARQRERHxMUoARURERHyMEkARERERH6MEUERE\
 RMTHKAEUERER8TH/B8yod8R1kYIuAAAAAElFTkSuQmCC\
 "
   frames[3] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB650lEQVR4nO3dd3RU1d7G8e+kEtLoPYQqIEWkNymioGBBERGkCyioVwQV4aqA\
 BSygWF4rShURBTsKCoQmWBAQC9KLdBUSAhJS9vvHvhkISSCBTM5M5vmsNYvJOWdmfjMnIU/22cVl\
 jDGIiIiIiN8IcLoAEREREclfCoAiIiIifkYBUERERMTPKACKiIiI+BkFQBERERE/owAoIiIi4mcU\
@@ -3068,7 +2958,7 @@ QBERERE/owAoIiIi4mcUAEVERET8jAKgiIiIiJ9RABQRERHxMwqAIiIiIn5GAVBERETEzygAioiI\
 iPgZBUARERERP/P/QlmCZLecC50AAAAASUVORK5CYII=\
 "
   frames[4] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB68ElEQVR4nO3dd3gUVdvH8e+mEtLoHUIVkCJSRZCqoGJBERGkCqigPiKogK9K\
 eZQmqNhARakqFhAbCiqEJiDSxIL0Ih2FhIAJKef94zxZiEkggSSzm/19rmsvJjOzs/fuJOTOKfdx\
 GWMMIiIiIuIz/JwOQERERETylhJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREf\
@@ -3624,7 +3514,7 @@ gCIiIiI+RgmgiIiIiI9RAigiIiLiY5QAioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqI\
 iIj4GCWAIiIiIj5GCaCIiIiIj/l/HBV49WRzL2kAAAAASUVORK5CYII=\
 "
   frames[5] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7CElEQVR4nO3dd3gUVdvH8e+mEtLoPYQiTYpIF5AiCooNRUSUqohiA0FBfFTA\
 AqI09XmtKFVUFMSGIgqhCag0UUF6kY5CQkBCynn/OE8WYhJIIJvZ7P4+17UXk5nZ2Xt3EnLnlPu4\
 jDEGEREREfEbAU4HICIiIiL5SwmgiIiIiJ9RAigiIiLiZ5QAioiIiPgZJYAiIiIifkYJoIiIiIif\
@@ -4181,7 +4071,7 @@ IiLiZ5QAioiIiPgZJYAiIiIifkYJoIiIiIifUQIoIiIi4meUAIqIiIj4mf8HiVZpgLL6Di8AAAAA\
 SUVORK5CYII=\
 "
   frames[6] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6tUlEQVR4nO3dd1xV9f8H8NdlysaBgoog7pkJuEBBTS0tM83MjbM0y5WrLMRK\
 1JzlLzUX7pVmQ8sJDkJzpymJG8U9GCrzfn5/fL73KjIEvJdzx+v5eNyHh3vOvfd97wF58TmfoRJC\
 CBARERGR2bBQugAiIiIiKl4MgERERERmhgGQiIiIyMwwABIRERGZGQZAIiIiIjPDAEhERERkZhgA\
@@ -4736,7 +4626,7 @@ IiIiMjMMgERERERmhgGQiIiIyMwwABIRERGZGQZAIiIiIjPDAEhERERkZhgAiYiIiMwMAyARERGR\
 mWEAJCIiIjIzDIBEREREZub/Ae3Lcx4vqRy+AAAAAElFTkSuQmCC\
 "
   frames[7] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7AklEQVR4nO3dd3gUVdvH8e+mEtLohBJCB6WIVClSFXzAgiAiHRSxK4KI+KoU\
 C6BgfxQVBQQRC4oNBRVCExBpooIUKZGOQkJAQsp5/zhPFmISSCCb2WR/n+vai8nM7Oy9Owm5c8p9\
 XMYYg4iIiIj4DD+nAxARERGR/KUEUERERMTHKAEUERER8TFKAEVERER8jBJAERERER+jBFBERETE\
@@ -5293,7 +5183,7 @@ ioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqIiIj4mP8Huatkb4HznCQAAAAASUVORK5C\
 YII=\
 "
   frames[8] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6w0lEQVR4nO3dd3RU1d7G8e+kEtLohBJCFZAiUhWQIgoKFhQRkY6Ail5FUBCv\
 SrEgShH1WpEmIqJYryigEJqA0ryoIL1IEVBICCWk7PeP/WYgJIEEMjmTzPNZK8vJnDMzv5kTzJNd\
 XcYYg4iIiIj4DD+nCxARERGRvKUAKCIiIuJjFABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+\
@@ -5848,7 +5738,7 @@ ERERH6MAKCIiIuJjFABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+RgFQRERExMcoAIqIiIj4\
 GAVAERERER+jACgiIiLiYxQARURERHyMAqCIiIiIj/k/78or8oheab0AAAAASUVORK5CYII=\
 "
   frames[9] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6+ElEQVR4nO3dd3gU5d7G8e+GFEIanVBCqIJSRLrSQUGxoYgIUqUo2BAExKNS\
 jgIqxXbEglJVLGBHAYXQBFSaiNKrFAGVhICElOf943mzEJJAAtnMJnt/risXk53Z2d/uALkzT3MZ\
 YwwiIiIi4jP8nC5ARERERHKXAqCIiIiIj1EAFBEREfExCoAiIiIiPkYBUERERMTHKACKiIiI+BgF\
@@ -6404,7 +6294,7 @@ KACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiIiI9RABQRERHxMQqAIiIiIj5GAVBE\
 RETExygAioiIiPgYBUARERERH6MAKCIiIuJj/g/xBEFPbLlWiwAAAABJRU5ErkJggg==\
 "
   frames[10] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB62ElEQVR4nO3deVhU5dsH8O+wyo4KCiqCuOeagBskuGFppbnkrphLaZbmmrYg\
 VqLlWv3S0txzTVMrzSXBhdQUl9REcSdxV1YFgXneP553RpEdZjgzzPdzXXN55pwzZ+45Dzg3z6oS\
 QggQERERkckwUzoAIiIiIipdTACJiIiITAwTQCIiIiITwwSQiIiIyMQwASQiIiIyMUwAiYiIiEwM\
@@ -6960,7 +6850,7 @@ RERERCaGCSARERGRiWECSERERGRimAASERERmRgmgEREREQmhgkgERERkYlhAkhERERkYv4PGNDb\
 SGaPgUMAAAAASUVORK5CYII=\
 "
   frames[11] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6gUlEQVR4nO3dd3xN9/8H8NfNlB0jJCFCYtaoklhBjIqWDjVqBTGLaq2aHURV\
 aM22v9JWiVm0VLUoSgYpqjFqpWLHnlnIvJ/fH5/vvUSGjHtz7ng9H4/7cHLOuee+7/lcue98pkoI\
 IUBEREREZsNC6QCIiIiIqHQxASQiIiIyM0wAiYiIiMwME0AiIiIiM8MEkIiIiMjMMAEkIiIiMjNM\
@@ -7514,7 +7404,7 @@ mWECSERERGRmmAASERERmRkmgERERERmhgkgERERkZlhAkhERERkZpgAEhEREZkZJoBEREREZoYJ\
 IBEREZGZYQJIREREZGaYABIRERGZmf8HvNXU2E/+ZZkAAAAASUVORK5CYII=\
 "
   frames[12] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7CUlEQVR4nO3dZ3hU1fr38e+kAmn0HkIVkCLSmwREQMGCIipKF1CwIYgIR6Uc\
 BQtgfQ4WlCoCHhQbCiiEJqDSDopIL1IEFBJCCSnrebH+GYhJIIFM9iTz+1zXXOzsNvfsnZA7e611\
 L5cxxiAiIiIiPsPP6QBEREREJHcpARQRERHxMUoARURERHyMEkARERERH6MEUERERMTHKAEUERER\
@@ -8071,7 +7961,7 @@ iIiI+BglgCIiIiI+RgmgiIiIiI9RAigiIiLiY5QAioiIiPgYJYAiIiIiPub/A97H7HTxEtbFAAAA\
 AElFTkSuQmCC\
 "
   frames[13] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7QElEQVR4nO3deZyN5f/H8dcZsxiz2Y1ljJ2yJHvIWrSnpJK9ULSJSvpWlor0\
 RVq+pZJsCaW0KQpjCwlJi8ieJSpmjGXMcv3+uH5zmGaGGebMfc6c9/PxOA/33Pd97vM5554xn7mW\
 z+UyxhhERERExG8EOB2AiIiIiOQvJYAiIiIifkYJoIiIiIifUQIoIiIi4meUAIqIiIj4GSWAIiIi\
@@ -8629,7 +8519,7 @@ iIifUQIoIiIi4meUAIqIiIj4GSWAIiIiIn5GCaCIiIiIn1ECKCIiIuJn/g+WVOs5zGuzswAAAABJ\
 RU5ErkJggg==\
 "
   frames[14] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6zElEQVR4nO3deXhM1/8H8PdMNtkTkogQIfYGVRFbQmylRVulaifWlmqpnWqJ\
 qqAo1W+tJZYqWqraalESS4raa2lqDakg1mxknfP74/xmiOwxkzuTeb+eJ09v7r0z85m50bxzzj3n\
 qIQQAkRERERkNtRKF0BEREREJYsBkIiIiMjMMAASERERmRkGQCIiIiIzwwBIREREZGYYAImIiIjM\
@@ -9185,7 +9075,7 @@ kZlhACQiIiIyMwyARERERGaGAZCIiIjIzDAAEhEREZkZBkAiIiIiM/N/FWMONWd12dYAAAAASUVO\
 RK5CYII=\
 "
   frames[15] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB650lEQVR4nO3deZyN5f/H8deZFbPZjWWMNWRJ1ixZi6JFSSJrSdEmKmmzVKTQ\
 +k2L7KkU7YqKsUxIqFRkX7IrZgwZs1y/P67fHKaZYYY5c5+Z834+HvNw5tz3Oedzzo15z7W6jDEG\
 EREREfEZfk4XICIiIiJ5SwFQRERExMcoAIqIiIj4GAVAERERER+jACgiIiLiYxQARURERHyMAqCI\
@@ -9741,7 +9631,7 @@ UERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiIiI9RABQRERHxMQqAIiIi\
 Ij5GAVBERETEx/wfVrTYZAlRV/8AAAAASUVORK5CYII=\
 "
   frames[16] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB620lEQVR4nO3deXxMV/8H8M9klT1BiCUSsT9BkcSWkKBC6aKW2om1pdrat0cb\
 URVae/sUpXaKlupCaykR0lB7rbUFqX3NRtY5vz/ObyYiiyRmcmf5vF+vebmZe2fmO3MT+eSce85R\
 CSEEiIiIiMhsWChdABERERGVLAZAIiIiIjPDAEhERERkZhgAiYiIiMwMAyARERGRmWEAJCIiIjIz\
@@ -10297,7 +10187,7 @@ M8MASERERGRmGACJiIiIzAwDIBEREZGZYQAkIiIiMjMMgERERERmhgGQiIiIyMwwABIRERGZmf8D\
 FIjcpkHn/+UAAAAASUVORK5CYII=\
 "
   frames[17] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7FElEQVR4nO3dd3xN9/8H8NfNlB0jJIhE7FklsYIYFUqVGrUlZlvVWrVaFdFW\
 ULv9FbVi1GopHWpVIsQoMYpKbWKGIgOZ9/P74/O9l8iQxL05d7yej8d9uDnn3HPf95xE3vmM90cl\
 hBAgIiIiIrNhoXQARERERFS0mAASERERmRkmgERERERmhgkgERERkZlhAkhERERkZpgAEhEREZkZ\
@@ -10854,7 +10744,7 @@ hgkgERERkZlhAkhERERkZpgAEhEREZkZJoBEREREZoYJIBEREZGZYQJIREREZGaYABIRERGZmf8H\
 rBXQ9y4P+B4AAAAASUVORK5CYII=\
 "
   frames[18] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7JElEQVR4nO3dd3gUVdvH8e+mEtLoPYQOShGpIkgVULCgiAhSpajYEETE10eK\
 CqKA9VFUlKagKBZUFFAITUCkiQXpRToKCQEJKef94zxZiEkggWxmk/19rmsvJjOzs/fuJOTOKfdx\
 GWMMIiIiIuIz/JwOQERERERylxJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREf\
@@ -11411,7 +11301,7 @@ fIwSQBEREREfowRQRERExMcoARQRERHxMUoARURERHyMEkARERERH6MEUERERMTHKAEUERER8TFK\
 AEVERER8jBJAERERER/z/3KdtooINvScAAAAAElFTkSuQmCC\
 "
   frames[19] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7MElEQVR4nO3dd3hU1dbH8e+EFCCNTighFGlSRDqCFFFQsSCICNJFFNQLgoCg\
 XopKUcB2XytSBBFUsF1RQCE0AZEmKkiRpnSRhFBCyn7/2DcDMQkkkMmZZH6f55mHk3POnFkzJyEr\
 u6ztMsYYRERERMRn+DkdgIiIiIjkLCWAIiIiIj5GCaCIiIiIj1ECKCIiIuJjlACKiIiI+BglgCIi\
@@ -11968,7 +11858,7 @@ ioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqIiIj4GCWAIiIiIj5GCaCIiIiIj1ECKCIi\
 IuJjlACKiIiI+BglgCIiIiI+RgmgiIiIiI/5f1thwMTIBLt+AAAAAElFTkSuQmCC\
 "
   frames[20] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6/klEQVR4nO3deZyN5f/H8deZFbPZjWWMXWVJ1ixZUhQtIklZKyotRIV+laVC\
 hbR8v1okJEnRrrQwtpBsqci+ZAnFjCFjluv3x/WdwzQzzDBn7nPmvJ+Px3k4c9/3Oedzzj1j3nPd\
 1+IyxhhERERExG8EOF2AiIiIiOQvBUARERERP6MAKCIiIuJnFABFRERE/IwCoIiIiIifUQAUERER\
@@ -12524,7 +12414,7 @@ RURERPyMAqCIiIiIn1EAFBEREfEzCoAiIiIifkYBUERERMTPKACKiIiI+BkFQBERERE/owAoIiIi\
 4mcUAEVERET8jAKgiIiIiJ9RABQRERHxMwqAIiIiIn7m/wEkDu3/nZW5awAAAABJRU5ErkJggg==\
 "
   frames[21] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7BUlEQVR4nO3deZyNdf/H8dcZsxiz2Y1ljDVkSdZElhRFi8gtIUSKNlFJv7ot\
 3VmK0nKXSlmSSiltioohomRLSZZs2RUzBjNm+f7++N5zmGaGGebMdc6c9/PxOA9nrus653zOuWbM\
 e77Xd3EZYwwiIiIi4jcCnC5ARERERAqWAqCIiIiIn1EAFBEREfEzCoAiIiIifkYBUERERMTPKACK\
@@ -13081,7 +12971,7 @@ xM8oAIqIiIj4GQVAERERET+jACgiIiLiZxQARURERPyMAqCIiIiIn/l/xBJeqI6KACoAAAAASUVO\
 RK5CYII=\
 "
   frames[22] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6yklEQVR4nO3dd3hURd/G8e+GFEIanVBC6EWKSEeQIgoqFhQRkY6IivqIoCI+\
 KkUFUVCxoqJUEVSwooIIoQmIgDwoIr1IRyEhlJAy7x/zZiEkgQSyOZvs/bmuvTjZc3b3t3sScmfm\
 zIzLGGMQEREREZ/h53QBIiIiIpK7FABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+RgFQRERE\
@@ -13637,7 +13527,7 @@ FABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+RgFQRERExMf8H0SxPjlMV1stAAAAAElFTkSu\
 QmCC\
 "
   frames[23] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6tUlEQVR4nO3dd3RU1d7G8e+EFEIavYdQBaSI9F5EQbEhiIhSpajYEETEi1JU\
 EKWIem2gVBELiHpFKUJoAiJFsSBIl65CQkBCyn7/2G8GYhJIIJMzyTyftWZxMufMzG/mJOTJ2c1l\
 jDGIiIiIiM/wc7oAEREREclZCoAiIiIiPkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMU\
@@ -14192,7 +14082,7 @@ IiIiIj5GAVBERETExygAioiIiPgYBUARERERH6MAKCIiIuJjFABFREREfIwCoIiIiIiPUQAUERER\
 8TEKgCIiIiI+RgFQRERExMf8H4WDTFmElkTxAAAAAElFTkSuQmCC\
 "
   frames[24] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB670lEQVR4nO3dd3gUVdvH8e+mEtLohBJCLyKIdAQJRUHBgiIi0hVRsCEIiI2i\
 jxEF+yMWlKaIBesjCiqEJiACKhakFylShIRQQsp5/zhvFmISSCCb2WR/n+vai8nM7Oy9Owm5c8p9\
 XMYYg4iIiIj4DD+nAxARERGRgqUEUERERMTHKAEUERER8TFKAEVERER8jBJAERERER+jBFBERETE\
@@ -14748,7 +14638,7 @@ ERER8TFKAEVERER8jBJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREfowRQRERE\
 xMcoARQRERHxMUoARURERHzM/wEDJD74mvczmwAAAABJRU5ErkJggg==\
 "
   frames[25] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB63UlEQVR4nO3dd3RU1d7G8e+kAml0QgmhCkiRS1XpoqBiQREV6Yoo2BBUwKtS\
 VBClWa5YUKoIKooNBRVCExABERWkSJOOSkIoIWW/f+w3AzEJJDCTM8k8n7VmcTLnzMxv5iTkydnN\
 ZYwxiIiIiIjfCHC6ABERERHJWwqAIiIiIn5GAVBERETEzygAioiIiPgZBUARERERP6MAKCIiIuJn\
@@ -15304,7 +15194,7 @@ ERHxMwqAIiIiIn5GAVBERETEzygAioiIiPgZBUARERERP6MAKCIiIuJnFABFRERE/IwCoIiIiIif\
 +T8hckcS+O7b4gAAAABJRU5ErkJggg==\
 "
   frames[26] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7E0lEQVR4nO3dd3gU1dvG8e+mAml0QgmhSFGKSG9SREHBgiIi0hFQsCH8FLFR\
 VBAF7B2lqoBiFwUVQhNQaaKA9CJFQCUhQELKef84bxZiEkggm9lk78917cVmZnb22ZmEPDnlOS5j\
 jEFEREREfIaf0wGIiIiISN5SAigiIiLiY5QAioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOU\
@@ -15861,7 +15751,7 @@ JYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqIiIj4GCWAIiIiIj5GCaCIiIiIj1ECKCIiIuJj/g+O\
 /lMFR+xTvgAAAABJRU5ErkJggg==\
 "
   frames[27] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB69klEQVR4nO3dd3RU1d7G8e+kEtLohBJCB6WIVClSRMCLDUVEpCuiYAFBBHxV\
 igqioFjutSHdhoLYUCwQmoCKwEUU6UWKICUhlJCy3z/2zUBIAglkciaZ57PWLE7mnJn5zZyEPDm7\
 uYwxBhERERHxGX5OFyAiIiIieUsBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8\
@@ -16417,7 +16307,7 @@ FBEREfExCoAiIiIiPkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiI\
 iI9RABQRERHxMQqAIiIiIj5GAVBERETEx/w/0HBCvQ5XHNkAAAAASUVORK5CYII=\
 "
   frames[28] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7BklEQVR4nO3dd3RU1d7G8e+EFEIanVBDFZEi0psUUVCxIIiCdAVUbAgq4FUp\
 egUUUNRrRakioiB2AYXQBFSaqCC9KCCgkBBKSNnvH/vNQEwCCWRyZjLPZ61ZnMw5M/ObOQl5cnZz\
 GWMMIiIiIuI3ApwuQERERETylgKgiIiIiJ9RABQRERHxMwqAIiIiIn5GAVBERETEzygAioiIiPgZ\
@@ -16974,7 +16864,7 @@ RMTPKACKiIiI+BkFQBERERE/owAoIiIi4mcUAEVERET8jAKgiIiIiJ/5P4r3V4rfxys1AAAAAElF\
 TkSuQmCC\
 "
   frames[29] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7OklEQVR4nO3dd3hU1dbH8e+EFEIavYdQpEkRqSJdBLxgQRGRDiKoiIKgIF6V\
 ogIqYH3FgkoT20WxoYBCaAJXKYoo0ntXSAhISNnvH/tmJCaBBDI5M5nf53nm4eScM2fWzEnIyi5r\
 u4wxBhERERHxGwFOByAiIiIieUsJoIiIiIifUQIoIiIi4meUAIqIiIj4GSWAIiIiIn5GCaCIiIiI\
@@ -17532,7 +17422,7 @@ iIiI+BklgCIiIiJ+RgmgiIiIiJ9RAigiIiLiZ5QAioiIiPiZ/we4eV9uw6G/fQAAAABJRU5ErkJg\
 gg==\
 "
   frames[30] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6tUlEQVR4nO3dd3RU1d7G8W9CCiGN3kOoAlJEepMiCipeRRABpQsoWEBQEfVK\
 USkKWF8rSlWxgBWUIoQmoFIUC1KkSQchIZSQst8/9s1ASAIJZHJmMs9nrVmczDkz85s5IXmyzy5+\
 xhiDiIiIiPgMf6cLEBEREZHcpQAoIiIi4mMUAEVERER8jAKgiIiIiI9RABQRERHxMQqAIiIiIj5G\
@@ -18087,7 +17977,7 @@ RURERHyMAqCIiIiIj1EAFBEREfExCoAiIiIiPkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi\
 4mMUAEVERER8jAKgiIiIiI/5f9pUPMgLLlWPAAAAAElFTkSuQmCC\
 "
   frames[31] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7OklEQVR4nO3dd3hU1dbH8e+EFEIavYdQpEkRqSJdBLxgQRGRDiKoiIKgIF6V\
 ogIqYH3FgkoT20WxoYBCaAJXKYoo0ntXSAhISNnvH/tmJCaBBDI5M5nf53nm4eScM2fWzEnIyi5r\
 u4wxBhERERHxGwFOByAiIiIieUsJoIiIiIifUQIoIiIi4meUAIqIiIj4GSWAIiIiIn5GCaCIiIiI\
@@ -18645,7 +18535,7 @@ iIiI+BklgCIiIiJ+RgmgiIiIiJ9RAigiIiLiZ5QAioiIiPiZ/we4eV9uw6G/fQAAAABJRU5ErkJg\
 gg==\
 "
   frames[32] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7BklEQVR4nO3dd3RU1d7G8e+EFEIanVBDFZEi0psUUVCxIIiCdAVUbAgq4FUp\
 egUUUNRrRakioiB2AYXQBFSaqCC9KCCgkBBKSNnvH/vNQEwCCWRyZjLPZ61ZnMw5M/ObOQl5cnZz\
 GWMMIiIiIuI3ApwuQERERETylgKgiIiIiJ9RABQRERHxMwqAIiIiIn5GAVBERETEzygAioiIiPgZ\
@@ -19202,7 +19092,7 @@ RMTPKACKiIiI+BkFQBERERE/owAoIiIi4mcUAEVERET8jAKgiIiIiJ/5P4r3V4rfxys1AAAAAElF\
 TkSuQmCC\
 "
   frames[33] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB69klEQVR4nO3dd3RU1d7G8e+kEtLohBJCB6WIVClSRMCLDUVEpCuiYAFBBHxV\
 igqioFjutSHdhoLYUCwQmoCKwEUU6UWKICUhlJCy3z/2zUBIAglkciaZ57PWLE7mnJn5zZyEPDm7\
 uYwxBhERERHxGX5OFyAiIiIieUsBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8\
@@ -19758,7 +19648,7 @@ FBEREfExCoAiIiIiPkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiI\
 iI9RABQRERHxMQqAIiIiIj5GAVBERETEx/w/0HBCvQ5XHNkAAAAASUVORK5CYII=\
 "
   frames[34] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7E0lEQVR4nO3dd3gU1dvG8e+mAml0QgmhSFGKSG9SREHBgiIi0hFQsCH8FLFR\
 VBAF7B2lqoBiFwUVQhNQaaKA9CJFQCUhQELKef84bxZiEkggm9lk78917cVmZnb22ZmEPDnlOS5j\
 jEFEREREfIaf0wGIiIiISN5SAigiIiLiY5QAioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOU\
@@ -20315,7 +20205,7 @@ JYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqIiIj4GCWAIiIiIj5GCaCIiIiIj1ECKCIiIuJj/g+O\
 /lMFR+xTvgAAAABJRU5ErkJggg==\
 "
   frames[35] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB63UlEQVR4nO3dd3RU1d7G8e+kAml0QgmhCkiRS1XpoqBiQREV6Yoo2BBUwKtS\
 VBClWa5YUKoIKooNBRVCExABERWkSJOOSkIoIWW/f+w3AzEJJDCTM8k8n7VmcTLnzMxv5iTkydnN\
 ZYwxiIiIiIjfCHC6ABERERHJWwqAIiIiIn5GAVBERETEzygAioiIiPgZBUARERERP6MAKCIiIuJn\
@@ -20871,7 +20761,7 @@ ERHxMwqAIiIiIn5GAVBERETEzygAioiIiPgZBUARERERP6MAKCIiIuJnFABFRERE/IwCoIiIiIif\
 +T8hckcS+O7b4gAAAABJRU5ErkJggg==\
 "
   frames[36] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB670lEQVR4nO3dd3gUVdvH8e+mEtLohBJCLyKIdAQJRUHBgiIi0hVRsCEIiI2i\
 jxEF+yMWlKaIBesjCiqEJiACKhakFylShIRQQsp5/zhvFmISSCCb2WR/n+vai8nM7Oy9Owm5c8p9\
 XMYYg4iIiIj4DD+nAxARERGRgqUEUERERMTHKAEUERER8TFKAEVERER8jBJAERERER+jBFBERETE\
@@ -21427,7 +21317,7 @@ ERER8TFKAEVERER8jBJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREfowRQRERE\
 xMcoARQRERHxMUoARURERHzM/wEDJD74mvczmwAAAABJRU5ErkJggg==\
 "
   frames[37] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6tUlEQVR4nO3dd3RU1d7G8e+EFEIavYdQBaSI9F5EQbEhiIhSpajYEETEi1JU\
 EKWIem2gVBELiHpFKUJoAiJFsSBIl65CQkBCyn7/2G8GYhJIIJMzyTyftWZxMufMzG/mJOTJ2c1l\
 jDGIiIiIiM/wc7oAEREREclZCoAiIiIiPkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMU\
@@ -21982,7 +21872,7 @@ IiIiIj5GAVBERETExygAioiIiPgYBUARERERH6MAKCIiIuJjFABFREREfIwCoIiIiIiPUQAUERER\
 8TEKgCIiIiI+RgFQRERExMf8H4WDTFmElkTxAAAAAElFTkSuQmCC\
 "
   frames[38] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6yklEQVR4nO3dd3hURd/G8e+GFEIanVBC6EWKSEeQIgoqFhQRkY6IivqIoCI+\
 KkUFUVCxoqJUEVSwooIIoQmIgDwoIr1IRyEhlJAy7x/zZiEkgQSyOZvs/bmuvTjZc3b3t3sScmfm\
 zIzLGGMQEREREZ/h53QBIiIiIpK7FABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+RgFQRERE\
@@ -22538,7 +22428,7 @@ FABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+RgFQRERExMf8H0SxPjlMV1stAAAAAElFTkSu\
 QmCC\
 "
   frames[39] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7BUlEQVR4nO3deZyNdf/H8dcZsxiz2Y1ljDVkSdZElhRFi8gtIUSKNlFJv7ot\
 3VmK0nKXSlmSSiltioohomRLSZZs2RUzBjNm+f7++N5zmGaGGebMdc6c9/PxOA9nrus653zOuWbM\
 e77Xd3EZYwwiIiIi4jcCnC5ARERERAqWAqCIiIiIn1EAFBEREfEzCoAiIiIifkYBUERERMTPKACK\
@@ -23095,7 +22985,7 @@ xM8oAIqIiIj4GQVAERERET+jACgiIiLiZxQARURERPyMAqCIiIiIn/l/xBJeqI6KACoAAAAASUVO\
 RK5CYII=\
 "
   frames[40] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6/klEQVR4nO3deZyN5f/H8deZFbPZjWWMXWVJ1ixZUhQtIklZKyotRIV+laVC\
 hbR8v1okJEnRrrQwtpBsqci+ZAnFjCFjluv3x/WdwzQzzDBn7nPmvJ+Px3k4c9/3Oedzzj1j3nPd\
 1+IyxhhERERExG8EOF2AiIiIiOQvBUARERERP6MAKCIiIuJnFABFRERE/IwCoIiIiIifUQAUERER\
@@ -23651,7 +23541,7 @@ RURERPyMAqCIiIiIn1EAFBEREfEzCoAiIiIifkYBUERERMTPKACKiIiI+BkFQBERERE/owAoIiIi\
 4mcUAEVERET8jAKgiIiIiJ9RABQRERHxMwqAIiIiIn7m/wEkDu3/nZW5awAAAABJRU5ErkJggg==\
 "
   frames[41] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7MElEQVR4nO3dd3hU1dbH8e+EFCCNTighFGlSRDqCFFFQsSCICNJFFNQLgoCg\
 XopKUcB2XytSBBFUsF1RQCE0AZEmKkiRpnSRhFBCyn7/2DcDMQkkkMmZZH6f55mHk3POnFkzJyEr\
 u6ztMsYYRERERMRn+DkdgIiIiIjkLCWAIiIiIj5GCaCIiIiIj1ECKCIiIuJjlACKiIiI+BglgCIi\
@@ -24208,7 +24098,7 @@ ioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqIiIj4GCWAIiIiIj5GCaCIiIiIj1ECKCIi\
 IuJjlACKiIiI+BglgCIiIiI+RgmgiIiIiI/5f1thwMTIBLt+AAAAAElFTkSuQmCC\
 "
   frames[42] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7JElEQVR4nO3dd3gUVdvH8e+mEtLoPYQOShGpIkgVULCgiAhSpajYEETE10eK\
 CqKA9VFUlKagKBZUFFAITUCkiQXpRToKCQEJKef94zxZiEkggWxmk/19rmsvJjOzs/fuJOTOKfdx\
 GWMMIiIiIuIz/JwOQERERERylxJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREf\
@@ -24765,7 +24655,7 @@ fIwSQBEREREfowRQRERExMcoARQRERHxMUoARURERHyMEkARERERH6MEUERERMTHKAEUERER8TFK\
 AEVERER8jBJAERERER/z/3KdtooINvScAAAAAElFTkSuQmCC\
 "
   frames[43] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7FElEQVR4nO3dd3xN9/8H8NfNlB0jJIhE7FklsYIYFUqVGrUlZlvVWrVaFdFW\
 ULv9FbVi1GopHWpVIsQoMYpKbWKGIgOZ9/P74/O9l8iQxL05d7yej8d9uDnn3HPf95xE3vmM90cl\
 hBAgIiIiIrNhoXQARERERFS0mAASERERmRkmgERERERmhgkgERERkZlhAkhERERkZpgAEhEREZkZ\
@@ -25322,7 +25212,7 @@ hgkgERERkZlhAkhERERkZpgAEhEREZkZJoBEREREZoYJIBEREZGZYQJIREREZGaYABIRERGZmf8H\
 rBXQ9y4P+B4AAAAASUVORK5CYII=\
 "
   frames[44] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB620lEQVR4nO3deXxMV/8H8M9klT1BiCUSsT9BkcSWkKBC6aKW2om1pdrat0cb\
 URVae/sUpXaKlupCaykR0lB7rbUFqX3NRtY5vz/ObyYiiyRmcmf5vF+vebmZe2fmO3MT+eSce85R\
 CSEEiIiIiMhsWChdABERERGVLAZAIiIiIjPDAEhERERkZhgAiYiIiMwMAyARERGRmWEAJCIiIjIz\
@@ -25878,7 +25768,7 @@ M8MASERERGRmGACJiIiIzAwDIBEREZGZYQAkIiIiMjMMgERERERmhgGQiIiIyMwwABIRERGZmf8D\
 FIjcpkHn/+UAAAAASUVORK5CYII=\
 "
   frames[45] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB650lEQVR4nO3deZyN5f/H8deZFbPZjWWMNWRJ1ixZi6JFSSJrSdEmKmmzVKTQ\
 +k2L7KkU7YqKsUxIqFRkX7IrZgwZs1y/P67fHKaZYYY5c5+Z834+HvNw5tz3Oedzzo15z7W6jDEG\
 EREREfEZfk4XICIiIiJ5SwFQRERExMcoAIqIiIj4GAVAERERER+jACgiIiLiYxQARURERHyMAqCI\
@@ -26434,7 +26324,7 @@ UERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiIiI9RABQRERHxMQqAIiIi\
 Ij5GAVBERETEx/wfVrTYZAlRV/8AAAAASUVORK5CYII=\
 "
   frames[46] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6zElEQVR4nO3deXhM1/8H8PdMNtkTkogQIfYGVRFbQmylRVulaifWlmqpnWqJ\
 qqAo1W+tJZYqWqraalESS4raa2lqDakg1mxknfP74/xmiOwxkzuTeb+eJ09v7r0z85m50bxzzj3n\
 qIQQAkRERERkNtRKF0BEREREJYsBkIiIiMjMMAASERERmRkGQCIiIiIzwwBIREREZGYYAImIiIjM\
@@ -26990,7 +26880,7 @@ kZlhACQiIiIyMwyARERERGaGAZCIiIjIzDAAEhEREZkZBkAiIiIiM/N/FWMONWd12dYAAAAASUVO\
 RK5CYII=\
 "
   frames[47] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7QElEQVR4nO3deZyN5f/H8dcZsxiz2Y1ljJ2yJHvIWrSnpJK9ULSJSvpWlor0\
 RVq+pZJsCaW0KQpjCwlJi8ieJSpmjGXMcv3+uH5zmGaGGebMfc6c9/PxOA/33Pd97vM5554xn7mW\
 z+UyxhhERERExG8EOB2AiIiIiOQvJYAiIiIifkYJoIiIiIifUQIoIiIi4meUAIqIiIj4GSWAIiIi\
@@ -27548,7 +27438,7 @@ iIifUQIoIiIi4meUAIqIiIj4GSWAIiIiIn5GCaCIiIiIn1ECKCIiIuJn/g+WVOs5zGuzswAAAABJ\
 RU5ErkJggg==\
 "
   frames[48] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7CUlEQVR4nO3dZ3hU1fr38e+kAmn0HkIVkCLSmwREQMGCIipKF1CwIYgIR6Uc\
 BQtgfQ4WlCoCHhQbCiiEJqDSDopIL1IEFBJCCSnrebH+GYhJIIFM9iTz+1zXXOzsNvfsnZA7e611\
 L5cxxiAiIiIiPsPP6QBEREREJHcpARQRERHxMUoARURERHyMEkARERERH6MEUERERMTHKAEUERER\
@@ -28105,7 +27995,7 @@ iIiI+BglgCIiIiI+RgmgiIiIiI9RAigiIiLiY5QAioiIiPgYJYAiIiIiPub/A97H7HTxEtbFAAAA\
 AElFTkSuQmCC\
 "
   frames[49] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6gUlEQVR4nO3dd3xN9/8H8NfNlB0jJCFCYtaoklhBjIqWDjVqBTGLaq2aHURV\
 aM22v9JWiVm0VLUoSgYpqjFqpWLHnlnIvJ/fH5/vvUSGjHtz7ng9H4/7cHLOuee+7/lcue98pkoI\
 IUBEREREZsNC6QCIiIiIqHQxASQiIiIyM0wAiYiIiMwME0AiIiIiM8MEkIiIiMjMMAEkIiIiMjNM\
@@ -28659,7 +28549,7 @@ mWECSERERGRmmAASERERmRkmgERERERmhgkgERERkZlhAkhERERkZpgAEhEREZkZJoBEREREZoYJ\
 IBEREZGZYQJIREREZGaYABIRERGZmf8HvNXU2E/+ZZkAAAAASUVORK5CYII=\
 "
   frames[50] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB62ElEQVR4nO3deVhU5dsH8O+wyo4KCiqCuOeagBskuGFppbnkrphLaZbmmrYg\
 VqLlWv3S0txzTVMrzSXBhdQUl9REcSdxV1YFgXneP553RpEdZjgzzPdzXXN55pwzZ+45Dzg3z6oS\
 QggQERERkckwUzoAIiIiIipdTACJiIiITAwTQCIiIiITwwSQiIiIyMQwASQiIiIyMUwAiYiIiEwM\
@@ -29215,7 +29105,7 @@ RERERCaGCSARERGRiWECSERERGRimAASERERmRgmgEREREQmhgkgERERkYlhAkhERERkYv4PGNDb\
 SGaPgUMAAAAASUVORK5CYII=\
 "
   frames[51] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6+ElEQVR4nO3dd3gU5d7G8e+GFEIanVBCqIJSRLrSQUGxoYgIUqUo2BAExKNS\
 jgIqxXbEglJVLGBHAYXQBFSaiNKrFAGVhICElOf943mzEJJAAtnMJnt/risXk53Z2d/uALkzT3MZ\
 YwwiIiIi4jP8nC5ARERERHKXAqCIiIiIj1EAFBEREfExCoAiIiIiPkYBUERERMTHKACKiIiI+BgF\
@@ -29771,7 +29661,7 @@ KACKiIiI+BgFQBEREREfowAoIiIi4mMUAEVERER8jAKgiIiIiI9RABQRERHxMQqAIiIiIj5GAVBE\
 RETExygAioiIiPgYBUARERERH6MAKCIiIuJj/g/xBEFPbLlWiwAAAABJRU5ErkJggg==\
 "
   frames[52] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6w0lEQVR4nO3dd3RU1d7G8e+kEtLohBJCFZAiUhWQIgoKFhQRkY6Ail5FUBCv\
 SrEgShH1WpEmIqJYryigEJqA0ryoIL1IEVBICCWk7PeP/WYgJIEEMjmTzPNZK8vJnDMzv5kTzJNd\
 XcYYg4iIiIj4DD+nCxARERGRvKUAKCIiIuJjFABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+\
@@ -30326,7 +30216,7 @@ ERERH6MAKCIiIuJjFABFREREfIwCoIiIiIiPUQAUERER8TEKgCIiIiI+RgFQRERExMcoAIqIiIj4\
 GAVAERERER+jACgiIiLiYxQARURERHyMAqCIiIiIj/k/78or8oheab0AAAAASUVORK5CYII=\
 "
   frames[53] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7AklEQVR4nO3dd3gUVdvH8e+mEtLohBJCB6WIVClSFXzAgiAiHRSxK4KI+KoU\
 C6BgfxQVBQQRC4oNBRVCExBpooIUKZGOQkJAQsp5/zhPFmISSCCb2WR/n+vai8nM7Oy9Owm5c8p9\
 XMYYg4iIiIj4DD+nAxARERGR/KUEUERERMTHKAEUERER8TFKAEVERER8jBJAERERER+jBFBERETE\
@@ -30883,7 +30773,7 @@ ioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqIiIj4mP8Huatkb4HznCQAAAAASUVORK5C\
 YII=\
 "
   frames[54] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB6tUlEQVR4nO3dd1xV9f8H8NdlysaBgoog7pkJuEBBTS0tM83MjbM0y5WrLMRK\
 1JzlLzUX7pVmQ8sJDkJzpymJG8U9GCrzfn5/fL73KjIEvJdzx+v5eNyHh3vOvfd97wF58TmfoRJC\
 CBARERGR2bBQugAiIiIiKl4MgERERERmhgGQiIiIyMwwABIRERGZGQZAIiIiIjPDAEhERERkZhgA\
@@ -31438,7 +31328,7 @@ IiIiMjMMgERERERmhgGQiIiIyMwwABIRERGZGQZAIiIiIjPDAEhERERkZhgAiYiIiMwMAyARERGR\
 mWEAJCIiIjIzDIBEREREZub/Ae3Lcx4vqRy+AAAAAElFTkSuQmCC\
 "
   frames[55] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7CElEQVR4nO3dd3gUVdvH8e+mEtLoPYQiTYpIF5AiCooNRUSUqohiA0FBfFTA\
 AqI09XmtKFVUFMSGIgqhCag0UUF6kY5CQkBCynn/OE8WYhJIIJvZ7P4+17UXk5nZ2Xt3EnLnlPu4\
 jDEGEREREfEbAU4HICIiIiL5SwmgiIiIiJ9RAigiIiLiZ5QAioiIiPgZJYAiIiIifkYJoIiIiIif\
@@ -31995,7 +31885,7 @@ IiLiZ5QAioiIiPgZJYAiIiIifkYJoIiIiIifUQIoIiIi4meUAIqIiIj4mf8HiVZpgLL6Di8AAAAA\
 SUVORK5CYII=\
 "
   frames[56] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB68ElEQVR4nO3dd3gUVdvH8e+mEtLoHUIVkCJSRZCqoGJBERGkCqigPiKogK9K\
 eZQmqNhARakqFhAbCiqEJiDSxIL0Ih2FhIAJKef94zxZiEkggSSzm/19rmsvJjOzs/fuJOTOKfdx\
 GWMMIiIiIuIz/JwOQERERETylhJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREf\
@@ -32551,7 +32441,7 @@ gCIiIiI+RgmgiIiIiI9RAigiIiLiY5QAioiIiPgYJYAiIiIiPkYJoIiIiIiPUQIoIiIi4mOUAIqI\
 iIj4GCWAIiIiIj5GCaCIiIiIj/l/HBV49WRzL2kAAAAASUVORK5CYII=\
 "
   frames[57] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB650lEQVR4nO3dd3RU1d7G8e+kEtLoPYQqIEWkNymioGBBERGkCyioVwQV4aqA\
 BSygWF4rShURBTsKCoQmWBAQC9KLdBUSAhJS9vvHvhkISSCBTM5M5vmsNYvJOWdmfjMnIU/22cVl\
 jDGIiIiIiN8IcLoAEREREclfCoAiIiIifkYBUERERMTPKACKiIiI+BkFQBERERE/owAoIiIi4mcU\
@@ -33107,7 +32997,7 @@ QBERERE/owAoIiIi4mcUAEVERET8jAKgiIiIiJ9RABQRERHxMwqAIiIiIn5GAVBERETEzygAioiI\
 iPgZBUARERERP/P/QlmCZLecC50AAAAASUVORK5CYII=\
 "
   frames[58] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7IUlEQVR4nO3dd3hU1dbH8e+EFEIavYdQpEkRqdJBFBQbiqj0IoJgQ5Dm9UpR\
 ARVQ1GtFqWIFsaGgQmgCF2kXC9KLFAGBFJCQst8/9puBmAQSyORMMr/P88zDyTlnzqyZk5CVXdZ2\
 GWMMIiIiIuIz/JwOQERERERylxJAERERER+jBFBERETExygBFBEREfExSgBFREREfIwSQBEREREf\
@@ -33664,7 +33554,7 @@ FBEREfExSgBFREREfIwSQBEREREfowRQRERExMcoARQRERHxMUoARURERHyMEkARERERH6MEUERE\
 RMTHKAEUERER8TH/B8yod8R1kYIuAAAAAElFTkSuQmCC\
 "
   frames[59] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjYuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/P9b71AAAACXBIWXMAAA9h\
+bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7NklEQVR4nO3dd3gU1dvG8e+mEtLoPYQiAlJEqhQpoqDYUEQE6QIKoiKIgK9K\
 UUEU7F2UpigqiA0FFEITEGliQXrvCgkBCSnn/eP8shCTQALZzCZ7f64rF5OZ2d1nd4DcOXOKyxhj\
 EBERERGf4ed0ASIiIiKSuxQARURERHyMAqCIiIiIj1EAFBEREfExCoAiIiIiPkYBUERERMTHKACK\
@@ -34225,7 +34115,7 @@ PkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mP+H/WVaJekOOUnAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim7f42958e37ae41a89a41661d1b3f18c6 = new Animation(frames, img_id, slider_id, 200.0,
+        animaa3ecbcc9d664605bb79707bd61046b5 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -34247,13 +34137,18 @@ Ces blocs de base (convolution, pooling, couches résiduelles) sont discutés pl
 conseillons au lecteur intéressé.</p>
 </section>
 <section id="reseaux-de-neurones-convolutifs-pour-les-images">
-<h2>Réseaux de neurones convolutifs pour les images<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-images" title="Lien permanent vers ce titre">#</a></h2>
+<h2>Réseaux de neurones convolutifs pour les images<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-images" title="Lien permanent vers cette rubrique">#</a></h2>
 <p>Nous allons maintenant nous intéresser au cas 2D, dans lequel les filtres de convolution ne glisseront pas sur un seul axe comme dans le cas des séries temporelles, mais plutôt sur les deux dimensions (largeur et hauteur) d’une image.</p>
 <section id="images-et-convolutions">
-<h3>Images et convolutions<a class="headerlink" href="#images-et-convolutions" title="Lien permanent vers ce titre">#</a></h3>
+<h3>Images et convolutions<a class="headerlink" href="#images-et-convolutions" title="Lien permanent vers cette rubrique">#</a></h3>
 <p>Comme on le voit ci-dessous, une image est une grille de pixels, et chaque pixel a une valeur d’intensité dans chacun des canaux de l’image.
 Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et Bleu).</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span>
 
@@ -34281,24 +34176,29 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-cat">
-<img alt="../../_images/convnets_5_0.svg" src="../../_images/convnets_5_0.svg" /><figcaption>
-<p><span class="caption-text"><p>Une image et ses 3 canaux
-(intensités de Rouge, Vert et Bleu, de gauche à droite).</p>
-</span><a class="headerlink" href="#fig-cat" title="Lien permanent vers cette image">#</a></p>
+<img alt="../../_images/ae7f1384a88c037e250e754f787056b372abff953cf484a12183e2d7a156cddf.svg" src="../../_images/ae7f1384a88c037e250e754f787056b372abff953cf484a12183e2d7a156cddf.svg" /><figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Une image et ses 3 canaux
+(intensités de Rouge, Vert et Bleu, de gauche à droite).</span><a class="headerlink" href="#fig-cat" title="Lien permanent vers cette image">#</a></p>
 </figcaption>
 </figure>
 </div>
 </div>
 <p>La sortie d’une convolution sur une image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> est une nouvelle image, dont les valeurs des pixels peuvent être calculées comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e39064dd-4003-4644-b201-7c17075d32b7">
-<span class="eqno">(3)<a class="headerlink" href="#equation-e39064dd-4003-4644-b201-7c17075d32b7" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-985c79f5-7569-4163-83b7-983369003263">
+<span class="eqno">(3)<a class="headerlink" href="#equation-985c79f5-7569-4163-83b7-983369003263" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}\]</div>
 <p>En d’autres termes, les pixels de l’image de sortie sont calculés comme le produit scalaire entre un filtre de convolution (qui est un tenseur de forme <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) et un <em>patch</em> d’image centré à la position donnée.</p>
 <p>Considérons, par exemple, le filtre de convolution 9x9 suivant :</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sz</span> <span class="o">=</span> <span class="mi">9</span>
 
@@ -34313,11 +34213,17 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../../_images/convnets_7_0.svg" src="../../_images/convnets_7_0.svg" /></div>
+<img alt="../../_images/d1b8d02599a0bf915ed48e693c4d5f77a40ab7e760d6ef2d1aa36f5a94755a9d.svg" src="../../_images/d1b8d02599a0bf915ed48e693c4d5f77a40ab7e760d6ef2d1aa36f5a94755a9d.svg" /></div>
 </div>
 <p>Le résultat de la convolution de l’image de chat ci-dessus avec ce filtre est l’image suivante en niveaux de gris (c’est-à-dire constituée d’un seul canal) :</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">convolve2d</span>
 
@@ -34331,39 +34237,41 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../../_images/convnets_9_0.svg" src="../../_images/convnets_9_0.svg" /></div>
+<img alt="../../_images/e24c5fc7a398d486ed46626e957de0b203f4e032b4f89be8d2629ec6e6c91f7c.svg" src="../../_images/e24c5fc7a398d486ed46626e957de0b203f4e032b4f89be8d2629ec6e6c91f7c.svg" /></div>
 </div>
 <p>On peut remarquer que cette image est une version floue de l’image originale.
 C’est parce que nous avons utilisé un filtre Gaussien.
 Comme pour les séries temporelles, lors de l’utilisation d’opérations de convolution dans les réseaux neuronaux, le contenu des filtres sera appris, plutôt que défini <em>a priori</em>.</p>
 </section>
 <section id="reseaux-convolutifs-de-type-lenet">
-<h3>Réseaux convolutifs de type LeNet<a class="headerlink" href="#reseaux-convolutifs-de-type-lenet" title="Lien permanent vers ce titre">#</a></h3>
+<h3>Réseaux convolutifs de type LeNet<a class="headerlink" href="#reseaux-convolutifs-de-type-lenet" title="Lien permanent vers cette rubrique">#</a></h3>
 <p>Dans <span id="id4">[<a class="reference internal" href="#id31" title="Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.">LeCun <em>et al.</em>, 1998</a>]</span>, un empilement de couches de convolution, de <em>pooling</em> et de couches entièrement connectées est introduit pour une tâche de classification d’images, plus spécifiquement une application de reconnaissance de chiffres.
 Le réseau neuronal résultant, appelé LeNet, est représenté ci-dessous :</p>
 <figure class="align-default" id="fig-lenet">
 <img alt="../../_images/lenet.png" src="../../_images/lenet.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Modèle LeNet-5</span><a class="headerlink" href="#fig-lenet" title="Lien permanent vers cette image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Modèle LeNet-5</span><a class="headerlink" href="#fig-lenet" title="Lien permanent vers cette image">#</a></p>
 </figcaption>
 </figure>
 <section id="couches-de-convolution">
-<h4>Couches de convolution<a class="headerlink" href="#couches-de-convolution" title="Lien permanent vers ce titre">#</a></h4>
+<h4>Couches de convolution<a class="headerlink" href="#couches-de-convolution" title="Lien permanent vers cette rubrique">#</a></h4>
 <p>Une couche de convolution est constituée de plusieurs filtres de convolution (également appelés <em>kernels</em>) qui opèrent en parallèle sur la même image d’entrée.
 Chaque filtre de convolution génère une carte d’activation en sortie et toutes ces cartes sont empilées pour former la sortie de la couche de convolution.
 Tous les filtres d’une couche partagent la même largeur et la même hauteur.
 Un terme de biais et une fonction d’activation peuvent être utilisés dans les couches de convolution, comme dans d’autres couches de réseaux neuronaux.
 Dans l’ensemble, la sortie d’un filtre de convolution est calculée comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b4d12a22-dd46-486e-9465-3aa7e1dd43ab">
-<span class="eqno">(4)<a class="headerlink" href="#equation-b4d12a22-dd46-486e-9465-3aa7e1dd43ab" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-2f8d2bac-570c-4881-ab07-48ee64ed919b">
+<span class="eqno">(4)<a class="headerlink" href="#equation-2f8d2bac-570c-4881-ab07-48ee64ed919b" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(c\)</span> désigne le canal de sortie (notez que chaque canal de sortie est associé à un filtre <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> est le terme de biais qui lui est associé et <span class="math notranslate nohighlight">\(\varphi\)</span> est la fonction d’activation utilisée.</p>
 <div class="admonition tip">
 <p class="admonition-title">Astuce</p>
 <p>En <code class="docutils literal notranslate"><span class="pre">keras</span></code>, une telle couche est implémentée à l’aide de la classe <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">keras_core</span> <span class="k">as</span> <span class="nn">keras</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
 
 <span class="n">layer</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
 </pre></div>
@@ -34381,16 +34289,16 @@ Dans l’ensemble, la sortie d’un filtre de convolution est calculée comme su
 </div>
 </div>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Visualisation de l’effet du <em>padding</em> (source: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning</a>).
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Visualisation de l’effet du <em>padding</em> (source: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning</a>).
 Gauche: sans <em>padding</em>, droite: avec <em>padding</em>.</span><a class="headerlink" href="#fig-padding" title="Lien permanent vers cette image">#</a></p>
 </figcaption>
 </figure>
 <p>Lors du traitement d’une image d’entrée, il peut être utile de s’assurer que la carte de caractéristiques (ou carte d’activation) de sortie a la même largeur et la même hauteur que l’image d’entrée.
-Cela peut être réalisé en agrandissant artificiellement l’image d’entrée et en remplissant les zones ajoutées avec des zéros, comme illustré dans <a class="reference internal" href="#fig-padding"><span class="std std-numref">Fig. 3</span></a> dans lequel la zone de <em>padding</em> est représentée en blanc.</p>
+Cela peut être réalisé en agrandissant artificiellement l’image d’entrée et en remplissant les zones ajoutées avec des zéros, comme illustré dans <a class="reference internal" href="#fig-padding"><span class="std std-numref">Fig. 4</span></a> dans lequel la zone de <em>padding</em> est représentée en blanc.</p>
 </div>
 </section>
 <section id="couches-de-pooling">
-<h4>Couches de <em>pooling</em><a class="headerlink" href="#couches-de-pooling" title="Lien permanent vers ce titre">#</a></h4>
+<h4>Couches de <em>pooling</em><a class="headerlink" href="#couches-de-pooling" title="Lien permanent vers cette rubrique">#</a></h4>
 <p>Les couches de <em>pooling</em> effectuent une opération de sous-échantillonnage qui résume en quelque sorte les informations contenues dans les cartes de caractéristiques dans des cartes à plus faible résolution.</p>
 <p>L’idée est de calculer, pour chaque parcelle d’image, une caractéristique de sortie qui calcule un agrégat des pixels de la parcelle.
 Les opérateurs d’agrégation typiques sont les opérateurs de moyenne (dans ce cas, la couche correspondante est appelée <em>average pooling</em>) ou de maximum (pour les couches de <em>max pooling</em>).
@@ -34400,7 +34308,7 @@ Afin de réduire la résolution des cartes de sortie, ces agrégats sont génér
 <div class="admonition tip">
 <p class="admonition-title">Astuce</p>
 <p>En <code class="docutils literal notranslate"><span class="pre">keras</span></code>, les couches de <em>pooling</em> sont implémentées à travers les classes <code class="docutils literal notranslate"><span class="pre">MaxPool2D</span></code> et <code class="docutils literal notranslate"><span class="pre">AvgPool2D</span></code> :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">AvgPool2D</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">AvgPool2D</span>
 
 <span class="n">max_pooling_layer</span> <span class="o">=</span> <span class="n">MaxPool2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">average_pooling_layer</span> <span class="o">=</span> <span class="n">AvgPool2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -34409,15 +34317,15 @@ Afin de réduire la résolution des cartes de sortie, ces agrégats sont génér
 </div>
 </section>
 <section id="ajout-d-une-tete-de-classification">
-<h4>Ajout d’une <em>tête de classification</em><a class="headerlink" href="#ajout-d-une-tete-de-classification" title="Lien permanent vers ce titre">#</a></h4>
+<h4>Ajout d’une <em>tête de classification</em><a class="headerlink" href="#ajout-d-une-tete-de-classification" title="Lien permanent vers cette rubrique">#</a></h4>
 <p>Un empilement de couches de convolution et de <em>pooling</em> produit une carte d’activation structurée (qui prend la forme d’une grille 2d avec une dimension supplémentaire pour les différents canaux).
 Lorsque l’on vise une tâche de classification d’images, l’objectif est de produire la classe la plus probable pour l’image d’entrée, ce qui est généralement réalisé par une tête de classification (<em>classification head</em>) composée de couches entièrement connectées.</p>
 <p>Pour que la tête de classification soit capable de traiter une carte d’activation, les informations de cette carte doivent être transformées en un vecteur.
-Cette opération est appelée <em>Flatten</em> dans <code class="docutils literal notranslate"><span class="pre">keras</span></code>, et le modèle correspondant à <a class="reference internal" href="#fig-lenet"><span class="std std-numref">Fig. 2</span></a> peut être implémenté comme :</p>
+Cette opération est appelée <em>Flatten</em> dans <code class="docutils literal notranslate"><span class="pre">keras</span></code>, et le modèle correspondant à <a class="reference internal" href="#fig-lenet"><span class="std std-numref">Fig. 3</span></a> peut être implémenté comme :</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">InputLayer</span><span class="p">,</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dense</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">InputLayer</span><span class="p">,</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dense</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
     <span class="n">InputLayer</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
@@ -34435,33 +34343,19 @@ Cette opération est appelée <em>Flatten</em> dans <code class="docutils litera
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- conv2d (Conv2D)             (None, 28, 28, 6)         156       
-                                                                 
- max_pooling2d (MaxPooling2D  (None, 14, 14, 6)        0         
- )                                                               
-                                                                 
- conv2d_1 (Conv2D)           (None, 10, 10, 16)        2416      
-                                                                 
- max_pooling2d_1 (MaxPooling  (None, 5, 5, 16)         0         
- 2D)                                                             
-                                                                 
- flatten (Flatten)           (None, 400)               0         
-                                                                 
- dense (Dense)               (None, 120)               48120     
-                                                                 
- dense_1 (Dense)             (None, 84)                10164     
-                                                                 
- dense_2 (Dense)             (None, 10)                850       
-                                                                 
-=================================================================
-Total params: 61,706
-Trainable params: 61,706
-Non-trainable params: 0
-_________________________________________________________________
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">InputLayer</span><span class="p">,</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dense</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">InputLayer</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="p">])</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;keras&#39;
 </pre></div>
 </div>
 </div>
@@ -34473,22 +34367,25 @@ _________________________________________________________________
 </section>
 </section>
 <section id="references">
-<h2>Références<a class="headerlink" href="#references" title="Lien permanent vers ce titre">#</a></h2>
+<h2>Références<a class="headerlink" href="#references" title="Lien permanent vers cette rubrique">#</a></h2>
 <div class="docutils container" id="id5">
-<dl class="citation">
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id3">FFW+19</a></span></dt>
-<dd><p>Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. <em>Data Mining and Knowledge Discovery</em>, 33(4):917–963, 2019.</p>
-</dd>
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id2">FLF+20</a></span></dt>
-<dd><p>Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. <em>Data Mining and Knowledge Discovery</em>, 34(6):1936–1962, 2020.</p>
-</dd>
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id1">LGMT16</a></span></dt>
-<dd><p>Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In <em>ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data</em>. Riva Del Garda, Italy, September 2016.</p>
-</dd>
-<dt class="label" id="id31"><span class="brackets"><a class="fn-backref" href="#id4">LBBH98</a></span></dt>
-<dd><p>Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. <em>Proceedings of the IEEE</em>, 86(11):2278–2324, 1998.</p>
-</dd>
-</dl>
+<div class="citation" id="id21" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">FFW+19</a><span class="fn-bracket">]</span></span>
+<p>Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. <em>Data Mining and Knowledge Discovery</em>, 33(4):917–963, 2019.</p>
+</div>
+<div class="citation" id="id20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FLF+20</a><span class="fn-bracket">]</span></span>
+<p>Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. <em>Data Mining and Knowledge Discovery</em>, 34(6):1936–1962, 2020.</p>
+</div>
+<div class="citation" id="id19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">LGMT16</a><span class="fn-bracket">]</span></span>
+<p>Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In <em>ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data</em>. Riva Del Garda, Italy, September 2016.</p>
+</div>
+<div class="citation" id="id31" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">LBBH98</a><span class="fn-bracket">]</span></span>
+<p>Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. <em>Proceedings of the IEEE</em>, 86(11):2278–2324, 1998.</p>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -34505,7 +34402,7 @@ _________________________________________________________________
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./content/fr"
         },
         predefinedOutput: true
@@ -34513,50 +34410,116 @@ _________________________________________________________________
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="regularization.html" title="précédent page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">précédent</p>
-            <p class="prev-next-title">Regularization</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="rnn.html" title="suivant page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">suivant</p>
-        <p class="prev-next-title">Recurrent Neural Networks</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Romain Tavenard<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
 
-
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="regularization.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Régularisation</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="rnn.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Réseaux neuronaux récurrents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles">Réseaux de neurones convolutifs pour les séries temporelles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reseaux-de-neurones-convolutifs-pour-les-images">Réseaux de neurones convolutifs pour les images</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#images-et-convolutions">Images et convolutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reseaux-convolutifs-de-type-lenet">Réseaux convolutifs de type LeNet</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#couches-de-convolution">Couches de convolution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#couches-de-pooling">Couches de <em>pooling</em></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ajout-d-une-tete-de-classification">Ajout d’une <em>tête de classification</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">Références</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Romain Tavenard
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
