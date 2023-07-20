@@ -94,7 +94,7 @@ render:
 tags: [hide-input]
 ---
 
-plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Apprentissage")
 plt.plot(np.arange(1, n_epochs + 1), h.history["val_loss"], label="Validation")
 plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
 plt.xlim([0, 102])
@@ -146,7 +146,7 @@ render:
 tags: [hide-input]
 ---
 
-plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Apprentissage")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
 plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
 plt.xlim([0, 102])
@@ -205,7 +205,7 @@ render:
 tags: [hide-input]
 ---
 
-plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Apprentissage")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
 plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
 plt.ylabel("Loss")
@@ -383,7 +383,7 @@ render:
 tags: [hide-input]
 ---
 
-plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Training")
+plt.plot(np.arange(1, len(h.history["loss"]) + 1), h.history["loss"], label="Apprentissage")
 plt.plot(np.arange(1, len(h.history["val_loss"]) + 1), h.history["val_loss"], label="Validation")
 plt.axhline(y=np.min(h.history["val_loss"]), color="k", linestyle="dashed")
 plt.ylabel("Loss")

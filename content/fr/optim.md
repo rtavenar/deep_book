@@ -23,18 +23,18 @@ Commençons par l'algorithme de base de la descente de gradient et ses limites.
 ```{prf:algorithm} Descente de Gradient
 :label: algo:gd
 
-**Input:** A dataset $\mathcal{D} = (X, y)$
+**Entrée:** Un jeu de données $\mathcal{D} = (X, y)$
 
-1. Initialize model parameters $\theta$
+1. Initialiser les paramètres $\theta$ du modèle
 2. for $e = 1 .. E$
 
     1. for $(x_i, y_i) \in \mathcal{D}$
 
-        1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
-        2. Compute gradient $\nabla_\theta \mathcal{L}_i$
+        1. Calculer la prédiction $\hat{y}_i = m_\theta(x_i)$
+        2. Calculer le gradient individuel $\nabla_\theta \mathcal{L}_i$
 
-    2. Compute overall gradient $\nabla_\theta \mathcal{L} = \frac{1}{n} \sum_i \nabla_\theta \mathcal{L}_i$
-    3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}$
+    2. Calculer le gradient total $\nabla_\theta \mathcal{L} = \frac{1}{n} \sum_i \nabla_\theta \mathcal{L}_i$
+    3. Mettre à jour les paramètres $\theta$ à partir de $\nabla_\theta \mathcal{L}$
 ```
 
 La règle de mise à jour typique pour les paramètres $\theta$ à l'itération $t$ est
@@ -71,19 +71,19 @@ Il en résulte l'algorithme suivant dans lequel les mises à jour des paramètre
 
 **Input:** A dataset $\mathcal{D} = (X, y)$
 
-1. Initialize model parameters $\theta$
+1. Initialiser les paramètres $\theta$ du modèle
 2. for $e = 1 .. E$
 
     1. for $t = 1 .. n_\text{minibatches}$
 
-        1. Draw minibatch $\mathcal{B}$ as a random sample of size $b$ from $\mathcal{D}$
+        1. Tirer un échantillon aléatoire de taillle $b$ dans $\mathcal{D}$ que l'on appelle _minibatch_
         1. for $(x_i, y_i) \in \mathcal{B}$
 
-            1. Compute prediction $\hat{y}_i = m_\theta(x_i)$
-            2. Compute gradient $\nabla_\theta \mathcal{L}_i$
+            1. Calculer la prédiction $\hat{y}_i = m_\theta(x_i)$
+            2. Calculer le gradient individuel $\nabla_\theta \mathcal{L}_i$
 
-        2. Compute minibatch-level gradient $\nabla_\theta \mathcal{L}_{\mathcal{B}} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
-        3. Update parameters $\theta$ based on $\nabla_\theta \mathcal{L}_{\mathcal{B}}$
+        2. Calculer le gradient sommé sur le _minibatch_ $\nabla_\theta \mathcal{L}_{\mathcal{B}} = \frac{1}{b} \sum_i \nabla_\theta \mathcal{L}_i$
+        3. Mettre à jour les paramètres $\theta$ à partir de $\nabla_\theta \mathcal{L}_{\mathcal{B}}$
 ```
 
 Par conséquent, lors de l'utilisation de SGD, les mises à jour des paramètres sont plus fréquentes, mais elles sont "bruitées" puisqu'elles sont basées sur une estimation du gradient par _minibatch_ au lieu de s'appuyer sur le vrai gradient, comme illustré ci-dessous :
@@ -667,7 +667,7 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 h = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 ```
 
-Let us now standardize our data and compare performance:
+Standardisons maintenant nos données et comparons les performances obtenues :
 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
@@ -696,16 +696,16 @@ h_standardized = model.fit(X, y, epochs=n_epochs, batch_size=30, verbose=0)
 
 plt.figure(figsize=(12, 4))
 plt.subplot(1, 2, 1)
-plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Without data standardization")
-plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="With data standardization")
-plt.ylabel("Loss")
+plt.plot(np.arange(1, n_epochs + 1), h.history["loss"], label="Sans standardisation des données")
+plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["loss"], label="Avec standardisation des données")
+plt.ylabel("Valeur de la fonction de coût (loss)")
 plt.xlabel("Epochs")
 plt.legend();
 
 plt.subplot(1, 2, 2)
-plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Without data standardization")
-plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="With data standardization")
-plt.ylabel("Accuracy")
+plt.plot(np.arange(1, n_epochs + 1), h.history["accuracy"], label="Sans standardisation des données")
+plt.plot(np.arange(1, n_epochs + 1), h_standardized.history["accuracy"], label="Avec standardisation des données")
+plt.ylabel("Taux de bonnes classifications")
 plt.xlabel("Epochs");
 ```
 

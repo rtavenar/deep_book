@@ -28,9 +28,9 @@ En d'autres termes, nous optimisions parmi la famille des modèles linéaires, q
 Afin de couvrir un plus large éventail de modèles, on peut empiler des neurones organisés en couches pour former un modèle plus complexe, comme le modèle ci-dessous, qui est appelé modèle à une couche cachée, car une couche supplémentaire de neurones est introduite entre les entrées et la sortie :
 
 ```{tikz}
-    \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
-    \node[text width=3cm, align=center] (h1_title) at  (3, 6) {Hidden layer 1\\ $\mathbf{h^{(1)}}$};
-    \node[text width=3cm, align=center] (out_title) at  (6, 6) {Output layer\\ $\mathbf{\hat{y}}$};
+    \node[text width=3cm, align=center] (in_title) at  (0, 6) {Couche d'entrée\\ $\mathbf{x}$};
+    \node[text width=3cm, align=center] (h1_title) at  (3, 6) {Couche cachée\\ $\mathbf{h^{(1)}}$};
+    \node[text width=3cm, align=center] (out_title) at  (6, 6) {Couche de sortie\\ $\mathbf{\hat{y}}$};
 
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in0) at  (0, 4) {};
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in1) at  (0, 3) {};
@@ -111,10 +111,10 @@ De plus, il n'est pas suffisant qu'une telle bonne approximation existe, une aut
 En pratique, nous observons empiriquement que pour atteindre une qualité d'approximation donnée, il est plus efficace (en termes de nombre de paramètres requis) d'empiler plusieurs couches cachées plutôt que de s'appuyer sur une seule :
 
 ```{tikz}
-    \node[text width=3cm, align=center] (in_title) at  (0, 6) {Input layer\\ $\mathbf{x}$};
-    \node[text width=3cm, align=center] (h1_title) at  (3, 6) {Hidden layer 1\\ $\mathbf{h^{(1)}}$};
-    \node[text width=3cm, align=center] (h1_title) at  (6, 6) {Hidden layer 2\\ $\mathbf{h^{(2)}}$};
-    \node[text width=3cm, align=center] (out_title) at  (9, 6) {Output layer\\ $\mathbf{\hat{y}}$};
+    \node[text width=3cm, align=center] (in_title) at  (0, 6) {Couche d'entrée\\ $\mathbf{x}$};
+    \node[text width=3cm, align=center] (h1_title) at  (3, 6) {Première couche cachée\\ $\mathbf{h^{(1)}}$};
+    \node[text width=3cm, align=center] (h1_title) at  (6, 6) {Seconde couche cachée\\ $\mathbf{h^{(2)}}$};
+    \node[text width=3cm, align=center] (out_title) at  (9, 6) {Couche de sortie\\ $\mathbf{\hat{y}}$};
 
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in0) at  (0, 4) {};
     \node[draw, circle, fill=blue, minimum size=17pt,inner sep=0pt] (in1) at  (0, 3) {};
@@ -293,8 +293,8 @@ Historiquement, les fonctions d'activation suivantes ont été proposées :
     \text{tanh}(x) =& \frac{2}{1 + e^{-2x}} - 1 \\
     \text{sigmoid}(x) =& \frac{1}{1 + e^{-x}} \\
     \text{ReLU}(x) =& \begin{cases}
-                        x \text{ if } x \gt 0\\
-                        0 \text{ otherwise }
+                        x \text{ si } x \gt 0\\
+                        0 \text{ sinon }
                       \end{cases}
 \end{align*}
 
