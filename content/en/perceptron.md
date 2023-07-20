@@ -94,7 +94,7 @@ dataset, which is the median value of owner-occupied homes in $1000
 
 ```{code-cell}
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -132,7 +132,7 @@ Let us have a look at this quantity as a function of $w$:
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -183,7 +183,7 @@ visualization:
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -212,7 +212,7 @@ What would we get if we used a smaller learning rate?
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -236,7 +236,7 @@ But, take care, a larger learning rate is not always a good idea:
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---

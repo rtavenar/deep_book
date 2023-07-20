@@ -259,7 +259,7 @@ En effet, comme on peut le voir ci-dessous, contrairement à ce que nous avions 
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -584,8 +584,9 @@ Dans `keras`, les informations sur les pertes et l'optimiseur sont transmises au
 ```{code-cell}
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dense, InputLayer
-from tensorflow.keras.models import Sequential
+import keras_core as keras
+from keras.layers import Dense, InputLayer
+from keras.models import Sequential
 
 model = Sequential([
     InputLayer(input_shape=(10, )),
@@ -616,7 +617,7 @@ Afin d'avoir le contrôle sur les hyper-paramètres des optimiseurs, on peut alt
 ```{code-cell}
 :tags: [remove-stderr]
 
-from tensorflow.keras.optimizers import Adam, SGD
+from keras.optimizers import Adam, SGD
 
 # Not a very good idea to tune beta_1 
 # and beta_2 parameters in Adam
@@ -637,7 +638,7 @@ Dans l'exemple suivant, nous allons comparer deux entraînements du même modèl
 ```{code-cell} ipython3
 
 import pandas as pd
-from tensorflow.keras.utils import to_categorical
+from keras.utils import to_categorical
 
 iris = pd.read_csv("../data/iris.csv", index_col=0)
 iris = iris.sample(frac=1)
@@ -648,9 +649,9 @@ X = iris.drop(columns=["target"])
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dense, InputLayer
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.utils import set_random_seed
+from keras.layers import Dense, InputLayer
+from keras.models import Sequential
+from keras.utils import set_random_seed
 
 
 set_random_seed(0)

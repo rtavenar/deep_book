@@ -44,7 +44,7 @@ Its quadratic formulation tends to strongly penalize large errors:
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -81,7 +81,7 @@ Its formulation tends to favor cases where the model outputs a probability of 1 
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]

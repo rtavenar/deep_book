@@ -90,7 +90,7 @@ Dans notre cas, nous essaierons (pour commencer) de prédire la valeur cible `"P
 
 ```{code-cell}
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -126,7 +126,7 @@ Examinons cette quantité en fonction de $w$ :
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -172,7 +172,7 @@ Ce processus est répété jusqu'à la convergence, comme l'illustre la figure s
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -201,7 +201,7 @@ Qu'obtiendrions-nous si nous utilisions un taux d'apprentissage plus faible ?
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---
@@ -225,7 +225,7 @@ Mais attention, un taux d'apprentissage plus élevé n'est pas toujours une bonn
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 ---

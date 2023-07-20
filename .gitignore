@@ -1,5 +1,6 @@
 _build/
 .ipynb_checkpoints/
+__pycache__/
 TODO.md
 py_tests/
 content_tex/

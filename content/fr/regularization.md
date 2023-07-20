@@ -49,7 +49,8 @@ import pandas as pd
 %matplotlib inline
 import matplotlib.pyplot as plt
 from notebook_utils import prepare_notebook_graphics
-from tensorflow.keras.utils import to_categorical
+import keras_core as keras
+from keras.utils import to_categorical
 from myst_nb import glue
 prepare_notebook_graphics()
 ```
@@ -67,9 +68,10 @@ X /= X.std(axis=0)
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dense, InputLayer
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.utils import set_random_seed
+import keras_core as keras
+from keras.layers import Dense, InputLayer
+from keras.models import Sequential
+from keras.utils import set_random_seed
 
 
 set_random_seed(0)
@@ -88,7 +90,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -117,7 +119,7 @@ Dans `keras`, l'arrêt anticipé peut être configuré via un _callback_, comme 
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping
 
 
 set_random_seed(0)
@@ -140,7 +142,7 @@ h = model.fit(X, y,
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -179,7 +181,7 @@ En `keras`, ceci est implémenté comme :
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.regularizers import L2
+from keras.regularizers import L2
 
 λ = 0.01
 
@@ -199,7 +201,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]
@@ -354,7 +356,7 @@ Dans `keras`, ceci est implémenté comme une couche, qui agit en désactivant l
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-from tensorflow.keras.layers import Dropout
+from keras.layers import Dropout
 
 set_random_seed(0)
 switchoff_proba = 0.3
@@ -377,7 +379,7 @@ h = model.fit(X, y, validation_split=0.3, epochs=n_epochs, batch_size=30, verbos
 
 ```{code-cell} ipython3
 ---
-render:
+mystnb:
   image:
     tex_specific_width: 60%
 tags: [hide-input]

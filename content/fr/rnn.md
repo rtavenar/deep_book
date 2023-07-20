@@ -149,7 +149,7 @@ On peut voir à quel point les gradients se rapprochent rapidement de 0 pour des
 dérivation en chaîne fera tendre les termes correspondants vers 0.
 
 En d'autres termes, le gradient de l'état caché au temps $t$ sera seulement
-influencé par quelques uns de ses prédécesseurs ${h_{t-1}, h_{t-2}, \dots\}$ et les
+influencé par quelques uns de ses prédécesseurs $\{h_{t-1}, h_{t-2}, \dots\}$ et les
 les dépendances à long terme seront ignorées lors de l'actualisation des paramètres du modèle par
 descente de gradient.
 Il s'agit d'une occurrence d'un phénomène plus général connu sous le nom de _vanishing gradient_.
