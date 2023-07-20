@@ -1,4 +1,5 @@
 jupyter-book
+tensorflow
 keras_core
 celluloid
 sphinxcontrib-tikz
