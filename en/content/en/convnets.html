@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Convolutional Neural Networks &#8212; Deep Learning Basics (lecture notes)</title>
   
@@ -390,8 +390,8 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 <p>Convolutional neural networks for time series rely on the
 1D convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-19ba9df4-7db5-4f91-b85a-b20eafa3cf50">
-<span class="eqno">(2)<a class="headerlink" href="#equation-19ba9df4-7db5-4f91-b85a-b20eafa3cf50" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-17f68a3b-3ca6-42e4-b76b-48eb42137531">
+<span class="eqno">(2)<a class="headerlink" href="#equation-17f68a3b-3ca6-42e4-b76b-48eb42137531" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}\]</div>
 <p>where the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is of length <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
@@ -432,7 +432,7 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f182bfe945c48063e5fd5d5cc796fcdcd3c93996a8e8e55325a440f1771aa44a.svg" src="../../_images/f182bfe945c48063e5fd5d5cc796fcdcd3c93996a8e8e55325a440f1771aa44a.svg" /></div>
+<img alt="../../_images/6300a8bc4f005583f85f2469350ddcae45364bef0824ac7cb618767a3fcc8ad5.svg" src="../../_images/6300a8bc4f005583f85f2469350ddcae45364bef0824ac7cb618767a3fcc8ad5.svg" /></div>
 </details>
 </div>
 <p>Convolutional neural networks are made of convolution blocks whose parameters
@@ -491,11 +491,11 @@ output:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5343/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5505/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-/tmp/ipykernel_5343/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
+/tmp/ipykernel_5505/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
   fig2 = plt.subplot(2, 1, 2)
-/tmp/ipykernel_5343/368849627.py:32: UserWarning: The figure layout has changed to tight
+/tmp/ipykernel_5505/368849627.py:32: UserWarning: The figure layout has changed to tight
   plt.tight_layout()
 </pre></div>
 </div>
@@ -684,42 +684,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgc5346a6691ed4e90bb9c40599b3df952">
+  <img id="_anim_img50d2761df96d40f8834e525ec24bc8ea">
   <div class="anim-controls">
-    <input id="_anim_sliderc5346a6691ed4e90bb9c40599b3df952" type="range" class="anim-slider"
+    <input id="_anim_slider50d2761df96d40f8834e525ec24bc8ea" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animc5346a6691ed4e90bb9c40599b3df952.set_frame(parseInt(this.value));">
+           oninput="anim50d2761df96d40f8834e525ec24bc8ea.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc5346a6691ed4e90bb9c40599b3df952.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim50d2761df96d40f8834e525ec24bc8ea.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animc5346a6691ed4e90bb9c40599b3df952.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim50d2761df96d40f8834e525ec24bc8ea.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animc5346a6691ed4e90bb9c40599b3df952.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim50d2761df96d40f8834e525ec24bc8ea.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animc5346a6691ed4e90bb9c40599b3df952.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim50d2761df96d40f8834e525ec24bc8ea.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animc5346a6691ed4e90bb9c40599b3df952.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim50d2761df96d40f8834e525ec24bc8ea.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animc5346a6691ed4e90bb9c40599b3df952.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim50d2761df96d40f8834e525ec24bc8ea.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animc5346a6691ed4e90bb9c40599b3df952.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim50d2761df96d40f8834e525ec24bc8ea.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animc5346a6691ed4e90bb9c40599b3df952.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim50d2761df96d40f8834e525ec24bc8ea.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animc5346a6691ed4e90bb9c40599b3df952.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim50d2761df96d40f8834e525ec24bc8ea.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc5346a6691ed4e90bb9c40599b3df952"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select50d2761df96d40f8834e525ec24bc8ea"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_c5346a6691ed4e90bb9c40599b3df952"
+      <input type="radio" name="state" value="once" id="_anim_radio1_50d2761df96d40f8834e525ec24bc8ea"
              >
-      <label for="_anim_radio1_c5346a6691ed4e90bb9c40599b3df952">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_c5346a6691ed4e90bb9c40599b3df952"
+      <label for="_anim_radio1_50d2761df96d40f8834e525ec24bc8ea">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_50d2761df96d40f8834e525ec24bc8ea"
              checked>
-      <label for="_anim_radio2_c5346a6691ed4e90bb9c40599b3df952">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_c5346a6691ed4e90bb9c40599b3df952"
+      <label for="_anim_radio2_50d2761df96d40f8834e525ec24bc8ea">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_50d2761df96d40f8834e525ec24bc8ea"
              >
-      <label for="_anim_radio3_c5346a6691ed4e90bb9c40599b3df952">Reflect</label>
+      <label for="_anim_radio3_50d2761df96d40f8834e525ec24bc8ea">Reflect</label>
     </form>
   </div>
 </div>
@@ -729,9 +729,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgc5346a6691ed4e90bb9c40599b3df952";
-    var slider_id = "_anim_sliderc5346a6691ed4e90bb9c40599b3df952";
-    var loop_select_id = "_anim_loop_selectc5346a6691ed4e90bb9c40599b3df952";
+    var img_id = "_anim_img50d2761df96d40f8834e525ec24bc8ea";
+    var slider_id = "_anim_slider50d2761df96d40f8834e525ec24bc8ea";
+    var loop_select_id = "_anim_loop_select50d2761df96d40f8834e525ec24bc8ea";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -34119,7 +34119,7 @@ PkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mP+H/WVaJekOOUnAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animc5346a6691ed4e90bb9c40599b3df952 = new Animation(frames, img_id, slider_id, 200.0,
+        anim50d2761df96d40f8834e525ec24bc8ea = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -34188,7 +34188,7 @@ Color images are typically made of 3 channels (Red, Green and Blue here).</p>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-cat">
-<img alt="../../_images/5de3eb4039f5abd1ced31a2bf32c30b6dedea63af0b37f020930fde1e568501c.svg" src="../../_images/5de3eb4039f5abd1ced31a2bf32c30b6dedea63af0b37f020930fde1e568501c.svg" /><figcaption>
+<img alt="../../_images/e9365621005f213fd8ea79aa528643e410b77ef2b5ff12c83f02a16e172bde27.svg" src="../../_images/e9365621005f213fd8ea79aa528643e410b77ef2b5ff12c83f02a16e172bde27.svg" /><figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">An image and its 3 channels
 (Red, Green and Blue intensity,
 from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalink to this image">#</a></p>
@@ -34197,8 +34197,8 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalin
 </div>
 </div>
 <p>The output of a convolution on an image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a new image, whose pixel values can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-136103c7-49ea-4991-959b-517baa8677a1">
-<span class="eqno">(3)<a class="headerlink" href="#equation-136103c7-49ea-4991-959b-517baa8677a1" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-bf0cb4ec-cc98-42f9-a925-eadd4683388c">
+<span class="eqno">(3)<a class="headerlink" href="#equation-bf0cb4ec-cc98-42f9-a925-eadd4683388c" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}\]</div>
 <p>In other words, the output image pixels are computed as the dot product between a convolution filter (which is a tensor of shape <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) and the image patch centered at the given position.</p>
@@ -34225,7 +34225,7 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalin
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/30ed9ee6a8b6809d5bfb78635b30db09821757f1c40690d74190c957435fd657.svg" src="../../_images/30ed9ee6a8b6809d5bfb78635b30db09821757f1c40690d74190c957435fd657.svg" /></div>
+<img alt="../../_images/2ce6c9cb8259f18c3a5487d8b8216e48439882b925cb9540b895dcf87e29d5f5.svg" src="../../_images/2ce6c9cb8259f18c3a5487d8b8216e48439882b925cb9540b895dcf87e29d5f5.svg" /></div>
 </div>
 <p>Then the output of the convolution of the cat image above with this filter is the following greyscale (<em>ie.</em> single channel) image:</p>
 <div class="cell tag_hide-input docutils container">
@@ -34249,7 +34249,7 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalin
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/2e0e7e475a382847f9bf1d960c025a7fbae5a464fd76d6371a61e37f154e8c56.svg" src="../../_images/2e0e7e475a382847f9bf1d960c025a7fbae5a464fd76d6371a61e37f154e8c56.svg" /></div>
+<img alt="../../_images/8de98687714100473daf2af95c1b1032747ace36bcdcba9cc8ac3b5107eca590.svg" src="../../_images/8de98687714100473daf2af95c1b1032747ace36bcdcba9cc8ac3b5107eca590.svg" /></div>
 </div>
 <p>One might notice that this image is a blurred version of the original image.
 This is because we used a Gaussian filter in the process.
@@ -34272,8 +34272,8 @@ Each convolution filter generates an output activation map and all these maps ar
 All filters in a layer share the same width and height.
 A bias term and an activation function can be used in convolution layers, as in other neural network layers.
 All in all, the output of a convolution filter is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1784f461-16b5-4fa6-a114-3c02fe49fe9c">
-<span class="eqno">(4)<a class="headerlink" href="#equation-1784f461-16b5-4fa6-a114-3c02fe49fe9c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b1abfa2e-c30f-4bac-8f59-2a2ecda0930d">
+<span class="eqno">(4)<a class="headerlink" href="#equation-b1abfa2e-c30f-4bac-8f59-2a2ecda0930d" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c\)</span> denotes the output channel (note that each output channel is associated with a filter <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> is its associated bias term and <span class="math notranslate nohighlight">\(\varphi\)</span> is the activation function to be used.</p>
@@ -34393,23 +34393,20 @@ _________________________________________________________________
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id5">
-<div class="citation" id="id21" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">FFW+19</a><span class="fn-bracket">]</span></span>
-<p>Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. <em>Data Mining and Knowledge Discovery</em>, 33(4):917–963, 2019.</p>
-</div>
-<div class="citation" id="id20" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FLF+20</a><span class="fn-bracket">]</span></span>
-<p>Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. <em>Data Mining and Knowledge Discovery</em>, 34(6):1936–1962, 2020.</p>
-</div>
-<div class="citation" id="id19" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">LGMT16</a><span class="fn-bracket">]</span></span>
-<p>Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In <em>ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data</em>. Riva Del Garda, Italy, September 2016.</p>
-</div>
-<div class="citation" id="id31" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">LBBH98</a><span class="fn-bracket">]</span></span>
-<p>Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. <em>Proceedings of the IEEE</em>, 86(11):2278–2324, 1998.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id3">FFW+19</a></span></dt>
+<dd><p>Hassan Ismail Fawaz, Germain Forestier, Jonathan Weber, Lhassane Idoumghar, and Pierre-Alain Muller. Deep learning for time series classification: a review. <em>Data Mining and Knowledge Discovery</em>, 33(4):917–963, 2019.</p>
+</dd>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id2">FLF+20</a></span></dt>
+<dd><p>Hassan Ismail Fawaz, Benjamin Lucas, Germain Forestier, Charlotte Pelletier, Daniel F Schmidt, Jonathan Weber, Geoffrey I Webb, Lhassane Idoumghar, Pierre-Alain Muller, and François Petitjean. Inceptiontime: finding alexnet for time series classification. <em>Data Mining and Knowledge Discovery</em>, 34(6):1936–1962, 2020.</p>
+</dd>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id1">LGMT16</a></span></dt>
+<dd><p>Arthur Le Guennec, Simon Malinowski, and Romain Tavenard. Data Augmentation for Time Series Classification using Convolutional Neural Networks. In <em>ECML/PKDD Workshop on Advanced Analytics and Learning on Temporal Data</em>. Riva Del Garda, Italy, September 2016.</p>
+</dd>
+<dt class="label" id="id31"><span class="brackets"><a class="fn-backref" href="#id4">LBBH98</a></span></dt>
+<dd><p>Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. <em>Proceedings of the IEEE</em>, 86(11):2278–2324, 1998.</p>
+</dd>
+</dl>
 </div>
 </section>
 </section>

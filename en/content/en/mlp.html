@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Multi Layer Perceptrons &#8212; Deep Learning Basics (lecture notes)</title>
   
@@ -396,8 +396,8 @@ Moreover, it is not sufficient that such a good approximation exists, another im
 <p>In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one:</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-4670b96ed1fdbb9f65a452032fcb97f6198dad87.svg" alt="Figure made with TikZ" /></p>
 </div><p>The above graphical representation corresponds to the following model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dd2b1891-9db5-4ba2-ba4d-f8ea9752456c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-dd2b1891-9db5-4ba2-ba4d-f8ea9752456c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bd5df32d-2994-44b7-a4c0-784e1bf97025">
+<span class="eqno">(1)<a class="headerlink" href="#equation-bd5df32d-2994-44b7-a4c0-784e1bf97025" title="Permalink to this equation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
@@ -623,7 +623,7 @@ In practice, we will then use activation functions that have some linear regime 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/756812a6495d5a07313aa08b8ba2d419c6d4bfd60c172e8ae03fe394555ba24b.svg" src="../../_images/756812a6495d5a07313aa08b8ba2d419c6d4bfd60c172e8ae03fe394555ba24b.svg" /></div>
+<img alt="../../_images/b4559ae27a118fac6c2fdae250598b6a775626ec13d4f66d112c2ea23d0e8e1b.svg" src="../../_images/b4559ae27a118fac6c2fdae250598b6a775626ec13d4f66d112c2ea23d0e8e1b.svg" /></div>
 </div>
 <p>In practice the ReLU function (and some of its variants) is the most widely used nowadays, for reasons that will be discussed in more details in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">our chapter dedicated to optimization</span></a>.</p>
 <section id="the-special-case-of-the-output-layer">

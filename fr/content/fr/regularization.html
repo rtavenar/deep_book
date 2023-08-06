@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Régularisation &#8212; Introduction au Deep Learning (notes de cours)</title>
   
@@ -475,10 +475,10 @@ Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ens
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/94396c2d43c432c6446e72352ac3b035372f6def0a353955e0030f54c9a06b14.svg" src="../../_images/94396c2d43c432c6446e72352ac3b035372f6def0a353955e0030f54c9a06b14.svg" /></div>
+<img alt="../../_images/494a2abf4b8adf3822017595776ae7977ca9278bf1c7326d87bea25d62d34c41.svg" src="../../_images/494a2abf4b8adf3822017595776ae7977ca9278bf1c7326d87bea25d62d34c41.svg" /></div>
 </div>
-<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">22</span>.
-En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">22</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
+<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">21</span>.
+En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">21</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
 <p>C’est toute l’idée derrière la stratégie d”<em>early stopping</em>, qui consiste à arrêter le processus d’apprentissage dès que la perte de validation cesse de s’améliorer.
 Cependant, comme on peut le voir dans la visualisation ci-dessus, la perte de validation a tendance à osciller, et on attend souvent plusieurs <em>epochs</em> avant de supposer que la perte a peu de chances de s’améliorer dans le futur.
 Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patience</em>.</p>
@@ -529,9 +529,9 @@ Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patie
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/667d6f5a533acf67625541bb62be07c553d2db08f42fdb25c2252544e8d4928e.svg" src="../../_images/667d6f5a533acf67625541bb62be07c553d2db08f42fdb25c2252544e8d4928e.svg" /></div>
+<img alt="../../_images/09c6b921de46b2a2028b3b356ec19fc8c1a5eb7b395fd4b37bf3e9309f4d3fb6.svg" src="../../_images/09c6b921de46b2a2028b3b356ec19fc8c1a5eb7b395fd4b37bf3e9309f4d3fb6.svg" /></div>
 </div>
-<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">22</span>.</p>
+<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">21</span>.</p>
 </section>
 <section id="penalisation-de-la-perte">
 <h2>Pénalisation de la perte<a class="headerlink" href="#penalisation-de-la-perte" title="Lien permanent vers cette rubrique">#</a></h2>
@@ -585,7 +585,7 @@ Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/0db18cd8e70682deaec97a259d3e17996632b6dcf6094f47859689ccbb7a68d2.svg" src="../../_images/0db18cd8e70682deaec97a259d3e17996632b6dcf6094f47859689ccbb7a68d2.svg" /></div>
+<img alt="../../_images/40f8287c50971e1d20719babf6a46ca4011188af6fc4bdb832c94775798acdb1.svg" src="../../_images/40f8287c50971e1d20719babf6a46ca4011188af6fc4bdb832c94775798acdb1.svg" /></div>
 </div>
 </section>
 <section id="dropout">
@@ -641,7 +641,7 @@ La principale différence ici est que l’on peut non seulement désactiver les 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/510e665bfc173e5c6f00f88d40a53d80f56c4e79635b4fa040f0412dc5d81b35.svg" src="../../_images/510e665bfc173e5c6f00f88d40a53d80f56c4e79635b4fa040f0412dc5d81b35.svg" /></div>
+<img alt="../../_images/ebdec8dc29e39c9040204185217a0a5d5cc570ac71a214b823619d0679f3e687.svg" src="../../_images/ebdec8dc29e39c9040204185217a0a5d5cc570ac71a214b823619d0679f3e687.svg" /></div>
 </div>
 <div class="admonition-exercice-1 admonition">
 <p class="admonition-title">Exercice #1</p>
@@ -656,11 +656,11 @@ Si nous nous rappelons que pendant l’apprentissage, à chaque <em>minibatch</e
 <section id="references">
 <h2>Références<a class="headerlink" href="#references" title="Lien permanent vers cette rubrique">#</a></h2>
 <div class="docutils container" id="id2">
-<div class="citation" id="id27" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SHK+14</a><span class="fn-bracket">]</span></span>
-<p>Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. <em>Journal of Machine Learning Research</em>, 15(56):1929–1958, 2014. URL: <a class="reference external" href="http://jmlr.org/papers/v15/srivastava14a.html">http://jmlr.org/papers/v15/srivastava14a.html</a>.</p>
-</div>
-</div>
+<dl class="citation">
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id1">SHK+14</a></span></dt>
+<dd><p>Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. <em>Journal of Machine Learning Research</em>, 15(56):1929–1958, 2014. URL: <a class="reference external" href="http://jmlr.org/papers/v15/srivastava14a.html">http://jmlr.org/papers/v15/srivastava14a.html</a>.</p>
+</dd>
+</dl>
 </div>
 </section>
 </section>
