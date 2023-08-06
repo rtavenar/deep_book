@@ -48,6 +48,8 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  
+html_theme_options:
   extra_navbar: |
     <div><a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
     <a href="../../../en/index.html">Switch to English</a></div>
