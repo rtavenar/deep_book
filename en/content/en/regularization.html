@@ -474,10 +474,10 @@ Note that here, the true risk is estimated through the use of a validation set t
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/5acea200a55eb523c626ed6c27fdb3fb92e8d7aae93a337407bbf9547046560b.svg" src="../../_images/5acea200a55eb523c626ed6c27fdb3fb92e8d7aae93a337407bbf9547046560b.svg" /></div>
+<img alt="../../_images/85499207963f1e25397cd2ae2fe455345857005fb157fd26bc104ccbef371bfe.svg" src="../../_images/85499207963f1e25397cd2ae2fe455345857005fb157fd26bc104ccbef371bfe.svg" /></div>
 </div>
-<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="output text_plain">48</span>.
-In other words, if we had stopped the learning process after epoch <span class="output text_plain">48</span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
+<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="output text_plain">41</span>.
+In other words, if we had stopped the learning process after epoch <span class="output text_plain">41</span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
 <p>This is the whole idea behind the “early stopping” strategy, which consists in stopping the learning process as soon as the validation loss stops improving.
 As can be seen in the visualization above, however, the validation loss tends to oscillate, and one often waits for several epochs before assuming that the loss is unlikely to improve in the future.
 The number of epochs to wait is called the <em>patience</em> parameter.</p>
@@ -528,9 +528,9 @@ The number of epochs to wait is called the <em>patience</em> parameter.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/ac4eb53901c5187b522b8f36470b31fcbc8125a96584181fb249dcda502ae27a.svg" src="../../_images/ac4eb53901c5187b522b8f36470b31fcbc8125a96584181fb249dcda502ae27a.svg" /></div>
+<img alt="../../_images/9d9109ae9db8f5b522bf7dec8240d49b6bdb06832bb279ddb02408877ddc9fa4.svg" src="../../_images/9d9109ae9db8f5b522bf7dec8240d49b6bdb06832bb279ddb02408877ddc9fa4.svg" /></div>
 </div>
-<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="output text_plain">48</span>.</p>
+<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="output text_plain">41</span>.</p>
 </section>
 <section id="loss-penalization">
 <h2>Loss penalization<a class="headerlink" href="#loss-penalization" title="Permalink to this heading">#</a></h2>
@@ -584,7 +584,7 @@ If we denote by <span class="math notranslate nohighlight">\(\mathcal{L}_r\)</sp
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/2a7a3e4e9039c34cc6feacd4d4ad39478ed3915ab2d74065f1ba08a6bc75b0c9.svg" src="../../_images/2a7a3e4e9039c34cc6feacd4d4ad39478ed3915ab2d74065f1ba08a6bc75b0c9.svg" /></div>
+<img alt="../../_images/db16ec6add3bca33cde9220850872faf749483be54ac4b542e47419eed14d838.svg" src="../../_images/db16ec6add3bca33cde9220850872faf749483be54ac4b542e47419eed14d838.svg" /></div>
 </div>
 </section>
 <section id="dropout">
@@ -640,7 +640,7 @@ The main difference here is that one can not only switch off <em>input neurons</
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/95060aac4666718bf9e47c342d943813272131fa43a8842369956b1df6ba20e1.svg" src="../../_images/95060aac4666718bf9e47c342d943813272131fa43a8842369956b1df6ba20e1.svg" /></div>
+<img alt="../../_images/f5b5f8f6bb625aa86e2b938713ba22a35b86947cef0d347ac0faa04f3044c9e4.svg" src="../../_images/f5b5f8f6bb625aa86e2b938713ba22a35b86947cef0d347ac0faa04f3044c9e4.svg" /></div>
 </div>
 <div class="admonition-exercise-1 admonition">
 <p class="admonition-title">Exercise #1</p>
