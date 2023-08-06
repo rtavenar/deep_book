@@ -48,8 +48,8 @@ html:
   use_issues_button: true
   use_repository_button: true
   extra_navbar: |
-    <a href="../../../book_en.pdf">Download these notes as PDF</a><br />
-    <a href="../../../fr/index.html">Basculer en Français</a>
+    <div><a href="../../../book_en.pdf">Download these notes as PDF</a><br />
+    <a href="../../../fr/index.html">Basculer en Français</a></div>
 
 latex:
   latex_documents:
