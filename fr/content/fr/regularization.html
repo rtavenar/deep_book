@@ -104,8 +104,8 @@ const thebe_selector_output = ".output, .cell_output"
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -146,14 +146,6 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Introduction au Deep Learning
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="perceptron.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mlp.html">Perceptrons multicouches</a></li>
@@ -203,53 +195,6 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="header-article-item">
 
 <div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/rtavenar/deep_book" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Dépôt source"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/fr/regularization.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Ouvrez un problème"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
 
 
 
@@ -475,10 +420,10 @@ Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ens
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/58b398d42a3d6b4496003d9d7ffd436a365168865cf50d2345280deaf5b8bc6d.svg" src="../../_images/58b398d42a3d6b4496003d9d7ffd436a365168865cf50d2345280deaf5b8bc6d.svg" /></div>
+<img alt="../../_images/ec1729e63833975310716b520258ba7154e1bccc8a61c32055aa55fde6fb3ecb.svg" src="../../_images/ec1729e63833975310716b520258ba7154e1bccc8a61c32055aa55fde6fb3ecb.svg" /></div>
 </div>
-<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">98</span>.
-En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">98</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
+<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">15</span>.
+En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">15</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
 <p>C’est toute l’idée derrière la stratégie d”<em>early stopping</em>, qui consiste à arrêter le processus d’apprentissage dès que la perte de validation cesse de s’améliorer.
 Cependant, comme on peut le voir dans la visualisation ci-dessus, la perte de validation a tendance à osciller, et on attend souvent plusieurs <em>epochs</em> avant de supposer que la perte a peu de chances de s’améliorer dans le futur.
 Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patience</em>.</p>
@@ -529,9 +474,9 @@ Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patie
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/cdf1bd3957b5e0fe906030e1b46c4bae1d8b5e51e1b15c2253fb09b75cb5fa8b.svg" src="../../_images/cdf1bd3957b5e0fe906030e1b46c4bae1d8b5e51e1b15c2253fb09b75cb5fa8b.svg" /></div>
+<img alt="../../_images/551f2ea8f3088fd69e67e14c80a120f9d20d7c486ef4f55bfd6f628e96ac2840.svg" src="../../_images/551f2ea8f3088fd69e67e14c80a120f9d20d7c486ef4f55bfd6f628e96ac2840.svg" /></div>
 </div>
-<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">54</span>.</p>
+<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">15</span>.</p>
 </section>
 <section id="penalisation-de-la-perte">
 <h2>Pénalisation de la perte<a class="headerlink" href="#penalisation-de-la-perte" title="Lien permanent vers cette rubrique">#</a></h2>
@@ -585,7 +530,7 @@ Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/444ef28b8e85a48016e3ffa857412854323e8021202056e814a17d432f4a5248.svg" src="../../_images/444ef28b8e85a48016e3ffa857412854323e8021202056e814a17d432f4a5248.svg" /></div>
+<img alt="../../_images/9ac99c5d4c4f76e19d8c7e75335c4cbd5f3abd5c51ef34cd82fa746fc0c68dd1.svg" src="../../_images/9ac99c5d4c4f76e19d8c7e75335c4cbd5f3abd5c51ef34cd82fa746fc0c68dd1.svg" /></div>
 </div>
 </section>
 <section id="dropout">
@@ -641,7 +586,7 @@ La principale différence ici est que l’on peut non seulement désactiver les 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/8f1921d046852d35b52397300d939cf47fc42c7cb7bc1815dffffea41a9bba64.svg" src="../../_images/8f1921d046852d35b52397300d939cf47fc42c7cb7bc1815dffffea41a9bba64.svg" /></div>
+<img alt="../../_images/5b75a1f224400bafb14a2d872fff13c2c70f14c52cbf6a6e0102ea4911974986.svg" src="../../_images/5b75a1f224400bafb14a2d872fff13c2c70f14c52cbf6a6e0102ea4911974986.svg" /></div>
 </div>
 <div class="admonition-exercice-1 admonition">
 <p class="admonition-title">Exercice #1</p>
