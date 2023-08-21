@@ -1,60 +1,49 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Convolutional Neural Networks &#8212; Deep Learning Basics (lecture notes)</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -64,87 +53,56 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/en/convnets';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Recurrent Neural Networks" href="rnn.html" />
     <link rel="prev" title="Regularization" href="regularization.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="intro.html">
-  
-  
-  
-  
-  
-    <p class="title logo__title">Deep Learning Basics (lecture notes)</p>
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      
+      <h1 class="site-logo" id="site-title">Deep Learning Basics (lecture notes)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -154,254 +112,411 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="perceptron.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mlp.html">Multi Layer Perceptrons</a></li>
-<li class="toctree-l1"><a class="reference internal" href="loss.html">Losses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optim.html">Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regularization.html">Regularization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Convolutional Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rnn.html">Recurrent Neural Networks</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="perceptron.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mlp.html">
+   Multi Layer Perceptrons
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="loss.html">
+   Losses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="optim.html">
+   Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="regularization.html">
+   Regularization
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="rnn.html">
+   Recurrent Neural Networks
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            <div><a href="../../../book_en.pdf">Download these notes as PDF</a><br />
+<a href="../../../fr/index.html">Basculer en Français</a></div>
+
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
   
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
     </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
   </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/rtavenar/deep_book" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/en/convnets.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../../_sources/content/en/convnets.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
+  <div class="menu-dropdown__content">
+    <ul>
       <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
+        <a href="https://mybinder.org/v2/gh/rtavenar/deep_book/main?urlpath=tree/content/en/convnets.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
 >
   
 
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
   </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
       
-  </ul>
+    </ul>
+  </div>
 </div>
-
-
-
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
   </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rtavenar/deep_book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Convolutional Neural Networks</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convnets-for-time-series">ConvNets for time series</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-networks-for-images">Convolutional neural networks for images</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#images-and-convolutions">Images and convolutions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cnns-a-la-lenet">CNNs <em>à la</em> LeNet</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convolution-layers">Convolution layers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pooling-layers">Pooling layers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plugging-fully-connected-layers-at-the-output">Plugging fully-connected layers at the output</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-            </nav>
-        </div>
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/en/convnets.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/content/en/convnets.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/content/en/convnets.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-              
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convnets-for-time-series">
+   ConvNets for time series
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convolutional-neural-networks-for-images">
+   Convolutional neural networks for images
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#images-and-convolutions">
+     Images and convolutions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cnns-a-la-lenet">
+     CNNs
+     <em>
+      à la
+     </em>
+     LeNet
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#convolution-layers">
+       Convolution layers
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pooling-layers">
+       Pooling layers
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#plugging-fully-connected-layers-at-the-output">
+       Plugging fully-connected layers at the output
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Convolutional Neural Networks</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convnets-for-time-series">
+   ConvNets for time series
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convolutional-neural-networks-for-images">
+   Convolutional neural networks for images
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#images-and-convolutions">
+     Images and convolutions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cnns-a-la-lenet">
+     CNNs
+     <em>
+      à la
+     </em>
+     LeNet
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#convolution-layers">
+       Convolution layers
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pooling-layers">
+       Pooling layers
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#plugging-fully-connected-layers-at-the-output">
+       Plugging fully-connected layers at the output
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   
 <style>
   .ss-layout-default-AB { grid-template-areas: 'A B'; }
 </style>
 <section class="tex2jax_ignore mathjax_ignore" id="convolutional-neural-networks">
-<span id="sec-cnn"></span><h1>Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this heading">#</a></h1>
+<span id="sec-cnn"></span><h1>Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this headline">#</a></h1>
 <p>Convolutional Neural Networks (<em>aka</em> ConvNets) are designed to take advantage of the structure in the data.
 In this chapter, we will discuss two flavours of ConvNets: we will start with the monodimensional case and see how ConvNets with 1D convolutions can be helpful to process time series and we will then introduce the 2D case that is especially useful to process image data.</p>
 <section id="convnets-for-time-series">
-<h2>ConvNets for time series<a class="headerlink" href="#convnets-for-time-series" title="Permalink to this heading">#</a></h2>
+<h2>ConvNets for time series<a class="headerlink" href="#convnets-for-time-series" title="Permalink to this headline">#</a></h2>
 <p>Convolutional neural networks for time series rely on the
 1D convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a796ad94-ac98-42f9-989f-87841fd2958d">
-<span class="eqno">(2)<a class="headerlink" href="#equation-a796ad94-ac98-42f9-989f-87841fd2958d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d75859f0-aaa8-42b5-9504-3da8a2cf88e3">
+<span class="eqno">(2)<a class="headerlink" href="#equation-d75859f0-aaa8-42b5-9504-3da8a2cf88e3" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}\]</div>
 <p>where the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is of length <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
 <p>The following code illustrates this notion using a Gaussian filter:</p>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -432,8 +547,7 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/c20974765975524c5a1096e05af683b4e18899d6b9ead00073cef088a105365d.svg" src="../../_images/c20974765975524c5a1096e05af683b4e18899d6b9ead00073cef088a105365d.svg" /></div>
-</details>
+<img alt="../../_images/convnets_1_0.svg" src="../../_images/convnets_1_0.svg" /></div>
 </div>
 <p>Convolutional neural networks are made of convolution blocks whose parameters
 are the coefficients of the filters they embed (hence filters are not fixed
@@ -442,11 +556,6 @@ These convolution blocks are translation equivariant, which means that a
 (temporal) shift in their input results in the same temporal shift in the
 output:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
 <span class="kn">from</span> <span class="nn">celluloid</span> <span class="kn">import</span> <span class="n">Camera</span>
@@ -489,13 +598,12 @@ output:</p>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5308/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_5071/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-/tmp/ipykernel_5308/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
+/tmp/ipykernel_5071/368849627.py:23: MatplotlibDeprecationWarning: Auto-removal of overlapping axes is deprecated since 3.6 and will be removed two minor releases later; explicitly call ax.remove() as needed.
   fig2 = plt.subplot(2, 1, 2)
-/tmp/ipykernel_5308/368849627.py:32: UserWarning: The figure layout has changed to tight
+/tmp/ipykernel_5071/368849627.py:32: UserWarning: The figure layout has changed to tight
   plt.tight_layout()
 </pre></div>
 </div>
@@ -684,42 +792,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img9eb3f6a6396d4eecbdd2f76549217134">
+  <img id="_anim_img322a14c9fd9e4a488c4091e0397f6f81">
   <div class="anim-controls">
-    <input id="_anim_slider9eb3f6a6396d4eecbdd2f76549217134" type="range" class="anim-slider"
+    <input id="_anim_slider322a14c9fd9e4a488c4091e0397f6f81" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim9eb3f6a6396d4eecbdd2f76549217134.set_frame(parseInt(this.value));">
+           oninput="anim322a14c9fd9e4a488c4091e0397f6f81.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim9eb3f6a6396d4eecbdd2f76549217134.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim322a14c9fd9e4a488c4091e0397f6f81.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select9eb3f6a6396d4eecbdd2f76549217134"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select322a14c9fd9e4a488c4091e0397f6f81"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_9eb3f6a6396d4eecbdd2f76549217134"
+      <input type="radio" name="state" value="once" id="_anim_radio1_322a14c9fd9e4a488c4091e0397f6f81"
              >
-      <label for="_anim_radio1_9eb3f6a6396d4eecbdd2f76549217134">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_9eb3f6a6396d4eecbdd2f76549217134"
+      <label for="_anim_radio1_322a14c9fd9e4a488c4091e0397f6f81">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_322a14c9fd9e4a488c4091e0397f6f81"
              checked>
-      <label for="_anim_radio2_9eb3f6a6396d4eecbdd2f76549217134">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_9eb3f6a6396d4eecbdd2f76549217134"
+      <label for="_anim_radio2_322a14c9fd9e4a488c4091e0397f6f81">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_322a14c9fd9e4a488c4091e0397f6f81"
              >
-      <label for="_anim_radio3_9eb3f6a6396d4eecbdd2f76549217134">Reflect</label>
+      <label for="_anim_radio3_322a14c9fd9e4a488c4091e0397f6f81">Reflect</label>
     </form>
   </div>
 </div>
@@ -729,11 +837,11 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img9eb3f6a6396d4eecbdd2f76549217134";
-    var slider_id = "_anim_slider9eb3f6a6396d4eecbdd2f76549217134";
-    var loop_select_id = "_anim_loop_select9eb3f6a6396d4eecbdd2f76549217134";
+    var img_id = "_anim_img322a14c9fd9e4a488c4091e0397f6f81";
+    var slider_id = "_anim_slider322a14c9fd9e4a488c4091e0397f6f81";
+    var loop_select_id = "_anim_loop_select322a14c9fd9e4a488c4091e0397f6f81";
     var frames = new Array(60);
-    
+
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
 bGliIHZlcnNpb24zLjcuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8pXeV/AAAACXBIWXMAAA9h\
 AAAPYQGoP6dpAAB7GUlEQVR4nO3deZyNdf/H8deZFbPZ9zGWbFmStZC16KZFJClroWghQvp1Z6ks\
@@ -34119,7 +34227,7 @@ PkYBUERERMTHKACKiIiI+BgFQBEREREfowAoIiIi4mP+H/WVaJekOOUnAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim9eb3f6a6396d4eecbdd2f76549217134 = new Animation(frames, img_id, slider_id, 200.0,
+        anim322a14c9fd9e4a488c4091e0397f6f81 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -34144,20 +34252,15 @@ benchmarked in <span id="id3">[<a class="reference internal" href="#id21" title=
 advise the interested reader to refer to for more details.</p>
 </section>
 <section id="convolutional-neural-networks-for-images">
-<h2>Convolutional neural networks for images<a class="headerlink" href="#convolutional-neural-networks-for-images" title="Permalink to this heading">#</a></h2>
+<h2>Convolutional neural networks for images<a class="headerlink" href="#convolutional-neural-networks-for-images" title="Permalink to this headline">#</a></h2>
 <p>We now turn our focus to the 2D case, in which our convolution
 filters will not slide on a single axis as in the time series case but rather
 on the two dimensions (width and height) of an image.</p>
 <section id="images-and-convolutions">
-<h3>Images and convolutions<a class="headerlink" href="#images-and-convolutions" title="Permalink to this heading">#</a></h3>
+<h3>Images and convolutions<a class="headerlink" href="#images-and-convolutions" title="Permalink to this headline">#</a></h3>
 <p>As seen below, an image is a pixel grid, and each pixel has an intensity value in each of the image channels.
 Color images are typically made of 3 channels (Red, Green and Blue here).</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">image</span>
 
@@ -34185,30 +34288,17 @@ Color images are typically made of 3 channels (Red, Green and Blue here).</p>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<figure class="align-default" id="fig-cat">
-<img alt="../../_images/bc3527dd4eb04c69040a15cf5be105a7da3d323582d4f0ec221148de95ae9efa.svg" src="../../_images/bc3527dd4eb04c69040a15cf5be105a7da3d323582d4f0ec221148de95ae9efa.svg" /><figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">An image and its 3 channels
-(Red, Green and Blue intensity,
-from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-</div>
+<img alt="../../_images/convnets_5_0.svg" src="../../_images/convnets_5_0.svg" /></div>
 </div>
 <p>The output of a convolution on an image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a new image, whose pixel values can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a7b18f39-ddab-4849-946b-f27ba89e9c1d">
-<span class="eqno">(3)<a class="headerlink" href="#equation-a7b18f39-ddab-4849-946b-f27ba89e9c1d" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e34dd35e-1ef2-4aae-9ae1-9decc31758d6">
+<span class="eqno">(3)<a class="headerlink" href="#equation-e34dd35e-1ef2-4aae-9ae1-9decc31758d6" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}\]</div>
 <p>In other words, the output image pixels are computed as the dot product between a convolution filter (which is a tensor of shape <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) and the image patch centered at the given position.</p>
 <p>Let us, for example, consider the following 9x9 convolution filter:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sz</span> <span class="o">=</span> <span class="mi">9</span>
 
@@ -34223,17 +34313,11 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalin
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="../../_images/3300c0a186dbf22d21e56aa18b14900b1bac9a5fb08b28ec22bf311a40b3bf31.svg" src="../../_images/3300c0a186dbf22d21e56aa18b14900b1bac9a5fb08b28ec22bf311a40b3bf31.svg" /></div>
+<img alt="../../_images/convnets_7_0.svg" src="../../_images/convnets_7_0.svg" /></div>
 </div>
 <p>Then the output of the convolution of the cat image above with this filter is the following greyscale (<em>ie.</em> single channel) image:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">convolve2d</span>
 
@@ -34247,33 +34331,32 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Permalin
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="../../_images/da59bb819d1a1ca23963be9551c4bd2bfe93941ce6075b9d44b16f18098a6c03.svg" src="../../_images/da59bb819d1a1ca23963be9551c4bd2bfe93941ce6075b9d44b16f18098a6c03.svg" /></div>
+<img alt="../../_images/convnets_9_0.svg" src="../../_images/convnets_9_0.svg" /></div>
 </div>
 <p>One might notice that this image is a blurred version of the original image.
 This is because we used a Gaussian filter in the process.
 As for time series, when using convolution operations in neural networks, the contents of the filters will be learnt, rather than set <em>a priori</em>.</p>
 </section>
 <section id="cnns-a-la-lenet">
-<h3>CNNs <em>à la</em> LeNet<a class="headerlink" href="#cnns-a-la-lenet" title="Permalink to this heading">#</a></h3>
+<h3>CNNs <em>à la</em> LeNet<a class="headerlink" href="#cnns-a-la-lenet" title="Permalink to this headline">#</a></h3>
 <p>In <span id="id4">[<a class="reference internal" href="#id31" title="Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.">LeCun <em>et al.</em>, 1998</a>]</span>, a stack of convolution, pooling and fully connected layers is introduced for an image classification task, more specifically a digit recognition application.
 The resulting neural network, called LeNet, is depicted below:</p>
 <figure class="align-default" id="fig-lenet">
 <img alt="../../_images/lenet.png" src="../../_images/lenet.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">LeNet-5 model</span><a class="headerlink" href="#fig-lenet" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">LeNet-5 model</span><a class="headerlink" href="#fig-lenet" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="convolution-layers">
-<h4>Convolution layers<a class="headerlink" href="#convolution-layers" title="Permalink to this heading">#</a></h4>
+<h4>Convolution layers<a class="headerlink" href="#convolution-layers" title="Permalink to this headline">#</a></h4>
 <p>A convolution layer is made of several convolution filters (also called <em>kernels</em>) that operate in parallel on the same input image.
 Each convolution filter generates an output activation map and all these maps are stacked (in the channel dimension) to form the output of the convolution layer.
 All filters in a layer share the same width and height.
 A bias term and an activation function can be used in convolution layers, as in other neural network layers.
 All in all, the output of a convolution filter is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-07530311-cda0-4293-8869-50164ffe3695">
-<span class="eqno">(4)<a class="headerlink" href="#equation-07530311-cda0-4293-8869-50164ffe3695" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-46382975-847e-475d-acb2-30c726d9ee99">
+<span class="eqno">(4)<a class="headerlink" href="#equation-46382975-847e-475d-acb2-30c726d9ee99" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c\)</span> denotes the output channel (note that each output channel is associated with a filter <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> is its associated bias term and <span class="math notranslate nohighlight">\(\varphi\)</span> is the activation function to be used.</p>
@@ -34299,16 +34382,16 @@ All in all, the output of a convolution filter is computed as:</p>
 </div>
 </div>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">A visual explanation of padding (source: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning</a>).
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">A visual explanation of padding (source: <a class="reference external" href="https://github.com/vdumoulin/conv_arithmetic">V. Dumoulin, F. Visin - A guide to convolution arithmetic for deep learning</a>).
 Left: Without padding, right: With padding.</span><a class="headerlink" href="#fig-padding" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>When processing an input image, it can be useful to ensure that the output feature map has the same width and height as the input image.
-This can be achieved by padding the input image with surrounding zeros, as illustrated in <a class="reference internal" href="#fig-padding"><span class="std std-numref">Fig. 4</span></a> in which the padding area is represented in white.</p>
+This can be achieved by padding the input image with surrounding zeros, as illustrated in <a class="reference internal" href="#fig-padding"><span class="std std-numref">Fig. 3</span></a> in which the padding area is represented in white.</p>
 </div>
 </section>
 <section id="pooling-layers">
-<h4>Pooling layers<a class="headerlink" href="#pooling-layers" title="Permalink to this heading">#</a></h4>
+<h4>Pooling layers<a class="headerlink" href="#pooling-layers" title="Permalink to this headline">#</a></h4>
 <p>Pooling layers perform a subsampling operation that somehow summarizes the information contained in feature maps in lower resolution maps.</p>
 <p>The idea is to compute, for each image patch, an output feature that computes an aggregate of the pixels in the patch.
 Typical aggregation operators are average (in this case the corresponding layer is called an average pooling layer) or maximum (for max pooling layers) operators.
@@ -34327,11 +34410,11 @@ In order to reduce the resolution of the output maps, these aggregates are typic
 </div>
 </section>
 <section id="plugging-fully-connected-layers-at-the-output">
-<h4>Plugging fully-connected layers at the output<a class="headerlink" href="#plugging-fully-connected-layers-at-the-output" title="Permalink to this heading">#</a></h4>
+<h4>Plugging fully-connected layers at the output<a class="headerlink" href="#plugging-fully-connected-layers-at-the-output" title="Permalink to this headline">#</a></h4>
 <p>A stack of convolution and pooling layers outputs a structured activation map (that takes the form of 2d grid with an additional channel dimension).
 When image classification is targeted, the goal is to output the most probable class for the input image, which is usually performed by a classification head that consists in fully-connected layers.</p>
 <p>In order for the classification head to be able to process an activation map, information from this map needs to be transformed into a vector.
-This operation is called flattening in <code class="docutils literal notranslate"><span class="pre">keras</span></code>, and the model corresponding to <a class="reference internal" href="#fig-lenet"><span class="std std-numref">Fig. 3</span></a> can be implemented as:</p>
+This operation is called flattening in <code class="docutils literal notranslate"><span class="pre">keras</span></code>, and the model corresponding to <a class="reference internal" href="#fig-lenet"><span class="std std-numref">Fig. 2</span></a> can be implemented as:</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
@@ -34391,7 +34474,7 @@ _________________________________________________________________
 </section>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <div class="docutils container" id="id5">
 <dl class="citation">
 <dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id3">FFW+19</a></span></dt>
@@ -34431,116 +34514,50 @@ _________________________________________________________________
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="regularization.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Regularization</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="regularization.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Regularization</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="rnn.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="rnn.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Recurrent Neural Networks</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div></div>
-  
-</div>
-
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convnets-for-time-series">ConvNets for time series</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-networks-for-images">Convolutional neural networks for images</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#images-and-convolutions">Images and convolutions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cnns-a-la-lenet">CNNs <em>à la</em> LeNet</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convolution-layers">Convolution layers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pooling-layers">Pooling layers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plugging-fully-connected-layers-at-the-output">Plugging fully-connected layers at the output</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Romain Tavenard
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2022.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
     </div>
-  </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Romain Tavenard<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>
