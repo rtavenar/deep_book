@@ -490,8 +490,8 @@ De plus, il n’est pas suffisant qu’une telle bonne approximation existe, une
 <p>En pratique, nous observons empiriquement que pour atteindre une qualité d’approximation donnée, il est plus efficace (en termes de nombre de paramètres requis) d’empiler plusieurs couches cachées plutôt que de s’appuyer sur une seule :</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-6f97efcd4a35b40413cad3130d197c24fc769224.svg" alt="Figure made with TikZ" /></p>
 </div><p>La représentation graphique ci-dessus correspond au modèle suivant :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-afe58631-8591-4c24-a7f6-6e7cca799200">
-<span class="eqno">(1)<a class="headerlink" href="#equation-afe58631-8591-4c24-a7f6-6e7cca799200" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-18fc6216-b88f-42ef-9e80-250eaf1aed41">
+<span class="eqno">(1)<a class="headerlink" href="#equation-18fc6216-b88f-42ef-9e80-250eaf1aed41" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)

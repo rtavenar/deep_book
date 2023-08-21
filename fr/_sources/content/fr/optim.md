@@ -576,7 +576,7 @@ plt.tight_layout();
 
 On peut constater que la dérivée de ReLU possède une plus grande plage de valeurs d'entrée pour lesquelles elle est non nulle (typiquement toute la plage de valeurs d'entrée positives) que ses concurrentes, ce qui en fait une fonction d'activation très intéressante pour les réseaux neuronaux profonds, car nous avons vu que le terme $\frac{\partial a^{(\ell)}}{\partial o^{(\ell)}}$ apparaît de manière répétée dans les dérivations en chaîne.
 
-## En finir avec les `keras`.
+## Coder tout cela en `keras`
 
 Dans `keras`, les informations sur les pertes et l'optimiseur sont transmises au moment de la compilation :
 
