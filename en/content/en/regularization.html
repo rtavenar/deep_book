@@ -485,10 +485,10 @@ Note that here, the true risk is estimated through the use of a validation set t
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/620a2d55b6fc2c3288587632a911a864bcf8e831db44b7dfc22d49cb4c4d7fff.svg" src="../../_images/620a2d55b6fc2c3288587632a911a864bcf8e831db44b7dfc22d49cb4c4d7fff.svg" /></div>
+<img alt="../../_images/c0545d4e8cd7917ab74c063d395f7b4e7c694a4d528b3f3f52da6af5ea3f1b5b.svg" src="../../_images/c0545d4e8cd7917ab74c063d395f7b4e7c694a4d528b3f3f52da6af5ea3f1b5b.svg" /></div>
 </div>
-<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="output text_plain">12</span>.
-In other words, if we had stopped the learning process after epoch <span class="output text_plain">12</span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
+<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="output text_plain">28</span>.
+In other words, if we had stopped the learning process after epoch <span class="output text_plain">28</span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
 <p>This is the whole idea behind the “early stopping” strategy, which consists in stopping the learning process as soon as the validation loss stops improving.
 As can be seen in the visualization above, however, the validation loss tends to oscillate, and one often waits for several epochs before assuming that the loss is unlikely to improve in the future.
 The number of epochs to wait is called the <em>patience</em> parameter.</p>
@@ -539,9 +539,9 @@ The number of epochs to wait is called the <em>patience</em> parameter.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/8170983ecd99c85adb42b631f66b3647880daa02242b2cb332793c7ce066ee87.svg" src="../../_images/8170983ecd99c85adb42b631f66b3647880daa02242b2cb332793c7ce066ee87.svg" /></div>
+<img alt="../../_images/e3b62406e3a141875a4ce865913c128555da67bd4e3dc93212245670639b2550.svg" src="../../_images/e3b62406e3a141875a4ce865913c128555da67bd4e3dc93212245670639b2550.svg" /></div>
 </div>
-<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="output text_plain">12</span>.</p>
+<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="output text_plain">28</span>.</p>
 </section>
 <section id="loss-penalization">
 <h2>Loss penalization<a class="headerlink" href="#loss-penalization" title="Permalink to this heading">#</a></h2>
@@ -595,7 +595,7 @@ If we denote by <span class="math notranslate nohighlight">\(\mathcal{L}_r\)</sp
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/1e31d24eaed73b4d2a6f02ccfb650d7c39691113934f69084c55b7ed3b9805fa.svg" src="../../_images/1e31d24eaed73b4d2a6f02ccfb650d7c39691113934f69084c55b7ed3b9805fa.svg" /></div>
+<img alt="../../_images/727ae1c5f3fc07dd9bcb8cf91dff92a5452b3c02b7525228c50bf834d5d3090d.svg" src="../../_images/727ae1c5f3fc07dd9bcb8cf91dff92a5452b3c02b7525228c50bf834d5d3090d.svg" /></div>
 </div>
 </section>
 <section id="dropout">
@@ -651,7 +651,7 @@ The main difference here is that one can not only switch off <em>input neurons</
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/1c3a2a2823dd672e14024a29b716d2f32795702ee981430fc9a3e02fd381258c.svg" src="../../_images/1c3a2a2823dd672e14024a29b716d2f32795702ee981430fc9a3e02fd381258c.svg" /></div>
+<img alt="../../_images/ec23a6fb92cbcb851a6b85e9cb6c885c35b4a988fe1dd2a1d76c84d66dbba76c.svg" src="../../_images/ec23a6fb92cbcb851a6b85e9cb6c885c35b4a988fe1dd2a1d76c84d66dbba76c.svg" /></div>
 </div>
 <div class="admonition-exercise-1 admonition">
 <p class="admonition-title">Exercise #1</p>
@@ -763,21 +763,19 @@ By Romain Tavenard
   
   <div class="footer-item">
     
-  <p class="copyright">
+  </div>
+  
+  <div class="footer-item">
     
-      © Copyright 2022.
-      <br/>
+  </div>
+  
+  <div class="footer-item">
     
-  </p>
+<div class="extra_footer">
+  <div><a href="../../../book_en.pdf">Download these notes as PDF</a><br />
+<a href="../../../fr/index.html">Basculer en Français</a></div>
 
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
+</div>
   </div>
   
 </div>
