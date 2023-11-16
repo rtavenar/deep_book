@@ -17,6 +17,7 @@ sphinx:
     latex_elements:
       fncychap: "\\usepackage[Conny]{fncychap}"
       printindex: ""
+    html_show_copyright: false
   extra_extensions:
   - sphinxcontrib.tikz
   - sphinx_proof
@@ -48,7 +49,7 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
-  extra_navbar: |
+  extra_footer: |
     <div><a href="../../../book_en.pdf">Download these notes as PDF</a><br />
     <a href="../../../fr/index.html">Basculer en Français</a></div>
 

@@ -37,6 +37,7 @@ _build/latex/book_fr.pdf: prepare_tex.sh post_process_tex.py ${SRC_FR}
 	chmod u+x prepare_tex.sh && ./prepare_tex.sh
 	jupyter-book build . --builder latex --toc _toc_tex_fr.yml --path-output _build/latex/fr/ --config _config_fr.yml
 	python post_process_tex.py ./_build/latex/fr/_build/latex/book.tex
+	head -3 ./_build/latex/fr/_build/latex/book.tex
 	cd ./_build/latex/fr/_build/latex/ && make && cd -
 	mv ./_build/latex/fr/_build/latex/book.pdf ./_build/latex/book_fr.pdf
 
