@@ -11,6 +11,8 @@ edited_content = edited_content.replace(r"\noindent\sphinxincludegraphics",
                                         r"\noindent\centering\sphinxincludegraphics")
 edited_content = edited_content.replace(r"\section{References}", 
                                         r"% \section{References}")
+edited_content = edited_content.replace(r"\section{Références}", 
+                                        r"% \section{References}")
 edited_content = edited_content.replace(r"\date{", 
                                         r"% \date{")
 
