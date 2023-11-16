@@ -8,5 +8,5 @@ sphinx-proof
 sphinx-subfigure
 seaborn
 docutils==0.17.1
-jupyter-book<0.15
-sphinx-book-theme<=0.3.3
+jupyter-book
+sphinx-book-theme

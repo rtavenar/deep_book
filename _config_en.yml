@@ -35,6 +35,7 @@ parse:
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: force
+  timeout: -1
 only_build_toc_files: true
 
 # Information about where the book exists on the web

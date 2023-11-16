@@ -18,6 +18,7 @@ sphinx:
       fncychap: "\\usepackage[Conny]{fncychap}"
       printindex: ""
     language: "fr"
+    html_show_copyright: false
 
   extra_extensions:
   - sphinxcontrib.tikz
@@ -37,6 +38,7 @@ parse:
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: force
+  timeout: -1
 only_build_toc_files: true
 
 # Information about where the book exists on the web
@@ -49,9 +51,9 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
-  extra_navbar: |
-    <div><a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
-    <a href="../../../en/index.html">Switch to English</a></div>
+  extra_footer: |
+      <div><a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
+      <a href="../../../en/index.html">Switch to English</a></div>
 
 latex:
   latex_documents:
