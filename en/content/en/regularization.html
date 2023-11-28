@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -55,6 +55,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/links.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -142,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -325,6 +327,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -334,6 +337,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -485,10 +489,10 @@ Note that here, the true risk is estimated through the use of a validation set t
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/2611437e94386077ca1ff843465e70dca23287e8a97fc7ba6befa4a970b6b18b.svg" src="../../_images/2611437e94386077ca1ff843465e70dca23287e8a97fc7ba6befa4a970b6b18b.svg" /></div>
+<img alt="../../_images/1974a57e6b982812bda7d326758be865eb129b8e4f97c2abf6da4430f7693fbe.svg" src="../../_images/1974a57e6b982812bda7d326758be865eb129b8e4f97c2abf6da4430f7693fbe.svg" /></div>
 </div>
-<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="output text_plain">13</span>.
-In other words, if we had stopped the learning process after epoch <span class="output text_plain">13</span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
+<p>Here, the best model (in terms of generalization capabilities) seems to be the model at epoch <span class="output text_plain">26</span>.
+In other words, if we had stopped the learning process after epoch <span class="output text_plain">26</span>, we would have gotten a better model than if we use the model trained during 70 epochs.</p>
 <p>This is the whole idea behind the “early stopping” strategy, which consists in stopping the learning process as soon as the validation loss stops improving.
 As can be seen in the visualization above, however, the validation loss tends to oscillate, and one often waits for several epochs before assuming that the loss is unlikely to improve in the future.
 The number of epochs to wait is called the <em>patience</em> parameter.</p>
@@ -539,9 +543,9 @@ The number of epochs to wait is called the <em>patience</em> parameter.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/a764dbb5195fb3c2ef7d726c8abd1305457da1537cc046728b42f4720060ca3a.svg" src="../../_images/a764dbb5195fb3c2ef7d726c8abd1305457da1537cc046728b42f4720060ca3a.svg" /></div>
+<img alt="../../_images/d2826ede561955a8509ea65c206aa6ec6f0823c9ca41b7e6d2cf98bc6a141881.svg" src="../../_images/d2826ede561955a8509ea65c206aa6ec6f0823c9ca41b7e6d2cf98bc6a141881.svg" /></div>
 </div>
-<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="output text_plain">13</span>.</p>
+<p>And now, even is the model was scheduled to be trained for 70 epochs, training is stopped as soon as it reaches 10 consecutive epochs without improving on the validation loss, and the model parameters are restored as the parameters of the model at epoch <span class="output text_plain">26</span>.</p>
 </section>
 <section id="loss-penalization">
 <h2>Loss penalization<a class="headerlink" href="#loss-penalization" title="Permalink to this heading">#</a></h2>
@@ -595,7 +599,7 @@ If we denote by <span class="math notranslate nohighlight">\(\mathcal{L}_r\)</sp
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/2459d8ac5704a62c9f2caa15bef2849c228c5d3fe70f3a6d76a5a2aec9bb16c4.svg" src="../../_images/2459d8ac5704a62c9f2caa15bef2849c228c5d3fe70f3a6d76a5a2aec9bb16c4.svg" /></div>
+<img alt="../../_images/f4ce3f2ee82eb903fcc1ce610f8d64dac25048e343f0bf556cd5c4323f57f779.svg" src="../../_images/f4ce3f2ee82eb903fcc1ce610f8d64dac25048e343f0bf556cd5c4323f57f779.svg" /></div>
 </div>
 </section>
 <section id="dropout">
@@ -651,7 +655,7 @@ The main difference here is that one can not only switch off <em>input neurons</
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/bd474e3e2f91421431631280619601fd595d2ba93d127ec91e1f35633852a487.svg" src="../../_images/bd474e3e2f91421431631280619601fd595d2ba93d127ec91e1f35633852a487.svg" /></div>
+<img alt="../../_images/bc6588e93026e7bd313d71d3351371daa68935101bf46a4a31888fdef78b4f43.svg" src="../../_images/bc6588e93026e7bd313d71d3351371daa68935101bf46a4a31888fdef78b4f43.svg" /></div>
 </div>
 <div class="admonition-exercise-1 admonition">
 <p class="admonition-title">Exercise #1</p>
@@ -703,7 +707,7 @@ Now, if we recall that during training, at each minibatch, 30% of the neurons ar
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="optim.html"
@@ -763,6 +767,7 @@ By Romain Tavenard
   
   <div class="footer-item">
     
+
   </div>
   
   <div class="footer-item">
@@ -773,7 +778,7 @@ By Romain Tavenard
     
 <div class="extra_footer">
   <div><a href="../../../book_en.pdf">Download these notes as PDF</a><br />
-<a href="../../../fr/index.html">Basculer en Français</a></div>
+<a href="../../../fr/index.html" id="switch_lang">Basculer en Français</a></div>
 
 </div>
   </div>
@@ -787,8 +792,8 @@ By Romain Tavenard
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
