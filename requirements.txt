@@ -10,4 +10,4 @@ seaborn
 docutils==0.17.1
 jupyter-book
 sphinx-book-theme
-matplotlib
+matplotlib==3.7.2
