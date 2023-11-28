@@ -89,15 +89,15 @@ for pos in list(range(5, 35)) + list(range(35, 5, -1)):
 
     plt.subplot(2, 1, 1)
     plt.plot(x, 'b-')
-    plt.title("Input time series")
+    plt.title("Série temporelle")
     fig2 = plt.subplot(2, 1, 2)
     plt.plot(act, 'r-')
-    plt.title("Activation map")
+    plt.title("Carte d'activation")
 
     axes2 = fig.add_axes([.15, .35, 0.2, 0.1]) # renvoie un objet Axes
     axes2.plot(f, 'k-')
     axes2.set_xticks([])
-    axes2.set_title("Filter")
+    axes2.set_title("Filtre")
 
     plt.tight_layout()
     camera.snap()

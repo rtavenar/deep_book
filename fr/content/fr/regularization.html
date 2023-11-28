@@ -490,10 +490,10 @@ Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ens
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/adf1b350367e2c978eedfbab44330a9510b40910fe3ba66cb34d8cd77714e8d3.svg" src="../../_images/adf1b350367e2c978eedfbab44330a9510b40910fe3ba66cb34d8cd77714e8d3.svg" /></div>
+<img alt="../../_images/54d6927734ef31c8bf583012c66b0748657f5fc893c5be5fe6c0683b675c7534.svg" src="../../_images/54d6927734ef31c8bf583012c66b0748657f5fc893c5be5fe6c0683b675c7534.svg" /></div>
 </div>
-<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">29</span>.
-En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">29</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
+<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">54</span>.
+En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">54</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
 <p>C’est toute l’idée derrière la stratégie d”<em>early stopping</em>, qui consiste à arrêter le processus d’apprentissage dès que la perte de validation cesse de s’améliorer.
 Cependant, comme on peut le voir dans la visualisation ci-dessus, la perte de validation a tendance à osciller, et on attend souvent plusieurs <em>epochs</em> avant de supposer que la perte a peu de chances de s’améliorer dans le futur.
 Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patience</em>.</p>
@@ -544,9 +544,9 @@ Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patie
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/4a82e0d99d4769ebfaf67b4736cae2f2fcca97849bf658a7e58cd297e7a402ed.svg" src="../../_images/4a82e0d99d4769ebfaf67b4736cae2f2fcca97849bf658a7e58cd297e7a402ed.svg" /></div>
+<img alt="../../_images/a65d76ccd07205b102d566e96a299f0f88893caeccca07f147c82b0b6126fa2a.svg" src="../../_images/a65d76ccd07205b102d566e96a299f0f88893caeccca07f147c82b0b6126fa2a.svg" /></div>
 </div>
-<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">5</span>.</p>
+<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">34</span>.</p>
 </section>
 <section id="penalisation-de-la-perte">
 <h2>Pénalisation de la perte<a class="headerlink" href="#penalisation-de-la-perte" title="Lien permanent vers cette rubrique">#</a></h2>
@@ -600,7 +600,7 @@ Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/6ea620782fc96b3fe2ed99099da5909a5830cb28948ef9416b3d00d1555b2fc2.svg" src="../../_images/6ea620782fc96b3fe2ed99099da5909a5830cb28948ef9416b3d00d1555b2fc2.svg" /></div>
+<img alt="../../_images/cd3f2245de506c2d54a253d5d62d9f8c552d478846f725200405a85328dfd035.svg" src="../../_images/cd3f2245de506c2d54a253d5d62d9f8c552d478846f725200405a85328dfd035.svg" /></div>
 </div>
 </section>
 <section id="dropout">
@@ -656,7 +656,7 @@ La principale différence ici est que l’on peut non seulement désactiver les 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/51314fa4c2a7bc46b69687b9dc892ab5689c1155f3ead80081066771adc81160.svg" src="../../_images/51314fa4c2a7bc46b69687b9dc892ab5689c1155f3ead80081066771adc81160.svg" /></div>
+<img alt="../../_images/87c3e777f071e613687b91e999cfce4cbc89b597732d308c296463c377e2b097.svg" src="../../_images/87c3e777f071e613687b91e999cfce4cbc89b597732d308c296463c377e2b097.svg" /></div>
 </div>
 <div class="admonition-exercice-1 admonition">
 <p class="admonition-title">Exercice #1</p>

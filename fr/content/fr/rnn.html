@@ -418,8 +418,8 @@ calculée.</p>
 <section id="reseaux-recurrents-standard">
 <h2>Réseaux récurrents standard<a class="headerlink" href="#reseaux-recurrents-standard" title="Lien permanent vers cette rubrique">#</a></h2>
 <p>La formulation originale d’une RNN est la suivante :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7c2a7c7a-13ce-4d7a-80fc-a5b68dab4c22">
-<span class="eqno">(5)<a class="headerlink" href="#equation-7c2a7c7a-13ce-4d7a-80fc-a5b68dab4c22" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b604ef89-c506-4d99-b1ab-5d1fadecd44e">
+<span class="eqno">(5)<a class="headerlink" href="#equation-b604ef89-c506-4d99-b1ab-5d1fadecd44e" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \forall t, h_t = \text{tanh}(W_h h_{t-1} + W_x x_t + b)
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(W_h\)</span> est une matrice de poids associée au traitement de l’état caché précédent, <span class="math notranslate nohighlight">\(W_x\)</span> est une autre matrice de poids associée au traitement de la
@@ -430,19 +430,19 @@ qu’ils sont <strong>partagés entre tous les temps</strong>.</p>
 Pour mieux comprendre pourquoi, il faut se rappeler que les paramètres de ces réseaux sont optimisés par des  algorithmes de descente de gradient stochastique.</p>
 <p>Pour simplifier les notations, considérons un cas simplifié dans lequel
 <span class="math notranslate nohighlight">\(h_t\)</span> et <span class="math notranslate nohighlight">\(x_t\)</span> sont tous deux des valeurs scalaires, et regardons ce que vaut le gradient de la sortie <span class="math notranslate nohighlight">\(h_t\)</span> par rapport à <span class="math notranslate nohighlight">\(W_h\)</span> (qui est alors aussi un scalaire) :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8df5a987-ac75-46db-960e-8bb3776a622a">
-<span class="eqno">(6)<a class="headerlink" href="#equation-8df5a987-ac75-46db-960e-8bb3776a622a" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-08f96f2f-5ae2-4d16-aa38-2aeb38b22203">
+<span class="eqno">(6)<a class="headerlink" href="#equation-08f96f2f-5ae2-4d16-aa38-2aeb38b22203" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \nabla_{W_h}(h_t) = \text{tanh}^\prime(o_t) \cdot \frac{\partial o_t}{\partial W_h}
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(o_t = W_h h_{t-1} + W_x x_t + b\)</span>, donc:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cf47b3b7-1f6b-430b-b780-f8db137da82f">
-<span class="eqno">(7)<a class="headerlink" href="#equation-cf47b3b7-1f6b-430b-b780-f8db137da82f" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a6f6549e-ea15-4ca7-8ff3-c3482e5a6260">
+<span class="eqno">(7)<a class="headerlink" href="#equation-a6f6549e-ea15-4ca7-8ff3-c3482e5a6260" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \frac{\partial o_t}{\partial W_h} = h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h} \, .
 \end{equation}\]</div>
 <p>Ici, la forme de <span class="math notranslate nohighlight">\(\frac{\partial h_{t-1}}{\partial W_h}\)</span> sera similaire à
 celle de <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span> ci-dessus, et, au final, on obtient :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fad77cf0-ffae-4fb4-bbda-9c9d7031fd2d">
-<span class="eqno">(8)<a class="headerlink" href="#equation-fad77cf0-ffae-4fb4-bbda-9c9d7031fd2d" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-4822c97c-58da-4433-b746-88f77d9a0264">
+<span class="eqno">(8)<a class="headerlink" href="#equation-4822c97c-58da-4433-b746-88f77d9a0264" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
     \nabla_{W_h}(h_t) &amp;=&amp; \text{tanh}^\prime(o_t) \cdot
         \left[
             h_{t-1} + W_h \cdot \frac{\partial h_{t-1}}{\partial W_h}
@@ -487,7 +487,7 @@ celle de <span class="math notranslate nohighlight">\(\nabla_{W_h}(h_t)\)</span>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/7381f911318669143530e01cadbf0368660ebfd3790a88097fe0796b5ed1f5b4.svg" src="../../_images/7381f911318669143530e01cadbf0368660ebfd3790a88097fe0796b5ed1f5b4.svg" /></div>
+<img alt="../../_images/0bed73cb69dedf79869d4815b8d7713637ea5d49d5739a4314f75e8004744839.svg" src="../../_images/0bed73cb69dedf79869d4815b8d7713637ea5d49d5739a4314f75e8004744839.svg" /></div>
 </div>
 <p>On peut voir à quel point les gradients se rapprochent rapidement de 0 pour des entrées plus grandes (en valeur absolue) que 2, et avoir plusieurs termes de ce type dans une
 dérivation en chaîne fera tendre les termes correspondants vers 0.</p>
@@ -510,8 +510,8 @@ La porte <span class="math notranslate nohighlight">\(g\)</span> aura donc tenda
 </div>
 <p>Dans ces blocs, un état supplémentaire est utilisé, appelé état de la cellule <span class="math notranslate nohighlight">\(C_t\)</span>.
 Cet état est calculé comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b26b6bd8-3a18-4a08-b591-0df12eaafeb6">
-<span class="eqno">(9)<a class="headerlink" href="#equation-b26b6bd8-3a18-4a08-b591-0df12eaafeb6" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f8579fc5-d745-43ca-8716-9f16656360dc">
+<span class="eqno">(9)<a class="headerlink" href="#equation-f8579fc5-d745-43ca-8716-9f16656360dc" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(f_t\)</span> est appelée <em>forget gate</em> (elle pousse le réseau à oublier les parties inutiles de l’état passé de la cellule),
@@ -522,15 +522,15 @@ par l”<em>input gate</em>).</p>
 En effet, dans ce cas, si le réseau l’apprend (par l’intermédiaire de <span class="math notranslate nohighlight">\(f_t\)</span>), l’information complète de l’état précédent  de la cellule <span class="math notranslate nohighlight">\(C_{t-1}\)</span> peut être récupérée,
 ce qui permet aux gradients de se propager à rebours de l’axe du temps (et de ne plus disparaître).</p>
 <p>Alors, le lien entre l’état de la cellule et l’état caché est :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ac175c63-1241-46fa-b49f-d7b4d5b08d63">
-<span class="eqno">(10)<a class="headerlink" href="#equation-ac175c63-1241-46fa-b49f-d7b4d5b08d63" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-42b8bc67-f3b4-4bd4-a54f-a20079cb20f1">
+<span class="eqno">(10)<a class="headerlink" href="#equation-42b8bc67-f3b4-4bd4-a54f-a20079cb20f1" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     h_t = o_t \odot \text{tanh}(C_{t}) \, .
 \end{equation}\]</div>
 <p>En d’autres termes, l’état caché est la version transformée (par la fonction tanh) de l’état de la cellule,
 encore censuré par une porte de sortie (<em>output gate</em>) <span class="math notranslate nohighlight">\(o_t\)</span>.</p>
 <p>Toutes les portes utilisées dans les formules ci-dessus sont définies de manière similaire :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-daf7e59c-73a4-46d6-b72b-126a1b988f8b">
-<span class="eqno">(11)<a class="headerlink" href="#equation-daf7e59c-73a4-46d6-b72b-126a1b988f8b" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
+<div class="amsmath math notranslate nohighlight" id="equation-368039b8-c669-4052-81a8-fe022d64abce">
+<span class="eqno">(11)<a class="headerlink" href="#equation-368039b8-c669-4052-81a8-fe022d64abce" title="Lien permanent vers cette équation">#</a></span>\[\begin{eqnarray}
     f_t &amp;=&amp; \sigma ( W_f \cdot [h_{t-1}, x_t] + b_f) \\
     i_t &amp;=&amp; \sigma ( W_i \cdot [h_{t-1}, x_t] + b_i) \\
     o_t &amp;=&amp; \sigma ( W_o \cdot [h_{t-1}, x_t] + b_o)
@@ -539,8 +539,8 @@ encore censuré par une porte de sortie (<em>output gate</em>) <span class="math
 (dont les valeurs sont comprises dans <span class="math notranslate nohighlight">\([0, 1]\)</span>) et
 <span class="math notranslate nohighlight">\([h_{t-1}, x_t]\)</span> la concaténation des caractéristiques <span class="math notranslate nohighlight">\(h_{t-1}\)</span> et <span class="math notranslate nohighlight">\(x_t\)</span>.</p>
 <p>Enfin, l’état de cellule mis à jour <span class="math notranslate nohighlight">\(\tilde{C}_t\)</span> est calculé comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a0792413-d844-4588-90ce-9193ebc4b16d">
-<span class="eqno">(12)<a class="headerlink" href="#equation-a0792413-d844-4588-90ce-9193ebc4b16d" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ddb8edf1-0080-46f6-a645-23041a0aae5c">
+<span class="eqno">(12)<a class="headerlink" href="#equation-ddb8edf1-0080-46f6-a645-23041a0aae5c" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \tilde{C}_t = \text{tanh}(W_C \cdot [h_{t-1}, x_t] + b_C) \, .
 \end{equation}\]</div>
 <p>Il existe dans la littérature de nombreuses variantes de ces blocs LSTM qui reposent toujours sur les mêmes principes de base.</p>
@@ -551,16 +551,16 @@ encore censuré par une porte de sortie (<em>output gate</em>) <span class="math
 <p>Les GRUs reposent également sur l’utilisation de portes pour laisser (de manière adaptative) l’information circuler à travers le temps.
 Une première différence significative entre les GRUs et les LSTMs est que les GRUs n’ont pas recours à l’utilisation d’un état de cellule.
 Au lieu de cela, la règle de mise à jour de l’état caché est la suivante :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c9782de6-cee0-4d91-9843-a6f49b450c6f">
-<span class="eqno">(13)<a class="headerlink" href="#equation-c9782de6-cee0-4d91-9843-a6f49b450c6f" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-0b317756-f14c-4af8-9a6f-b819298bb5fb">
+<span class="eqno">(13)<a class="headerlink" href="#equation-0b317756-f14c-4af8-9a6f-b819298bb5fb" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(z_t\)</span> est une porte qui équilibre (par caractéristique) la quantité d’informations
 qui est conservée de l’état caché précédent avec la quantité d’informations
 qui doit être mise à jour en utilisant le nouvel état caché candidat <span class="math notranslate nohighlight">\(\tilde{h}_t\)</span>,
 calculé comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-feb4f1b1-dc69-49bc-8e0b-546e53fe8513">
-<span class="eqno">(14)<a class="headerlink" href="#equation-feb4f1b1-dc69-49bc-8e0b-546e53fe8513" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-cc0f20ac-93a0-43fc-84cf-2cee7a565c7b">
+<span class="eqno">(14)<a class="headerlink" href="#equation-cc0f20ac-93a0-43fc-84cf-2cee7a565c7b" title="Lien permanent vers cette équation">#</a></span>\[\begin{equation}
     \tilde{h}_t = \text{tanh}(W \cdot [r_t \odot h_{t-1}, x_t] + b) \, ,
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(r_t\)</span> est une porte supplémentaire qui peut cacher une partie de l’état caché précédent.</p>
