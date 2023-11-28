@@ -53,7 +53,7 @@ html:
   use_repository_button: true
   extra_footer: |
       <div><a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
-      <a href="../../../en/index.html">Switch to English</a></div>
+      <a href="../../../en/index.html" id="switch_lang">Switch to English</a></div>
 
 latex:
   latex_documents:
