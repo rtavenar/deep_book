@@ -412,8 +412,8 @@ De plus, il n’est pas suffisant qu’une telle bonne approximation existe, une
 <p>En pratique, nous observons empiriquement que pour atteindre une qualité d’approximation donnée, il est plus efficace (en termes de nombre de paramètres requis) d’empiler plusieurs couches cachées plutôt que de s’appuyer sur une seule :</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-6f97efcd4a35b40413cad3130d197c24fc769224.svg" alt="Figure made with TikZ" /></p>
 </div><p>La représentation graphique ci-dessus correspond au modèle suivant :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb303107-6e0f-442d-864e-353f91c8370c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-cb303107-6e0f-442d-864e-353f91c8370c" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0e241a7f-c696-4f52-85a3-17956b86fc1e">
+<span class="eqno">(1)<a class="headerlink" href="#equation-0e241a7f-c696-4f52-85a3-17956b86fc1e" title="Lien permanent vers cette équation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
@@ -639,7 +639,7 @@ En pratique, nous utiliserons donc des fonctions d’activation qui ont un certa
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/3a06a9fa19ce6d5494291b5f0f9d9e3c42e163f59ffff6e4117e410c0ac5db51.svg" src="../../_images/3a06a9fa19ce6d5494291b5f0f9d9e3c42e163f59ffff6e4117e410c0ac5db51.svg" /></div>
+<img alt="../../_images/67224f4665b94b54b41b04254057733871862d4ef79df80d3f90e4411a6e1c4e.svg" src="../../_images/67224f4665b94b54b41b04254057733871862d4ef79df80d3f90e4411a6e1c4e.svg" /></div>
 </div>
 <p>En pratique, la fonction ReLU (et certaines de ses variantes) est la plus utilisée de nos jours, pour des raisons qui seront discutées plus en détail dans <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">notre chapitre consacré à l’optimisation</span></a>.</p>
 <section id="le-cas-particulier-de-la-couche-de-sortie">
