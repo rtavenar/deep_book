@@ -8,3 +8,4 @@ chapters:
 - file: content/en/regularization
 - file: content/en/convnets
 - file: content/en/rnn
+- file: content/en/attention
