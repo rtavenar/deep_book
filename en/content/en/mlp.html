@@ -424,8 +424,8 @@ Moreover, it is not sufficient that such a good approximation exists, another im
 <p>In practice, we observe empirically that in order to achieve a given approximation quality, it is more efficient (in terms of the number of parameters required) to stack several hidden layers rather than rely on a single one:</p>
 <div class="figure" style="text-align: center"><p><img  src="../../_images/tikz-4670b96ed1fdbb9f65a452032fcb97f6198dad87.svg" alt="Figure made with TikZ" /></p>
 </div><p>The above graphical representation corresponds to the following model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d8a73cec-3553-4822-9b1b-4cd838ae931c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-d8a73cec-3553-4822-9b1b-4cd838ae931c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5e6071c7-ecc6-4226-aaba-aa1894de5d71">
+<span class="eqno">(1)<a class="headerlink" href="#equation-5e6071c7-ecc6-4226-aaba-aa1894de5d71" title="Permalink to this equation">#</a></span>\[\begin{align}
   {\color[rgb]{0,1,0}\hat{y}} &amp;= \varphi_\text{out} \left( \sum_i w^{(2)}_{i} {\color{teal}h^{(2)}_{i}} + b^{(2)} \right) \\
   \forall i, {\color{teal}h^{(2)}_{i}} &amp;= \varphi \left( \sum_j w^{(1)}_{ij} {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{j}} + b^{(1)}_{i} \right) \\
   \forall i, {\color[rgb]{0.16,0.61,0.91}h^{(1)}_{i}} &amp;= \varphi \left( \sum_j w^{(0)}_{ij} {\color{blue}x_{j}} + b^{(0)}_{i} \right)
@@ -651,7 +651,7 @@ In practice, we will then use activation functions that have some linear regime 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/d6c2576d315c054504ba5fb104bc7fa556ec48e6c40db6fb2fa569c64d28df9f.svg" src="../../_images/d6c2576d315c054504ba5fb104bc7fa556ec48e6c40db6fb2fa569c64d28df9f.svg" />
+<img alt="../../_images/d6e514f949eb933fd310dec6b6bfcd6b4f5e1f1037996cfd2d3a2755adc78396.svg" src="../../_images/d6e514f949eb933fd310dec6b6bfcd6b4f5e1f1037996cfd2d3a2755adc78396.svg" />
 </div>
 </div>
 <p>In practice the ReLU function (and some of its variants) is the most widely used nowadays, for reasons that will be discussed in more details in <a class="reference internal" href="optim.html#sec-sgd"><span class="std std-ref">our chapter dedicated to optimization</span></a>.</p>

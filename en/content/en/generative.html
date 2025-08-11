@@ -406,8 +406,8 @@ document.write(`
 <section id="auto-encoders">
 <h2>Auto-encoders<a class="headerlink" href="#auto-encoders" title="Link to this heading">#</a></h2>
 <p>Auto-encoders <span id="id1">[<a class="reference internal" href="#id34" title="Geoffrey E Hinton and Ruslan R Salakhutdinov. Reducing the dimensionality of data with neural networks. Science, 313(5786):504–507, 2006.">Hinton and Salakhutdinov, 2006</a>]</span> are networks that learn to compress information into a latent space. An auto-encoder consists of an Encoder block and a Decoder block, used as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-802514a4-8d54-41ae-8752-3382f27c4230">
-<span class="eqno">(15)<a class="headerlink" href="#equation-802514a4-8d54-41ae-8752-3382f27c4230" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d48a009e-76c6-401b-a20b-48aad82a4b74">
+<span class="eqno">(15)<a class="headerlink" href="#equation-d48a009e-76c6-401b-a20b-48aad82a4b74" title="Permalink to this equation">#</a></span>\[\begin{align}
 z =&amp; \text{Encoder}(x) \\
 \hat{x} =&amp; \text{Decoder}(z)
 \end{align}\]</div>
@@ -430,8 +430,8 @@ z =&amp; \text{Encoder}(x) \\
 <li><p>a Discriminator <span class="math notranslate nohighlight">\(D\)</span> that predicts whether an input <span class="math notranslate nohighlight">\(x\)</span> is real (<span class="math notranslate nohighlight">\(y=1\)</span>) or generated (<span class="math notranslate nohighlight">\(y=0\)</span>)</p></li>
 </ul>
 <p>The optimized loss function is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1f3a42c7-ab4a-4f60-a912-4b27d4cd601c">
-<span class="eqno">(16)<a class="headerlink" href="#equation-1f3a42c7-ab4a-4f60-a912-4b27d4cd601c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a1321b62-dfc7-4173-b374-cf147c8031a8">
+<span class="eqno">(16)<a class="headerlink" href="#equation-a1321b62-dfc7-4173-b374-cf147c8031a8" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathbb{E}_{x \sim p_r}[\log D(x)] + \mathbb{E}_{z \sim p_z}[\log (1 - D(G(z)))]
 \end{equation}\]</div>
 <p>In practice, training alternates between updating <span class="math notranslate nohighlight">\(D\)</span> (better discrimination, maximizing the loss) and updating <span class="math notranslate nohighlight">\(G\)</span> (better generation, minimizing the loss).</p>
@@ -445,14 +445,14 @@ z =&amp; \text{Encoder}(x) \\
 <section id="conditional-flow-matching">
 <h2>Conditional Flow Matching<a class="headerlink" href="#conditional-flow-matching" title="Link to this heading">#</a></h2>
 <p>Conditional Flow Matching, proposed by <span id="id6">[<a class="reference internal" href="#id38" title="Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le. Flow matching for generative modeling. In Proceedings of the International Conference on Learning Representations. 2023.">Lipman <em>et al.</em>, 2023</a>]</span>, consists in learning a vector field that progressively transports samples from noise (initial state <span class="math notranslate nohighlight">\(t=0\)</span>, corresponding to the <span class="math notranslate nohighlight">\(z\)</span> introduced above for VAEs and GANs) to real data (final state <span class="math notranslate nohighlight">\(t=1\)</span>, corresponding to <span class="math notranslate nohighlight">\(x\)</span> above). Training relies on minimizing the following loss function:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c6d75346-6bcf-44af-8d58-b0634f51a983">
-<span class="eqno">(17)<a class="headerlink" href="#equation-c6d75346-6bcf-44af-8d58-b0634f51a983" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6af4ec79-e792-45ac-9290-6a334dc3b6da">
+<span class="eqno">(17)<a class="headerlink" href="#equation-6af4ec79-e792-45ac-9290-6a334dc3b6da" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathbb{E}_{x_0, x_1, t} \left[ u^\theta (x, t) - (x_1 - x_0) \right]
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x = t x_0 + (1 - t) x_1\)</span>.</p>
 <p>Once the model <span class="math notranslate nohighlight">\(u^\theta\)</span> is learned, generation is performed by solving a differential equation, for example with the Euler scheme, starting from a sample <span class="math notranslate nohighlight">\(x_0\)</span> drawn from <span class="math notranslate nohighlight">\(\mathcal{N}(0, I)\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0a49d699-d3e9-4108-aa48-dc902d90827e">
-<span class="eqno">(18)<a class="headerlink" href="#equation-0a49d699-d3e9-4108-aa48-dc902d90827e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-dbe4db19-3b26-4d34-9025-528239554651">
+<span class="eqno">(18)<a class="headerlink" href="#equation-dbe4db19-3b26-4d34-9025-528239554651" title="Permalink to this equation">#</a></span>\[\begin{equation}
 x_{t+\varepsilon} \leftarrow x_t + \varepsilon u^\theta (x_t, t)
 \end{equation}\]</div>
 <p>This process can be seen as a guided interpolation between noise and data.</p>

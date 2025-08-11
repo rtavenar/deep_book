@@ -418,8 +418,8 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 <p>Convolutional neural networks for time series rely on the
 1D convolution operator that, given a time series <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and a filter
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, computes an activation map as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-470d9407-6a3c-4125-8655-2ddc11e7e507">
-<span class="eqno">(2)<a class="headerlink" href="#equation-470d9407-6a3c-4125-8655-2ddc11e7e507" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-d76106cd-fc9e-43fe-8719-8cfe08bcd365">
+<span class="eqno">(2)<a class="headerlink" href="#equation-d76106cd-fc9e-43fe-8719-8cfe08bcd365" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}\]</div>
 <p>where the filter <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> is of length <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
@@ -460,7 +460,7 @@ In this chapter, we will discuss two flavours of ConvNets: we will start with th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/fda530bac00f829fdf6506fbd78383c024f79d63c5c6eaf76c7dea441d4adbce.svg" src="../../_images/fda530bac00f829fdf6506fbd78383c024f79d63c5c6eaf76c7dea441d4adbce.svg" />
+<img alt="../../_images/782eb9528d4b3e0d48923bf12ad5ad327d278ed4646dd4cf0a2425b49953d823.svg" src="../../_images/782eb9528d4b3e0d48923bf12ad5ad327d278ed4646dd4cf0a2425b49953d823.svg" />
 </div>
 </details>
 </div>
@@ -520,7 +520,7 @@ output:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6374/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6414/368849627.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -709,42 +709,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img7dbed43b58fc4864aaccad6c76a0b8dd">
+  <img id="_anim_imgec49ba8f3cc745ebbbbe3512ca6317ab">
   <div class="anim-controls">
-    <input id="_anim_slider7dbed43b58fc4864aaccad6c76a0b8dd" type="range" class="anim-slider"
+    <input id="_anim_sliderec49ba8f3cc745ebbbbe3512ca6317ab" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim7dbed43b58fc4864aaccad6c76a0b8dd.set_frame(parseInt(this.value));">
+           oninput="animec49ba8f3cc745ebbbbe3512ca6317ab.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim7dbed43b58fc4864aaccad6c76a0b8dd.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animec49ba8f3cc745ebbbbe3512ca6317ab.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select7dbed43b58fc4864aaccad6c76a0b8dd"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectec49ba8f3cc745ebbbbe3512ca6317ab"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_7dbed43b58fc4864aaccad6c76a0b8dd"
+      <input type="radio" name="state" value="once" id="_anim_radio1_ec49ba8f3cc745ebbbbe3512ca6317ab"
              >
-      <label for="_anim_radio1_7dbed43b58fc4864aaccad6c76a0b8dd">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_7dbed43b58fc4864aaccad6c76a0b8dd"
+      <label for="_anim_radio1_ec49ba8f3cc745ebbbbe3512ca6317ab">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_ec49ba8f3cc745ebbbbe3512ca6317ab"
              checked>
-      <label for="_anim_radio2_7dbed43b58fc4864aaccad6c76a0b8dd">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_7dbed43b58fc4864aaccad6c76a0b8dd"
+      <label for="_anim_radio2_ec49ba8f3cc745ebbbbe3512ca6317ab">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_ec49ba8f3cc745ebbbbe3512ca6317ab"
              >
-      <label for="_anim_radio3_7dbed43b58fc4864aaccad6c76a0b8dd">Reflect</label>
+      <label for="_anim_radio3_ec49ba8f3cc745ebbbbe3512ca6317ab">Reflect</label>
     </form>
   </div>
 </div>
@@ -754,9 +754,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img7dbed43b58fc4864aaccad6c76a0b8dd";
-    var slider_id = "_anim_slider7dbed43b58fc4864aaccad6c76a0b8dd";
-    var loop_select_id = "_anim_loop_select7dbed43b58fc4864aaccad6c76a0b8dd";
+    var img_id = "_anim_imgec49ba8f3cc745ebbbbe3512ca6317ab";
+    var slider_id = "_anim_sliderec49ba8f3cc745ebbbbe3512ca6317ab";
+    var loop_select_id = "_anim_loop_selectec49ba8f3cc745ebbbbe3512ca6317ab";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -31788,7 +31788,7 @@ RURERHyMAqCIiIiIj1EAFBEREfExCoAiIiIiPub/AQ1B3pAWzWxvAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim7dbed43b58fc4864aaccad6c76a0b8dd = new Animation(frames, img_id, slider_id, 200.0,
+        animec49ba8f3cc745ebbbbe3512ca6317ab = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -31857,7 +31857,7 @@ Color images are typically made of 3 channels (Red, Green and Blue here).</p>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-cat">
-<img alt="../../_images/a4e8811cb9c9b7db66bbf772abe5d43201aad399eca8b87a534b2aaf05958d4f.svg" src="../../_images/a4e8811cb9c9b7db66bbf772abe5d43201aad399eca8b87a534b2aaf05958d4f.svg" />
+<img alt="../../_images/f7688aeafd1b0153a4b3e8d8643b059a335ecc0253490e0e1405297d969cc322.svg" src="../../_images/f7688aeafd1b0153a4b3e8d8643b059a335ecc0253490e0e1405297d969cc322.svg" />
 <figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">An image and its 3 channels
 (Red, Green and Blue intensity,
@@ -31867,8 +31867,8 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Link to 
 </div>
 </div>
 <p>The output of a convolution on an image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is a new image, whose pixel values can be computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-43f48ad2-99bf-40ca-be40-f4176187753e">
-<span class="eqno">(3)<a class="headerlink" href="#equation-43f48ad2-99bf-40ca-be40-f4176187753e" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-af2738e0-e537-43d0-bfff-fff30366c12d">
+<span class="eqno">(3)<a class="headerlink" href="#equation-af2738e0-e537-43d0-bfff-fff30366c12d" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}\]</div>
 <p>In other words, the output image pixels are computed as the dot product between a convolution filter (which is a tensor of shape <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) and the image patch centered at the given position.</p>
@@ -31895,7 +31895,7 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Link to 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/8edcc525d74bac4f19149985ea9dc0865f06606020acdfcbfc8ad4deabea1bdb.svg" src="../../_images/8edcc525d74bac4f19149985ea9dc0865f06606020acdfcbfc8ad4deabea1bdb.svg" />
+<img alt="../../_images/c91955b675886badeac69db99eb6a986b33ff9dc27449277ec9fc81e49907384.svg" src="../../_images/c91955b675886badeac69db99eb6a986b33ff9dc27449277ec9fc81e49907384.svg" />
 </div>
 </div>
 <p>Then the output of the convolution of the cat image above with this filter is the following greyscale (<em>ie.</em> single channel) image:</p>
@@ -31920,7 +31920,7 @@ from left to right).</span><a class="headerlink" href="#fig-cat" title="Link to 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/5cd6ab0a0d26020dd1fe3f2dcd69e02eb9d95ea8f6c7bf53756c7f586ae57ba3.svg" src="../../_images/5cd6ab0a0d26020dd1fe3f2dcd69e02eb9d95ea8f6c7bf53756c7f586ae57ba3.svg" />
+<img alt="../../_images/1ad01cde6a045e65ee1feb0cc82a980656b3c38e7737fec40833d6e5cd938fcc.svg" src="../../_images/1ad01cde6a045e65ee1feb0cc82a980656b3c38e7737fec40833d6e5cd938fcc.svg" />
 </div>
 </div>
 <p>One might notice that this image is a blurred version of the original image.
@@ -31944,8 +31944,8 @@ Each convolution filter generates an output activation map and all these maps ar
 All filters in a layer share the same width and height.
 A bias term and an activation function can be used in convolution layers, as in other neural network layers.
 All in all, the output of a convolution filter is computed as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bf4f8e6b-cc4c-4dba-bfc9-bec68fef4db0">
-<span class="eqno">(4)<a class="headerlink" href="#equation-bf4f8e6b-cc4c-4dba-bfc9-bec68fef4db0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-49840f3d-7942-40e7-9c44-8881aa0c12f2">
+<span class="eqno">(4)<a class="headerlink" href="#equation-49840f3d-7942-40e7-9c44-8881aa0c12f2" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(c\)</span> denotes the output channel (note that each output channel is associated with a filter <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> is its associated bias term and <span class="math notranslate nohighlight">\(\varphi\)</span> is the activation function to be used.</p>

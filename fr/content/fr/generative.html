@@ -408,12 +408,12 @@ document.write(`
 <h2>Auto-encodeurs<a class="headerlink" href="#auto-encodeurs" title="Lien vers cette rubrique">#</a></h2>
 <p>Les auto-encodeurs <span id="id1">[<a class="reference internal" href="#id34" title="Geoffrey E Hinton and Ruslan R Salakhutdinov. Reducing the dimensionality of data with neural networks. Science, 313(5786):504–507, 2006.">Hinton and Salakhutdinov, 2006</a>]</span> sont des réseaux qui apprennent à compresser l’information dans un espace latent.
 Un auto-encodeur est constitué d’un bloc Encodeur et d’un Bloc Décodeur, utilisés comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-12dbfe2e-e939-4d71-acf8-adfeacfaf098">
-<span class="eqno">(15)<a class="headerlink" href="#equation-12dbfe2e-e939-4d71-acf8-adfeacfaf098" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-be733868-c384-4da3-8075-8964fc6b28ea">
+<span class="eqno">(15)<a class="headerlink" href="#equation-be733868-c384-4da3-8075-8964fc6b28ea" title="Permalink to this equation">#</a></span>\[\begin{align}
 z =&amp; \text{Encodeur}(x) \\
 \hat{x} =&amp; \text{Decodeur}(z)
 \end{align}\]</div>
-<p>Autrement dit, un encodeur projette l’entrée <span class="math notranslate nohighlight">\(x\)</span> vers une représentation latente <span class="math notranslate nohighlight">\(z\)</span>, généralement de plus faible dimension, puis un décodeur reconstruit une approximation <span class="math notranslate nohighlight">\(\hat{x}\)</span> à partir de <span class="math notranslate nohighlight">\(z\)</span>. Ce fonctionnement peut être vu comme une gén´ralisation de l’ACP au cas non linéaire.
+<p>Autrement dit, un encodeur projette l’entrée <span class="math notranslate nohighlight">\(x\)</span> vers une représentation latente <span class="math notranslate nohighlight">\(z\)</span>, généralement de plus faible dimension, puis un décodeur reconstruit une approximation <span class="math notranslate nohighlight">\(\hat{x}\)</span> à partir de <span class="math notranslate nohighlight">\(z\)</span>. Ce fonctionnement peut être vu comme une généralisation de l’ACP au cas non linéaire.
 Toutefois, un auto-encodeur standard n’est pas un modèle génératif, car il n’impose pas de distribution particulière sur l’espace latent <span class="math notranslate nohighlight">\(z\)</span> et n’offre donc pas de façon de tirer de nouveaux samples.</p>
 </section>
 <section id="variational-auto-encoders-vae">
@@ -422,7 +422,7 @@ Toutefois, un auto-encodeur standard n’est pas un modèle génératif, car il 
 <p>Pour générer de nouvelles données :</p>
 <ol class="arabic simple">
 <li><p>on tire un <span class="math notranslate nohighlight">\(z\)</span> selon <span class="math notranslate nohighlight">\(\mathcal{N}(0, I)\)</span></p></li>
-<li><p>on calcule <span class="math notranslate nohighlight">\(x_\text{gen} = Decodeur(x)\)</span></p></li>
+<li><p>on calcule <span class="math notranslate nohighlight">\(x_\text{gen} = \text{Decodeur}(x)\)</span></p></li>
 </ol>
 </section>
 <section id="generative-adversarial-networks-gan">
@@ -433,8 +433,8 @@ Toutefois, un auto-encodeur standard n’est pas un modèle génératif, car il 
 <li><p>un Discriminateur <span class="math notranslate nohighlight">\(D\)</span> qui prédit si une entrée <span class="math notranslate nohighlight">\(x\)</span> est réelle (<span class="math notranslate nohighlight">\(y=1\)</span>) ou générée (<span class="math notranslate nohighlight">\(y=0\)</span>)</p></li>
 </ul>
 <p>La fonction de perte optimisée est la suivante :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f2769b52-4cd2-43d2-a1c4-abbaf6e674ea">
-<span class="eqno">(16)<a class="headerlink" href="#equation-f2769b52-4cd2-43d2-a1c4-abbaf6e674ea" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a1f2cf86-5bfd-4b24-87f7-85846fd79207">
+<span class="eqno">(16)<a class="headerlink" href="#equation-a1f2cf86-5bfd-4b24-87f7-85846fd79207" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathbb{E}_{x \sim p_r}[\log D(x)] + \mathbb{E}_{z \sim p_z}[\log (1 - D(G(z)))]
 \end{equation}\]</div>
 <p>Concrètement, l’entraînement alterne entre mise à jour de <span class="math notranslate nohighlight">\(D\)</span> (meilleure discrimination, maximisation de la fonction de perte) et mise à jour de <span class="math notranslate nohighlight">\(G\)</span> (meilleure génération, minimisation de la fonction de perte).</p>
@@ -448,14 +448,14 @@ Toutefois, un auto-encodeur standard n’est pas un modèle génératif, car il 
 <section id="conditional-flow-matching">
 <h2>Conditional Flow Matching<a class="headerlink" href="#conditional-flow-matching" title="Lien vers cette rubrique">#</a></h2>
 <p>Le Conditional Flow Matching, proposé par <span id="id6">[<a class="reference internal" href="#id38" title="Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le. Flow matching for generative modeling. In Proceedings of the International Conference on Learning Representations. 2023.">Lipman <em>et al.</em>, 2023</a>]</span>, consiste à apprendre un champ de vecteurs qui transporte progressivement les échantillons du bruit (état initial <span class="math notranslate nohighlight">\(t=0\)</span>, correspondant au <span class="math notranslate nohighlight">\(z\)</span> introduit plus haut pour les VAE et les GAN) vers les données réelles (état final <span class="math notranslate nohighlight">\(t=1\)</span>, correspodant au <span class="math notranslate nohighlight">\(x\)</span> plus haut). L’entraînement repose sur la minimisation de la fonction de perte suivante :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f94133d7-b2c5-48aa-b988-18c21e9701e4">
-<span class="eqno">(17)<a class="headerlink" href="#equation-f94133d7-b2c5-48aa-b988-18c21e9701e4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-fd0794c5-3738-4ab6-97a6-3d596d433b47">
+<span class="eqno">(17)<a class="headerlink" href="#equation-fd0794c5-3738-4ab6-97a6-3d596d433b47" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathbb{E}_{x_0, x_1, t} \left[ u^\theta (x, t) - (x_1 - x_0) \right]
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(x = t x_0 + (1 - t) x_1\)</span>.</p>
 <p>Une fois le modèle <span class="math notranslate nohighlight">\(u^\theta\)</span> appris, la génération s’effectue en résolvant une équation différentielle, par exemple avec le schéma d’Euler, en partant d’un sample <span class="math notranslate nohighlight">\(x_0\)</span> tiré de <span class="math notranslate nohighlight">\(\mathcal{N}(0, I)\)</span> :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-aaf94bd8-8f9d-4f6e-a558-2b0af12fd2b3">
-<span class="eqno">(18)<a class="headerlink" href="#equation-aaf94bd8-8f9d-4f6e-a558-2b0af12fd2b3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-0d1220ff-8db2-4d73-8403-4fc5f317b0a6">
+<span class="eqno">(18)<a class="headerlink" href="#equation-0d1220ff-8db2-4d73-8403-4fc5f317b0a6" title="Permalink to this equation">#</a></span>\[\begin{equation}
 x_{t+\varepsilon} \leftarrow x_t + \varepsilon u^\theta (x_t, t)
 \end{equation}\]</div>
 <p>Ce processus peut être vu comme une interpolation guidée entre le bruit et les données.</p>

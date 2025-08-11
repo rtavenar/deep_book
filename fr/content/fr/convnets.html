@@ -418,8 +418,8 @@ Dans ce chapitre, nous aborderons deux types de réseaux convolutifs : nous comm
 <h2>Réseaux de neurones convolutifs pour les séries temporelles<a class="headerlink" href="#reseaux-de-neurones-convolutifs-pour-les-series-temporelles" title="Lien vers cette rubrique">#</a></h2>
 <p>Les réseaux de neurones convolutifs pour les séries temporelles reposent sur l’opérateur de convolution 1D qui, étant donné une série temporelle <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> et un filtre
 <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>, calcule une carte d’activation comme :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e4d7bcc6-8140-4cb1-a0fd-990c8ceed904">
-<span class="eqno">(2)<a class="headerlink" href="#equation-e4d7bcc6-8140-4cb1-a0fd-990c8ceed904" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ea58eaef-5f3e-4714-8e9c-10fedede0aeb">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ea58eaef-5f3e-4714-8e9c-10fedede0aeb" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(t) = \sum_{k=-L}^L f_{k} x_{t + k} \label{eq:conv1d}
 \end{equation}\]</div>
 <p>où le filtre <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> est de longueur <span class="math notranslate nohighlight">\((2L + 1)\)</span>.</p>
@@ -460,7 +460,7 @@ Dans ce chapitre, nous aborderons deux types de réseaux convolutifs : nous comm
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/3c8432e7c62b9e51e37db1dce67c57f4e41f32fec77d36cb9a5774dbf2344f6f.svg" src="../../_images/3c8432e7c62b9e51e37db1dce67c57f4e41f32fec77d36cb9a5774dbf2344f6f.svg" />
+<img alt="../../_images/5fc70e9ae020cdded61a4c71df757d6bb39cedbd73805b2331862cae671e2d71.svg" src="../../_images/5fc70e9ae020cdded61a4c71df757d6bb39cedbd73805b2331862cae671e2d71.svg" />
 </div>
 </details>
 </div>
@@ -516,7 +516,7 @@ Ces blocs de convolution sont équivariants par translation, ce qui signifie qu�
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6642/1028966743.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6683/1028966743.py:32: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 </pre></div>
 </div>
@@ -705,42 +705,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img3cfe70583bfb4d61a11a711ea20d5a37">
+  <img id="_anim_img8efd9e2b37da4a568bde51093b03ed58">
   <div class="anim-controls">
-    <input id="_anim_slider3cfe70583bfb4d61a11a711ea20d5a37" type="range" class="anim-slider"
+    <input id="_anim_slider8efd9e2b37da4a568bde51093b03ed58" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim3cfe70583bfb4d61a11a711ea20d5a37.set_frame(parseInt(this.value));">
+           oninput="anim8efd9e2b37da4a568bde51093b03ed58.set_frame(parseInt(this.value));">
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim8efd9e2b37da4a568bde51093b03ed58.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim8efd9e2b37da4a568bde51093b03ed58.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim8efd9e2b37da4a568bde51093b03ed58.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim8efd9e2b37da4a568bde51093b03ed58.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim8efd9e2b37da4a568bde51093b03ed58.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim8efd9e2b37da4a568bde51093b03ed58.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim8efd9e2b37da4a568bde51093b03ed58.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim8efd9e2b37da4a568bde51093b03ed58.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim3cfe70583bfb4d61a11a711ea20d5a37.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim8efd9e2b37da4a568bde51093b03ed58.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select3cfe70583bfb4d61a11a711ea20d5a37"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select8efd9e2b37da4a568bde51093b03ed58"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_3cfe70583bfb4d61a11a711ea20d5a37"
+      <input type="radio" name="state" value="once" id="_anim_radio1_8efd9e2b37da4a568bde51093b03ed58"
              >
-      <label for="_anim_radio1_3cfe70583bfb4d61a11a711ea20d5a37">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_3cfe70583bfb4d61a11a711ea20d5a37"
+      <label for="_anim_radio1_8efd9e2b37da4a568bde51093b03ed58">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_8efd9e2b37da4a568bde51093b03ed58"
              checked>
-      <label for="_anim_radio2_3cfe70583bfb4d61a11a711ea20d5a37">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_3cfe70583bfb4d61a11a711ea20d5a37"
+      <label for="_anim_radio2_8efd9e2b37da4a568bde51093b03ed58">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_8efd9e2b37da4a568bde51093b03ed58"
              >
-      <label for="_anim_radio3_3cfe70583bfb4d61a11a711ea20d5a37">Reflect</label>
+      <label for="_anim_radio3_8efd9e2b37da4a568bde51093b03ed58">Reflect</label>
     </form>
   </div>
 </div>
@@ -750,9 +750,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img3cfe70583bfb4d61a11a711ea20d5a37";
-    var slider_id = "_anim_slider3cfe70583bfb4d61a11a711ea20d5a37";
-    var loop_select_id = "_anim_loop_select3cfe70583bfb4d61a11a711ea20d5a37";
+    var img_id = "_anim_img8efd9e2b37da4a568bde51093b03ed58";
+    var slider_id = "_anim_slider8efd9e2b37da4a568bde51093b03ed58";
+    var loop_select_id = "_anim_loop_select8efd9e2b37da4a568bde51093b03ed58";
     var frames = new Array(60);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -33003,7 +33003,7 @@ GAZAIiIiIgvDAEhERERkYf4fHbvQ8BCZYQkAAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim3cfe70583bfb4d61a11a711ea20d5a37 = new Animation(frames, img_id, slider_id, 200.0,
+        anim8efd9e2b37da4a568bde51093b03ed58 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -33067,7 +33067,7 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </details>
 <div class="cell_output docutils container">
 <figure class="align-default" id="fig-cat">
-<img alt="../../_images/a423218dbc81e132d23b0f9b4e2d725c9473daa201fb8c815e5007d8abef5cba.svg" src="../../_images/a423218dbc81e132d23b0f9b4e2d725c9473daa201fb8c815e5007d8abef5cba.svg" />
+<img alt="../../_images/7f2e8cf6b0a5a22dd677c0088a4bbc5d1db4a07a9dd611ab0e96b04ba4612e46.svg" src="../../_images/7f2e8cf6b0a5a22dd677c0088a4bbc5d1db4a07a9dd611ab0e96b04ba4612e46.svg" />
 <figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">Une image et ses 3 canaux
 (intensités de Rouge, Vert et Bleu, de gauche à droite).</span><a class="headerlink" href="#fig-cat" title="Lien vers cette image">#</a></p>
@@ -33076,8 +33076,8 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </div>
 </div>
 <p>La sortie d’une convolution sur une image <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> est une nouvelle image, dont les valeurs des pixels peuvent être calculées comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-91419ffd-5edd-4b52-a062-85bb813a4ca2">
-<span class="eqno">(3)<a class="headerlink" href="#equation-91419ffd-5edd-4b52-a062-85bb813a4ca2" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6cc81371-8e47-40c1-b3bb-cdc96c7ea262">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6cc81371-8e47-40c1-b3bb-cdc96c7ea262" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j) = \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c=1}^3 f_{k, l, c} x_{i + k, j + l, c} . \label{eq:conv2d}
 \end{equation}\]</div>
 <p>En d’autres termes, les pixels de l’image de sortie sont calculés comme le produit scalaire entre un filtre de convolution (qui est un tenseur de forme <span class="math notranslate nohighlight">\((2K + 1, 2L + 1, c)\)</span>) et un <em>patch</em> d’image centré à la position donnée.</p>
@@ -33104,7 +33104,7 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/c13eb579a4d704f2b92059e00d29d3e8e56e8dd6c142bfb8efd86d80f3089fa4.svg" src="../../_images/c13eb579a4d704f2b92059e00d29d3e8e56e8dd6c142bfb8efd86d80f3089fa4.svg" />
+<img alt="../../_images/c0398ad850ec9404f333fc777616f2a671d9e4b5687d071f1c36312bac9fe1d1.svg" src="../../_images/c0398ad850ec9404f333fc777616f2a671d9e4b5687d071f1c36312bac9fe1d1.svg" />
 </div>
 </div>
 <p>Le résultat de la convolution de l’image de chat ci-dessus avec ce filtre est l’image suivante en niveaux de gris (c’est-à-dire constituée d’un seul canal) :</p>
@@ -33129,7 +33129,7 @@ Les images couleur sont typiquement composées de 3 canaux (ici Rouge, Vert et B
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/81da841ad8c06f6efa771f1dccebb631ed91b2aaffb476eeaaebbd25f395716e.svg" src="../../_images/81da841ad8c06f6efa771f1dccebb631ed91b2aaffb476eeaaebbd25f395716e.svg" />
+<img alt="../../_images/320b22edc414d1a3752f395c43a36418956f5266dca7155d69b266687dbe6f25.svg" src="../../_images/320b22edc414d1a3752f395c43a36418956f5266dca7155d69b266687dbe6f25.svg" />
 </div>
 </div>
 <p>On peut remarquer que cette image est une version floue de l’image originale.
@@ -33153,8 +33153,8 @@ Chaque filtre de convolution génère une carte d’activation en sortie et tout
 Tous les filtres d’une couche partagent la même largeur et la même hauteur.
 Un terme de biais et une fonction d’activation peuvent être utilisés dans les couches de convolution, comme dans d’autres couches de réseaux neuronaux.
 Dans l’ensemble, la sortie d’un filtre de convolution est calculée comme suit :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c2186001-0d7f-45ca-bbdd-de15660b50b5">
-<span class="eqno">(4)<a class="headerlink" href="#equation-c2186001-0d7f-45ca-bbdd-de15660b50b5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-4582e02e-fe2d-424c-b00d-bb1f7219eb00">
+<span class="eqno">(4)<a class="headerlink" href="#equation-4582e02e-fe2d-424c-b00d-bb1f7219eb00" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \left(\mathbf{x} * \mathbf{f}\right)(i, j, c) = \varphi \left( \sum_{k=-K}^K \sum_{l=-L}^L \sum_{c^\prime} f^c_{k, l, c^\prime} x_{i + k, j + l, c^\prime} + b_c \right) \label{eq:conv_layer}
 \end{equation}\]</div>
 <p>où <span class="math notranslate nohighlight">\(c\)</span> désigne le canal de sortie (notez que chaque canal de sortie est associé à un filtre <span class="math notranslate nohighlight">\(f^c\)</span>), <span class="math notranslate nohighlight">\(b_c\)</span> est le terme de biais qui lui est associé et <span class="math notranslate nohighlight">\(\varphi\)</span> est la fonction d’activation utilisée.</p>
