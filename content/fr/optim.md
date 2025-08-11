@@ -581,7 +581,7 @@ Dans `keras`, les informations sur les pertes et l'optimiseur sont transmises au
 ```{code-cell}
 :tags: [remove-stderr]
 
-import keras_core as keras
+import keras
 from keras.layers import Dense, InputLayer
 from keras.models import Sequential
 

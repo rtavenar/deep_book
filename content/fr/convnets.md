@@ -247,7 +247,7 @@ où $c$ désigne le canal de sortie (notez que chaque canal de sortie est associ
 En `keras`, une telle couche est implémentée à l'aide de la classe `Conv2D` :
 
 ```python
-import keras_core as keras
+import keras
 from keras.layers import Conv2D
 
 layer = Conv2D(filters=6, kernel_size=5, padding="valid", activation="relu")
