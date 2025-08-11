@@ -1,12 +1,12 @@
 format: jb-book
 root: content/en/intro 
 chapters:
-# - file: content/en/perceptron
-# - file: content/en/mlp
-# - file: content/en/loss
+- file: content/en/perceptron
+- file: content/en/mlp
+- file: content/en/loss
 - file: content/en/optim
-# - file: content/en/regularization
-# - file: content/en/convnets
+- file: content/en/regularization
+- file: content/en/convnets
 - file: content/en/rnn
-# - file: content/en/attention
-# - file: content/en/generative
+- file: content/en/attention
+- file: content/en/generative
