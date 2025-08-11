@@ -14,6 +14,7 @@ sphinx:
     nb_merge_streams: true
     tikz_proc_suite: pdf2svg
     jblatex_load_imgconverter: true
+    tikz_latex_preamble: "\\usepackage{hyperref}"
     latex_elements:
       fncychap: "\\usepackage[Conny]{fncychap}"
       printindex: ""
