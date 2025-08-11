@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="fr" data-content_root="" >
+<html lang="fr" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Introduction &#8212; Introduction au Deep Learning (notes de cours)</title>
   
@@ -15,59 +14,55 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script src="../../_static/links.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/translations.js?v=041d0952"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/fr/perceptron';</script>
+    <script src="../../_static/links.js?v=c5249c51"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Recherche" href="../../search.html" />
     <link rel="next" title="Perceptrons multicouches" href="mlp.html" />
@@ -81,28 +76,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Passer au contenu principal</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Passer au contenu principal</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Haut de page</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -124,12 +114,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -146,6 +144,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -157,7 +157,18 @@ const thebe_selector_output = ".output, .cell_output"
     <p class="title logo__title">Introduction au Deep Learning (notes de cours)</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -175,6 +186,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="regularization.html">Régularisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convnets.html">Réseaux neuronaux convolutifs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rnn.html">Réseaux neuronaux récurrents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attention.html">Mécanisme d’attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative.html">Réseaux neuronaux génératifs</a></li>
 </ul>
 
     </div>
@@ -190,7 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -199,14 +212,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -331,10 +344,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -342,14 +355,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -385,25 +398,25 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Lien permanent vers cette rubrique">#</a></h1>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Lien vers cette rubrique">#</a></h1>
 <p>Dans ce chapitre d’introduction, nous allons présenter un premier réseau neuronal appelé
 le Perceptron.
 Ce modèle est un réseau neuronal constitué d’un seul neurone, et nous l’utiliserons ici pour introduire des concepts-clés que nous détaillerons plus tard dans le cours.</p>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">notebook_utils</span> <span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">notebook_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
 <span class="n">prepare_notebook_graphics</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -411,7 +424,7 @@ Ce modèle est un réseau neuronal constitué d’un seul neurone, et nous l’u
 </details>
 </div>
 <section id="un-premier-modele-le-perceptron">
-<h2>Un premier modèle : le perceptron<a class="headerlink" href="#un-premier-modele-le-perceptron" title="Lien permanent vers cette rubrique">#</a></h2>
+<h2>Un premier modèle : le perceptron<a class="headerlink" href="#un-premier-modele-le-perceptron" title="Lien vers cette rubrique">#</a></h2>
 <p>Dans la terminologie des réseaux de neurones, un neurone est une fonction paramétrée qui
 prend un vecteur <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> en entrée et sort une valeur unique <span class="math notranslate nohighlight">\(a\)</span> comme suit :</p>
 <div class="math notranslate nohighlight">
@@ -426,18 +439,18 @@ a priori
 </div><p>Un modèle constitué d’un seul neurone est appelé perceptron.</p>
 </section>
 <section id="optimisation">
-<h2>Optimisation<a class="headerlink" href="#optimisation" title="Lien permanent vers cette rubrique">#</a></h2>
+<h2>Optimisation<a class="headerlink" href="#optimisation" title="Lien vers cette rubrique">#</a></h2>
 <p>Les modèles présentés dans ce document ont pour but de résoudre des problèmes de prédiction
 dans lesquels l’objectif est de trouver des valeurs de paramètres « suffisamment bonnes » pour le modèle en jeu
 compte tenu de données observées.</p>
 <p>Le problème de la recherche de telles valeurs de paramètres est appelé optimisation.
 L’apprentissage profond (ou <em>deep learning</em>) fait un usage intensif d’une famille spécifique de stratégies d’optimisation appelée <strong>descente gradiente</strong>.</p>
 <section id="descente-de-gradient">
-<span id="sec-boston"></span><h3>Descente de gradient<a class="headerlink" href="#descente-de-gradient" title="Lien permanent vers cette rubrique">#</a></h3>
+<span id="sec-boston"></span><h3>Descente de gradient<a class="headerlink" href="#descente-de-gradient" title="Lien vers cette rubrique">#</a></h3>
 <p>Pour se faire une idée de la descente de gradient, supposons que l’on nous donne le jeu de données suivant sur les prix de l’immobilier :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">boston</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/boston.csv&quot;</span><span class="p">)[[</span><span class="s2">&quot;RM&quot;</span><span class="p">,</span> <span class="s2">&quot;PRICE&quot;</span><span class="p">]]</span>
 <span class="n">boston</span>
@@ -536,7 +549,8 @@ L’apprentissage profond (ou <em>deep learning</em>) fait un usage intensif d�
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/4cb7df071eafe27c7d9658cfcd34c23e72bfaa966e81d5643f90871b2f93e604.svg" src="../../_images/4cb7df071eafe27c7d9658cfcd34c23e72bfaa966e81d5643f90871b2f93e604.svg" /></div>
+<img alt="../../_images/0862e3348dfdc9055bbcd95930273b0ea7b6bb0e9c91659ba49fa19f77cc00f6.svg" src="../../_images/0862e3348dfdc9055bbcd95930273b0ea7b6bb0e9c91659ba49fa19f77cc00f6.svg" />
+</div>
 </div>
 <aside class="sidebar">
 <p class="sidebar-title">Une courte note sur ce modèle</p>
@@ -563,9 +577,9 @@ calculée comme suit :</p>
 <p>Examinons cette quantité en fonction de <span class="math notranslate nohighlight">\(w\)</span> :</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">loss</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
         <span class="p">(</span><span class="n">w</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
@@ -581,7 +595,8 @@ calculée comme suit :</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/6e6d7b3567862d15e2d2d7e569c048a3097615ec2925fb07d52a34725a2a7a19.svg" src="../../_images/6e6d7b3567862d15e2d2d7e569c048a3097615ec2925fb07d52a34725a2a7a19.svg" /></div>
+<img alt="../../_images/656761a063244d989326864fc95484dfd88c19e4ccc6cfc2263ab9395f5302f8.svg" src="../../_images/656761a063244d989326864fc95484dfd88c19e4ccc6cfc2263ab9395f5302f8.svg" />
+</div>
 </div>
 <p>Ici, il semble qu’une valeur de <span class="math notranslate nohighlight">\(w\)</span> autour de 4 devrait être un bon choix.
 Cette méthode (générer de nombreuses valeurs pour le paramètre et calculer la perte pour
@@ -607,7 +622,7 @@ Comme vous pouvez le voir, la direction de la descente la plus raide est l’opp
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="mf">1e-5</span>
 
-<span class="k">def</span> <span class="nf">grad_loss</span><span class="p">(</span><span class="n">w_t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grad_loss</span><span class="p">(</span><span class="n">w_t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
         <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w_t</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span>
     <span class="p">)</span>
@@ -628,7 +643,8 @@ Comme vous pouvez le voir, la direction de la descente la plus raide est l’opp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/01b3e6d1c10882c410b1cfa0ceab9ad8051e04f29661eccfc84ff23d3a4597a6.svg" src="../../_images/01b3e6d1c10882c410b1cfa0ceab9ad8051e04f29661eccfc84ff23d3a4597a6.svg" /></div>
+<img alt="../../_images/2797783f2e7fc12b8a02807a8667ec29d177354096f0fcc4b07e91f9de5d83aa.svg" src="../../_images/2797783f2e7fc12b8a02807a8667ec29d177354096f0fcc4b07e91f9de5d83aa.svg" />
+</div>
 </div>
 <p>Qu’obtiendrions-nous si nous utilisions un taux d’apprentissage plus faible ?</p>
 <div class="cell docutils container">
@@ -650,7 +666,8 @@ Comme vous pouvez le voir, la direction de la descente la plus raide est l’opp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/b58200d6e01e52c605b727b4d94c7b494d2be13f3316a6e329cc05e05c737f81.svg" src="../../_images/b58200d6e01e52c605b727b4d94c7b494d2be13f3316a6e329cc05e05c737f81.svg" /></div>
+<img alt="../../_images/1f6a62238937cf431fb5f7d3917bf66bf6aa45aa8367fd418437957af054e8a9.svg" src="../../_images/1f6a62238937cf431fb5f7d3917bf66bf6aa45aa8367fd418437957af054e8a9.svg" />
+</div>
 </div>
 <p>Cela prendrait certainement plus de temps pour converger.
 Mais attention, un taux d’apprentissage plus élevé n’est pas toujours une bonne idée :</p>
@@ -673,13 +690,14 @@ Mais attention, un taux d’apprentissage plus élevé n’est pas toujours une 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/dde76bcbabbc7d6e81d7258f6868192ddcaa6260eedd7b728ef05720ebfc9be7.svg" src="../../_images/dde76bcbabbc7d6e81d7258f6868192ddcaa6260eedd7b728ef05720ebfc9be7.svg" /></div>
+<img alt="../../_images/25675f4a467a454426253c7e3c2916510610aa071f04c9b0958609df378611e7.svg" src="../../_images/25675f4a467a454426253c7e3c2916510610aa071f04c9b0958609df378611e7.svg" />
+</div>
 </div>
 <p>Vous voyez comment nous divergeons lentement parce que nos pas sont trop grands ?</p>
 </section>
 </section>
 <section id="recapitulatif">
-<h2>Récapitulatif<a class="headerlink" href="#recapitulatif" title="Lien permanent vers cette rubrique">#</a></h2>
+<h2>Récapitulatif<a class="headerlink" href="#recapitulatif" title="Lien vers cette rubrique">#</a></h2>
 <p>Dans cette section, nous avons introduit :</p>
 <ul class="simple">
 <li><p>un modèle très simple, appelé le Perceptron : ce sera une brique de base pour les modèles plus avancés que nous détaillerons plus tard dans le cours, tels que :</p>
@@ -687,6 +705,7 @@ Mais attention, un taux d’apprentissage plus élevé n’est pas toujours une 
 <li><p>le <a class="reference internal" href="mlp.html#sec-mlp"><span class="std std-ref">Perceptron multi-couches</span></a></p></li>
 <li><p>les <a class="reference internal" href="convnets.html#sec-cnn"><span class="std std-ref">architectures convolutionnelles</span></a></p></li>
 <li><p>les <a class="reference internal" href="rnn.html#sec-rnn"><span class="std std-ref">architectures récurrentes</span></a></p></li>
+<li><p>les <a class="reference internal" href="attention.html#sec-attention"><span class="std std-ref">architectures basées attention</span></a></p></li>
 </ul>
 </li>
 <li><p>le fait qu’une tâche s’accompagne d’une fonction de perte à minimiser (ici, nous avons utilisé l’erreur quadratique moyenne pour notre tâche de régression), qui sera discutée dans <a class="reference internal" href="loss.html#sec-loss"><span class="std std-ref">un chapitre dédié</span></a> ;</p></li>
@@ -722,7 +741,7 @@ Mais attention, un taux d’apprentissage plus élevé n’est pas toujours une 
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -751,6 +770,7 @@ Mais attention, un taux d’apprentissage plus élevé n’est pas toujours une 
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -810,8 +830,8 @@ Par Romain Tavenard
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

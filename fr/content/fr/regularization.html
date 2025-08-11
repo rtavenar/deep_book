@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="fr" data-content_root="" >
+<html lang="fr" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Régularisation &#8212; Introduction au Deep Learning (notes de cours)</title>
   
@@ -15,59 +14,55 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script src="../../_static/links.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/translations.js?v=041d0952"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/fr/regularization';</script>
+    <script src="../../_static/links.js?v=c5249c51"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Recherche" href="../../search.html" />
     <link rel="next" title="Réseaux neuronaux convolutifs" href="convnets.html" />
@@ -81,28 +76,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Passer au contenu principal</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Passer au contenu principal</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Haut de page</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -124,12 +114,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -146,6 +144,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="intro.html">
   
@@ -157,7 +157,18 @@ const thebe_selector_output = ".output, .cell_output"
     <p class="title logo__title">Introduction au Deep Learning (notes de cours)</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -175,6 +186,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Régularisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convnets.html">Réseaux neuronaux convolutifs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rnn.html">Réseaux neuronaux récurrents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attention.html">Mécanisme d’attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative.html">Réseaux neuronaux génératifs</a></li>
 </ul>
 
     </div>
@@ -190,7 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -199,14 +212,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -331,10 +344,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -342,14 +355,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -383,10 +396,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="regularisation">
-<span id="sec-reg"></span><h1>Régularisation<a class="headerlink" href="#regularisation" title="Lien permanent vers cette rubrique">#</a></h1>
+<span id="sec-reg"></span><h1>Régularisation<a class="headerlink" href="#regularisation" title="Lien vers cette rubrique">#</a></h1>
 <p>Comme nous l’avons vu dans les chapitres précédents, l’une des forces des réseaux neuronaux est qu’ils peuvent approximer n’importe quelle fonction continue lorsqu’un nombre suffisant de paramètres est utilisé.
 Lors de l’utilisation d’approximateurs universels dans des contextes d’apprentissage automatique, un risque connexe important est celui du surajustement (<em>overfitting</em>) aux données d’apprentissage.
 Plus formellement, étant donné un jeu de données d’apprentissage <span class="math notranslate nohighlight">\(\mathcal{D}_t\)</span> tiré d’une distribution inconnue <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>, les paramètres du modèle sont optimisés de manière à minimiser le risque empirique :</p>
@@ -402,36 +415,31 @@ Plus formellement, étant donné un jeu de données d’apprentissage <span clas
 <p>et les deux objectifs n’ont pas le même minimiseur.</p>
 <p>Pour éviter cet écueil, il faut utiliser des techniques de régularisation, telles que celles présentées ci-après.</p>
 <section id="early-stopping">
-<h2><em>Early stopping</em><a class="headerlink" href="#early-stopping" title="Lien permanent vers cette rubrique">#</a></h2>
+<h2><em>Early stopping</em><a class="headerlink" href="#early-stopping" title="Lien vers cette rubrique">#</a></h2>
 <p>Comme illustré ci-dessous, on peut observer que l’entraînement d’un réseau neuronal pendant un trop grand nombre d”<em>epochs</em> peut conduire à un surajustement.
 Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ensemble de validation qui n’est pas vu pendant l’entraînement.</p>
 <div class="cell tag_hide-input tag_remove-stderr docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">notebook_utils</span> <span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
-<span class="kn">import</span> <span class="nn">keras_core</span> <span class="k">as</span> <span class="nn">keras</span>
-<span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
-<span class="kn">from</span> <span class="nn">myst_nb</span> <span class="kn">import</span> <span class="n">glue</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">notebook_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_notebook_graphics</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">keras</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">keras.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_categorical</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">myst_nb</span><span class="w"> </span><span class="kn">import</span> <span class="n">glue</span>
 <span class="n">prepare_notebook_graphics</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using TensorFlow backend
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -447,10 +455,10 @@ Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ens
 </div>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">keras_core</span> <span class="k">as</span> <span class="nn">keras</span>
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">InputLayer</span>
-<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
-<span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">set_random_seed</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">keras</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">keras.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">InputLayer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">keras.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">keras.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_random_seed</span>
 
 
 <span class="n">set_random_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -468,12 +476,14 @@ Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ens
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Apprentissage&quot;</span><span class="p">)</span>
@@ -490,17 +500,18 @@ Notez qu’ici, le risque réel est estimé grâce à l’utilisation d’un ens
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/6d0730bbb1b152ac90f8ed20300d7cb57c5dfb140aad2fb1fa34201b9e5a6ad7.svg" src="../../_images/6d0730bbb1b152ac90f8ed20300d7cb57c5dfb140aad2fb1fa34201b9e5a6ad7.svg" /></div>
+<img alt="../../_images/48448ccb4b4654d0dfe5147c8751b0c8022c76d60e56b36421eb9563a6e24e92.svg" src="../../_images/48448ccb4b4654d0dfe5147c8751b0c8022c76d60e56b36421eb9563a6e24e92.svg" />
 </div>
-<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">53</span>.
-En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">53</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
+</div>
+<p>Ici, le meilleur modèle (en termes de capacités de généralisation) semble être le modèle à l”<em>epoch</em> <span class="output text_plain">np.int64(17)</span>.
+En d’autres termes, si nous avions arrêté le processus d’apprentissage après l”<em>epoch</em> <span class="output text_plain">np.int64(17)</span>, nous aurions obtenu un meilleur modèle que si nous utilisons le modèle entraîné pendant 70 <em>epochs</em>.</p>
 <p>C’est toute l’idée derrière la stratégie d”<em>early stopping</em>, qui consiste à arrêter le processus d’apprentissage dès que la perte de validation cesse de s’améliorer.
 Cependant, comme on peut le voir dans la visualisation ci-dessus, la perte de validation a tendance à osciller, et on attend souvent plusieurs <em>epochs</em> avant de supposer que la perte a peu de chances de s’améliorer dans le futur.
 Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patience</em>.</p>
 <p>Dans <code class="docutils literal notranslate"><span class="pre">keras</span></code>, l’arrêt anticipé peut être configuré via un <em>callback</em>, comme dans l’exemple suivant :</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.callbacks</span> <span class="kn">import</span> <span class="n">EarlyStopping</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">keras.callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">EarlyStopping</span>
 
 
 <span class="n">set_random_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -522,12 +533,14 @@ Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patie
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Apprentissage&quot;</span><span class="p">)</span>
@@ -544,12 +557,13 @@ Le nombre d”<em>epochs</em> à attendre est appelé le paramètre de <em>patie
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/75f3a292ef98eb5d4852e3995a8558cab1a336ac80c68b972a588fd2a220aba1.svg" src="../../_images/75f3a292ef98eb5d4852e3995a8558cab1a336ac80c68b972a588fd2a220aba1.svg" /></div>
+<img alt="../../_images/9900d13eb7fa9cbe4a9960a58e1b072128fce60704922094e55e41fe2e5f601c.svg" src="../../_images/9900d13eb7fa9cbe4a9960a58e1b072128fce60704922094e55e41fe2e5f601c.svg" />
 </div>
-<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">16</span>.</p>
+</div>
+<p>Et maintenant, même si le modèle était prévu pour être entraîné pendant 70 <em>epochs</em>, l’entraînement est arrêté dès qu’il atteint 10 <em>epochs</em> consécutives sans amélioration de la perte de validation, et les paramètres du modèle sont restaurés comme les paramètres du modèle à l”<em>epoch</em> <span class="output text_plain">np.int64(17)</span>.</p>
 </section>
 <section id="penalisation-de-la-perte">
-<h2>Pénalisation de la perte<a class="headerlink" href="#penalisation-de-la-perte" title="Lien permanent vers cette rubrique">#</a></h2>
+<h2>Pénalisation de la perte<a class="headerlink" href="#penalisation-de-la-perte" title="Lien vers cette rubrique">#</a></h2>
 <p>Une autre façon importante d’appliquer la régularisation dans les réseaux neuronaux est la pénalisation des pertes.
 Un exemple typique de cette stratégie de régularisation est la régularisation L2.
 Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_r\)</span> la perte régularisée par L2, elle peut être exprimée comme suit :</p>
@@ -562,7 +576,7 @@ Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_
 <p>En <code class="docutils literal notranslate"><span class="pre">keras</span></code>, ceci est implémenté comme :</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.regularizers</span> <span class="kn">import</span> <span class="n">L2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">keras.regularizers</span><span class="w"> </span><span class="kn">import</span> <span class="n">L2</span>
 
 <span class="n">λ</span> <span class="o">=</span> <span class="mf">0.01</span>
 
@@ -581,12 +595,14 @@ Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Apprentissage&quot;</span><span class="p">)</span>
@@ -600,12 +616,13 @@ Si nous désignons par <span class="math notranslate nohighlight">\(\mathcal{L}_
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/9d0061a0f663d69003f47f548fba85ffad4976e9fe8e2e8d65484f6bc5aee727.svg" src="../../_images/9d0061a0f663d69003f47f548fba85ffad4976e9fe8e2e8d65484f6bc5aee727.svg" /></div>
+<img alt="../../_images/9c5ffc3e98232f8bf75d3472a3f390c7078e3caf42edf97478c34a806f397a56.svg" src="../../_images/9c5ffc3e98232f8bf75d3472a3f390c7078e3caf42edf97478c34a806f397a56.svg" />
+</div>
 </div>
 </section>
 <section id="dropout">
-<h2><em>DropOut</em><a class="headerlink" href="#dropout" title="Lien permanent vers cette rubrique">#</a></h2>
-<div class="figure" id="id29" style="text-align: center"><p><img  src="../../_images/tikz-e73fb017c18f4ffbc61887746840956d178ea0c5.svg" alt="Figure made with TikZ" /></p>
+<h2><em>DropOut</em><a class="headerlink" href="#dropout" title="Lien vers cette rubrique">#</a></h2>
+<div class="figure" id="id35" style="text-align: center"><p><img  src="../../_images/tikz-e73fb017c18f4ffbc61887746840956d178ea0c5.svg" alt="Figure made with TikZ" /></p>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration du mécanisme de <em>DropOut</em>. Afin d’entraîner un modèle donné (à gauche), à chaque <em>minibatch</em>, une proportion donnée de neurones est choisie au hasard pour être « désactivée » et le sous-réseau résultant est utilisé pour l’étape d’optimisation en cours (<em>cf.</em> figure de droite, dans laquelle 40% des neurones – colorés en gris – sont désactivés).</span></p>
 </div><p>Dans cette section, nous présentons la stratégie <em>DropOut</em>, qui a été introduite dans <span id="id1">[<a class="reference internal" href="#id27" title="Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine Learning Research, 15(56):1929–1958, 2014. URL: http://jmlr.org/papers/v15/srivastava14a.html.">Srivastava <em>et al.</em>, 2014</a>]</span>.
 L’idée derrière le <em>DropOut</em> est d’éteindre certains neurones pendant l’apprentissage.
@@ -615,7 +632,7 @@ La principale différence ici est que l’on peut non seulement désactiver les 
 <p>Dans <code class="docutils literal notranslate"><span class="pre">keras</span></code>, ceci est implémenté comme une couche, qui agit en désactivant les neurones de la couche précédente dans le réseau :</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dropout</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">keras.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dropout</span>
 
 <span class="n">set_random_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">switchoff_proba</span> <span class="o">=</span> <span class="mf">0.3</span>
@@ -637,12 +654,14 @@ La principale différence ici est que l’on peut non seulement désactiver les 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
+<details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">h</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Apprentissage&quot;</span><span class="p">)</span>
@@ -656,7 +675,8 @@ La principale différence ici est que l’on peut non seulement désactiver les 
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../../_images/f32bd82463a8a607b2613fc8a1d85bfd6c1578e7d318fd3789467c9fc78e97b0.svg" src="../../_images/f32bd82463a8a607b2613fc8a1d85bfd6c1578e7d318fd3789467c9fc78e97b0.svg" /></div>
+<img alt="../../_images/15f26928cddeb76f0ec69a7fe15e0f1336ffd1d1bce4617ace4e6f1ca239aac5.svg" src="../../_images/15f26928cddeb76f0ec69a7fe15e0f1336ffd1d1bce4617ace4e6f1ca239aac5.svg" />
+</div>
 </div>
 <div class="admonition-exercice-1 admonition">
 <p class="admonition-title">Exercice #1</p>
@@ -669,13 +689,14 @@ Si nous nous rappelons que pendant l’apprentissage, à chaque <em>minibatch</e
 </div>
 </section>
 <section id="references">
-<h2>Références<a class="headerlink" href="#references" title="Lien permanent vers cette rubrique">#</a></h2>
+<h2>Références<a class="headerlink" href="#references" title="Lien vers cette rubrique">#</a></h2>
 <div class="docutils container" id="id2">
-<dl class="citation">
-<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id1">SHK+14</a></span></dt>
-<dd><p>Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. <em>Journal of Machine Learning Research</em>, 15(56):1929–1958, 2014. URL: <a class="reference external" href="http://jmlr.org/papers/v15/srivastava14a.html">http://jmlr.org/papers/v15/srivastava14a.html</a>.</p>
-</dd>
-</dl>
+<div role="list" class="citation-list">
+<div class="citation" id="id27" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SHK+14</a><span class="fn-bracket">]</span></span>
+<p>Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov. Dropout: a simple way to prevent neural networks from overfitting. <em>Journal of Machine Learning Research</em>, 15(56):1929–1958, 2014. URL: <a class="reference external" href="http://jmlr.org/papers/v15/srivastava14a.html">http://jmlr.org/papers/v15/srivastava14a.html</a>.</p>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -707,7 +728,7 @@ Si nous nous rappelons que pendant l’apprentissage, à chaque <em>minibatch</e
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -736,6 +757,7 @@ Si nous nous rappelons que pendant l’apprentissage, à chaque <em>minibatch</e
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -793,8 +815,8 @@ Par Romain Tavenard
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -258,7 +258,7 @@ where $c$ denotes the output channel (note that each output channel is associate
 In `keras`, such a layer is implemented using the `Conv2D` class:
 
 ```python
-import keras_core as keras
+import keras
 from keras.layers import Conv2D
 
 layer = Conv2D(filters=6, kernel_size=5, padding="valid", activation="relu")

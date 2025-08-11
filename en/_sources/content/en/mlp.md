@@ -382,7 +382,7 @@ the code will look like:
 ```{code-cell}
 :tags: [remove-stderr]
 
-import keras_core as keras
+import keras
 from keras.layers import Dense, InputLayer
 from keras.models import Sequential
 

@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Réseaux neuronaux génératifs &#8212; Introduction au Deep Learning (notes de cours)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/translations.js?v=041d0952"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/fr/generative';</script>
+    <script src="../../_static/links.js?v=c5249c51"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
+    <link rel="prev" title="Mécanisme d’attention" href="attention.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Passer au contenu principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Haut de page</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction au Deep Learning (notes de cours)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction au Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="perceptron.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mlp.html">Perceptrons multicouches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loss.html">Fonctions de coût</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regularization.html">Régularisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convnets.html">Réseaux neuronaux convolutifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rnn.html">Réseaux neuronaux récurrents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attention.html">Mécanisme d’attention</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Réseaux neuronaux génératifs</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/deep_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Dépôt source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/fr/generative.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Ouvrez un problème"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/fr/generative.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Réseaux neuronaux génératifs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-encodeurs">Auto-encodeurs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-auto-encoders-vae">Variational Auto-Encoders (VAE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-adversarial-networks-gan">Generative Adversarial Networks (GAN)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeles-de-diffusion">Modèles de diffusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-flow-matching">Conditional Flow Matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resume">Résumé</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">Références</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="reseaux-neuronaux-generatifs">
+<span id="sec-generative"></span><h1>Réseaux neuronaux génératifs<a class="headerlink" href="#reseaux-neuronaux-generatifs" title="Lien vers cette rubrique">#</a></h1>
+<p>Les modèles génératifs ont pour objectif d’apprendre la distribution des données d’entraînement. Cette distribution peut être estimée de façon explicite, en apprenant une forme paramétrique de <span class="math notranslate nohighlight">\(p(x)\)</span> ou de la probabilité conditionnelle <span class="math notranslate nohighlight">\(p(x|y)\)</span>, ou bien approchée de manière implicite, sans forme close mais en permettant l’échantillonnage de nouvelles données.</p>
+<p>Parmi les principaux modèles génératifs, on retrouve les modèles de mélange gaussiens (GMM), les auto-encodeurs variationnels (VAE), les réseaux adversaires génératifs (GAN) et les modèles de diffusion. Chacun de ces modèles propose une approche différente pour modéliser et générer des données, allant de l’estimation directe de la distribution à des méthodes plus indirectes basées sur l’échantillonnage ou la compétition entre réseaux.</p>
+<section id="auto-encodeurs">
+<h2>Auto-encodeurs<a class="headerlink" href="#auto-encodeurs" title="Lien vers cette rubrique">#</a></h2>
+<p>Les auto-encodeurs <span id="id1">[<a class="reference internal" href="#id34" title="Geoffrey E Hinton and Ruslan R Salakhutdinov. Reducing the dimensionality of data with neural networks. Science, 313(5786):504–507, 2006.">Hinton and Salakhutdinov, 2006</a>]</span> sont des réseaux qui apprennent à compresser l’information dans un espace latent.
+Un auto-encodeur est constitué d’un bloc Encodeur et d’un Bloc Décodeur, utilisés comme suit :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-12dbfe2e-e939-4d71-acf8-adfeacfaf098">
+<span class="eqno">(15)<a class="headerlink" href="#equation-12dbfe2e-e939-4d71-acf8-adfeacfaf098" title="Permalink to this equation">#</a></span>\[\begin{align}
+z =&amp; \text{Encodeur}(x) \\
+\hat{x} =&amp; \text{Decodeur}(z)
+\end{align}\]</div>
+<p>Autrement dit, un encodeur projette l’entrée <span class="math notranslate nohighlight">\(x\)</span> vers une représentation latente <span class="math notranslate nohighlight">\(z\)</span>, généralement de plus faible dimension, puis un décodeur reconstruit une approximation <span class="math notranslate nohighlight">\(\hat{x}\)</span> à partir de <span class="math notranslate nohighlight">\(z\)</span>. Ce fonctionnement peut être vu comme une gén´ralisation de l’ACP au cas non linéaire.
+Toutefois, un auto-encodeur standard n’est pas un modèle génératif, car il n’impose pas de distribution particulière sur l’espace latent <span class="math notranslate nohighlight">\(z\)</span> et n’offre donc pas de façon de tirer de nouveaux samples.</p>
+</section>
+<section id="variational-auto-encoders-vae">
+<h2>Variational Auto-Encoders (VAE)<a class="headerlink" href="#variational-auto-encoders-vae" title="Lien vers cette rubrique">#</a></h2>
+<p>Les VAE <span id="id2">[<a class="reference internal" href="#id35" title="Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114, 2014.">Kingma and Welling, 2014</a>]</span> transforment l’auto-encodeur en modèle génératif en imposant un <em>a priori</em> sur la variable latente <span class="math notranslate nohighlight">\(z\)</span>, typiquement une loi normale <span class="math notranslate nohighlight">\(z \sim \mathcal{N}(0, I)\)</span>. Une pénalisation, sous forme de divergence de Kullback-Leibler (KL), est ajoutée à la fonction de perte à optimiser pour encourager la distribution latente à respecter cet <em>a priori</em>.</p>
+<p>Pour générer de nouvelles données :</p>
+<ol class="arabic simple">
+<li><p>on tire un <span class="math notranslate nohighlight">\(z\)</span> selon <span class="math notranslate nohighlight">\(\mathcal{N}(0, I)\)</span></p></li>
+<li><p>on calcule <span class="math notranslate nohighlight">\(x_\text{gen} = Decodeur(x)\)</span></p></li>
+</ol>
+</section>
+<section id="generative-adversarial-networks-gan">
+<h2>Generative Adversarial Networks (GAN)<a class="headerlink" href="#generative-adversarial-networks-gan" title="Lien vers cette rubrique">#</a></h2>
+<p>Proposés par <span id="id3">[<a class="reference internal" href="#id36" title="Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. Generative adversarial nets. In Neural Information Processing Systems. 2014.">Goodfellow <em>et al.</em>, 2014</a>]</span>, les GAN entraînent deux réseaux :</p>
+<ul class="simple">
+<li><p>un Générateur <span class="math notranslate nohighlight">\(G\)</span> qui produit <span class="math notranslate nohighlight">\(x_{\text{fake}} = G(z)\)</span> à partir de bruit <span class="math notranslate nohighlight">\(z \sim \mathcal{N}(0, I)\)</span></p></li>
+<li><p>un Discriminateur <span class="math notranslate nohighlight">\(D\)</span> qui prédit si une entrée <span class="math notranslate nohighlight">\(x\)</span> est réelle (<span class="math notranslate nohighlight">\(y=1\)</span>) ou générée (<span class="math notranslate nohighlight">\(y=0\)</span>)</p></li>
+</ul>
+<p>La fonction de perte optimisée est la suivante :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f2769b52-4cd2-43d2-a1c4-abbaf6e674ea">
+<span class="eqno">(16)<a class="headerlink" href="#equation-f2769b52-4cd2-43d2-a1c4-abbaf6e674ea" title="Permalink to this equation">#</a></span>\[\begin{equation}
+\mathbb{E}_{x \sim p_r}[\log D(x)] + \mathbb{E}_{z \sim p_z}[\log (1 - D(G(z)))]
+\end{equation}\]</div>
+<p>Concrètement, l’entraînement alterne entre mise à jour de <span class="math notranslate nohighlight">\(D\)</span> (meilleure discrimination, maximisation de la fonction de perte) et mise à jour de <span class="math notranslate nohighlight">\(G\)</span> (meilleure génération, minimisation de la fonction de perte).</p>
+<p>Pour la génération, comme pour un VAE, on tire un <span class="math notranslate nohighlight">\(z \sim \mathcal{N}(0, I)\)</span> puis on le fournit en entrée au générateur pour générer un nouveau sample <span class="math notranslate nohighlight">\(G(z)\)</span>.</p>
+<p>En pratique, l’optimisation d’un GAN est souvent instable, et il est souvent nécessaire d’utiliser des astuces pour le stabiliser (<em>cf</em> les Wasserstein GAN par exemple <span id="id4">[<a class="reference internal" href="#id39" title="Martin Arjovsky, Soumith Chintala, and Léon Bottou. Wasserstein generative adversarial networks. In Proceedings of the International Conference on Machine Learning, 214–223. PMLR, 2017.">Arjovsky <em>et al.</em>, 2017</a>]</span>).</p>
+</section>
+<section id="modeles-de-diffusion">
+<h2>Modèles de diffusion<a class="headerlink" href="#modeles-de-diffusion" title="Lien vers cette rubrique">#</a></h2>
+<p>Les modèles de diffusion, introduits par <span id="id5">[<a class="reference internal" href="#id37" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. In Neural Information Processing Systems. 2020.">Ho <em>et al.</em>, 2020</a>]</span>, reposent sur une idée originale : on ajoute progressivement du bruit gaussien aux données, puis on entraîne un modèle à inverser ce processus, c’est-à-dire à débruiter les données étape par étape. Lors de la génération, on part d’un bruit pur et on le transforme progressivement en une donnée réaliste.</p>
+</section>
+<section id="conditional-flow-matching">
+<h2>Conditional Flow Matching<a class="headerlink" href="#conditional-flow-matching" title="Lien vers cette rubrique">#</a></h2>
+<p>Le Conditional Flow Matching, proposé par <span id="id6">[<a class="reference internal" href="#id38" title="Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le. Flow matching for generative modeling. In Proceedings of the International Conference on Learning Representations. 2023.">Lipman <em>et al.</em>, 2023</a>]</span>, consiste à apprendre un champ de vecteurs qui transporte progressivement les échantillons du bruit (état initial <span class="math notranslate nohighlight">\(t=0\)</span>, correspondant au <span class="math notranslate nohighlight">\(z\)</span> introduit plus haut pour les VAE et les GAN) vers les données réelles (état final <span class="math notranslate nohighlight">\(t=1\)</span>, correspodant au <span class="math notranslate nohighlight">\(x\)</span> plus haut). L’entraînement repose sur la minimisation de la fonction de perte suivante :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f94133d7-b2c5-48aa-b988-18c21e9701e4">
+<span class="eqno">(17)<a class="headerlink" href="#equation-f94133d7-b2c5-48aa-b988-18c21e9701e4" title="Permalink to this equation">#</a></span>\[\begin{equation}
+\mathbb{E}_{x_0, x_1, t} \left[ u^\theta (x, t) - (x_1 - x_0) \right]
+\end{equation}\]</div>
+<p>où <span class="math notranslate nohighlight">\(x = t x_0 + (1 - t) x_1\)</span>.</p>
+<p>Une fois le modèle <span class="math notranslate nohighlight">\(u^\theta\)</span> appris, la génération s’effectue en résolvant une équation différentielle, par exemple avec le schéma d’Euler, en partant d’un sample <span class="math notranslate nohighlight">\(x_0\)</span> tiré de <span class="math notranslate nohighlight">\(\mathcal{N}(0, I)\)</span> :</p>
+<div class="amsmath math notranslate nohighlight" id="equation-aaf94bd8-8f9d-4f6e-a558-2b0af12fd2b3">
+<span class="eqno">(18)<a class="headerlink" href="#equation-aaf94bd8-8f9d-4f6e-a558-2b0af12fd2b3" title="Permalink to this equation">#</a></span>\[\begin{equation}
+x_{t+\varepsilon} \leftarrow x_t + \varepsilon u^\theta (x_t, t)
+\end{equation}\]</div>
+<p>Ce processus peut être vu comme une interpolation guidée entre le bruit et les données.</p>
+</section>
+<section id="resume">
+<h2>Résumé<a class="headerlink" href="#resume" title="Lien vers cette rubrique">#</a></h2>
+<p>En résumé, les modèles génératifs offrent des outils puissants pour modéliser et échantillonner la distribution des données. Selon l’approche choisie, ils peuvent consister à compresser l’information en imposant une structure probabiliste sur l’espace latent (VAE), à générer des données par compétition entre réseaux (GAN), ou encore à produire des échantillons via des processus dynamiques et progressifs (diffusion et <em>flow matching</em>).</p>
+</section>
+<section id="references">
+<h2>Références<a class="headerlink" href="#references" title="Lien vers cette rubrique">#</a></h2>
+<div class="docutils container" id="id7">
+<div role="list" class="citation-list">
+<div class="citation" id="id39" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">ACB17</a><span class="fn-bracket">]</span></span>
+<p>Martin Arjovsky, Soumith Chintala, and Léon Bottou. Wasserstein generative adversarial networks. In <em>Proceedings of the International Conference on Machine Learning</em>, 214–223. PMLR, 2017.</p>
+</div>
+<div class="citation" id="id36" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">GPAM+14</a><span class="fn-bracket">]</span></span>
+<p>Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. Generative adversarial nets. In <em>Neural Information Processing Systems</em>. 2014.</p>
+</div>
+<div class="citation" id="id34" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">HS06</a><span class="fn-bracket">]</span></span>
+<p>Geoffrey E Hinton and Ruslan R Salakhutdinov. Reducing the dimensionality of data with neural networks. <em>Science</em>, 313(5786):504–507, 2006.</p>
+</div>
+<div class="citation" id="id37" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">HJA20</a><span class="fn-bracket">]</span></span>
+<p>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. In <em>Neural Information Processing Systems</em>. 2020.</p>
+</div>
+<div class="citation" id="id35" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">KW14</a><span class="fn-bracket">]</span></span>
+<p>Diederik P Kingma and Max Welling. Auto-encoding variational bayes. <em>arXiv preprint arXiv:1312.6114</em>, 2014.</p>
+</div>
+<div class="citation" id="id38" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">LCBH+23</a><span class="fn-bracket">]</span></span>
+<p>Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximilian Nickel, and Matthew Le. Flow matching for generative modeling. In <em>Proceedings of the International Conference on Learning Representations</em>. 2023.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/fr"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="attention.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Mécanisme d’attention</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-encodeurs">Auto-encodeurs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-auto-encoders-vae">Variational Auto-Encoders (VAE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-adversarial-networks-gan">Generative Adversarial Networks (GAN)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeles-de-diffusion">Modèles de diffusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-flow-matching">Conditional Flow Matching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resume">Résumé</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">Références</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Romain Tavenard
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div><a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
+<a href="../../../en/index.html" id="switch_lang">Switch to English</a></div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

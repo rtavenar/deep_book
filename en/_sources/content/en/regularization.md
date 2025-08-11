@@ -49,7 +49,7 @@ import pandas as pd
 %matplotlib inline
 import matplotlib.pyplot as plt
 from notebook_utils import prepare_notebook_graphics
-import keras_core as keras
+import keras
 from keras.utils import to_categorical
 from myst_nb import glue
 prepare_notebook_graphics()
@@ -68,7 +68,7 @@ X /= X.std(axis=0)
 ```{code-cell} ipython3
 :tags: [remove-stderr]
 
-import keras_core as keras
+import keras
 from keras.layers import Dense, InputLayer
 from keras.models import Sequential
 from keras.utils import set_random_seed

@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mécanisme d’attention &#8212; Introduction au Deep Learning (notes de cours)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=72dce1d2"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/translations.js?v=041d0952"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/fr/attention';</script>
+    <script src="../../_static/links.js?v=c5249c51"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
+    <link rel="next" title="Réseaux neuronaux génératifs" href="generative.html" />
+    <link rel="prev" title="Réseaux neuronaux récurrents" href="rnn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Passer au contenu principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Haut de page</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction au Deep Learning (notes de cours)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Recherche</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction au Deep Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="perceptron.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mlp.html">Perceptrons multicouches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loss.html">Fonctions de coût</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">Optimisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regularization.html">Régularisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convnets.html">Réseaux neuronaux convolutifs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rnn.html">Réseaux neuronaux récurrents</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mécanisme d’attention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative.html">Réseaux neuronaux génératifs</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/deep_book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Dépôt source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rtavenar/deep_book/issues/new?title=Issue%20on%20page%20%2Fcontent/fr/attention.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Ouvrez un problème"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/fr/attention.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Mécanisme d’attention</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principe-general">Principe général</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metaphore-queries-keys-values">Métaphore : Queries, Keys, Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-mathematique">Formulation mathématique</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-attention-ou-self-attention">Auto-attention (ou self-attention)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">Multi-head attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schema-general">Schéma général</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resume">Résumé</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mecanisme-d-attention">
+<span id="sec-attention"></span><h1>Mécanisme d’attention<a class="headerlink" href="#mecanisme-d-attention" title="Lien vers cette rubrique">#</a></h1>
+<p>Dans de nombreux contextes d’apprentissage profond (traduction automatique, résumé de texte, traitement de séquences) les modèles doivent manipuler des entrées de taille variable et se concentrer sur certaines parties plus que d’autres.</p>
+<p>Le mécanisme d”<strong>attention</strong> permet justement de donner plus de poids à certains éléments d’une séquence lors du calcul d’une sortie, en fonction de leur <strong>pertinence</strong>.</p>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Lien vers cette rubrique">#</a></h2>
+<p>Considérons la phrase suivante :</p>
+<blockquote>
+<div><p><em>« An apple that had been on the tree in the garden for weeks had finally been picked up. »</em></p>
+</div></blockquote>
+<p>qui en français pourrait se traduire par :</p>
+<blockquote>
+<div><p><em>« Une pomme qui était sur l’arbre du jardin depuis des semaines avait finalement été ramassée. »</em></p>
+</div></blockquote>
+<p>Ici, pour bien orthographier le mot <em>ramassée</em>, il faut avoir conscience qu’il fait référence au nom <em>une pomme</em> qui est féminin.</p>
+<p>Pour qu’un modèle de traduction automatique soit capable d’orthographier correctement ce mot, il faut donc qu’il soit capable de modéliser des <strong>dépendances à longue portée</strong> entre les mots.<br />
+Or, les architectures <strong>récurrentes</strong> ou <strong>convolutives</strong> classiques ont du mal à gérer efficacement ces dépendances à cause :</p>
+<ul class="simple">
+<li><p>du <strong>goulot d’étranglement</strong> (bottleneck) dans les représentations,</p></li>
+<li><p>de la difficulté à mémoriser des informations éloignées.</p></li>
+</ul>
+<p>L’attention répond à cette limite en permettant au modèle de <strong>se focaliser dynamiquement</strong> sur certaines entrées au moment de produire une sortie.</p>
+</section>
+<section id="principe-general">
+<h2>Principe général<a class="headerlink" href="#principe-general" title="Lien vers cette rubrique">#</a></h2>
+<p>Au lieu de résumer l’entrée par un seul vecteur fixe, comme dans les encodeurs récurrents classiques, l’attention génère une sortie en <strong>pondérant les différentes parties de l’entrée</strong> selon leur pertinence.</p>
+<p>Pour chaque élément de la sortie, le modèle effectue une <strong>agrégation pondérée</strong> des éléments d’entrée, où les poids reflètent leur <strong>importance</strong>.</p>
+</section>
+<section id="metaphore-queries-keys-values">
+<h2>Métaphore : Queries, Keys, Values<a class="headerlink" href="#metaphore-queries-keys-values" title="Lien vers cette rubrique">#</a></h2>
+<p>L’attention peut être interprétée via la métaphore suivante :</p>
+<ul class="simple">
+<li><p><strong>Query (Q)</strong> : ce que l’on cherche</p></li>
+<li><p><strong>Key (K)</strong> : ce que l’on a comme référence</p></li>
+<li><p><strong>Value (V)</strong> : ce que l’on extrait</p></li>
+</ul>
+<p>On peut rapprocher ce mécanisme de ce qui se passe lorqu’on manipule un dictionnaire Python :
+dans un dictionnaire, on cherche une clé exacte pour obtenir la valeur associée. Ici, la requête joue le rôle de la clé recherchée, mais au lieu d’une correspondance exacte, on compare la requête à toutes les clés disponibles (qui sont des vecteurs numériques) en mesurant leur similarité (typiquement via un produit scalaire).</p>
+<p>Plutôt que de récupérer la valeur d’une seule clé, on effectue une <strong>moyenne pondérée</strong> des valeurs associées aux clés les plus similaires à la requête. Les poids de cette moyenne sont justement les similarités calculées entre la requête et chaque clé.</p>
+</section>
+<section id="formulation-mathematique">
+<h2>Formulation mathématique<a class="headerlink" href="#formulation-mathematique" title="Lien vers cette rubrique">#</a></h2>
+<p>Soient deux séquences de vecteurs d’entrée <span class="math notranslate nohighlight">\(X = [x_1, \dots, x_n]\)</span> et <span class="math notranslate nohighlight">\(Y = [y_1, \dots, y_m]\)</span>.
+L’attention consiste à projeter <span class="math notranslate nohighlight">\(X\)</span> en requêtes <span class="math notranslate nohighlight">\(Q\)</span> et <span class="math notranslate nohighlight">\(Y\)</span> en clés <span class="math notranslate nohighlight">\(K\)</span> et valeurs <span class="math notranslate nohighlight">\(V\)</span> :</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+Q &amp;= XW^Q \\
+K &amp;= YW^K \\
+V &amp;= YW^V
+\end{align*}\]</div>
+<p>où <span class="math notranslate nohighlight">\(W^Q, W^K, W^V\)</span> sont des matrices de poids apprises.</p>
+<p>L’attention est alors définie par :</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
+\end{align*}\]</div>
+<p>où <span class="math notranslate nohighlight">\(d_k\)</span> est la dimension des vecteurs clés (utilisé pour stabiliser l’entraînement).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">Q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># batch, longueur, dim</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># les clés ne sont pas forcément de la même longueur</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># la longueur des valeurs est celle des clés, leur dim peut être autre</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+<span class="n">output</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># (1, 4, 10)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([1, 4, 10])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="auto-attention-ou-self-attention">
+<h2>Auto-attention (ou self-attention)<a class="headerlink" href="#auto-attention-ou-self-attention" title="Lien vers cette rubrique">#</a></h2>
+<p>Dans certains cas, comme en traitement de séquence, les entrées <span class="math notranslate nohighlight">\(X\)</span> et <span class="math notranslate nohighlight">\(Y\)</span> ne sont qu’une seule et même séquence (on souhaite comparer les éléments de la séquence deux à deux) : on parle alors de <em>self-attention</em>.</p>
+<p>Cela signifie que chaque position de la séquence <span class="math notranslate nohighlight">\(X\)</span> « regarde » toutes les autres positions de cette même séquence pour construire sa propre représentation.</p>
+</section>
+<section id="multi-head-attention">
+<h2>Multi-head attention<a class="headerlink" href="#multi-head-attention" title="Lien vers cette rubrique">#</a></h2>
+<p>En pratique, dans la plupart des modèles, le mécanisme d’attention est dupliqué plusieurs fois (avec des poids différents) et leurs sorties sont concaténées : on parle alors de <em>multi-head attention</em>.
+Cela permet, d’une part, à chaque <em>head</em> de se focaliser sur des aspects différents de la séquence (syntaxe, structure, position, etc.). Au final, cela permet une modélisation plus riche des dépendances.</p>
+</section>
+<section id="schema-general">
+<h2>Schéma général<a class="headerlink" href="#schema-general" title="Lien vers cette rubrique">#</a></h2>
+<figure class="align-default" id="fig-multihead">
+<img alt="../../_images/multihead.png" src="../../_images/multihead.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Schéma d’un bloc Transformer avec multi-head attention (source : HuggingFace).</span><a class="headerlink" href="#fig-multihead" title="Lien vers cette image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="resume">
+<h2>Résumé<a class="headerlink" href="#resume" title="Lien vers cette rubrique">#</a></h2>
+<ul class="simple">
+<li><p>Le mécanisme d’attention permet de capturer les dépendances entre éléments d’une séquence sans contrainte de distance.</p></li>
+<li><p>Il repose sur le calcul de similarité entre requêtes et clés, et la pondération des valeurs associées.</p></li>
+<li><p>Il est à la base des modèles Transformer, aujourd’hui omniprésents en NLP et en vision.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./content/fr"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="rnn.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Réseaux neuronaux récurrents</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="generative.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Réseaux neuronaux génératifs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principe-general">Principe général</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metaphore-queries-keys-values">Métaphore : Queries, Keys, Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-mathematique">Formulation mathématique</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-attention-ou-self-attention">Auto-attention (ou self-attention)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-head-attention">Multi-head attention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schema-general">Schéma général</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resume">Résumé</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Romain Tavenard
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div><a href="../../../book_fr.pdf">Télécharger ces notes en PDF</a><br />
+<a href="../../../en/index.html" id="switch_lang">Switch to English</a></div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

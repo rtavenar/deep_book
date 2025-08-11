@@ -253,5 +253,6 @@ Dans cette section, nous avons introduit :
     * le [Perceptron multi-couches](sec:mlp)
     * les [architectures convolutionnelles](sec:cnn)
     * les [architectures récurrentes](sec:rnn)
+    * les [architectures basées attention](sec:attention)
 * le fait qu'une tâche s'accompagne d'une fonction de perte à minimiser (ici, nous avons utilisé l'erreur quadratique moyenne pour notre tâche de régression), qui sera discutée dans [un chapitre dédié](sec:loss) ;
 * le concept de descente de gradient pour optimiser la perte choisie sur le paramètre unique d'un modèle, et ceci sera étendu dans [notre chapitre sur l'optimisation](sec:sgd).
