@@ -132,19 +132,18 @@ Now recall what the tanh function and its derivative look like:
 ```{code-cell} ipython3
 :tags: [hide-input, remove-stderr]
 
-import tensorflow as tf
+import torch
 
 def tanh(x):
-    return 2. / (1. + tf.exp(-2 * x)) - 1.
+    return 2. / (1. + torch.exp(-2 * x)) - 1.
 
-x = tf.Variable(tf.linspace(-4, 4, 50))
-with tf.GradientTape() as tape:
-    tan_x = tanh(x)
-grad_tanh_x = tape.gradient(tan_x, x)
+x = torch.linspace(-4, 4, 50, requires_grad=True)
+tan_x = tanh(x)
+grad_tanh_x = torch.autograd.grad(tan_x, x, grad_outputs=torch.ones_like(x), create_graph=True)[0]
 
 plt.figure()
-plt.plot(x.numpy(), tan_x.numpy(), label='tanh(x)')
-plt.plot(x.numpy(), grad_tanh_x, label='tanh\'(x)')
+plt.plot(x.detach().numpy(), tan_x.detach().numpy(), label='tanh(x)')
+plt.plot(x.detach().numpy(), grad_tanh_x.detach().numpy(), label='tanh\'(x)')
 plt.legend()
 plt.grid('on');
 ```

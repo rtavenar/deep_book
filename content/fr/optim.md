@@ -531,42 +531,39 @@ Voyons à quoi ressemblent les dérivées des fonctions d'activation standard :
 ```{code-cell} ipython3
 :tags: [hide-input, remove-stderr]
 
-import tensorflow as tf
+import torch
 
 def tanh(x):
-    return 2. / (1. + tf.exp(-2 * x)) - 1.
+    return 2. / (1. + torch.exp(-2 * x)) - 1.
 
 def sigmoid(x):
-    return 1. / (1. + tf.exp(-x))
+    return 1. / (1. + torch.exp(-x))
 
 
-x = tf.Variable(tf.linspace(-4, 4, 100))
-with tf.GradientTape() as tape_grad:
-    tan_x = tanh(x)
-with tf.GradientTape() as tape_sig:
-    sig_x = sigmoid(x)
-with tf.GradientTape() as tape_relu:
-    relu_x = tf.nn.relu(x)
+x = torch.linspace(-4, 4, 100, requires_grad=True)
+tan_x = tanh(x)
+sig_x = sigmoid(x)
+relu_x = torch.relu(x)
 
-grad_tanh_x = tape_grad.gradient(tan_x, x)
-grad_sig_x = tape_sig.gradient(sig_x, x)
-grad_relu_x = tape_relu.gradient(relu_x, x)
+grad_tanh_x = torch.autograd.grad(tan_x, x, grad_outputs=torch.ones_like(x), create_graph=True)[0]
+grad_sig_x = torch.autograd.grad(sig_x, x, grad_outputs=torch.ones_like(x), create_graph=True)[0]
+grad_relu_x = torch.autograd.grad(relu_x, x, grad_outputs=torch.ones_like(x), create_graph=True)[0]
 
 plt.figure(figsize=(12, 4))
 plt.subplot(1, 3, 1)
-plt.plot(x.numpy(), grad_tanh_x)
+plt.plot(x.detach().numpy(), grad_tanh_x.detach().numpy())
 plt.grid('on')
 plt.ylim([-.1, 1.1])
 plt.title("tanh'(x)")
 
 plt.subplot(1, 3, 2)
-plt.plot(x.numpy(), grad_sig_x)
+plt.plot(x.detach().numpy(), grad_sig_x.detach().numpy())
 plt.grid('on')
 plt.ylim([-.1, 1.1])
 plt.title("sigmoid'(x)")
 
 plt.subplot(1, 3, 3)
-plt.plot(x.numpy(), grad_relu_x)
+plt.plot(x.detach().numpy(), grad_relu_x.detach().numpy())
 plt.grid('on')
 plt.ylim([-.1, 1.1])
 plt.title("ReLU'(x)")

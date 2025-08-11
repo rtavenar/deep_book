@@ -1,5 +1,5 @@
-tensorflow
-keras_core
+torch
+keras
 celluloid
 sphinxcontrib-tikz
 pandas
