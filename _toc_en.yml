@@ -9,3 +9,4 @@ chapters:
 - file: content/en/convnets
 - file: content/en/rnn
 - file: content/en/attention
+- file: content/en/generative
