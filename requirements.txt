@@ -7,7 +7,7 @@ scipy
 sphinx-proof
 sphinx-subfigure
 seaborn
-docutils==0.17.1
+docutils==0.20.1
 jupyter-book
 sphinx-book-theme
 matplotlib

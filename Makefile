@@ -9,7 +9,6 @@ html: html_en html_fr
 
 html_en: ${SRC_EN}
 	jupyter-book build . --path-output _build/html/en/ --toc _toc_en.yml --config _config_en.yml
-	cat _build/html/en/_build/html/reports/content/en/*.err.log
 	mv _build/html/en/_build/html _build/html/en_
 	rm -fR _build/html/en
 	mv _build/html/en_ _build/html/en
@@ -17,7 +16,6 @@ html_en: ${SRC_EN}
 
 html_fr: ${SRC_FR}
 	jupyter-book build . --path-output _build/html/fr/ --toc _toc_fr.yml --config _config_fr.yml
-	cat _build/html/en/_build/html/reports/content/en/*.err.log
 	mv _build/html/fr/_build/html _build/html/fr_
 	rm -fR _build/html/fr
 	mv _build/html/fr_ _build/html/fr
