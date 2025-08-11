@@ -30,7 +30,7 @@ z =& \text{Encodeur}(x) \\
 \hat{x} =& \text{Decodeur}(z)
 \end{align}
 
-Autrement dit, un encodeur projette l'entrée $x$ vers une représentation latente $z$, généralement de plus faible dimension, puis un décodeur reconstruit une approximation $\hat{x}$ à partir de $z$. Ce fonctionnement peut être vu comme une gén´ralisation de l'ACP au cas non linéaire. 
+Autrement dit, un encodeur projette l'entrée $x$ vers une représentation latente $z$, généralement de plus faible dimension, puis un décodeur reconstruit une approximation $\hat{x}$ à partir de $z$. Ce fonctionnement peut être vu comme une généralisation de l'ACP au cas non linéaire. 
 Toutefois, un auto-encodeur standard n'est pas un modèle génératif, car il n'impose pas de distribution particulière sur l'espace latent $z$ et n'offre donc pas de façon de tirer de nouveaux samples.
 
 ## Variational Auto-Encoders (VAE)
@@ -39,7 +39,7 @@ Les VAE {cite:p}`kingma2014auto` transforment l'auto-encodeur en modèle génér
 
 Pour générer de nouvelles données :
 1. on tire un $z$ selon $\mathcal{N}(0, I)$
-2. on calcule $x_\text{gen} = Decodeur(x)$
+2. on calcule $x_\text{gen} = \text{Decodeur}(x)$
 
 ## Generative Adversarial Networks (GAN)
 
