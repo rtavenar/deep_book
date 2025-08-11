@@ -32,15 +32,12 @@ jobs:
     - name: Install python packages
       run: |
         pip install -r requirements.txt
-    
-    - name: Set up ImageMagick
-      uses: mfinelli/setup-imagemagick@v6
 
     # Install the latex things to create the pdf + tikz
     - name: install latex dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex texlive-lang-french latexmk pdf2svg
+        sudo apt-get install texlive-latex-recommended texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra texlive-xetex texlive-lang-french latexmk pdf2svg imagemagick
         
 
     # Build the html version of the book
